@@ -1,0 +1,25 @@
+application: "rdm"
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /index.html
+  static_files: index.html
+  upload: index.html
+
+- url: /admin/.*
+  script: admin.py
+  login: required
+
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /.*
+  script: main.py
+
+builtins:
+- datastore_admin: on

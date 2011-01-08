@@ -1,0 +1,33 @@
+.goog-control {
+  cursor: pointer;
+  outline: none;
+}
+
+.goog-inline-block {
+  position: relative;
+  display: -moz-inline-box; /* Ignored by FF3 and later. */
+  display: inline-block;
+}
+
+.ac-renderer {
+  font: normal 12px Arial, sans-serif;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #666;
+  -moz-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
+  -webkit-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
+  width: 300px;
+}
+
+.ac-row {
+  cursor: pointer;
+  padding: .4em;
+}
+
+.ac-highlighted {
+  font-weight: bold;
+}
+
+.ac-active {
+  background: #e4e9fe;
+}
