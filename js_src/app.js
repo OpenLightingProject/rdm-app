@@ -133,6 +133,7 @@ app.backToSearchResults = function() {
     history.back();
   }
 };
+goog.exportSymbol('app.backToSearchResults', app.backToSearchResults);
 
 
 app.initHistory = function() {

@@ -39,8 +39,15 @@ app.PidSearchFrame = function(element, state_manager) {
   app.BaseFrame.call(this, element);
   this._state_manager = state_manager;
 
+  var manufacturer_input = goog.dom.$('manufacturer_input');
   this.manufacturer_search_input = new goog.ui.LabelInput();
-  this.manufacturer_search_input.decorate(goog.dom.$('esta_input'));
+  this.manufacturer_search_input.decorate(manufacturer_input);
+
+  goog.events.listen(
+    manufacturer_input,
+    goog.events.EventType.KEYPRESS,
+    this.searchByManufacturer,
+    false, this);
 
   var manufacturer_search_button = goog.dom.$('esta_search_button');
   goog.ui.decorate(manufacturer_search_button);
@@ -52,8 +59,14 @@ app.PidSearchFrame = function(element, state_manager) {
       false,
       this);
 
+  var pid_input = goog.dom.$('pid_input');
   this.pid_search_input = new goog.ui.LabelInput();
-  this.pid_search_input.decorate(goog.dom.$('pid_input'));
+  this.pid_search_input.decorate(pid_input);
+  goog.events.listen(
+    pid_input,
+    goog.events.EventType.KEYPRESS,
+    this.searchByPid,
+    false, this);
 
   var pid_search_button = goog.dom.$('pid_search_button');
   goog.ui.decorate(pid_search_button);
@@ -89,14 +102,20 @@ app.PidSearchFrame.prototype.newManufacturerList = function(results) {
       result['name'] + ' [' + app.toHex(result['id'], 4) + ']');
   }
   var ac1 = new goog.ui.AutoComplete.Basic(
-        manufacturers, goog.dom.$('esta_input'), false);
+        manufacturers, goog.dom.$('manufacturer_input'), false);
 };
 
 
 /**
  * Called when the manufacturer search button is clicked.
  */
-app.PidSearchFrame.prototype.searchByManufacturer = function() {
+app.PidSearchFrame.prototype.searchByManufacturer = function(opt_event) {
+  if (opt_event != undefined) {
+    if (opt_event.keyCode != goog.events.KeyCodes.ENTER &&
+        opt_event.keyCode != goog.events.KeyCodes.MAC_ENTER) {
+      return;
+    }
+  }
   var value = this.manufacturer_search_input.getValue();
   app.history.setToken('m,' + value);
 };
@@ -105,7 +124,13 @@ app.PidSearchFrame.prototype.searchByManufacturer = function() {
 /**
  * Called when the pid search button is clicked.
  */
-app.PidSearchFrame.prototype.searchByPid = function() {
+app.PidSearchFrame.prototype.searchByPid = function(opt_event) {
+  if (opt_event != undefined) {
+    if (opt_event.keyCode != goog.events.KeyCodes.ENTER &&
+        opt_event.keyCode != goog.events.KeyCodes.MAC_ENTER) {
+      return;
+    }
+  }
   var value = this.pid_search_input.getValue();
   app.history.setToken('p,' + value);
 };

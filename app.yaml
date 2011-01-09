@@ -1,4 +1,4 @@
-application: "rdm"
+application: "rdmprotocol"
 version: 1
 runtime: python
 api_version: 1
@@ -25,8 +25,28 @@ handlers:
 - url: /images
   static_dir: images
 
-- url: /.*
+- url: /(manufacturers|pid|pid_search)
+  static_files: \1
+  upload: (manufacturers|pid|pid_search)
+
+- url: /foo
   script: main.py
 
 builtins:
 - datastore_admin: on
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.bak$
+- ^trunk/.*$
+- ^BUILD*$
+- ^DEBUG*$
+- ^compiler.jar*$
