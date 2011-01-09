@@ -2,180 +2,14 @@
 <html>
 <head>
   <title>RDM PID Index</title>
-  <link rel='stylesheet' href='/css/custombutton.css'>
   <link rel='stylesheet' href='/css/main.css'>
-  <script src="trunk/closure/goog/base.js"></script>
-  <script type="text/javascript">
-goog.require('goog.ui.Component');
-  </script>
-
-  <script src="server.js"></script>
-  <script src="pid_table.js"></script>
-  <script src="base_frame.js"></script>
-  <script src="pid_search.js"></script>
-  <script src="pid_display.js"></script>
-  <script src="app.js"></script>
-
-<style type="text/css">
-  body {
-    margin: 0px;
-    padding: 3px;
-    font-family: sans-serif;
-    font-size: 13px;
-  }
-
-  #footer {
-    padding-top: 5px;
-    text-align: center;
-    clear: both;
-    font-size: 11px;
-  }
-
-  table {
-    font-family: sans-serif;
-    font-size: 13px;
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
-    border-spacing: 0px;
-  }
-
-  legend { font-weight: bold; }
-  fieldset {
-    border: #67a7e3 1px solid;
-    margin-bottom: 5px;
-  }
-
-  h3 { margin: 5px; }
-
-  #container {
-    border: 1px solid #76a7e0;
-  }
-
-  #nav_bar {
-    text-align: right;
-    padding: 4px;
-    padding-bottom: 6px;
-  }
-
-  #nav_bar ul {
-    margin: 0px;
-  }
-
-  #nav_bar li {
-    display: inline;
-    list-style-type: none;
-  }
-
-  .upper_div {
-    background-color: #e4e9fe;
-    padding: 5px;
-    border-bottom: 1px solid #76a7e0
-  }
-
-  #pid_table {
-    width: 100%;
-  }
-
-  #pid_table th {
-    border-bottom: 1px solid #e4e9fe;
-    cursor: pointer;
-  }
-
-  #pid_table td {
-    cursor: pointer;
-  }
-
-  th .sorter_icon {
-    background-image: url(up-down.png);
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: -0px -0px;
-    width: 16px;
-    display: -moz-inline-box; /* Ignored by FF3 and later. */
-    display: inline-block;
-  }
-
-  th.goog-tablesorter-sorted .sorter_icon{
-    background-position: -32px 0px;
-  }
-
-  th.goog-tablesorter-sorted-reverse .sorter_icon {
-    background-position: -16px 0px;
-  }
-
-  .message_table {
-    border-spacing: 5px;
-  }
-
-  .message_structure {
-    border: 1px solid #000;
-    text-align: center;
-    height: 100%;
-    margin: 10px;
-  }
-
-  .message_field {
-    border: 1px solid #00c;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-    padding: 4px;
-  }
-
-  .bool_field {
-    width: 20%;
-  }
-
-  .uint8_field {
-    width: 20%;
-  }
-
-  .uint16_field {
-    width: 40%;
-  }
-
-  .uint32_field {
-    width: 80%;
-  }
-
-  .string_field {
-    width: 80%;
-  }
-
-  .cursor_pointer {
-    cursor: pointer;
-  }
-
-  .cursor_move {
-    cursor: move;
-    -moz-user-select: none;
-  }
-
-  .goog-tooltip {
-    background: infobackground;
-    color: infotext;
-    border: 1px solid infotext;
-    padding: 1px;
-    font: menu;
-  }
-
-  .subdevice_range_help,
-  .repeat_help,
-  .max_repeat_help {
-    cursor: pointer;
-  }
-</style>
+  <link rel='stylesheet' href='/css/custombutton.css'>
+  <script src="/js/app.js"></script>
 </head>
 <body onload="app.setup()">
   <script type="text/javascript">
   // This needs to be after the body tag but before onLoad is called
-  goog.require('goog.History');
-  app.history = new goog.History();
+  app.initHistory();
   </script>
 
 <div id="nav_bar">
@@ -257,7 +91,7 @@ goog.require('goog.ui.Component');
        Sub Device Range
       </td>
       <td><span id="get_subdevice_range"></span>
-       <img src="/help.png" class="subdevice_range_help">
+       <img src="/images/help.png" class="subdevice_range_help">
       </td>
      </tr>
      <tr>
@@ -265,7 +99,7 @@ goog.require('goog.ui.Component');
        Repeated Group
       </td>
       <td><span id="get_is_repeated"></span>
-       <img src="/help.png" class="repeat_help">
+       <img src="/images/help.png" class="repeat_help">
       </td>
      </tr>
      <tr id="get_max_repeat_row">
@@ -273,7 +107,7 @@ goog.require('goog.ui.Component');
         Maximum Repated Blocks
       </td>
       <td><span id="get_max_repeats"></span>
-       <img src="/help.png" class="max_repeat_help">
+       <img src="/images/help.png" class="max_repeat_help">
       </td>
      </tr>
     </table>
@@ -306,7 +140,7 @@ goog.require('goog.ui.Component');
        Sub Device Range
       </td>
       <td><span id="set_subdevice_range"></span>
-       <img src="/help.png" class="subdevice_range_help">
+       <img src="/images/help.png" class="subdevice_range_help">
       </td>
      </tr>
      <tr>
@@ -314,7 +148,7 @@ goog.require('goog.ui.Component');
        Repeated Group
       </td>
       <td><span id="set_is_repeated"></span>
-       <img src="/help.png" class="repeat_help">
+       <img src="/images/help.png" class="repeat_help">
       </td>
      </tr>
      <tr id="set_max_repeat_row">
@@ -322,7 +156,7 @@ goog.require('goog.ui.Component');
         Maximum Repated Blocks
       </td>
       <td><span id="set_max_repeats"></span>
-       <img src="/help.png" class="max_repeat_help">
+       <img src="/images/help.png" class="max_repeat_help">
       </td>
      </tr>
     </table>

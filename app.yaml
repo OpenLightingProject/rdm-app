@@ -4,7 +4,11 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: /index.html
+- url: /(.*\.html)
+  static_files: \1
+  upload: .*\.html
+
+- url: /
   static_files: index.html
   upload: index.html
 
@@ -17,6 +21,9 @@ handlers:
 
 - url: /js
   static_dir: js
+
+- url: /images
+  static_dir: images
 
 - url: /.*
   script: main.py
