@@ -33,6 +33,14 @@ h3 { margin: 5px; }
   border: 1px solid #76a7e0;
 }
 
+#pid_search {
+  display: none;
+}
+
+#pid_display {
+  display: none;
+}
+
 #nav_bar {
   text-align: right;
   padding: 4px;
