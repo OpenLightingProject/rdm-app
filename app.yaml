@@ -25,11 +25,11 @@ handlers:
 - url: /images
   static_dir: images
 
-- url: /(manufacturers|pid|pid_search)
+- url: /(pid|pid_search)
   static_files: \1
-  upload: (manufacturers|pid|pid_search)
+  upload: (pid|pid_search)
 
-- url: /foo
+- url: /manufacturers
   script: main.py
 
 builtins:

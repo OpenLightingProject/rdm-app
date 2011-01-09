@@ -44,9 +44,14 @@ app.PidSearchFrame = function(element, state_manager) {
   this.manufacturer_search_input.decorate(manufacturer_input);
 
   goog.events.listen(
-    manufacturer_input,
-    goog.events.EventType.KEYPRESS,
-    this.searchByManufacturer,
+    goog.dom.$('manufacturer_form'),
+    goog.events.EventType.SUBMIT,
+    function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      this.searchByManufacturer();
+      return false;
+    },
     false, this);
 
   var manufacturer_search_button = goog.dom.$('esta_search_button');
@@ -62,10 +67,16 @@ app.PidSearchFrame = function(element, state_manager) {
   var pid_input = goog.dom.$('pid_input');
   this.pid_search_input = new goog.ui.LabelInput();
   this.pid_search_input.decorate(pid_input);
+
   goog.events.listen(
-    pid_input,
-    goog.events.EventType.KEYPRESS,
-    this.searchByPid,
+    goog.dom.$('pid_form'),
+    goog.events.EventType.SUBMIT,
+    function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      this.searchByPid();
+      return false;
+    },
     false, this);
 
   var pid_search_button = goog.dom.$('pid_search_button');
@@ -109,13 +120,7 @@ app.PidSearchFrame.prototype.newManufacturerList = function(results) {
 /**
  * Called when the manufacturer search button is clicked.
  */
-app.PidSearchFrame.prototype.searchByManufacturer = function(opt_event) {
-  if (opt_event != undefined) {
-    if (opt_event.keyCode != goog.events.KeyCodes.ENTER &&
-        opt_event.keyCode != goog.events.KeyCodes.MAC_ENTER) {
-      return;
-    }
-  }
+app.PidSearchFrame.prototype.searchByManufacturer = function() {
   var value = this.manufacturer_search_input.getValue();
   app.history.setToken('m,' + value);
 };
@@ -124,13 +129,7 @@ app.PidSearchFrame.prototype.searchByManufacturer = function(opt_event) {
 /**
  * Called when the pid search button is clicked.
  */
-app.PidSearchFrame.prototype.searchByPid = function(opt_event) {
-  if (opt_event != undefined) {
-    if (opt_event.keyCode != goog.events.KeyCodes.ENTER &&
-        opt_event.keyCode != goog.events.KeyCodes.MAC_ENTER) {
-      return;
-    }
-  }
+app.PidSearchFrame.prototype.searchByPid = function() {
   var value = this.pid_search_input.getValue();
   app.history.setToken('p,' + value);
 };

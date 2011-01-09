@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RDM PID Index</title>
+  <title>RDM Parameter ID Index</title>
   <link rel='stylesheet' href='/css/main.css'>
   <link rel='stylesheet' href='/css/custombutton.css'>
   <script src="/js/app.js"></script>
@@ -18,7 +18,7 @@
   </ul>
 </div>
 
-<h3>RDM PID Index</h3>
+<h3>RDM Parameter ID Index</h3>
 
 <div id="container">
  <div id="pid_search">
@@ -27,11 +27,13 @@
     <tr>
      <td>Manufacturer</td>
      <td>
+       <form id="manufacturer_form">
        <input id="manufacturer_input" type="text" style="width:250px"
-         label="Enter a manufacturer name or ESTA ID">
+         label="Enter a manufacturer name or ESTA ID" autocomplete="off">
        <div id="esta_search_button"
          class="goog-custom-button goog-inline-block"
          title="Search PID Datastore">Search</div>
+       </form>
     </td>
     </tr>
     <tr>
@@ -40,9 +42,11 @@
     <tr>
      <td>Parameter ID</td>
      <td>
-      <input id="pid_input" type="text" label='0x8000'>
+      <form id="pid_form">
+      <input id="pid_input" type="text" label='0x8000' autocomplete="off">
       <div id="pid_search_button" class="goog-custom-button goog-inline-block"
         title="Search PID Datastore">Search</div>
+      </form>
      </td>
     </tr>
    </table>
