@@ -224,12 +224,12 @@ app.PidDisplayFrame.prototype.displayPid = function(pid_info) {
   goog.dom.$('pid_manufacturer').innerHTML = pid_info['manufacturer'];
   goog.dom.$('pid_name').innerHTML = pid_info['name'];
   goog.dom.$('pid_value').innerHTML = '0x' + app.toHex(pid_info['value'], 4);
-
+  goog.dom.$('pid_link').innerHTML = pid_info['link'];
+  goog.dom.$('pid_link').href = pid_info['link'];
+  goog.dom.$('pid_notes').innerHTML = pid_info['notes'];
 
   this._updateCommand(pid_info, 'get');
   this._updateCommand(pid_info, 'set');
-
-  goog.dom.$('pid_notes').innerHTML = pid_info['notes'];
 };
 
 
@@ -246,7 +246,10 @@ app.PidDisplayFrame.prototype._updateCommand = function(pid_info, mode) {
   var unsupported_node = goog.dom.$(mode + '_command_unsupported');
   var info_node = goog.dom.$(mode + '_command_description');
 
-  if (pid_info[mode + '_request'] == null) {
+  var request_key = mode + '_request';
+  var response_key = mode + '_response';
+
+  if (pid_info[request_key] == null) {
     this._showNode(unsupported_node);
     this._hideNode(info_node);
   } else {
@@ -254,23 +257,37 @@ app.PidDisplayFrame.prototype._updateCommand = function(pid_info, mode) {
     this._showNode(info_node);
     goog.dom.$(mode + '_subdevice_range').innerHTML = (
       pid_info[mode + '_subdevice_range']);
-    goog.dom.$(mode + '_is_repeated').innerHTML = (
-      pid_info[mode + '_is_repeated'] ? 'True' : 'False');
 
-    var repeat_row = goog.dom.$(mode + '_max_repeat_row');
-    if (pid_info['max_get_repeats'] == null) {
-      this._hideNode(repeat_row);
-    } else {
-      repeat_row.style.display = 'table-row';
-      goog.dom.$(mode + '_max_repeats').innerHTML = (
-        pid_info['max_' + mode + '_repeats']);
-    }
+    var request = pid_info[request_key];
+    var response = pid_info[response_key];
+
+    this._setupRepeatInformation(request, request_key);
+    this._setupRepeatInformation(response, response_key);
+
     if (mode == 'get') {
-      this._get_request.update(pid_info[mode + '_request']);
-      this._get_response.update(pid_info[mode + '_response']);
+      this._get_request.update(request['items']);
+      this._get_response.update(response['items']);
     } else {
-      this._set_request.update(pid_info[mode + '_request']);
-      this._set_response.update(pid_info[mode + '_response']);
+      this._set_request.update(request['items']);
+      this._set_response.update(response['items']);
     }
   }
-}
+};
+
+
+/**
+ * Populate the repeat section of the pid info display
+ */
+app.PidDisplayFrame.prototype._setupRepeatInformation = function(message,
+                                                                 prefix) {
+  goog.dom.$(prefix + '_repeated').innerHTML = (
+    message['is_repeated'] ? 'True' : 'False');
+
+  var repeat_div = goog.dom.$(prefix + '_repeat_div');
+  if (!message['is_repeated'] || message['max_repeats'] == null) {
+    this._hideNode(repeat_div);
+  } else {
+    this._showNode(repeat_div);
+    goog.dom.$(prefix + '_max_repeats').innerHTML = message['max_repeats'];
+  }
+};
