@@ -164,8 +164,107 @@ class PidHandler(webapp.RequestHandler):
         output = self.BuildPidStructure(pid)
         self.response.out.write(simplejson.dumps(output))
 
+
+class DownloadHandler(webapp.RequestHandler):
+  """Dump the datastore in protobuf format."""
+
+  ESTA_ID = 0
+
+  SUB_DEVICE_RANGE_TO_ENUM = {
+    0: 'ROOT_DEVICE',
+    1: 'ROOT_OR_ALL_SUBDEVICE',
+    2: 'ROOT_OR_SUBDEVICE',
+    3: 'ONLY_SUBDEVICES',
+  }
+
+  BOOL_MAPPING = {
+    True: 'true',
+    False: 'false',
+  }
+
+  def Write(self, line, indent=0):
+    self.response.out.write('%s%s\n' % (' ' * indent, line))
+
+  def WriteItem(self, item, indent=0):
+    self.Write('field {', indent)
+    self.Write('  type: %s' % item.type.upper(), indent)
+    self.Write('  name: "%s"' % item.name, indent)
+    if item.size is not None:
+      self.Write('  size: %d' % item.size, indent)
+    self.Write('}', indent)
+
+  def WriteMessage(self, type, message, indent=0):
+    self.Write('%s {' % type, indent)
+
+    for item_key in message.items:
+      item = MessageItem.get_by_id(item_key.id())
+      self.WriteItem(item, indent+2)
+
+    self.Write('  repeated_group: %s' % self.BOOL_MAPPING[message.is_repeated],
+               indent)
+    if message.is_repeated and message.max_repeats:
+      self.Write('  max_repeats: %d' % message.max_repeats, indent)
+
+    self.Write('}', indent)
+
+  def WritePid(self, pid, indent=0):
+    self.Write('pid {', indent)
+    self.Write('  name: "%s"' % pid.name, indent)
+    self.Write('  value: %d' % pid.pid_id, indent)
+
+    if pid.get_command:
+      self.WriteMessage('get_request', pid.get_command.request, indent + 2)
+      self.WriteMessage('get_response', pid.get_command.response, indent + 2)
+      self.Write('  get_sub_device_range: %s' %
+                 self.SUB_DEVICE_RANGE_TO_ENUM[pid.get_command.sub_device_range],
+                 indent)
+
+    if pid.set_command:
+      self.WriteMessage('set_request', pid.set_command.request, indent + 2)
+      self.WriteMessage('set_response', pid.set_command.response, indent + 2)
+      self.Write('  set_sub_device_range: %s' %
+                 self.SUB_DEVICE_RANGE_TO_ENUM[pid.set_command.sub_device_range],
+                 indent)
+
+    self.Write('}', indent)
+
+  def WriteManfacturer(self, manufacturer, pids):
+    self.Write('manufacturer {')
+    self.Write('  manufacturer_id: %d' % manufacturer.esta_id)
+    self.Write('  manufacturer_name: "%s"' % manufacturer.name)
+    for pid in pids:
+      self.WritePid(pid, indent=2)
+
+    self.Write('}')
+
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+
+    esta_pids = []
+    manufacturers = {}
+    pids = Pid.all()
+
+    for pid in pids:
+      if pid.manufacturer.esta_id == self.ESTA_ID:
+        esta_pids.append(pid)
+      else:
+        pid_list = manufacturers.setdefault(pid.manufacturer.esta_id, [])
+        pid_list.append(pid)
+
+    esta_pids.sort(key=lambda p: p.pid_id)
+    for pid in esta_pids:
+      self.WritePid(pid)
+
+    manufacturer_ids = sorted(manufacturers)
+    for manufacturer_id in manufacturer_ids:
+      self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
+                            manufacturers[manufacturer_id])
+
+
+
 application = webapp.WSGIApplication(
   [
+    ('/download', DownloadHandler),
     ('/manufacturers', ManufacturersHandler),
     ('/pid_search', SearchHandler),
     ('/pid', PidHandler)
