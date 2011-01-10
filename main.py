@@ -54,7 +54,6 @@ class SearchHandler(webapp.RequestHandler):
         else:
           pid_id = int(search_str)
 
-        logging.info(pid_id)
         results = Pid.all()
         results.filter('pid_id =' , pid_id)
 
@@ -69,6 +68,7 @@ class SearchHandler(webapp.RequestHandler):
           results = manufacturer.pid_set
     else:
       results = Pid.all()
+      results.order('pid_id')
 
     pids = []
     for pid in results:
@@ -151,13 +151,18 @@ class PidHandler(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
-    pid_id = self.request.get('pid')
+    pid_id_str = self.request.get('pid')
+    pid_id = None
+    try:
+      pid_id = int(pid_id_str)
+    except ValueError:
+      pass
 
     manufacturer = self.GetManufacturer(self.request.get('manufacturer'))
 
-    if manufacturer:
+    if manufacturer and pid_id is not None:
       pids = Pid.all()
-      pids.filter('pid_id = ', 0x8000)
+      pids.filter('pid_id = ', pid_id)
       pids.filter('manufacturer = ', manufacturer.key())
 
       for pid in pids:

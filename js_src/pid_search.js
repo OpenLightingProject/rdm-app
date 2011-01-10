@@ -22,7 +22,7 @@ goog.require('goog.events');
 goog.require('goog.ui.AutoComplete.Basic');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.CustomButton');
-goog.require('goog.ui.LabelInput');
+goog.require('goog.ui.Tooltip');
 
 goog.require('app.Server');
 goog.require('app.BaseFrame');
@@ -39,9 +39,10 @@ app.PidSearchFrame = function(element, state_manager) {
   app.BaseFrame.call(this, element);
   this._state_manager = state_manager;
 
-  var manufacturer_input = goog.dom.$('manufacturer_input');
-  this.manufacturer_search_input = new goog.ui.LabelInput();
-  this.manufacturer_search_input.decorate(manufacturer_input);
+  this.manufacturer_search_input = goog.dom.$('manufacturer_input');
+  var tt = new goog.ui.Tooltip(
+      this.manufacturer_search_input,
+      'Enter a manufacturer name or hex id, e.g. 7a70')
 
   goog.events.listen(
     goog.dom.$('manufacturer_form'),
@@ -64,9 +65,10 @@ app.PidSearchFrame = function(element, state_manager) {
       false,
       this);
 
-  var pid_input = goog.dom.$('pid_input');
-  this.pid_search_input = new goog.ui.LabelInput();
-  this.pid_search_input.decorate(pid_input);
+  this.pid_search_input = goog.dom.$('pid_input');
+  tt = new goog.ui.Tooltip(
+      this.pid_search_input,
+      'Enter parameter id in hex (0x8000) or decimal (32768)')
 
   goog.events.listen(
     goog.dom.$('pid_form'),
@@ -121,7 +123,7 @@ app.PidSearchFrame.prototype.newManufacturerList = function(results) {
  * Called when the manufacturer search button is clicked.
  */
 app.PidSearchFrame.prototype.searchByManufacturer = function() {
-  var value = this.manufacturer_search_input.getValue();
+  var value = this.manufacturer_search_input.value;
   app.history.setToken('m,' + value);
 };
 
@@ -130,7 +132,7 @@ app.PidSearchFrame.prototype.searchByManufacturer = function() {
  * Called when the pid search button is clicked.
  */
 app.PidSearchFrame.prototype.searchByPid = function() {
-  var value = this.pid_search_input.getValue();
+  var value = this.pid_search_input.value;
   app.history.setToken('p,' + value);
 };
 
