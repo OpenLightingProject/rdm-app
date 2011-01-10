@@ -193,7 +193,7 @@ app.Server.prototype.pidSearch = function(pid, callback) {
 app.Server.prototype.getPid = function(manufacturer_id, pid, callback) {
   var s = this;
   this._initiateRequest(
-    app.Server.PID_URL + '?manufacturer=' + manufacturer_id + 'pid=' + pid,
+    app.Server.PID_URL + '?manufacturer=' + manufacturer_id + '&pid=' + pid,
     function(e) {
       response = s.checkForErrorDialog(e);
       if (response != undefined) {

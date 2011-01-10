@@ -45,7 +45,7 @@ class SearchHandler(webapp.RequestHandler):
 
     results = []
     if self.request.get('pid'):
-      match = re.search('((?:0x)?\d{1,4})', self.request.get('pid'))
+      match = re.search('((?:0x)?[\da-f]{1,4})', self.request.get('pid'))
 
       if match is not None:
         search_str = match.groups()[0]
@@ -59,7 +59,7 @@ class SearchHandler(webapp.RequestHandler):
         results.filter('pid_id =' , pid_id)
 
     elif self.request.get('manufacturer'):
-      match = re.search('\[(\d{4})\]', self.request.get('manufacturer'))
+      match = re.search('\[([\da-f]{4})\]', self.request.get('manufacturer'))
 
       if match is not None:
         query = Manufacturer.all()
@@ -136,15 +136,33 @@ class PidHandler(webapp.RequestHandler):
     self.PopulateCommand(output, 'set', pid.set_command)
     return output
 
+  def GetManufacturer(self, manufacturer_id):
+    try:
+      id = int(manufacturer_id)
+    except ValueError:
+      return None
+
+    query = Manufacturer.all()
+    query.filter('esta_id = ', id)
+    for manufacturer in query.fetch(1):
+      return manufacturer
+    return None
+
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
-    pids = Pid.all()
-    pids.filter('pid_id = ', 0x8000)
+    pid_id = self.request.get('pid')
 
-    for pid in pids:
-      output = self.BuildPidStructure(pid)
-      self.response.out.write(simplejson.dumps(output))
+    manufacturer = self.GetManufacturer(self.request.get('manufacturer'))
+
+    if manufacturer:
+      pids = Pid.all()
+      pids.filter('pid_id = ', 0x8000)
+      pids.filter('manufacturer = ', manufacturer.key())
+
+      for pid in pids:
+        output = self.BuildPidStructure(pid)
+        self.response.out.write(simplejson.dumps(output))
 
 application = webapp.WSGIApplication(
   [
