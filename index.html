@@ -29,8 +29,9 @@
      <td>
        <form id="manufacturer_form">
        <input id="manufacturer_input" type="text" style="width:400px"
-         autocomplete="off">
-       <div id="esta_search_button"
+         autocomplete="off" tabindex=1
+         title="Enter a manufacturer name or hex id, e.g. 7a70">
+       <div id="manufacturer_search_button"
          class="goog-custom-button goog-inline-block"
          title="Search PID Datastore">Search</div>
        </form>
@@ -40,10 +41,25 @@
      <td colspan="2" style="padding-left: 30px">or</td>
     </tr>
     <tr>
+     <td>Parameter Name</td>
+     <td>
+      <form id="pid_name_form">
+      <input id="pid_name_input" type="text" tabindex=2
+        title="Search by parameter name">
+      <div id="pid_name_search_button" class="goog-custom-button goog-inline-block"
+        title="Search PID Datastore">Search</div>
+      </form>
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2" style="padding-left: 30px">or</td>
+    </tr>
+    <tr>
      <td>Parameter ID</td>
      <td>
       <form id="pid_form">
-      <input id="pid_input" type="text" autocomplete="off">
+        <input id="pid_input" type="text" tabindex=3
+         title="Enter parameter id in hex (0x8000) or decimal (32768)">
       <div id="pid_search_button" class="goog-custom-button goog-inline-block"
         title="Search PID Datastore">Search</div>
       </form>

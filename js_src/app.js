@@ -86,6 +86,11 @@ app.StateManager.prototype.navChanged = function(e) {
         params[1],
         function(response) { t.newPids(response); });
       break;
+    case 'pn':
+      app.Server.getInstance().pidNameSearch(
+        params[1],
+        function(response) { t.newPids(response); });
+      break;
     case 'pid':
       app.Server.getInstance().getPid(
         params[1],

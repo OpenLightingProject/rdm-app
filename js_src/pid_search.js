@@ -22,7 +22,6 @@ goog.require('goog.events');
 goog.require('goog.ui.AutoComplete.Basic');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.CustomButton');
-goog.require('goog.ui.Tooltip');
 
 goog.require('app.Server');
 goog.require('app.BaseFrame');
@@ -39,61 +38,28 @@ app.PidSearchFrame = function(element, state_manager) {
   app.BaseFrame.call(this, element);
   this._state_manager = state_manager;
 
+  var t = this;
+  // manufacturer search
   this.manufacturer_search_input = goog.dom.$('manufacturer_input');
-  var tt = new goog.ui.Tooltip(
-      this.manufacturer_search_input,
-      'Enter a manufacturer name or hex id, e.g. 7a70')
+  this._attachFormHandler('manufacturer_form',
+                          function() {t.searchByManufacturer(); });
+  this._attachButtonHandlers('manufacturer_search_button',
+                             this.searchByManufacturer);
 
-  goog.events.listen(
-    goog.dom.$('manufacturer_form'),
-    goog.events.EventType.SUBMIT,
-    function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      this.searchByManufacturer();
-      return false;
-    },
-    false, this);
+  // pid name search
+  this.pid_name_search_input = goog.dom.$('pid_name_input');
+  this._attachFormHandler('pid_name_form', function() {t.searchByPidName(); });
+  this._attachButtonHandlers('pid_name_search_button', this.searchByPidName);
 
-  var manufacturer_search_button = goog.dom.$('esta_search_button');
-  goog.ui.decorate(manufacturer_search_button);
-
-  goog.events.listen(
-      manufacturer_search_button,
-      goog.events.EventType.CLICK,
-      this.searchByManufacturer,
-      false,
-      this);
-
+  // pid id search
   this.pid_search_input = goog.dom.$('pid_input');
-  tt = new goog.ui.Tooltip(
-      this.pid_search_input,
-      'Enter parameter id in hex (0x8000) or decimal (32768)')
+  this._attachFormHandler('pid_form', function() {t.searchByPid(); });
+  this._attachButtonHandlers('pid_search_button', this.searchByPid);
 
-  goog.events.listen(
-    goog.dom.$('pid_form'),
-    goog.events.EventType.SUBMIT,
-    function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      this.searchByPid();
-      return false;
-    },
-    false, this);
-
-  var pid_search_button = goog.dom.$('pid_search_button');
-  goog.ui.decorate(pid_search_button);
-
-  goog.events.listen(
-      pid_search_button,
-      goog.events.EventType.CLICK,
-      this.searchByPid,
-      false,
-      this);
 
   // fire off a request to get the list of manufacturers
   var server = app.Server.getInstance();
-  server.manufacturers(this.newManufacturerList);
+  server.manufacturers(function(results) {t.newManufacturerList(results); });
 
   this.pid_table = new app.PidTable('pid_table', state_manager);
 };
@@ -115,7 +81,7 @@ app.PidSearchFrame.prototype.newManufacturerList = function(results) {
       result['name'] + ' [' + app.toHex(result['id'], 4) + ']');
   }
   var ac1 = new goog.ui.AutoComplete.Basic(
-        manufacturers, goog.dom.$('manufacturer_input'), false);
+        manufacturers, this.manufacturer_search_input, false);
 };
 
 
@@ -138,8 +104,50 @@ app.PidSearchFrame.prototype.searchByPid = function() {
 
 
 /**
+ * Called when the pid name search button is clicked.
+ */
+app.PidSearchFrame.prototype.searchByPidName = function() {
+  var value = this.pid_name_search_input.value;
+  app.history.setToken('pn,' + value);
+};
+
+
+/**
  * Update the pid table with the new list of pids.
  */
 app.PidSearchFrame.prototype.newPids = function(pids) {
   this.pid_table.update(pids);
+};
+
+
+/**
+ * Attach a handler for this button
+ */
+app.PidSearchFrame.prototype._attachButtonHandlers = function(button_name,
+                                                              handler) {
+  var button = goog.dom.$(button_name);
+  goog.ui.decorate(button);
+  goog.events.listen(
+      button,
+      goog.events.EventType.CLICK,
+      handler,
+      false,
+      this);
+};
+
+
+/**
+ * Attach a handler for this form
+ */
+app.PidSearchFrame.prototype._attachFormHandler = function(form_name, handler) {
+  goog.events.listen(
+    goog.dom.$(form_name),
+    goog.events.EventType.SUBMIT,
+    function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      handler();
+      return false;
+    },
+    false, this);
 };

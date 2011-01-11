@@ -66,6 +66,12 @@ class SearchHandler(webapp.RequestHandler):
 
         for manufacturer in query.fetch(1):
           results = manufacturer.pid_set
+
+    elif self.request.get('pid_name'):
+      # do full string matching for now
+      results = Pid.all()
+      results.filter('name =' , self.request.get('pid_name'))
+
     else:
       results = Pid.all()
       results.order('pid_id')

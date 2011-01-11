@@ -32,8 +32,11 @@ handlers:
 - url: /(download|pid|pid_search|manufacturers)
   script: main.py
 
-- url: /(add|remove|print)
-  script: pid_loader.py
+#- url: /(add|remove|print)
+#  script: pid_loader.py
+#
+#- url: /(load|clear)
+#  script: loader.py
 
 builtins:
 - datastore_admin: on

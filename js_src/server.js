@@ -188,6 +188,22 @@ app.Server.prototype.pidSearch = function(pid, callback) {
 
 
 /**
+ * Search for a specific PID name
+ */
+app.Server.prototype.pidNameSearch = function(name, callback) {
+  var s = this;
+  this._initiateRequest(
+    app.Server.SEARCH_URL + '?pid_name=' + name,
+    function(e) {
+      response = s.checkForErrorDialog(e);
+      if (response != undefined) {
+        callback(response);
+      }
+    });
+};
+
+
+/**
  * Search for a specific PID
  */
 app.Server.prototype.getPid = function(manufacturer_id, pid, callback) {
