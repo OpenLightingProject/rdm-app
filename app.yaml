@@ -29,11 +29,11 @@ handlers:
 - url: /images
   static_dir: images
 
-- url: /(download|pid|pid_search|manufacturers)
+- url: /(download|pid|pid_search|manufacturers|update_time)
   script: main.py
 
-#- url: /(add|remove|print)
-#  script: pid_loader.py
+- url: /(add|remove|print)
+  script: pid_loader.py
 #
 #- url: /(load|clear)
 #  script: loader.py

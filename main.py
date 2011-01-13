@@ -18,11 +18,28 @@
 
 import logging
 import re
+import time
 from model import Manufacturer, Command, Pid, MessageItem, Message
 from model import SUBDEVICE_RANGE_DICT
 from django.utils import simplejson
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+
+
+class LastUpdateHandler(webapp.RequestHandler):
+  """Return the last time the pids were updated."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+
+    output = {'timestamp': None}
+    results = Pid.all()
+    results.order('-update_time')
+
+    pids = results.fetch(1)
+    if pids:
+      timestamp = int(time.mktime(pids[0].update_time.timetuple()))
+      output['timestamp'] = timestamp
+    self.response.out.write(simplejson.dumps(output))
 
 
 class ManufacturersHandler(webapp.RequestHandler):
@@ -254,8 +271,12 @@ class DownloadHandler(webapp.RequestHandler):
     esta_pids = []
     manufacturers = {}
     pids = Pid.all()
+    update_time = None
 
     for pid in pids:
+      if update_time is None or pid.update_time > update_time:
+        update_time = pid.update_time
+
       if pid.manufacturer.esta_id == self.ESTA_ID:
         esta_pids.append(pid)
       else:
@@ -271,6 +292,8 @@ class DownloadHandler(webapp.RequestHandler):
       self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
                             manufacturers[manufacturer_id])
 
+    timestamp = int(time.mktime(update_time.timetuple()))
+    self.Write('version: %d' % timestamp)
 
 
 application = webapp.WSGIApplication(
@@ -278,7 +301,8 @@ application = webapp.WSGIApplication(
     ('/download', DownloadHandler),
     ('/manufacturers', ManufacturersHandler),
     ('/pid_search', SearchHandler),
-    ('/pid', PidHandler)
+    ('/pid', PidHandler),
+    ('/update_time', LastUpdateHandler),
   ],
   debug=True)
 

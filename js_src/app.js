@@ -141,6 +141,9 @@ app.backToSearchResults = function() {
 goog.exportSymbol('app.backToSearchResults', app.backToSearchResults);
 
 
+/**
+ * Init the history tracking object
+ */
 app.initHistory = function() {
   goog.require('goog.History');
   app.history = new goog.History();
@@ -148,6 +151,20 @@ app.initHistory = function() {
 goog.exportSymbol('app.initHistory', app.initHistory);
 
 
+/**
+ * Update the last updated time.
+ */
+app.updateTimestamp = function(response) {
+  var update_time = new Date(response['timestamp'] * 1000);
+  var div = goog.dom.$('update_time');
+  div.innerHTML = 'Last Updated: ' + update_time;
+  div.style.display = 'block';
+};
+
+
+/**
+ * The main setup function
+ */
 app.setup = function() {
   var state_manager = new app.StateManager();
   var pid_search_frame = new app.PidSearchFrame('pid_search',
@@ -159,5 +176,9 @@ app.setup = function() {
   state_manager.setSearchFrame(pid_search_frame);
   state_manager.setDisplayFrame(pid_display_frame);
   state_manager.enable();
+
+  // get the last updated time
+  var server = app.Server.getInstance();
+  server.getUpdateTime(app.updateTimestamp);
 };
 goog.exportSymbol('app.setup', app.setup);

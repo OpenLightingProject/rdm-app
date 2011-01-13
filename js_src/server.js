@@ -55,6 +55,7 @@ app.Server.REQUEST_QUEUE_LIMIT = 10;
 app.Server.MANUFACTURERS_URL = 'manufacturers';
 app.Server.SEARCH_URL = 'pid_search';
 app.Server.PID_URL = 'pid';
+app.Server.UPDATE_URL = 'update_time';
 
 
 /**
@@ -210,6 +211,22 @@ app.Server.prototype.getPid = function(manufacturer_id, pid, callback) {
   var s = this;
   this._initiateRequest(
     app.Server.PID_URL + '?manufacturer=' + manufacturer_id + '&pid=' + pid,
+    function(e) {
+      response = s.checkForErrorDialog(e);
+      if (response != undefined) {
+        callback(response);
+      }
+    });
+};
+
+
+/**
+ * Get the time the data store was last updated
+ */
+app.Server.prototype.getUpdateTime = function(callback) {
+  var s = this;
+  this._initiateRequest(
+    app.Server.UPDATE_URL,
     function(e) {
       response = s.checkForErrorDialog(e);
       if (response != undefined) {

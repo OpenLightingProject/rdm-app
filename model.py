@@ -69,3 +69,4 @@ class Pid(db.Model):
                                      collection_name='pid_get_command_set')
   set_command = db.ReferenceProperty(Command,
                                      collection_name='pid_set_command_set')
+  update_time = db.DateTimeProperty(auto_now=True)
