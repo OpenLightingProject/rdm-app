@@ -22,6 +22,7 @@ import time
 from model import Manufacturer, Command, Pid, MessageItem, Message
 from model import SUBDEVICE_RANGE_DICT
 from django.utils import simplejson
+from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
@@ -44,15 +45,28 @@ class LastUpdateHandler(webapp.RequestHandler):
 
 class ManufacturersHandler(webapp.RequestHandler):
   """Return the list of all manufacturers."""
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
+  CACHE_KEY = 'manufacturers'
+
+  def BuildResponse(self):
     manufacturers = []
     for manufacturer in Manufacturer.all():
       manufacturers.append({
         'name': manufacturer.name,
         'id': manufacturer.esta_id
       })
-    self.response.out.write(simplejson.dumps({'manufacturers': manufacturers}))
+    response = simplejson.dumps({'manufacturers': manufacturers})
+    if not memcache.add(self.CACHE_KEY, response):
+      logging.error("Memcache set failed.")
+    return response
+
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.headers['Cache-Control'] = 'public; max-age=300;'
+
+    response = memcache.get(self.CACHE_KEY)
+    if response is None:
+      response = self.BuildResponse()
+    self.response.out.write(response)
 
 
 class SearchHandler(webapp.RequestHandler):
@@ -85,7 +99,7 @@ class SearchHandler(webapp.RequestHandler):
           results = manufacturer.pid_set
 
     elif self.request.get('pid_name'):
-      name = self.request.get('pid_name')
+      name = self.request.get('pid_name').strip()
       name = name.replace(' ', '_').upper()
       # do full string matching for now
       results = Pid.all()

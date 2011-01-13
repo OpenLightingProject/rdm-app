@@ -21,6 +21,7 @@ import logging
 from model import Manufacturer
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.api import memcache
 
 items = [
 (0x0000, "ESTA"),
@@ -317,6 +318,8 @@ class LoadHandler(webapp.RequestHandler):
       logging.info('%d, %s' % (id, name))
       manufacturer = Manufacturer(esta_id = id, name = name)
       manufacturer.put()
+
+    memcache.delete('manufacturers')
 
     self.response.out.write('ok')
 
