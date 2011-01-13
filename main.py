@@ -85,9 +85,11 @@ class SearchHandler(webapp.RequestHandler):
           results = manufacturer.pid_set
 
     elif self.request.get('pid_name'):
+      name = self.request.get('pid_name')
+      name = name.replace(' ', '_').upper()
       # do full string matching for now
       results = Pid.all()
-      results.filter('name =' , self.request.get('pid_name'))
+      results.filter('name =' , name)
 
     else:
       results = Pid.all()
