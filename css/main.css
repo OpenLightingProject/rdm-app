@@ -153,6 +153,10 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   font: menu;
 }
 
+.goog-tooltip ul {
+  margin: 0px;
+}
+
 .subdevice_range_help,
 .repeat_help,
 .max_repeat_help {

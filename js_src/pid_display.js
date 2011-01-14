@@ -77,6 +77,15 @@ app.MessageField.prototype.enterDocument = function() {
     'Type: ' + this._field_info['type'] + '<br>' +
     'Name: ' + this._field_info['name'] + '<br>');
 
+  if (this._field_info['enums']) {
+    tt += 'Allowed Values: <ul>';
+    var enums = this._field_info['enums'];
+    for (var i = 0; i < enums.length; ++i) {
+      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'];
+    }
+    tt += '</ul>';
+  }
+
   if (this._field_info['size'] != undefined) {
     tt += 'Size: ' + this._field_info['size'];
   }

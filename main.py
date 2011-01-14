@@ -19,8 +19,7 @@
 import logging
 import re
 import time
-from model import Manufacturer, Command, Pid, MessageItem, Message
-from model import SUBDEVICE_RANGE_DICT
+from model import *
 from django.utils import simplejson
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -139,6 +138,15 @@ class PidHandler(webapp.RequestHandler):
       }
       if item.size:
         item_output['size'] = item.size
+
+      for enum_key in item.enums:
+        enum = EnumValue.get_by_id(enum_key.id())
+        enum_output = {
+          'value': enum.value,
+          'label': enum.label,
+        }
+        enums = item_output.setdefault('enums', [])
+        enums.append(enum_output)
       items.append(item_output)
     message_output['items'] = items
 
@@ -235,6 +243,15 @@ class DownloadHandler(webapp.RequestHandler):
     self.Write('  name: "%s"' % item.name, indent)
     if item.size is not None:
       self.Write('  size: %d' % item.size, indent)
+
+    enum_keys = item.enums
+    for enum_key in item.enums:
+      enum = EnumValue.get_by_id(enum_key.id())
+      self.Write('  enum {', indent)
+      self.Write('    value: %d' % enum.value, indent)
+      self.Write('    label: "%s"' % enum.label, indent)
+      self.Write('  }', indent)
+
     self.Write('}', indent)
 
   def WriteMessage(self, type, message, indent=0):

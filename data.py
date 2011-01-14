@@ -6,11 +6,17 @@ manufacturers = [
    'pids': [
       {'get_request': {'is_repeated': False, 'items': []},
        'get_response': {'is_repeated': False,
-                        'items': [{'name': u'mode', 'type': 'uint8'}]},
+                        'items': [
+                          {'name': u'mode', 'type': 'uint8', 'enums': [
+                            (0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
+                          }
+                        ]},
        'get_sub_device_range': 2,
        'name': u'DEVICE_MODE',
        'set_request': {'is_repeated': False,
-                       'items': [{'name': u'mode', 'type': 'uint8'}]},
+                        'items': [{'name': u'mode', 'type': 'uint8', 'enums': [
+                            (0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
+                          }]},
        'set_response': {'is_repeated': False, 'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.creativelighting.com.au/datasheets/RDM%20Supplement.pdf',
@@ -156,7 +162,7 @@ pids = [{'get_request': {'is_repeated': False, 'items': []},
   'get_sub_device_range': 2,
   'name': u'BOOT_SOFTWARE_VERSION',
   'value': 193},
- {'name': u'record_sensors',
+ {'name': u'RECORD_SENSORS',
   'set_request': {'is_repeated': False,
                   'items': [{'name': u'sensor_number', 'type': 'uint8'}]},
   'set_response': {'is_repeated': False, 'items': []},
@@ -254,7 +260,7 @@ pids = [{'get_request': {'is_repeated': False, 'items': []},
   'get_sub_device_range': 2,
   'name': u'DEFAULT_SLOT_VALUE',
   'value': 290},
- {'name': u'reset_device',
+ {'name': u'RESET_DEVICE',
   'set_request': {'is_repeated': False,
                   'items': [{'name': u'reset_mode', 'type': 'uint8'}]},
   'set_response': {'is_repeated': False, 'items': []},

@@ -32,6 +32,12 @@ class Manufacturer(db.Model):
   name = db.StringProperty(required=True)
 
 
+class EnumValue(db.Model):
+  """Represents a Enum value."""
+  value = db.IntegerProperty()
+  label = db.StringProperty()
+
+
 class MessageItem(db.Model):
   """Represents a item within a message."""
   name = db.StringProperty(required=True)
@@ -39,6 +45,8 @@ class MessageItem(db.Model):
       required=True,
       choices=set(['bool', 'uint8', 'uint16', 'uint32', 'string']))
   size = db.IntegerProperty()
+  # if the values for a item are restricted, this provides the enums
+  enums = db.ListProperty(db.Key)
 
 
 class Message(db.Model):

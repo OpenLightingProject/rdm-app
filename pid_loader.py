@@ -18,8 +18,7 @@
 # The handlers for /pid /pid_search and /manufacturers
 
 import logging
-from model import Pid, MessageItem, Command, Message, Manufacturer
-from model import SUBDEVICE_RANGE_DICT
+from model import *
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 import data
@@ -32,6 +31,14 @@ class LoadHandler(webapp.RequestHandler):
     item_data = MessageItem(name = item['name'], type = item['type'])
     if item.get('size'):
       item_data.size = item['size']
+    if item.get('enums'):
+      enums = []
+      for value, label in item.get('enums'):
+        enum = EnumValue(value = value, label = label)
+        enum.put()
+        enums.append(enum.key())
+      item_data.enums = enums
+
     item_data.put()
     return item_data
 
