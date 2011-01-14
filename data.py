@@ -118,11 +118,16 @@ pids = [{'get_request': {'is_repeated': False, 'items': []},
   'value': 130},
  {'get_request': {'is_repeated': False, 'items': []},
   'get_response': {'is_repeated': False,
-                   'items': [{'name': u'state', 'type': 'uint8'}]},
+                   'items': [{'name': u'state', 'type': 'uint8', 'enums': [
+                      (0, 'Off'), (1, 'On'), (2, 'Strike'), (3, 'Standby'),
+                      (4, 'Not Present'), (0x7f, 'Error')]
+                  }]},
   'get_sub_device_range': 2,
   'name': u'LAMP_STATE',
   'set_request': {'is_repeated': False,
-                  'items': [{'name': u'state', 'type': 'uint8'}]},
+                  'items': [{'name': u'state', 'type': 'uint8', 'enums': [
+                      (0, 'Off'), (1, 'On'), (2, 'Strike'), (3, 'Standby')]
+                  }]},
   'set_response': {'is_repeated': False, 'items': []},
   'set_sub_device_range': 1,
   'value': 1027},
