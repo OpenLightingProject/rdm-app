@@ -29,16 +29,13 @@ manufacturers = [
       {'get_request': {'is_repeated': False, 'items': []},
        'get_response': {'is_repeated': False,
                         'items': [
-                          {'name': u'mode', 'type': 'uint8', 'enums': [
-                            (0, 'Off'), (1, 'On')]
-                          }
+                          {'name': u'enabled', 'type': 'bool'}
                         ]},
        'get_sub_device_range': 0,
        'name': u'NE_FAULT_DETECT_MODE',
        'set_request': {'is_repeated': False,
-                        'items': [{'name': u'mode', 'type': 'uint8', 'enums': [
-                            (0, 'Off'), (1, 'On')]
-                          }]},
+                        'items': [{'name': u'enabled', 'type': 'bool'}
+                      ]},
        'set_response': {'is_repeated': False, 'items': []},
        'set_sub_device_range': 0,
        'link': 'http://www.jands.com.au/__data/assets/pdf_file/0004/36364/HPD_User_Manual_V2.0a.pdf',
@@ -46,17 +43,10 @@ manufacturers = [
        'value': 0x8080},
       {'get_request': {'is_repeated': False, 'items': []},
        'get_response': {'is_repeated': False,
-                        'items': [
-                          {'name': u'mode', 'type': 'uint8', 'enums': [
-                            (0, 'Off'), (1, 'On')]
-                          }
-                        ]},
+                        'items': [{'name': u'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
        'name': u'DMX_PROTECT_MODE',
-       'set_request': {'is_repeated': False,
-                        'items': [{'name': u'mode', 'type': 'uint8', 'enums': [
-                            (0, 'Off'), (1, 'On')]
-                          }]},
+       'set_request': {'is_repeated': False, 'items': [{'name': u'enabled', 'type': 'bool'}]},
        'set_response': {'is_repeated': False, 'items': []},
        'set_sub_device_range': 0,
        'link': 'http://www.jands.com.au/__data/assets/pdf_file/0004/36364/HPD_User_Manual_V2.0a.pdf',
@@ -66,7 +56,7 @@ manufacturers = [
        'get_response': {'is_repeated': False,
                         'items': [
                           {'name': u'mode', 'type': 'uint8',
-                           'enums': [(0, 'Hold'), (0, 'Fade to scene #1')]
+                           'enums': [(0, 'Hold'), (1, 'Fade to scene #1')]
                           }
                         ]},
        'get_sub_device_range': 0,
@@ -103,16 +93,40 @@ manufacturers = [
       {'get_request': {'is_repeated': False, 'items': []},
        'get_response': {'is_repeated': False,
                         'items': [
-                          {'name': u'cap', 'type': 'uint8', 'enums': [
-                            (0, 'Off')]
+                          {'name': u'cap', 'type': 'uint8',
+                           'enums': [(0, 'Off'),
+                                     (1, '95%'),
+                                     (2, '90%'),
+                                     (3, '85%'),
+                                     (4, '80%'),
+                                     (5, '75%'),
+                                     (6, '70%'),
+                                     (7, '65%'),
+                                     (8, '60%'),
+                                     (9, '55%'),
+                                     (10, '50%'),
+                                     (11, '45%'),
+                                     (12, '40%')],
                           }
                         ]},
        'get_sub_device_range': 2,
        'name': u'OUTPUT_CAP_VALUE',
        'set_request': {'is_repeated': False,
                         'items': [{'name': u'cap', 'type': 'uint8',
-                                   'enums': [(0, 'Off')],
-                                   'range': [(0, 0x0c)],
+                                   'enums': [(0, 'Off'),
+                                             (1, '95%'),
+                                             (2, '90%'),
+                                             (3, '85%'),
+                                             (4, '80%'),
+                                             (5, '75%'),
+                                             (6, '70%'),
+                                             (7, '65%'),
+                                             (8, '60%'),
+                                             (9, '55%'),
+                                             (10, '50%'),
+                                             (11, '45%'),
+                                             (12, '40%'),
+                                            ],
                           }]},
        'set_response': {'is_repeated': False, 'items': []},
        'set_sub_device_range': 1,
@@ -120,18 +134,10 @@ manufacturers = [
        'notes': 'Scale the output power of by a preset percentage. Each increment reduces output power by 5%, down to a minimum value of 40%. See the manual for more details on output voltage.',
        'value': 0x8088},
       {'get_request': {'is_repeated': False, 'items': []},
-       'get_response': {'is_repeated': False,
-                        'items': [
-                          {'name': u'mode', 'type': 'uint8', 'enums': [
-                            (0, 'Off'), (1, 'On')]
-                          }
-                        ]},
+       'get_response': {'is_repeated': False, 'items': [{'name': u'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
        'name': u'DMX_TERM_MODE',
-       'set_request': {'is_repeated': False,
-                        'items': [{'name': u'mode', 'type': 'uint8',
-                                   'enums': [(0, 'Off'), (1, 'On')],
-                          }]},
+       'set_request': {'is_repeated': False, 'items': [{'name': u'enabled', 'type': 'bool'}]},
        'set_response': {'is_repeated': False, 'items': []},
        'set_sub_device_range': 0,
        'link': 'http://www.jands.com.au/__data/assets/pdf_file/0004/36364/HPD_User_Manual_V2.0a.pdf',

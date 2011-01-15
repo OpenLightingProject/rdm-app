@@ -77,11 +77,20 @@ app.MessageField.prototype.enterDocument = function() {
     'Type: ' + this._field_info['type'] + '<br>' +
     'Name: ' + this._field_info['name'] + '<br>');
 
-  if (this._field_info['enums']) {
+  if (this._field_info['ranges']) {
     tt += 'Allowed Values: <ul>';
+    var ranges = this._field_info['ranges'];
+    for (var i = 0; i < ranges.length; ++i) {
+      tt += '<li>[' + ranges[i]['min'] + ', ' + ranges[i]['max'] + ']</li>';
+    }
+    tt += '</ul>';
+  }
+
+  if (this._field_info['enums']) {
+    tt += 'Labeled Values: <ul>';
     var enums = this._field_info['enums'];
     for (var i = 0; i < enums.length; ++i) {
-      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'];
+      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'] + '</li/>';
     }
     tt += '</ul>';
   }

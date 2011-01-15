@@ -139,15 +139,30 @@ class PidHandler(webapp.RequestHandler):
       if item.size:
         item_output['size'] = item.size
 
+      enums = []
       for enum_key in item.enums:
         enum = EnumValue.get_by_id(enum_key.id())
         enum_output = {
           'value': enum.value,
           'label': enum.label,
         }
-        enums = item_output.setdefault('enums', [])
         enums.append(enum_output)
+      if enums:
+        item_output['enums'] = enums
+
+      ranges = []
+      for range in item.allowed_values:
+        range = AllowedRange.get_by_id(range.id())
+        range_output = {
+          'min': range.min,
+          'max': range.max,
+        }
+        ranges.append(range_output)
+      if ranges:
+        item_output['ranges'] = ranges
+
       items.append(item_output)
+
     message_output['items'] = items
 
 
@@ -244,12 +259,18 @@ class DownloadHandler(webapp.RequestHandler):
     if item.size is not None:
       self.Write('  size: %d' % item.size, indent)
 
-    enum_keys = item.enums
     for enum_key in item.enums:
       enum = EnumValue.get_by_id(enum_key.id())
       self.Write('  enum {', indent)
       self.Write('    value: %d' % enum.value, indent)
       self.Write('    label: "%s"' % enum.label, indent)
+      self.Write('  }', indent)
+
+    for range_key in item.allowed_values:
+      range = AllowedRange.get_by_id(range_key.id())
+      self.Write('  range {', indent)
+      self.Write('    min: %d' % range.min, indent)
+      self.Write('    max: %d' % range.max, indent)
       self.Write('  }', indent)
 
     self.Write('}', indent)
