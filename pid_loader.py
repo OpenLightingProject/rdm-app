@@ -24,6 +24,10 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 import data
 
 
+class OutOfRangeException(Exception):
+  """Raised when an enum valid isn't within the allowed ranges."""
+
+
 class LoadHandler(webapp.RequestHandler):
   """Return the list of all manufacturers."""
 
@@ -31,13 +35,33 @@ class LoadHandler(webapp.RequestHandler):
     item_data = MessageItem(name = item['name'], type = item['type'])
     if item.get('size'):
       item_data.size = item['size']
+
+    valid_ranges = []
+    if item.get('range'):
+      ranges = []
+      for min, max in item.get('range'):
+        valid_ranges.append((min, max))
+        range = AllowedRange(min = min, max = max)
+        range.put()
+        ranges.append(range.key())
+      item_data.allowed_values = ranges
+
     if item.get('enums'):
       enums = []
       for value, label in item.get('enums'):
+        if valid_ranges:
+          found = False
+          for min, max in valid_ranges:
+            if value >= min and value <= max:
+              break
+          else:
+            raise OutOfRangeException('%d: %s' % (value, label))
+
         enum = EnumValue(value = value, label = label)
         enum.put()
         enums.append(enum.key())
       item_data.enums = enums
+
 
     item_data.put()
     return item_data
@@ -126,6 +150,12 @@ class ClearHandler(webapp.RequestHandler):
       item.delete()
 
     for item in Pid.all():
+      item.delete()
+
+    for item in EnumValue.all():
+      item.delete()
+
+    for item in AllowedRange.all():
       item.delete()
 
     self.response.out.write('ok')

@@ -32,10 +32,24 @@ class Manufacturer(db.Model):
   name = db.StringProperty(required=True)
 
 
+# About Enums & Ranges:
+# If neither enums nor ranges are specified, the valid values is the range of
+#   the data type.
+# If enums are specified, and ranges aren't, the valid values are the enums
+# If ranges are specified, the valid values are those which fall into the range
+#   (inclusive).
+# If both are specified, the enum values must fall into the specified ranges.
+
 class EnumValue(db.Model):
   """Represents a Enum value."""
   value = db.IntegerProperty()
   label = db.StringProperty()
+
+
+class AllowedRange(db.Model):
+  # min and max are inclusive
+  min = db.IntegerProperty()
+  max = db.IntegerProperty()
 
 
 class MessageItem(db.Model):
@@ -47,6 +61,8 @@ class MessageItem(db.Model):
   size = db.IntegerProperty()
   # if the values for a item are restricted, this provides the enums
   enums = db.ListProperty(db.Key)
+  # allowed ranges for this value, only valid for int message types
+  allowed_values = db.ListProperty(db.Key)
 
 
 class Message(db.Model):
