@@ -211,7 +211,10 @@ manufacturers = [
        'notes': 'With the parameters, the offset adjustment of the outputs are set to the desired value. It is transmitted as many values as outputs must be set. The number is determined by the parameters length (PDL).  The offset input is especially useful when driving LEDs with a different starting point',
        'value': 0xdc0e},
       {'name': u'DC_FADER_OFFSET',
-       'set_request': {'items': [{'name': u'offset_value', 'type': 'uint8'}]},
+        'set_request': {'items': [{'type': 'group',
+                                   'name': 'offsets',
+                                   'items': [{'name': u'offset_value', 'type': 'uint8'}]
+                                  }]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.soundlight.de/techtips/dmx512/slh_rdm_commands.htm',
