@@ -275,7 +275,7 @@ class DownloadHandler(webapp.RequestHandler):
 
     for enum_key in item.enums:
       enum = EnumValue.get(enum_key)
-      self.Write('  enum {', indent)
+      self.Write('  label {', indent)
       self.Write('    value: %d' % enum.value, indent)
       self.Write('    label: "%s"' % enum.label, indent)
       self.Write('  }', indent)
