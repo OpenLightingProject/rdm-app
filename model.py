@@ -57,12 +57,15 @@ class MessageItem(db.Model):
   name = db.StringProperty(required=True)
   type = db.StringProperty(
       required=True,
-      choices=set(['bool', 'uint8', 'uint16', 'uint32', 'string']))
-  size = db.IntegerProperty()
+      choices=set(['bool', 'group', 'uint8', 'uint16', 'uint32', 'string']))
+  min_size = db.IntegerProperty()
+  max_size = db.IntegerProperty()
   # if the values for a item are restricted, this provides the enums
   enums = db.ListProperty(db.Key)
   # allowed ranges for this value, only valid for int message types
   allowed_values = db.ListProperty(db.Key)
+  # if type is group, these are the child messages
+  items = db.ListProperty(db.Key)
 
 
 class Message(db.Model):

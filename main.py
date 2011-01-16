@@ -121,6 +121,49 @@ class SearchHandler(webapp.RequestHandler):
 
 class PidHandler(webapp.RequestHandler):
   """Return a the description for a pid."""
+  def PopulateItem(self, item):
+    """Build the data structure for an item."""
+    item_output = {
+        'name': item.name,
+        'type': item.type,
+    }
+    if item.min_size:
+      item_output['min_size'] = item.min_size
+    if item.max_size:
+      item_output['max_size'] = item.max_size
+
+    if item.type == 'group':
+      children = []
+      for child_key in item.items:
+        child_item = MessageItem.get(child_key)
+        child_item_output = self.PopulateItem(child_item)
+        children.append(child_item_output)
+      item_output['items'] = children
+
+    enums = []
+    for enum_key in item.enums:
+      enum = EnumValue.get(enum_key)
+      enum_output = {
+        'value': enum.value,
+        'label': enum.label,
+      }
+      enums.append(enum_output)
+    if enums:
+      item_output['enums'] = enums
+
+    ranges = []
+    for range in item.allowed_values:
+      range = AllowedRange.get(range)
+      range_output = {
+        'min': range.min,
+        'max': range.max,
+      }
+      ranges.append(range_output)
+    if ranges:
+      item_output['ranges'] = ranges
+    return item_output
+
+
   def PopulateMessage(self, message_output, message):
     message_output['is_repeated'] = message.is_repeated
     max_repeats = None
@@ -130,41 +173,11 @@ class PidHandler(webapp.RequestHandler):
 
     items = []
     for item_key in message.items:
-      item = MessageItem.get_by_id(item_key.id())
-
-      item_output = {
-          'name': item.name,
-          'type': item.type,
-      }
-      if item.size:
-        item_output['size'] = item.size
-
-      enums = []
-      for enum_key in item.enums:
-        enum = EnumValue.get_by_id(enum_key.id())
-        enum_output = {
-          'value': enum.value,
-          'label': enum.label,
-        }
-        enums.append(enum_output)
-      if enums:
-        item_output['enums'] = enums
-
-      ranges = []
-      for range in item.allowed_values:
-        range = AllowedRange.get_by_id(range.id())
-        range_output = {
-          'min': range.min,
-          'max': range.max,
-        }
-        ranges.append(range_output)
-      if ranges:
-        item_output['ranges'] = ranges
-
+      item = MessageItem.get(item_key)
+      item_output = self.PopulateItem(item)
       items.append(item_output)
 
     message_output['items'] = items
-
 
   def PopulateCommand(self, output, prefix, command):
     if command is None:
@@ -256,18 +269,25 @@ class DownloadHandler(webapp.RequestHandler):
     self.Write('field {', indent)
     self.Write('  type: %s' % item.type.upper(), indent)
     self.Write('  name: "%s"' % item.name, indent)
-    if item.size is not None:
-      self.Write('  size: %d' % item.size, indent)
+    if item.min_size is not None:
+      self.Write('  min_size: %d' % item.min_size, indent)
+    if item.max_size is not None:
+      self.Write('  max_size: %d' % item.max_size, indent)
+
+    if item.type == 'group':
+      for child_key in item.items:
+        child_item = MessageItem.get(child_key)
+        self.WriteItem(child_item, indent+2)
 
     for enum_key in item.enums:
-      enum = EnumValue.get_by_id(enum_key.id())
+      enum = EnumValue.get(enum_key)
       self.Write('  enum {', indent)
       self.Write('    value: %d' % enum.value, indent)
       self.Write('    label: "%s"' % enum.label, indent)
       self.Write('  }', indent)
 
     for range_key in item.allowed_values:
-      range = AllowedRange.get_by_id(range_key.id())
+      range = AllowedRange.get(range_key)
       self.Write('  range {', indent)
       self.Write('    min: %d' % range.min, indent)
       self.Write('    max: %d' % range.max, indent)
@@ -279,7 +299,7 @@ class DownloadHandler(webapp.RequestHandler):
     self.Write('%s {' % type, indent)
 
     for item_key in message.items:
-      item = MessageItem.get_by_id(item_key.id())
+      item = MessageItem.get(item_key)
       self.WriteItem(item, indent+2)
 
     self.Write('  repeated_group: %s' % self.BOOL_MAPPING[message.is_repeated],

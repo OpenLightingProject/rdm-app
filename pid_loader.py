@@ -27,14 +27,38 @@ import data
 class OutOfRangeException(Exception):
   """Raised when an enum valid isn't within the allowed ranges."""
 
+class MissingItemsException(Exception):
+  """Raised when an item is defined as a group, but no child items exist."""
+
+class InvalidDataException(Exception):
+  """Raised when the input data is invalid."""
+
 
 class LoadHandler(webapp.RequestHandler):
   """Return the list of all manufacturers."""
 
   def AddItem(self, item):
     item_data = MessageItem(name = item['name'], type = item['type'])
-    if item.get('size'):
-      item_data.size = item['size']
+    if item.get('min_size'):
+      item_data.min_size = item['min_size']
+    if item.get('max_size'):
+      item_data.max_size = item['max_size']
+
+    if item['type'] == 'group':
+      items = item.get('items')
+      if item.get('range') or item.get('enums'):
+        raise InvalidDataException(
+            '%s: groups cannot have enum or range properties' % item['name'])
+
+      if not items:
+        raise MissingItemsException(item['name'])
+
+      child_items = []
+      for child_item_data in items:
+        child_item = self.AddItem(child_item_data)
+        child_items.append(child_item.key())
+      item_data.items = child_items
+
 
     valid_ranges = []
     if item.get('range'):
@@ -61,7 +85,6 @@ class LoadHandler(webapp.RequestHandler):
         enum.put()
         enums.append(enum.key())
       item_data.enums = enums
-
 
     item_data.put()
     return item_data

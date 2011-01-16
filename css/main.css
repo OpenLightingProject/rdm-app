@@ -104,6 +104,13 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   margin: 10px;
 }
 
+.message_group {
+  border: 1px solid #0f0;
+  text-align: center;
+  height: 100%;
+  margin: 10px;
+}
+
 .message_field {
   border: 1px solid #00c;
   margin-left: auto;

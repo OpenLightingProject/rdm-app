@@ -56,8 +56,8 @@ app.MessageField.prototype.createDom = function() {
   var class_names = this._field_info['type'] + '_field message_field';
   var field_name = this._field_info['name'];
   if (this._field_info['type'] == 'string' &&
-      this._field_info['size'] != undefined) {
-    field_name += ' (' + this._field_info['size'] + ' bytes)'; 
+      this._field_info['max_size'] != undefined) {
+    field_name += ' ( <=' + this._field_info['max_size'] + ' bytes)'; 
   }
   var div = this.dom_.createDom(
       'div',
@@ -104,7 +104,7 @@ app.MessageField.prototype.enterDocument = function() {
 
 
 /**
- * Remove the event hanler
+ * Remove the tooltip
  */
 app.MessageField.prototype.exitDocument = function() {
   app.MessageField.superClass_.exitDocument.call(this);
@@ -159,8 +159,69 @@ app.MessageStructure.prototype.update = function(fields) {
 
   for (var i = 0; i < fields.length; ++i) {
     var field = fields[i];
-    var new_div = new app.MessageField(field);
-    this.addChild(new_div, true);
+
+    var new_div = null;
+    if (field['type'] == 'group') {
+      new_div = new app.MessageGroup();
+      new_div.update(field['items']);
+      this.addChild(new_div, true);
+      new_div.attachTooltip(field);
+    } else {
+      new_div = new app.MessageField(field);
+      this.addChild(new_div, true);
+    }
+  }
+};
+
+
+/**
+ * A message group, this represents a repeated group of fields within an RDM
+ * message.
+ * @constructor
+ */
+app.MessageGroup = function(opt_domHelper) {
+  goog.ui.Component.call(this, opt_domHelper);
+  this.tt = null;
+};
+goog.inherits(app.MessageGroup, app.MessageStructure);
+
+
+/**
+ * Attach the tooltip for this group
+ */
+app.MessageGroup.prototype.attachTooltip = function(field) {
+  this.tt = new goog.ui.Tooltip(this.getElement());
+  var tt = 'A repeated group of fields. ';
+  var min = field['min_size'];
+  var max = field['max_size'];
+
+  if (min != undefined && max != undefined) {
+    tt += 'This group repeats ' + min + ' to ' + max + ' times.';
+  } else if (min != undefined) {
+    tt += 'This group repeats at least ' + min + ' times.';
+  } else if (max != undefined) {
+    tt += 'This group repeats at most ' + max + ' times.';
+  }
+  this.tt.setHtml(tt);
+};
+
+
+/**
+ * Decorate an existing element
+ */
+app.MessageGroup.prototype.decorateInternal = function(element) {
+  app.MessageStructure.superClass_.decorateInternal.call(this, element);
+  element.className = 'message_group';
+};
+
+
+/**
+ * Remove the tooltip
+ */
+app.MessageField.prototype.exitDocument = function() {
+  app.MessageField.superClass_.exitDocument.call(this);
+  if (this.tt) {
+    this.tt.detach(this.getElement());
   }
 };
 
