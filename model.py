@@ -70,8 +70,6 @@ class MessageItem(db.Model):
 
 class Message(db.Model):
   """Represents a request or response."""
-  is_repeated = db.BooleanProperty(required=True)
-  max_repeats = db.IntegerProperty()
   # this holds a list of MessageItem keys
   items = db.ListProperty(db.Key, required=True)
 

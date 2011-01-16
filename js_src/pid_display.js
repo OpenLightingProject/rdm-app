@@ -55,9 +55,21 @@ app.MessageField.prototype.canDecorate = function() { return false; };
 app.MessageField.prototype.createDom = function() {
   var class_names = this._field_info['type'] + '_field message_field';
   var field_name = this._field_info['name'];
-  if (this._field_info['type'] == 'string' &&
-      this._field_info['max_size'] != undefined) {
-    field_name += ' ( <=' + this._field_info['max_size'] + ' bytes)'; 
+  if (this._field_info['type'] == 'string') {
+    max = this._field_info['max_size'];
+    min = this._field_info['min_size'];
+
+    if (max != undefined && min != undefined) {
+      if (max == min) {
+        field_name += ' (' + max + ' bytes)';
+      } else {
+        field_name += ' (>= ' + min + ', <= ' + max + ' bytes)';
+      }
+    } else if (max != undefined) {
+      field_name += ' (<=' + max + ' bytes)';
+    } else if (min != undefined) {
+      field_name += ' (>=' + min + ' bytes)';
+    }
   }
   var div = this.dom_.createDom(
       'div',
@@ -254,19 +266,6 @@ app.PidDisplayFrame = function(element, state_manager){
     "<li>Only sub-devices (0x1 - 0x200)</li>" +
     "</ul>"
     );
-
-  var repeated_help_nodes = goog.dom.getElementsByTagNameAndClass(
-    'img', 'repeat_help');
-  this._attachToolTipForNodes(
-    repeated_help_nodes,
-    "Specifies if the displayed block of fields is allowed to be repeated");
-
-  var max_repeated_help_nodes = goog.dom.getElementsByTagNameAndClass(
-    'img', 'max_repeat_help');
-  this._attachToolTipForNodes(
-    max_repeated_help_nodes,
-    "The maximum number of times the block of fields can be repeated");
-
 };
 goog.inherits(app.PidDisplayFrame, app.BaseFrame);
 
@@ -340,9 +339,6 @@ app.PidDisplayFrame.prototype._updateCommand = function(pid_info, mode) {
     var request = pid_info[request_key];
     var response = pid_info[response_key];
 
-    this._setupRepeatInformation(request, request_key);
-    this._setupRepeatInformation(response, response_key);
-
     if (mode == 'get') {
       this._get_request.update(request['items']);
       this._get_response.update(response['items']);
@@ -350,23 +346,5 @@ app.PidDisplayFrame.prototype._updateCommand = function(pid_info, mode) {
       this._set_request.update(request['items']);
       this._set_response.update(response['items']);
     }
-  }
-};
-
-
-/**
- * Populate the repeat section of the pid info display
- */
-app.PidDisplayFrame.prototype._setupRepeatInformation = function(message,
-                                                                 prefix) {
-  goog.dom.$(prefix + '_repeated').innerHTML = (
-    message['is_repeated'] ? 'True' : 'False');
-
-  var repeat_div = goog.dom.$(prefix + '_repeat_div');
-  if (!message['is_repeated'] || message['max_repeats'] == null) {
-    this._hideNode(repeat_div);
-  } else {
-    this._showNode(repeat_div);
-    goog.dom.$(prefix + '_max_repeats').innerHTML = message['max_repeats'];
   }
 };

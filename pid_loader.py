@@ -94,10 +94,7 @@ class LoadHandler(webapp.RequestHandler):
     for item in message['items']:
       items.append(self.AddItem(item).key())
 
-    message_data = Message(is_repeated = message['is_repeated'], items = items)
-
-    if message['is_repeated'] and message.get('max_repeats') is not None:
-      message_data.max_repeats = message['max_repeats']
+    message_data = Message(items = items)
     message_data.put()
     return message_data
 

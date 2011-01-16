@@ -165,12 +165,6 @@ class PidHandler(webapp.RequestHandler):
 
 
   def PopulateMessage(self, message_output, message):
-    message_output['is_repeated'] = message.is_repeated
-    max_repeats = None
-    if message.is_repeated and message.max_repeats is not None:
-      max_repeats = message.max_repeats
-    message_output['max_repeats'] = max_repeats
-
     items = []
     for item_key in message.items:
       item = MessageItem.get(item_key)
@@ -297,16 +291,9 @@ class DownloadHandler(webapp.RequestHandler):
 
   def WriteMessage(self, type, message, indent=0):
     self.Write('%s {' % type, indent)
-
     for item_key in message.items:
       item = MessageItem.get(item_key)
       self.WriteItem(item, indent+2)
-
-    self.Write('  repeated_group: %s' % self.BOOL_MAPPING[message.is_repeated],
-               indent)
-    if message.is_repeated and message.max_repeats:
-      self.Write('  max_repeats: %d' % message.max_repeats, indent)
-
     self.Write('}', indent)
 
   def WritePid(self, pid, indent=0):
