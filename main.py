@@ -350,8 +350,10 @@ class DownloadHandler(webapp.RequestHandler):
 
     manufacturer_ids = sorted(manufacturers)
     for manufacturer_id in manufacturer_ids:
+      manufacturer_pids = manufacturers[manufacturer_id]
+      manufacturer_pids.sort(key=lambda p: p.pid_id)
       self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
-                            manufacturers[manufacturer_id])
+                            manufacturer_pids)
 
     timestamp = int(time.mktime(update_time.timetuple()))
     self.Write('version: %d' % timestamp)
