@@ -1,7 +1,7 @@
 
 
 manufacturers = [
-  {'id': 161,
+  {'id': 0x00a1,
    'name': u'Creative Lighting',
    'pids': [
       {'get_request': {'items': []},
@@ -21,7 +21,7 @@ manufacturers = [
        'notes': 'Controls the operating mode of the device',
        'value': 32768}]
   },
-  {'id': 18501,
+  {'id': 0x4845,
    'name': u'Howard Eaton Lighting',
    'pids': [
       {'get_request': {'items': []},
@@ -60,7 +60,7 @@ manufacturers = [
        'value': 0xc862},
     ],
   },
-  {'id': 19041,
+  {'id': 0x4a61,
    'name': u'Jands',
    'pids': [
       {'get_request': {'items': []},
@@ -297,8 +297,55 @@ manufacturers = [
        'link': 'http://www.soundlight.de/techtips/dmx512/slh_rdm_commands.htm',
        'notes': 'The number of values supplied needs to match what\' specified in the segment_count field',
        'value': 0xdccd},
-     ]
-   },
+   ]
+  },
+  {'id': 0x4c55,
+   'name': u'Lumen Radio',
+   'pids': [
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': u'enabled', 'type': 'bool'}
+                        ]},
+       'get_sub_device_range': 0,
+       'name': u'FULL_DISCOVERY',
+       'set_request': {'items': [{'name': u'enabled', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': '',
+       'notes': 'Starts full RDM discovery.',
+       'value': 0x8000},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': u'interval', 'type': 'uint16',
+                           'multiplier': -1},
+                        ]},
+       'get_sub_device_range': 0,
+       'name': u'INCREMENTAL_DISCOVERY_INTERVAL',
+       'set_request': {'items': [{'name': u'interval', 'type': 'uint16',
+                                  'range': [(0x101, 0xffff)],
+                                  'multiplier': -1,
+                                 }]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': '',
+       'notes': 'Controls the frequency at which incremental discovery runs.',
+       'value': 0x8101},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': u'timer_factor', 'type': 'uint16'}
+                        ]},
+       'get_sub_device_range': 0,
+       'name': u'ACK_TIMER_FACTOR',
+       'set_request': {'items': [{'name': u'timer_factor', 'type': 'uint16',
+                                  'range': [(0x101, 0xffff)],
+                                 }]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': '',
+       'notes': 'Unknown.',
+       'value': 0x8102},
+    ],
+  },
 ]
 
 

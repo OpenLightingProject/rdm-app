@@ -131,6 +131,8 @@ class PidHandler(webapp.RequestHandler):
       item_output['min_size'] = item.min_size
     if item.max_size:
       item_output['max_size'] = item.max_size
+    if item.multiplier:
+      item_output['multiplier'] = item.multiplier
 
     if item.type == 'group':
       children = []
@@ -267,6 +269,8 @@ class DownloadHandler(webapp.RequestHandler):
       self.Write('  min_size: %d' % item.min_size, indent)
     if item.max_size is not None:
       self.Write('  max_size: %d' % item.max_size, indent)
+    if item.multiplier is not None:
+      self.Write('  multiplier: %d' % item.multiplier, indent)
 
     if item.type == 'group':
       for child_key in item.items:

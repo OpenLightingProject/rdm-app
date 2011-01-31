@@ -89,6 +89,14 @@ app.MessageField.prototype.enterDocument = function() {
     'Type: ' + this._field_info['type'] + '<br>' +
     'Name: ' + this._field_info['name'] + '<br>');
 
+  if (this._field_info['multiplier'] != undefined) {
+    tt += 'Multipler: 10<sup>' + this._field_info['multiplier'] + '</sup>';
+  }
+
+  if (this._field_info['size'] != undefined) {
+    tt += 'Size: ' + this._field_info['size'];
+  }
+
   if (this._field_info['ranges']) {
     tt += 'Allowed Values: <ul>';
     var ranges = this._field_info['ranges'];
@@ -107,9 +115,6 @@ app.MessageField.prototype.enterDocument = function() {
     tt += '</ul>';
   }
 
-  if (this._field_info['size'] != undefined) {
-    tt += 'Size: ' + this._field_info['size'];
-  }
   this.tt = new goog.ui.Tooltip(this.getElement());
   this.tt.setHtml(tt);
 };

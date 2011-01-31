@@ -49,6 +49,9 @@ class LoadHandler(webapp.RequestHandler):
       if item.get('range') or item.get('enums'):
         raise InvalidDataException(
             '%s: groups cannot have enum or range properties' % item['name'])
+      if item.get('multiplier'):
+        raise InvalidDataException(
+            '%s: groups cannot have multiplier properties' % item['name'])
 
       if not items:
         raise MissingItemsException(item['name'])
@@ -85,6 +88,9 @@ class LoadHandler(webapp.RequestHandler):
         enum.put()
         enums.append(enum.key())
       item_data.enums = enums
+
+    if item.get('multiplier'):
+      item_data.multiplier = item['multiplier']
 
     item_data.put()
     return item_data

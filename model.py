@@ -60,6 +60,8 @@ class MessageItem(db.Model):
       choices=set(['bool', 'group', 'uint8', 'uint16', 'uint32', 'string']))
   min_size = db.IntegerProperty()
   max_size = db.IntegerProperty()
+  # called prefixes in the RDM standard, range between -24 and +24
+  multiplier = db.IntegerProperty()
   # if the values for a item are restricted, this provides the enums
   enums = db.ListProperty(db.Key)
   # allowed ranges for this value, only valid for int message types
