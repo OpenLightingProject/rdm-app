@@ -350,7 +350,7 @@ manufacturers = [
 
 
 pids = [{'get_request': {'items': []},
-  'get_response': {'items': [{'name': u'label',
+  'get_response': {'items': [{'name': u'description',
                               'max_size': 32,
                               'type': 'string'}]},
   'get_sub_device_range': 2,
@@ -764,7 +764,7 @@ pids = [{'get_request': {'items': []},
                               'type': 'uint8'},
                              {'name': u'personality_count',
                               'type': 'uint8'},
-                             {'name': u'start_address', 'type': 'uint16'},
+                             {'name': u'dmx_start_address', 'type': 'uint16'},
                              {'name': u'sub_device_count',
                               'type': 'uint16'},
                              {'name': u'sensor_count', 'type': 'uint8'}]},
@@ -796,10 +796,10 @@ pids = [{'get_request': {'items': []},
   'name': u'SELF_TEST_DESCRIPTION',
   'value': 4129},
  {'get_request': {'items': []},
-  'get_response': {'items': [{'name': u'state', 'type': 'uint8'}]},
+  'get_response': {'items': [{'name': u'power_state', 'type': 'uint8'}]},
   'get_sub_device_range': 2,
   'name': u'POWER_STATE',
-  'set_request': {'items': [{'name': u'state', 'type': 'uint8', 'enums': [
+  'set_request': {'items': [{'name': u'power_state', 'type': 'uint8', 'enums': [
                     (0, 'Full Off'), (1, 'Shutdown'), (2, 'Standby'),
                     (0xff, 'Normal')]
                   }]},
