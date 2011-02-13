@@ -314,6 +314,31 @@ manufacturers = [
        'link': '',
        'notes': 'Starts full RDM discovery.',
        'value': 0x8000},
+      # 0x8001 exists but we can't get a description for it
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': u'dmx_level', 'type': 'uint8'}
+                        ]},
+       'get_sub_device_range': 0,
+       'name': u'OUTPUT_DEFAULT_VALUE',
+       'set_request': {'items': [{'name': u'dmx_level', 'type': 'uint8'}]},
+       'set_response': {'items': [{'name': u'dmx_level', 'type': 'uint8'}]},
+       'set_sub_device_range': 0,
+       'link': '',
+       'notes': 'Sets the output level to use when there is no DMX signal',
+       'value': 0x8002},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': u'fade_time', 'type': 'uint8'}
+                        ]},
+       'get_sub_device_range': 0,
+       'name': u'DALI_FADE_TIME',
+       'set_request': {'items': [{'name': u'fade_time', 'type': 'uint8'}]},
+       'set_response': {'items': [{'name': u'fade_time', 'type': 'uint8'}]},
+       'set_sub_device_range': 0,
+       'link': '',
+       'notes': 'Sets the DALI fade time.',
+       'value': 0x8003},
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': u'interval', 'type': 'uint16',
