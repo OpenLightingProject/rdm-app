@@ -57,7 +57,8 @@ class MessageItem(db.Model):
   name = db.StringProperty(required=True)
   type = db.StringProperty(
       required=True,
-      choices=set(['bool', 'group', 'uint8', 'uint16', 'uint32', 'string']))
+      choices=set(['bool', 'group', 'uint8', 'uint16', 'uint32', 'int8',
+                   'int16', 'int32', 'string']))
   min_size = db.IntegerProperty()
   max_size = db.IntegerProperty()
   # called prefixes in the RDM standard, range between -24 and +24
