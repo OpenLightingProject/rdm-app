@@ -173,6 +173,18 @@ manufacturers = [
        'value': 0x808A},
     ]
   },
+  {'id': 0x7a70,
+   'name': 'Open Lighting',
+   'pids': [
+      {'name': 'SERIAL_NUMBER',
+       'set_request': {'items': [{'name': 'serial_number', 'type': 'uint32'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'Sets the serial number (UID) of the device.',
+       'value': 0x8000},
+    ],
+  },
   {'id': 21324,
    'name': 'Soundlight',
    'pids': [
