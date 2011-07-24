@@ -599,7 +599,7 @@ pids = [
   'get_sub_device_range': 2,
   'name': 'DMX_START_ADDRESS',
   'set_request': {'items': [{'name': 'dmx_address', 'type': 'uint16', 'range': [
-                    (1, 512), (65535, 65535)],
+                    (1, 512)],
                   }]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
