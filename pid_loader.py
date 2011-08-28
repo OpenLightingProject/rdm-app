@@ -241,8 +241,8 @@ class PrintHandler(webapp.RequestHandler):
 
 application = webapp.WSGIApplication(
   [
-    ('/add', LoadHandler),
-    ('/remove', ClearHandler),
+    ('/load_p', LoadHandler),
+    ('/clear_p', ClearHandler),
     ('/print', PrintHandler),
   ],
   debug=True)

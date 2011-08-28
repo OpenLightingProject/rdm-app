@@ -282,7 +282,7 @@ items = [
 (0x6547, u"euroGenie"),
 (0x656C, u"ELC lighting"),
 (0x6573, u"Environmental Lighting Solutions"),
-(0x6574, u"Electronic Theatre Controls, Inc."),
+(0x6574, u"Electronic Theatre Controls, Inc. (ETC)"),
 (0x6576, u"eventa Aktiengesellschaft"),
 (0x6673, u"Freescale Semiconductor U.K. Ltd."),
 (0x676C, u"GLP German Light Products GmbH"),
@@ -337,8 +337,8 @@ class ClearHandler(webapp.RequestHandler):
 
 application = webapp.WSGIApplication(
   [
-    ('/load', LoadHandler),
-    ('/clear', ClearHandler),
+    ('/load_m', LoadHandler),
+    ('/clear_m', ClearHandler),
   ],
   debug=True)
 
