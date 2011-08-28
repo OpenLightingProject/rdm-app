@@ -32,7 +32,7 @@ handlers:
 - url: /(download|pid|pid_search|manufacturers|update_time)
   script: main.py
 
-- url: /(load_p|clear_p|print)
+- url: /(load_p|clear_p)
   script: pid_loader.py
 
 - url: /(load_m|clear_m)

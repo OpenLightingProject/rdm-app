@@ -187,63 +187,10 @@ class ClearHandler(webapp.RequestHandler):
     self.response.out.write('ok')
 
 
-class PrintHandler(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
-  def WriteItem(self, item):
-    self.response.out.write('  Name: %s, type %s\n' % (item.name, item.type))
-
-  def WriteMessage(self, message):
-    self.response.out.write(' Repeated %s\n' % message.is_repeated)
-    if message.is_repeated and message.max_repeats is not None:
-      self.response.out.write(' Max Repeats %s\n' % message.max_repeats)
-
-    for item_key in message.items:
-      item = MessageItem.get_by_id(item_key.id())
-      logging.info(item)
-      self.WriteItem(item)
-
-  def WriteCommand(self, command):
-    if command is None:
-      self.response.out.write('not supported\n')
-      return
-
-    self.response.out.write('Sub device Range: %s\n' %
-        SUBDEVICE_RANGE_DICT.get(command.sub_device_range, ''))
-
-    self.response.out.write('Request\n')
-    self.WriteMessage(command.request)
-
-    self.response.out.write('Response\n')
-    self.WriteMessage(command.response)
-
-
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-
-    pids = Pid.all()
-
-    for pid in pids:
-      self.response.out.write('id: %hx\n' % pid.pid_id)
-      self.response.out.write('name: %s\n' % pid.name)
-      self.response.out.write('manufacturer: %s\n' % pid.manufacturer.name)
-
-      self.response.out.write('\nGET:\n')
-      self.response.out.write('----\n')
-      self.WriteCommand(pid.get_command)
-
-      self.response.out.write('\nSET:\n')
-      self.response.out.write('----\n')
-      self.WriteCommand(pid.set_command)
-
-
-
-
-
 application = webapp.WSGIApplication(
   [
     ('/load_p', LoadHandler),
     ('/clear_p', ClearHandler),
-    ('/print', PrintHandler),
   ],
   debug=True)
 
