@@ -122,6 +122,8 @@ class LoadHandler(webapp.RequestHandler):
     if pid.get('notes'):
       pid_data.notes = pid['notes']
 
+    logging.info(pid['name'])
+
     if pid.get('get_request'):
       get_request = self.AddMessage(pid['get_request'])
       get_response = self.AddMessage(pid['get_response'])
@@ -132,7 +134,6 @@ class LoadHandler(webapp.RequestHandler):
       command.put()
       pid_data.get_command = command
 
-    logging.info(pid['name'])
 
     if pid.get('set_request'):
       set_request = self.AddMessage(pid['set_request'])

@@ -32,11 +32,11 @@ handlers:
 - url: /(download|pid|pid_search|manufacturers|update_time)
   script: main.py
 
-- url: /(load_p|clear_p)
-  script: pid_loader.py
+#- url: /(load_p|clear_p)
+#  script: pid_loader.py
 
-- url: /(load_m|clear_m)
-  script: loader.py
+#- url: /(load_m|clear_m)
+#  script: loader.py
 
 builtins:
 - datastore_admin: on
