@@ -34,8 +34,8 @@ class InvalidDataException(Exception):
   """Raised when the input data is invalid."""
 
 
-class LoadHandler(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
+class PidLoader(webapp.RequestHandler):
+  """Load pids."""
 
   def AddItem(self, item):
     item_data = MessageItem(name = item['name'], type = item['type'])
@@ -148,17 +148,21 @@ class LoadHandler(webapp.RequestHandler):
     pid_data.put()
 
 
-
+class LoadHandler(PidLoader):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
     for pid in data.pids:
       self.AddPid(pid)
+    self.response.out.write('ok')
 
+
+class LoadManufacturerPidsHandler(PidLoader):
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
     for manufacturer in data.manufacturers:
       for pid in manufacturer['pids']:
         self.AddPid(pid, manufacturer['id'])
-
     self.response.out.write('ok')
 
 
@@ -191,6 +195,7 @@ class ClearHandler(webapp.RequestHandler):
 application = webapp.WSGIApplication(
   [
     ('/load_p', LoadHandler),
+    ('/load_mp', LoadManufacturerPidsHandler),
     ('/clear_p', ClearHandler),
   ],
   debug=True)
