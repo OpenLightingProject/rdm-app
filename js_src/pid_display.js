@@ -61,14 +61,14 @@ app.MessageField.prototype.createDom = function() {
 
     if (max != undefined && min != undefined) {
       if (max == min) {
-        field_name += ' (' + max + ' bytes)';
+        field_name += ' (' + max + ' bytes )';
       } else {
-        field_name += ' (>= ' + min + ', <= ' + max + ' bytes)';
+        field_name += ' ( ≥ ' + min + ', ≤ ' + max + ' bytes )';
       }
     } else if (max != undefined) {
-      field_name += ' (<=' + max + ' bytes)';
+      field_name += ' ( ≤ ' + max + ' bytes )';
     } else if (min != undefined) {
-      field_name += ' (>=' + min + ' bytes)';
+      field_name += ' ( ≥ ' + min + ' bytes )';
     }
   }
   var div = this.dom_.createDom(
