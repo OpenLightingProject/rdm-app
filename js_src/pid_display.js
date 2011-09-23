@@ -307,8 +307,17 @@ app.PidDisplayFrame.prototype.displayPid = function(pid_info) {
   goog.dom.$('pid_manufacturer').innerHTML = pid_info['manufacturer'];
   goog.dom.$('pid_name').innerHTML = pid_info['name'];
   goog.dom.$('pid_value').innerHTML = '0x' + app.toHex(pid_info['value'], 4);
-  goog.dom.$('pid_link').innerHTML = pid_info['link'];
-  goog.dom.$('pid_link').href = pid_info['link'];
+
+  var link = pid_info['link'];
+  var link_row = goog.dom.$('pid_link_row');
+  if (!link || link.size == 0) {
+    link_row.style.display = 'none';
+  } else {
+    var href_element = goog.dom.$('pid_link');
+    href_element.innerHTML = link;
+    href_element.href = link;
+    link_row.style.display = 'table-row';
+  }
   goog.dom.$('pid_notes').innerHTML = pid_info['notes'];
 
   this._updateCommand(pid_info, 'get');
