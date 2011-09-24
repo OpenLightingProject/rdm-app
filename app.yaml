@@ -29,14 +29,17 @@ handlers:
 - url: /images
   static_dir: images
 
-- url: /(download|pid|pid_search|manufacturers|update_time)
+- url: /(count|download|pid|pid_search|model_search|manufacturers|update_time)
   script: main.py
 
-#- url: /(load_p|clear_p)
-#  script: pid_loader.py
+- url: /(load_p|clear_p|load_mp)
+  script: pid_loader.py
 
-#- url: /(load_m|clear_m)
-#  script: loader.py
+- url: /(load_m|clear_m)
+  script: loader.py
+
+- url: /(load_pro|clear_pro)
+  script: product_loader.py
 
 builtins:
 - datastore_admin: on

@@ -65,6 +65,9 @@ app.PidTable = function(element, state_manager) {
   table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
   table.setSortFunction(1, app.hexSort);
   table.setSortFunction(2, app.hexSort);
+  table.setSortFunction(3, goog.ui.TableSorter.alphaSort);
+  table.setSortFunction(4, goog.ui.TableSorter.alphaSort);
+  table.setSortFunction(5, goog.ui.TableSorter.alphaSort);
 
   this.result_rows = new app.ResultsRows(state_manager);
 
@@ -117,8 +120,21 @@ app.PidRow.prototype.createDom = function() {
                          {},
                          '0x' + app.toHex(this._pid['manufacturer_id'], 4)),
       goog.dom.createDom('td', {}, '0x' + app.toHex(this._pid['pid'], 4)),
+      goog.dom.createDom('td',
+                         {},
+                         this._pid['get_valid'] ? this.tickNode() : ''),
+      goog.dom.createDom('td',
+                         {},
+                         this._pid['set_valid'] ? this.tickNode() : ''),
       goog.dom.createDom('td', {}, this._pid['name']));
   this.setElementInternal(tr);
+};
+
+
+app.PidRow.prototype.tickNode = function() {
+  return goog.dom.createDom(
+      'img',
+      {'src': '/images/tick.png'});
 };
 
 

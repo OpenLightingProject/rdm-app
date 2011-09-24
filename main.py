@@ -110,11 +110,19 @@ class SearchHandler(webapp.RequestHandler):
 
     pids = []
     for pid in results:
+      get_valid = False
+      set_valid = False
+      if pid.get_command:
+        get_valid = True
+      if pid.set_command:
+        set_valid = True
       pids.append({
+        'get_valid': get_valid,
         'manufacturer': pid.manufacturer.name,
         'manufacturer_id': pid.manufacturer.esta_id,
-        'pid': pid.pid_id,
         'name': pid.name,
+        'pid': pid.pid_id,
+        'set_valid': set_valid,
       })
     self.response.out.write(simplejson.dumps({'pids': pids}))
 
@@ -363,12 +371,64 @@ class DownloadHandler(webapp.RequestHandler):
     self.Write('version: %d' % timestamp)
 
 
+class ModelSearchHandler(webapp.RequestHandler):
+  """Return all device models for a manufacturer."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+
+    results = []
+    if self.request.get('manufacturer'):
+      match = re.search('\[([\da-f]{4})\]', self.request.get('manufacturer'))
+
+      if match is not None:
+        query = Manufacturer.all()
+        query.filter('esta_id = ', int(match.groups()[0], 16))
+
+        for manufacturer in query.fetch(1):
+          results = manufacturer.product_set
+
+    else:
+      results = Product.all()
+
+    models = []
+    for model in results:
+      models.append({
+        'manufacturer_name': model.manufacturer.name,
+        'device_model_id': model.device_model_id,
+        'model_description': model.model_description,
+      })
+    self.response.out.write(simplejson.dumps({'models': models}))
+
+
+class CountHandler(webapp.RequestHandler):
+  """Count the pids."""
+  ESTA_ID = 0
+
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    esta_pids = 0
+    manufacturer_pids = 0
+
+    for pid in Pid.all():
+      if pid.manufacturer.esta_id == self.ESTA_ID:
+        esta_pids += 1
+      else:
+        manufacturer_pids += 1
+
+    self.response.out.write(simplejson.dumps(
+      {'ESTA PIDs': esta_pids,
+       'Manufacturer PIDs': manufacturer_pids
+      }))
+
+
 application = webapp.WSGIApplication(
   [
+    ('/count', CountHandler),
     ('/download', DownloadHandler),
     ('/manufacturers', ManufacturersHandler),
-    ('/pid_search', SearchHandler),
     ('/pid', PidHandler),
+    ('/pid_search', SearchHandler),
+    ('/model_search', ModelSearchHandler),
     ('/update_time', LastUpdateHandler),
   ],
   debug=True)

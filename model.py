@@ -32,6 +32,15 @@ class Manufacturer(db.Model):
   name = db.StringProperty(required=True)
 
 
+class Product(db.Model):
+  """Represents a particular product."""
+  manufacturer = db.ReferenceProperty(Manufacturer, required=True)
+  # The Device Model ID field from DEVICE_INFO
+  device_model_id = db.IntegerProperty()
+  # The DEVICE_MODEL_DESCRIPTION
+  model_description = db.StringProperty(required=True)
+
+
 # About Enums & Ranges:
 # If neither enums nor ranges are specified, the valid values is the range of
 #   the data type.

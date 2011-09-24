@@ -21,13 +21,13 @@ goog.require('goog.History');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
+goog.require('goog.ui.TabPane');
 goog.require('goog.ui.Tooltip');
 
 goog.require('app.Server');
-goog.require('app.BaseFrame');
-goog.require('app.PidTable');
 goog.require('app.PidSearchFrame');
 goog.require('app.PidDisplayFrame');
+goog.require('app.ModelSearchFrame');
 
 goog.provide('app.setup');
 
@@ -35,12 +35,95 @@ var app = app || {}
 
 
 /**
+ * Top level class to manage PID searching.
+ * @constructor
+ */
+app.PidSearcher = function(state_manager) {
+  this.pid_search_frame = new app.PidSearchFrame('pid_search',
+                                                 state_manager);
+  this.pid_display_frame = new app.PidDisplayFrame('pid_display',
+                                                   state_manager);
+  this.pid_search_frame.show();
+  this.pid_display_frame.hide();
+};
+
+
+/**
+ * Show the PID Search Frame.
+ */
+app.PidSearcher.prototype.showSearchFrame = function() {
+  this.pid_search_frame.show();
+  this.pid_display_frame.hide();
+};
+
+
+/**
+ * Display PID search results.
+ */
+app.PidSearcher.prototype.displaySearchResults = function(search_results) {
+  if (search_results == undefined) {
+    return;
+  }
+  this.pid_search_frame.show();
+  this.pid_display_frame.hide();
+  this.pid_search_frame.newPids(search_results['pids']);
+};
+
+
+/**
+ * Show the details for a particular PID.
+ */
+app.PidSearcher.prototype.displayPid = function(pid_data) {
+  if (pid_data == undefined) {
+    return;
+  }
+  this.pid_search_frame.hide();
+  this.pid_display_frame.show();
+  this.pid_display_frame.displayPid(response);
+};
+
+
+
+
+/**
+ * The top level class for handling device model searches.
+ * @constructor
+ */
+app.ModelSearcher = function(state_manager) {
+  this.model_search_frame = new app.ModelSearchFrame(state_manager);
+};
+
+
+/**
+ * Display device model search results.
+ */
+app.ModelSearcher.prototype.displaySearchResults = function(search_results) {
+  if (search_results == undefined) {
+    return;
+  }
+  this.model_search_frame.newModels(search_results['models']);
+};
+
+
+
+
+/**
  * This manages all the state transitions.
  * @constructor
  */
 app.StateManager = function() {
-  this.pid_display_frame = undefined;
-  this.pid_search_frame = undefined;
+  this.pid_searcher = undefined;
+  this.model_searcher = undefined;
+
+  // setup the tab pane
+  this.tab_pane = new goog.ui.TabPane(goog.dom.$('tab_pane'));
+  this.pid_search_page = new goog.ui.TabPane.TabPage(
+    goog.dom.$('tab_page_1'), "Parameter IDs");
+  this.model_search_page = new goog.ui.TabPane.TabPage(
+    goog.dom.$('tab_page_2'), 'Device Models');
+  this.tab_pane.addPage(this.pid_search_page);
+  this.tab_pane.addPage(this.model_search_page);
+
   goog.events.listen(app.history,
                      goog.History.EventType.NAVIGATE,
                      this.navChanged,
@@ -52,14 +135,14 @@ app.StateManager.prototype.enable = function() {
   app.history.setEnabled(true);
 };
 
-app.StateManager.prototype.setSearchFrame = function(pid_search_frame) {
-  this.pid_search_frame = pid_search_frame;
+app.StateManager.prototype.setPidSearcher = function(pid_searcher) {
+  this.pid_searcher = pid_searcher;
 };
 
-
-app.StateManager.prototype.setDisplayFrame = function(pid_display_frame) {
-  this.pid_display_frame = pid_display_frame;
+app.StateManager.prototype.setModelSearcher = function(model_searcher) {
+  this.model_searcher = model_searcher;
 };
+
 
 app.StateManager.prototype.displayPid = function(manufacturer_id, pid) {
   this.pid_search_frame.show();
@@ -79,51 +162,34 @@ app.StateManager.prototype.navChanged = function(e) {
     case 'm':
       app.Server.getInstance().manufacturerSearch(
         params[1],
-        function(response) { t.newPids(response); });
+        function(response) { t.pid_searcher.displaySearchResults(response); });
       break;
     case 'p':
       app.Server.getInstance().pidSearch(
         params[1],
-        function(response) { t.newPids(response); });
+        function(response) { t.pid_searcher.displaySearchResults(response); });
+      break;
       break;
     case 'pn':
       app.Server.getInstance().pidNameSearch(
         params[1],
-        function(response) { t.newPids(response); });
+        function(response) { t.pid_searcher.displaySearchResults(response); });
       break;
     case 'pid':
       app.Server.getInstance().getPid(
         params[1],
         params[2],
-        function(response) { t.renderPid(response); });
+        function(response) { t.pid_searcher.displayPid(response); });
+      break;
+    case 'ps':
+      this.tab_pane.setSelectedPage(this.model_search_page);
+      app.Server.getInstance().modelSearch(
+        params[1],
+        function(response) { t.model_searcher.displaySearchResults(response); });
       break;
     default:
-      this.pid_search_frame.show();
-      this.pid_display_frame.hide();
+      this.pid_searcher.showSearchFrame();
   }
-};
-
-
-/**
- * Called when we receive a new list of pids from a search
- */
-app.StateManager.prototype.newPids = function(response) {
-  if (response == undefined) {
-    return;
-  }
-  this.pid_search_frame.show();
-  this.pid_display_frame.hide();
-  this.pid_search_frame.newPids(response['pids']);
-};
-
-
-app.StateManager.prototype.renderPid = function(response) {
-  if (response == undefined) {
-    return;
-  }
-  this.pid_search_frame.hide();
-  this.pid_display_frame.show();
-  this.pid_display_frame.displayPid(response);
 };
 
 
@@ -167,14 +233,11 @@ app.updateTimestamp = function(response) {
  */
 app.setup = function() {
   var state_manager = new app.StateManager();
-  var pid_search_frame = new app.PidSearchFrame('pid_search',
-                                                state_manager);
-  var pid_display_frame = new app.PidDisplayFrame('pid_display',
-                                                  state_manager);
-  pid_display_frame.hide();
+  var pid_searcher = new app.PidSearcher(state_manager);
+  var model_searcher = new app.ModelSearcher(state_manager);
 
-  state_manager.setSearchFrame(pid_search_frame);
-  state_manager.setDisplayFrame(pid_display_frame);
+  state_manager.setPidSearcher(pid_searcher);
+  state_manager.setModelSearcher(model_searcher);
   state_manager.enable();
 
   // get the last updated time

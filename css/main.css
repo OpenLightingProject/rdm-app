@@ -29,10 +29,6 @@ fieldset {
 
 h3 { margin: 5px; }
 
-#container {
-  border: 1px solid #76a7e0;
-}
-
 #pid_search {
   display: none;
 }
@@ -131,11 +127,23 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   width: 20%;
 }
 
+.int8_field {
+  width: 20%;
+}
+
 .uint16_field {
   width: 40%;
 }
 
+.int16_field {
+  width: 40%;
+}
+
 .uint32_field {
+  width: 80%;
+}
+
+.int32_field {
   width: 80%;
 }
 
@@ -200,4 +208,37 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
 
 .ac-active {
   background: #e4e9fe;
+}
+
+
+/* CSS for the tabs */
+.goog-tabpane {
+  position: relative;
+  margin-left: 2px;
+}
+
+.goog-tabpane-tabs {
+  outline: none;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+
+.goog-tabpane-tab, .goog-tabpane-tab-selected {
+  display: block;
+  background: #e3e9ff;
+  border-right: 1px solid #67a7e3;
+  margin: 0px;
+  padding: 5px 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.goog-tabpane-tab-selected {
+  background: #bbccff;
+}
+
+.goog-tabpane-cont {
+  border: #67a7e3 1px solid;
 }
