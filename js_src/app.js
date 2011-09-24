@@ -58,6 +58,15 @@ app.PidSearcher.prototype.showSearchFrame = function() {
 
 
 /**
+ * Show the PID display frame.
+ */
+app.PidSearcher.prototype.showDisplayFrame = function() {
+  this.pid_search_frame.hide();
+  this.pid_display_frame.show();
+};
+
+
+/**
  * Display PID search results.
  */
 app.PidSearcher.prototype.displaySearchResults = function(search_results) {
@@ -145,8 +154,7 @@ app.StateManager.prototype.setModelSearcher = function(model_searcher) {
 
 
 app.StateManager.prototype.displayPid = function(manufacturer_id, pid) {
-  this.pid_search_frame.show();
-  this.pid_display_frame.hide();
+  this.pid_searcher.showDisplayFrame();
   app.history.setToken('pid,' + manufacturer_id + ',' + pid);
 };
 
