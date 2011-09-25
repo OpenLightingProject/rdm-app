@@ -86,13 +86,13 @@ class AdminPageHandler(webapp.RequestHandler):
         manufacturers[manufacturer_id] = manufacturer_q.fetch(1)[0]
       return manufacturers[manufacturer_id]
 
-    for params in model_data.DEVICE_MODEL_DATA:
-      manufacturer_id = params['manufacturer']
-      device = Product(manufacturer = getManufacturer(manufacturer_id),
-                       device_model_id = params['model_id'],
-                       model_description = params['model_description'])
-      device.put()
-    memcache.delete('products')
+    for manufacturer_id, models in model_data.DEVICE_MODEL_DATA.iteritems():
+      manufacturer = getManufacturer(manufacturer_id)
+      for model_info in models:
+        device = Product(manufacturer = manufacturer,
+                         device_model_id = model_info['model_id'],
+                         model_description = model_info['model_description'])
+        device.put()
 
   def get(self):
     ACTIONS = {

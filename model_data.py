@@ -17,13 +17,13 @@
 # Copyright (C) 2011 Simon Newton
 # Data for the device models.
 
-DEVICE_MODEL_DATA = [
-    {'manufacturer': 0x7a70,
-     'model_id': 1,
+DEVICE_MODEL_DATA = {
+  0x7a70: [
+    {'model_id': 1,
      'model_description': 'Dummy Model',
     },
-    {'manufacturer': 0x7a70,
-     'model_id': 2,
+    {'model_id': 2,
      'model_description': 'Arduino RGB Mixer',
     },
-]
+  ],
+}
