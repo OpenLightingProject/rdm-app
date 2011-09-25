@@ -13,15 +13,12 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# loader.py
+# pid_loader.py
 # Copyright (C) 2011 Simon Newton
-# The handlers for /pid /pid_search and /manufacturers
+# Load PID data.
 
 import logging
 from model import *
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
-import data
 
 
 class OutOfRangeException(Exception):
@@ -34,7 +31,7 @@ class InvalidDataException(Exception):
   """Raised when the input data is invalid."""
 
 
-class PidLoader(webapp.RequestHandler):
+class PidLoader():
   """Load pids."""
 
   def AddItem(self, item):
@@ -146,63 +143,3 @@ class PidLoader(webapp.RequestHandler):
       pid_data.set_command = command
 
     pid_data.put()
-
-
-class LoadHandler(PidLoader):
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-
-    for pid in data.pids:
-      self.AddPid(pid)
-    self.response.out.write('ok')
-
-
-class LoadManufacturerPidsHandler(PidLoader):
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    for manufacturer in data.manufacturers:
-      for pid in manufacturer['pids']:
-        self.AddPid(pid, manufacturer['id'])
-    self.response.out.write('ok')
-
-
-class ClearHandler(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-
-    for item in MessageItem.all():
-      item.delete()
-
-    for item in Message.all():
-      item.delete()
-
-    for item in Command.all():
-      item.delete()
-
-    for item in Pid.all():
-      item.delete()
-
-    for item in EnumValue.all():
-      item.delete()
-
-    for item in AllowedRange.all():
-      item.delete()
-
-    self.response.out.write('ok')
-
-
-application = webapp.WSGIApplication(
-  [
-    ('/load_p', LoadHandler),
-    ('/load_mp', LoadManufacturerPidsHandler),
-    ('/clear_p', ClearHandler),
-  ],
-  debug=True)
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()

@@ -1,6 +1,6 @@
 
 
-manufacturers = [
+MANUFACTURER_PIDS = [
   {'id': 0x00a1,
    'name': 'Creative Lighting',
    'pids': [
@@ -1946,7 +1946,7 @@ manufacturers = [
 ]
 
 
-pids = [
+ESTA_PIDS = [
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'description',
                               'max_size': 32,

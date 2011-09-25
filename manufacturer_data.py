@@ -13,17 +13,11 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# loader.py
+# manufacturer_data.py
 # Copyright (C) 2011 Simon Newton
-# The handlers for /pid /pid_search and /manufacturers
+# The data for Manufacturers
 
-import logging
-from model import Manufacturer
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
-from google.appengine.api import memcache
-
-items = [
+MANUFACTURER_DATA = [
 (0x0000, "ESTA"),
 (0x0001, u"GEE"),
 (0x00A1, u"Creative Lighting And Sound Systems Pty Ltd."),
@@ -307,44 +301,3 @@ items = [
 (0x7A70, u"Open Lighting"),
 (0xFFFF, u"ESTA"),
 ]
-
-
-class LoadHandler(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-
-    for id, name in items:
-      logging.info('%d, %s' % (id, name))
-      manufacturer = Manufacturer(esta_id = id, name = name)
-      manufacturer.put()
-
-    memcache.delete('manufacturers')
-
-    self.response.out.write('ok')
-
-
-class ClearHandler(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-
-    for item in Manufacturer.all():
-      item.delete()
-
-    self.response.out.write('ok')
-
-
-application = webapp.WSGIApplication(
-  [
-    ('/load_m', LoadHandler),
-    ('/clear_m', ClearHandler),
-  ],
-  debug=True)
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()
