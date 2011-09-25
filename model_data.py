@@ -19,10 +19,10 @@
 
 DEVICE_MODEL_DATA = {
   0x7a70: [
-    {'model_id': 1,
+    {'device_model': 1,
      'model_description': 'Dummy Model',
     },
-    {'model_id': 2,
+    {'device_model': 2,
      'model_description': 'Arduino RGB Mixer',
     },
   ],

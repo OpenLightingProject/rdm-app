@@ -90,7 +90,7 @@ class AdminPageHandler(webapp.RequestHandler):
       manufacturer = getManufacturer(manufacturer_id)
       for model_info in models:
         device = Product(manufacturer = manufacturer,
-                         device_model_id = model_info['model_id'],
+                         device_model_id = model_info['device_model'],
                          model_description = model_info['model_description'])
         device.put()
 
