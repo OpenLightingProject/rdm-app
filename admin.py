@@ -107,6 +107,7 @@ class AdminPageHandler(webapp.RequestHandler):
 
     ALLOWED_USERS = [
         'nomis52@gmail.com',
+        'simon@nomis52.net',
     ]
 
     user = users.get_current_user()

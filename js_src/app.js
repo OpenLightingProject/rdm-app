@@ -21,6 +21,7 @@ goog.require('goog.History');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
+goog.require('goog.ui.RoundedPanel');
 goog.require('goog.ui.TabPane');
 goog.require('goog.ui.Tooltip');
 
@@ -33,14 +34,12 @@ goog.provide('app.setup');
 
 var app = app || {}
 
-
 /**
  * Top level class to manage PID searching.
  * @constructor
  */
 app.PidSearcher = function(state_manager) {
-  this.pid_search_frame = new app.PidSearchFrame('pid_search',
-                                                 state_manager);
+  this.pid_search_frame = new app.PidSearchFrame('pid_search', state_manager);
   this.pid_display_frame = new app.PidDisplayFrame('pid_display',
                                                    state_manager);
   this.pid_search_frame.show();
@@ -114,6 +113,39 @@ app.ModelSearcher.prototype.displaySearchResults = function(search_results) {
 };
 
 
+/**
+ * The small status bar the appears at the top of the screen to provide
+ * feedback to users.
+ * @constructor
+ */
+app.StatusBar = function(element_id) {
+  var element = goog.dom.$(element_id)
+  this.panel = goog.ui.RoundedPanel.create(3,
+                                           3,
+                                           '#bbccff',
+                                           '#bbccff',
+                                           goog.ui.RoundedPanel.Corner.ALL);
+  this.panel.decorate(element);
+};
+
+
+app.StatusBar.prototype.setText = function(text) {
+  this.panel.getContentElement().innerHTML = text;
+  this.panel.getElement().style.display = 'block';
+};
+
+
+app.StatusBar.prototype.setSearching = function() {
+  this.setText('Searching ...');
+}
+
+app.StatusBar.prototype.setLoading = function() {
+  this.setText('Loading ...');
+}
+
+app.StatusBar.prototype.hide = function() {
+  this.panel.getElement().style.display = 'none';
+}
 
 
 /**
@@ -138,23 +170,22 @@ app.StateManager = function() {
                      this.navChanged,
                      false,
                      this);
+
+  this.status_bar = new app.StatusBar('status_bar');
 };
 
-app.StateManager.prototype.enable = function() {
+
+/**
+ * Init the state manager.
+ */
+app.StateManager.prototype.init = function() {
+  this.pid_searcher = new app.PidSearcher(this);
+  this.model_searcher = new app.ModelSearcher(this);
   app.history.setEnabled(true);
-};
-
-app.StateManager.prototype.setPidSearcher = function(pid_searcher) {
-  this.pid_searcher = pid_searcher;
-};
-
-app.StateManager.prototype.setModelSearcher = function(model_searcher) {
-  this.model_searcher = model_searcher;
 };
 
 
 app.StateManager.prototype.displayPid = function(manufacturer_id, pid) {
-  this.pid_searcher.showDisplayFrame();
   app.history.setToken('pid,' + manufacturer_id + ',' + pid);
 };
 
@@ -168,36 +199,68 @@ app.StateManager.prototype.navChanged = function(e) {
 
   switch (params[0]) {
     case 'm':
+      this.status_bar.setSearching();
       app.Server.getInstance().manufacturerSearch(
         params[1],
-        function(response) { t.pid_searcher.displaySearchResults(response); });
+        function(response) { t.newPidResults(response); });
       break;
     case 'p':
+      this.status_bar.setSearching();
       app.Server.getInstance().pidSearch(
         params[1],
-        function(response) { t.pid_searcher.displaySearchResults(response); });
+        function(response) { t.newPidResults(response); });
       break;
       break;
     case 'pn':
+      this.status_bar.setSearching();
       app.Server.getInstance().pidNameSearch(
         params[1],
-        function(response) { t.pid_searcher.displaySearchResults(response); });
+        function(response) { t.newPidResults(response); });
       break;
     case 'pid':
+      this.status_bar.setLoading();
       app.Server.getInstance().getPid(
         params[1],
         params[2],
-        function(response) { t.pid_searcher.displayPid(response); });
+        function(response) { t.newPidInfo(response); });
       break;
     case 'ps':
+      this.status_bar.setSearching();
       this.tab_pane.setSelectedPage(this.model_search_page);
       app.Server.getInstance().modelSearch(
         params[1],
-        function(response) { t.model_searcher.displaySearchResults(response); });
+        function(response) { t.newDeviceModelResults(response); });
       break;
     default:
       this.pid_searcher.showSearchFrame();
   }
+};
+
+
+/**
+ * Called when new pid results arrive
+ */
+app.StateManager.prototype.newPidResults = function(response) {
+  this.status_bar.hide();
+  this.pid_searcher.displaySearchResults(response);
+};
+
+
+/**
+ * Called when new pid info is available.
+ */
+app.StateManager.prototype.newPidInfo = function(response) {
+  this.status_bar.hide();
+  this.pid_searcher.displayPid(response);
+  this.pid_searcher.showDisplayFrame();
+};
+
+/**
+ * Called when new device model results arrive
+ */
+app.StateManager.prototype.newDeviceModelResults = function(response) {
+  this.status_bar.hide();
+  this.model_searcher.displaySearchResults(response);
 };
 
 
@@ -241,12 +304,7 @@ app.updateTimestamp = function(response) {
  */
 app.setup = function() {
   var state_manager = new app.StateManager();
-  var pid_searcher = new app.PidSearcher(state_manager);
-  var model_searcher = new app.ModelSearcher(state_manager);
-
-  state_manager.setPidSearcher(pid_searcher);
-  state_manager.setModelSearcher(model_searcher);
-  state_manager.enable();
+  state_manager.init();
 
   // get the last updated time
   var server = app.Server.getInstance();
