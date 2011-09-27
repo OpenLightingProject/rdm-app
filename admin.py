@@ -18,6 +18,7 @@
 
 import logging
 import manufacturer_data
+import memcache_keys
 import model_data
 import os
 import pid_data
@@ -41,9 +42,10 @@ class AdminPageHandler(webapp.RequestHandler):
       logging.info('%d, %s' % (id, name))
       manufacturer = Manufacturer(esta_id = id, name = name)
       manufacturer.put()
-    memcache.delete('manufacturers')
+    memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
 
   def ClearPids(self):
+    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
     for item in MessageItem.all():
       item.delete()
 
@@ -69,15 +71,18 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def LoadManufacturerPids(self):
     loader = PidLoader()
+    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
     for manufacturer in pid_data.MANUFACTURER_PIDS:
       for pid in manufacturer['pids']:
         loader.AddPid(pid, manufacturer['id'])
 
   def ClearModels(self):
+    memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
     for item in Product.all():
       item.delete()
 
   def LoadModels(self):
+    memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
     manufacturers = {}
     def getManufacturer(manufacturer_id):
       if manufacturer_id not in manufacturers:

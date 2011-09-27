@@ -289,12 +289,15 @@ goog.exportSymbol('app.initHistory', app.initHistory);
 
 
 /**
- * Update the last updated time.
+ * Update the last updated time, and the pid / model counts.
  */
-app.updateTimestamp = function(response) {
+app.updateIndexInfo = function(response) {
   var update_time = new Date(response['timestamp'] * 1000);
   var div = goog.dom.$('update_time');
-  div.innerHTML = 'Last Updated: ' + update_time;
+  div.innerHTML = (
+      'Last Updated: ' + update_time + '<br>' +
+      response['manufacturer_pid_count'] +  ' Manufacturer PIDs, ' +
+      response['device_model_count'] + ' Device Models.');
   div.style.display = 'block';
 };
 
@@ -308,6 +311,6 @@ app.setup = function() {
 
   // get the last updated time
   var server = app.Server.getInstance();
-  server.getUpdateTime(app.updateTimestamp);
+  server.getIndexInfo(app.updateIndexInfo);
 };
 goog.exportSymbol('app.setup', app.setup);

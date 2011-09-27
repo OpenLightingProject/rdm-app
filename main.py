@@ -16,18 +16,54 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for /pid /pid_search and /manufacturers
 
+from model import *
 import logging
+import memcache_keys
 import re
 import time
-from model import *
 from django.utils import simplejson
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 
-class LastUpdateHandler(webapp.RequestHandler):
-  """Return the last time the pids were updated."""
+class InfoHandler(webapp.RequestHandler):
+  """Return the information about the index.
+
+  This returns:
+   - the last uptime time
+   - the number of manufacturer pids
+   - the number of device models
+  """
+  ESTA_ID = 0
+
+  def ManufacturerPidCount(self):
+    """Return the number of manufacturer PIDs."""
+    manufacturer_pids = memcache.get(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+    if manufacturer_pids is None:
+      manufacturer_pids = 0
+
+      for pid in Pid.all():
+        if pid.manufacturer.esta_id != self.ESTA_ID:
+          manufacturer_pids += 1
+      if not memcache.add(memcache_keys.MANUFACTURER_PID_COUNT_KEY,
+                          manufacturer_pids):
+        logging.error("Memcache set failed.")
+    return manufacturer_pids
+
+  def DeviceModelCount(self):
+    """Return the number of device models."""
+    model_count = memcache.get(memcache_keys.DEVICE_MODEL_COUNT_KEY)
+    if model_count is None:
+      model_count = 0
+
+      for pid in Product.all():
+        model_count += 1
+      if not memcache.add(memcache_keys.DEVICE_MODEL_COUNT_KEY,
+                          model_count):
+        logging.error("Memcache set failed.")
+    return model_count
+
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
@@ -39,6 +75,8 @@ class LastUpdateHandler(webapp.RequestHandler):
     if pids:
       timestamp = int(time.mktime(pids[0].update_time.timetuple()))
       output['timestamp'] = timestamp
+    output['manufacturer_pid_count'] = self.ManufacturerPidCount()
+    output['device_model_count'] = self.DeviceModelCount()
     self.response.out.write(simplejson.dumps(output))
 
 
@@ -54,7 +92,7 @@ class ManufacturersHandler(webapp.RequestHandler):
         'id': manufacturer.esta_id
       })
     response = simplejson.dumps({'manufacturers': manufacturers})
-    if not memcache.add(self.CACHE_KEY, response):
+    if not memcache.add(memcache_keys.MANUFACTURER_CACHE_KEY, response):
       logging.error("Memcache set failed.")
     return response
 
@@ -62,7 +100,7 @@ class ManufacturersHandler(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
-    response = memcache.get(self.CACHE_KEY)
+    response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
     if response is None:
       response = self.BuildResponse()
     self.response.out.write(response)
@@ -400,36 +438,14 @@ class ModelSearchHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
-class CountHandler(webapp.RequestHandler):
-  """Count the pids."""
-  ESTA_ID = 0
-
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    esta_pids = 0
-    manufacturer_pids = 0
-
-    for pid in Pid.all():
-      if pid.manufacturer.esta_id == self.ESTA_ID:
-        esta_pids += 1
-      else:
-        manufacturer_pids += 1
-
-    self.response.out.write(simplejson.dumps(
-      {'ESTA PIDs': esta_pids,
-       'Manufacturer PIDs': manufacturer_pids
-      }))
-
-
 application = webapp.WSGIApplication(
   [
-    ('/count', CountHandler),
     ('/download', DownloadHandler),
     ('/manufacturers', ManufacturersHandler),
     ('/pid', PidHandler),
     ('/pid_search', SearchHandler),
     ('/model_search', ModelSearchHandler),
-    ('/update_time', LastUpdateHandler),
+    ('/index_info', InfoHandler),
   ],
   debug=True)
 

@@ -56,7 +56,7 @@ app.Server.MANUFACTURERS_URL = 'manufacturers';
 app.Server.SEARCH_URL = 'pid_search';
 app.Server.PID_URL = 'pid';
 app.Server.MODEL_SEARCH_URL = 'model_search';
-app.Server.UPDATE_URL = 'update_time';
+app.Server.INFO_URL = 'index_info';
 
 
 /**
@@ -238,12 +238,12 @@ app.Server.prototype.modelSearch = function(manufacturer_id, callback) {
 
 
 /**
- * Get the time the data store was last updated
+ * Get the stats for the data store.
  */
-app.Server.prototype.getUpdateTime = function(callback) {
+app.Server.prototype.getIndexInfo = function(callback) {
   var s = this;
   this._initiateRequest(
-    app.Server.UPDATE_URL,
+    app.Server.INFO_URL,
     function(e) {
       response = s.checkForErrorDialog(e);
       if (response != undefined) {

@@ -29,7 +29,7 @@ handlers:
 - url: /images
   static_dir: images
 
-- url: /(count|download|pid|pid_search|model_search|manufacturers|update_time)
+- url: /(download|pid|pid_search|model_search|manufacturers|index_info)
   script: main.py
 
 - url: /admin
