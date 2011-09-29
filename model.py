@@ -41,6 +41,20 @@ class Responder(db.Model):
   model_description = db.StringProperty(required=True)
   # The product category
   product_category = db.IntegerProperty()
+  # this holds a list of Software Version keys
+  software_versions = db.ListProperty(db.Key, required=True)
+
+
+class SoftwareVersion(db.Model):
+  """Represents a particular software version on a responder."""
+  # Version id
+  version_id = db.IntegerProperty(required=True)
+  # Version label
+  label = db.StringProperty(required=True)
+  # Still to include:
+  #  - supported params
+  #  - sensor names
+  #  - personalities
 
 
 # About Enums & Ranges:

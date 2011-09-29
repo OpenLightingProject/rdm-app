@@ -423,7 +423,7 @@ class ModelSearchHandler(webapp.RequestHandler):
         query.filter('esta_id = ', int(match.groups()[0], 16))
 
         for manufacturer in query.fetch(1):
-          results = manufacturer.product_set
+          results = manufacturer.responder_set
 
     else:
       results = Responder.all()
