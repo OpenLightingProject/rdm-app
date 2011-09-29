@@ -32,13 +32,15 @@ class Manufacturer(db.Model):
   name = db.StringProperty(required=True)
 
 
-class Product(db.Model):
+class Responder(db.Model):
   """Represents a particular product."""
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   # The Device Model ID field from DEVICE_INFO
   device_model_id = db.IntegerProperty()
   # The DEVICE_MODEL_DESCRIPTION
   model_description = db.StringProperty(required=True)
+  # The product category
+  product_category = db.IntegerProperty()
 
 
 # About Enums & Ranges:

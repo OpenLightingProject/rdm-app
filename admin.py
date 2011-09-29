@@ -78,7 +78,7 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def ClearModels(self):
     memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
-    for item in Product.all():
+    for item in Responder.all():
       item.delete()
 
   def LoadModels(self):
@@ -93,10 +93,11 @@ class AdminPageHandler(webapp.RequestHandler):
 
     for manufacturer_id, models in model_data.DEVICE_MODEL_DATA.iteritems():
       manufacturer = getManufacturer(manufacturer_id)
-      for model_info in models:
-        device = Product(manufacturer = manufacturer,
-                         device_model_id = model_info['device_model'],
-                         model_description = model_info['model_description'])
+      for info in models:
+        device = Responder(manufacturer = manufacturer,
+                           device_model_id = info['device_model'],
+                           model_description = info['model_description'],
+                           product_category = info['product_category'])
         device.put()
 
   def get(self):

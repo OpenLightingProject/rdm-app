@@ -57,7 +57,7 @@ class InfoHandler(webapp.RequestHandler):
     if model_count is None:
       model_count = 0
 
-      for pid in Product.all():
+      for pid in Responder.all():
         model_count += 1
       if not memcache.add(memcache_keys.DEVICE_MODEL_COUNT_KEY,
                           model_count):
@@ -426,7 +426,7 @@ class ModelSearchHandler(webapp.RequestHandler):
           results = manufacturer.product_set
 
     else:
-      results = Product.all()
+      results = Responder.all()
 
     models = []
     for model in results:
