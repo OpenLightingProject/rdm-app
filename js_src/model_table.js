@@ -34,7 +34,7 @@ app.ModelTable = function(element, state_manager) {
   var table = new goog.ui.TableSorter();
   table.decorate(goog.dom.$(element));
   table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
-  table.setSortFunction(1, goog.ui.TableSorter.numericSort);
+  table.setSortFunction(1, app.hexSort);
   table.setSortFunction(2, goog.ui.TableSorter.alphaSort);
 
   this.result_rows = new app.ResultsRows(state_manager);

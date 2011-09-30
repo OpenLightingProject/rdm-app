@@ -427,6 +427,7 @@ class ModelSearchHandler(webapp.RequestHandler):
 
     else:
       results = Responder.all()
+      results.order('device_model_id')
 
     models = []
     for model in results:
