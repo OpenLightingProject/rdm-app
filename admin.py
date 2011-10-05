@@ -96,8 +96,10 @@ class AdminPageHandler(webapp.RequestHandler):
       for info in models:
         device = Responder(manufacturer = manufacturer,
                            device_model_id = info['device_model'],
-                           model_description = info['model_description'],
-                           product_category = info['product_category'])
+                           model_description = info['model_description'])
+
+        if 'product_category' in info:
+          device.product_category = info['product_category']
         device.put()
 
   def get(self):
