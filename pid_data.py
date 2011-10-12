@@ -2474,7 +2474,7 @@ ESTA_PIDS = [
                  },
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7fb0},
+  'value': 0x1040},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'level_field_supported', 'type': 'bool'},
@@ -2499,7 +2499,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'PRESET_INFO',
-  'value': 0x7fb1},
+  'value': 0x1041},
  {'get_request': {'items': [
     {'name': 'scene_number', 'type': 'uint16', 'range': [(1, 0xfffe)]},
   ]},
@@ -2523,7 +2523,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'PRESET_STATUS',
-  'value': 0x7fb2},
+  'value': 0x1042},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'merge_mode', 'type': 'uint8',
@@ -2541,7 +2541,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'PRESET_MERGE_MODE',
-  'value': 0x7fb3},
+  'value': 0x1043},
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'power_on_self_test', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -2549,7 +2549,7 @@ ESTA_PIDS = [
   'set_request': {'items': [{'name': 'power_on_self_test', 'type': 'bool'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7fb4},
+  'value': 0x1044},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'sub_device_footprint', 'type': 'uint16'},
@@ -2561,7 +2561,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
-  'value': 0x7ff0},
+  'value': 0x0140},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'scene_number', 'type': 'uint16'},
@@ -2592,7 +2592,7 @@ ESTA_PIDS = [
     {'name': 'level', 'type': 'uint8'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ff1},
+  'value': 0x0141},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'scene_number', 'type': 'uint16'},
@@ -2623,7 +2623,7 @@ ESTA_PIDS = [
     {'name': 'level', 'type': 'uint8'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ff2},
+  'value': 0x0142},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'minimum_level_lower', 'type': 'uint16'},
@@ -2638,7 +2638,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'DIMMER_INFO',
-  'value': 0x7ff3},
+  'value': 0x0340},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'minimum_level_increasing', 'type': 'uint16'},
@@ -2654,7 +2654,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ff4},
+  'value': 0x0341},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'maximum_level', 'type': 'uint16'},
@@ -2666,7 +2666,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ff5},
+  'value': 0x0342},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_curve', 'type': 'uint8'},
@@ -2679,7 +2679,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ff6},
+  'value': 0x0343},
  {'get_request': {'items': [
    {'name': 'curve_number', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -2689,7 +2689,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'CURVE_DESCRIPTION',
-  'value': 0x7ff7},
+  'value': 0x0344},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_response_time', 'type': 'uint8'},
@@ -2702,7 +2702,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ff8},
+  'value': 0x0345},
  {'get_request': {'items': [
    {'name': 'response_time', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -2712,7 +2712,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'OUTPUT_RESPONSE_TIME_DESCRIPTION',
-  'value': 0x7ff9},
+  'value': 0x0346},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_moduluation_frequency', 'type': 'uint8'},
@@ -2725,7 +2725,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ffa},
+  'value': 0x0347},
  {'get_request': {'items': [
    {'name': 'modulation_frequency', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -2736,7 +2736,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'MODULATION_FREQUENCY_DESCRIPTION',
-  'value': 0x7ffb},
+  'value': 0x0348},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'hours_remaining', 'type': 'uint8'},
@@ -2748,7 +2748,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ffc},
+  'value': 0x0440},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'pin_code', 'type': 'uint16',
@@ -2767,7 +2767,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ffd},
+  'value': 0x0640},
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_lock_state', 'type': 'uint8',
@@ -2787,7 +2787,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'value': 0x7ffe},
+  'value': 0x0641},
  {'get_request': {'items': [
      {'name': 'lock_state', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -2799,5 +2799,5 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'LOCK_STATE_DESCRIPTION',
-  'value': 0x7fff},
+  'value': 0x0642},
 ]
