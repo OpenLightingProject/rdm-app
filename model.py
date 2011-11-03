@@ -43,6 +43,10 @@ class Responder(db.Model):
   product_category = db.IntegerProperty()
   # this holds a list of Software Version keys
   software_versions = db.ListProperty(db.Key, required=True)
+  # link to the product page
+  link = db.LinkProperty();
+  # image url
+  image_url = db.LinkProperty();
 
 
 class SoftwareVersion(db.Model):

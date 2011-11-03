@@ -100,6 +100,10 @@ class AdminPageHandler(webapp.RequestHandler):
 
         if 'product_category' in info:
           device.product_category = info['product_category']
+        if 'link' in info:
+          device.link = info['link']
+        if 'image_url' in info:
+          device.image_url = info['image_url']
         device.put()
 
   def get(self):
