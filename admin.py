@@ -39,7 +39,7 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def LoadManufacturers(self):
     for id, name in manufacturer_data.MANUFACTURER_DATA:
-      logging.info('%d, %s' % (id, name))
+      #logging.info('%d, %s' % (id, name))
       manufacturer = Manufacturer(esta_id = id, name = name)
       manufacturer.put()
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
