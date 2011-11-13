@@ -435,8 +435,6 @@ class ModelSearchHandler(webapp.RequestHandler):
         'manufacturer_name': model.manufacturer.name,
         'device_model_id': model.device_model_id,
         'model_description': model.model_description,
-        'link': model.link,
-        'image_url': model.image_url,
       })
     self.response.out.write(simplejson.dumps({'models': models}))
 
