@@ -213,7 +213,11 @@ app.MessageGroup.prototype.attachTooltip = function(field) {
   var max = field['max_size'];
 
   if (min != undefined && max != undefined) {
-    tt += 'This group repeats ' + min + ' to ' + max + ' times.';
+    if (min == max) {
+      tt += 'This group repeats ' + min + ' times.';
+    } else {
+      tt += 'This group repeats ' + min + ' to ' + max + ' times.';
+    }
   } else if (min != undefined) {
     tt += 'This group repeats at least ' + min + ' times.';
   } else if (max != undefined) {
