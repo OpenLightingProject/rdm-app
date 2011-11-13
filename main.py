@@ -458,6 +458,37 @@ class ExportModelsHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
+class MissingModelsHandler(webapp.RequestHandler):
+  """Return all device models that are missing info / image urls."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    results = Responder.all()
+    results.order('device_model_id')
+
+    models = []
+    self.response.out.write(
+        'Manufacturer ID,Manufacturer Name,Device ID,Model Name,Image Url,'
+        'Info Url\n')
+    for model in results:
+      if model.link and model.image_url:
+        continue
+      fields = []
+      fields.append('0x%hx' % model.manufacturer.esta_id)
+      fields.append(model.manufacturer.name)
+      fields.append('0x%hx' % model.device_model_id)
+      fields.append(model.model_description)
+      if model.link:
+        fields.append(model.link)
+      else:
+        fields.append('')
+      if model.image_url:
+        fields.append(model.image_url)
+      else:
+        fields.append('')
+      self.response.out.write(','.join(fields))
+      self.response.out.write('\n')
+
+
 application = webapp.WSGIApplication(
   [
     ('/download', DownloadHandler),
@@ -466,6 +497,7 @@ application = webapp.WSGIApplication(
     ('/pid_search', SearchHandler),
     ('/model_search', ModelSearchHandler),
     ('/export_models', ExportModelsHandler),
+    ('/missing_models', MissingModelsHandler),
     ('/index_info', InfoHandler),
   ],
   debug=True)
