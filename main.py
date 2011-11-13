@@ -441,6 +441,25 @@ class ModelSearchHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
+class ExportModelsHandler(webapp.RequestHandler):
+  """Return all device models for the RDM Protocol Site."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    results = Responder.all()
+    results.order('device_model_id')
+
+    models = []
+    for model in results:
+      models.append({
+        'manufacturer_name': model.manufacturer.name,
+        'device_model_id': model.device_model_id,
+        'model_description': model.model_description,
+        'link': model.link,
+        'image_url': model.image_url,
+      })
+    self.response.out.write(simplejson.dumps({'models': models}))
+
+
 application = webapp.WSGIApplication(
   [
     ('/download', DownloadHandler),
@@ -448,6 +467,7 @@ application = webapp.WSGIApplication(
     ('/pid', PidHandler),
     ('/pid_search', SearchHandler),
     ('/model_search', ModelSearchHandler),
+    ('/export_models', ExportModelsHandler),
     ('/index_info', InfoHandler),
   ],
   debug=True)
