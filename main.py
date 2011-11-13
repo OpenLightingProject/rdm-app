@@ -467,8 +467,8 @@ class MissingModelsHandler(webapp.RequestHandler):
 
     models = []
     self.response.out.write(
-        'Manufacturer ID,Manufacturer Name,Device ID,Model Name,Image Url,'
-        'Info Url\n')
+        'Manufacturer ID,Manufacturer Name,Device ID,Model Name,Info Url,'
+        'Image Url\n')
     for model in results:
       if model.link and model.image_url:
         continue
