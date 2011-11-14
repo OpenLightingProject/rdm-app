@@ -366,6 +366,7 @@ DEVICE_MODEL_DATA = {
                                                                    4097]}}},
           {'device_model': 3,
            'model_description': 'RDM Coffee Pot',
+           'product_category': 32767,
            'software_versions': {}}],
   18501: [{'device_model': 258,
            'model_description': 'StarLED Dimmer (rev C)',
