@@ -43,7 +43,7 @@ handlers:
 
 # export handlers
 - url: /(download|export_models|missing_models)
-  script: main.py
+  script: export.py
 
 - url: /admin
   script: admin.py
