@@ -32,6 +32,11 @@ class Manufacturer(db.Model):
   name = db.StringProperty(required=True)
 
 
+class ProductCategory(db.Model):
+  id = db.IntegerProperty(required=True)
+  name = db.StringProperty(required=True)
+
+
 class Responder(db.Model):
   """Represents a particular product."""
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
@@ -40,13 +45,27 @@ class Responder(db.Model):
   # The DEVICE_MODEL_DESCRIPTION
   model_description = db.StringProperty(required=True)
   # The product category
-  product_category = db.IntegerProperty()
+  product_category = db.ReferenceProperty(ProductCategory)
   # this holds a list of Software Version keys
   software_versions = db.ListProperty(db.Key, required=True)
   # link to the product page
   link = db.LinkProperty();
   # image url
   image_url = db.LinkProperty();
+
+
+class ResponderTag(db.Model):
+  # the tag label
+  label = db.StringProperty(required=True)
+
+# The glue that maps tags to responders.
+class ResponderTagRelationship(db.Model):
+  tag = db.ReferenceProperty(ResponderTag,
+                             required=True,
+                             collection_name='responder_set')
+  responder = db.ReferenceProperty(Responder,
+                                   required=True,
+                                   collection_name='tag_set')
 
 
 class SoftwareVersion(db.Model):

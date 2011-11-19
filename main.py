@@ -27,6 +27,24 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 
+def GetManufacturer(manufacturer_id):
+  """Lookup a manufacturer entity by manufacturer id.
+
+  Returns:
+    The entity object, or None if not found.
+  """
+  try:
+    id = int(manufacturer_id)
+  except ValueError:
+    return None
+
+  query = Manufacturer.all()
+  query.filter('esta_id = ', id)
+  for manufacturer in query.fetch(1):
+    return manufacturer
+  return None
+
+
 class InfoHandler(webapp.RequestHandler):
   """Return the information about the index.
 
@@ -253,18 +271,6 @@ class PidHandler(webapp.RequestHandler):
     self.PopulateCommand(output, 'set', pid.set_command)
     return output
 
-  def GetManufacturer(self, manufacturer_id):
-    try:
-      id = int(manufacturer_id)
-    except ValueError:
-      return None
-
-    query = Manufacturer.all()
-    query.filter('esta_id = ', id)
-    for manufacturer in query.fetch(1):
-      return manufacturer
-    return None
-
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
@@ -275,7 +281,7 @@ class PidHandler(webapp.RequestHandler):
     except ValueError:
       pass
 
-    manufacturer = self.GetManufacturer(self.request.get('manufacturer'))
+    manufacturer = GetManufacturer(self.request.get('manufacturer'))
 
     if manufacturer and pid_id is not None:
       pids = Pid.all()
@@ -439,6 +445,65 @@ class ModelSearchHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
+class ModelInfoHandler(webapp.RequestHandler):
+  """Return information about a specific model."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+
+    model_id_str = self.request.get('model')
+    model_id = None
+    try:
+      model_id = int(model_id_str)
+    except ValueError:
+      self.error(404)
+      return
+
+    manufacturer = GetManufacturer(self.request.get('manufacturer'))
+    if manufacturer is None or model_id is None:
+      self.error(404)
+      return
+
+    results = {}
+    models = Responder.all()
+    models.filter('device_model_id = ', model_id)
+    models.filter('manufacturer = ', manufacturer.key())
+
+    model_data = models.fetch(1)
+    if not model_data:
+      self.error(404)
+      return
+    model = model_data[0]
+
+    # software version info
+    software_versions = []
+    for version_info in model.software_versions:
+      version_output = {
+          'version_id': version_info.version_id,
+          'label': version_info.label,
+      }
+      software_versions.append(version_output)
+
+    output = {
+      'description': model.model_description,
+      'manufacturer': model.manufacturer.name,
+      'model_id': model.device_model_id,
+      'software_versions': software_versions,
+    }
+    if model.link:
+      output['link'] = model.link
+    # add image url here
+    category = model.product_category
+    if category:
+      output['product_category'] = category.name
+
+    for tag in model.tag_set:
+      tags = output.setdefault('tags', [])
+      tags.append(tag.tag.label)
+
+
+    self.response.out.write(simplejson.dumps(output))
+
+
 class ExportModelsHandler(webapp.RequestHandler):
   """Return all device models for the RDM Protocol Site."""
   def get(self):
@@ -448,13 +513,23 @@ class ExportModelsHandler(webapp.RequestHandler):
 
     models = []
     for model in results:
-      models.append({
+      model_output = {
         'manufacturer_name': model.manufacturer.name,
         'device_model_id': model.device_model_id,
         'model_description': model.model_description,
-        'link': model.link,
-        'image_url': model.image_url,
-      })
+      }
+      if model.link:
+        model_output['link'] = model.link
+      if model.image_url:
+        model_output['image_url'] = model.image_url
+      tags = list(model.tag_set)
+      if tags:
+        tags = []
+        for tag in model.tag_set:
+          tags.append(tag.tag.label)
+        model_output['tags'] = tags
+
+      models.append(model_output)
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
@@ -496,6 +571,7 @@ application = webapp.WSGIApplication(
     ('/pid', PidHandler),
     ('/pid_search', SearchHandler),
     ('/model_search', ModelSearchHandler),
+    ('/model_info', ModelInfoHandler),
     ('/export_models', ExportModelsHandler),
     ('/missing_models', MissingModelsHandler),
     ('/index_info', InfoHandler),

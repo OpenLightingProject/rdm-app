@@ -22,6 +22,7 @@ import memcache_keys
 import model_data
 import os
 import pid_data
+import product_categories
 from google.appengine.api import memcache
 from google.appengine.api import users
 from google.appengine.ext import webapp
@@ -29,6 +30,24 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from model import *
 from pid_loader import PidLoader
+
+
+def LookupProductCategory(id_str):
+  """Lookup a ProductCategory entity by id.
+
+  Returns:
+    The entity object, or None if not found.
+  """
+  try:
+    id = int(id_str)
+  except ValueError:
+    return None
+
+  query = ProductCategory.all()
+  query.filter('id = ', id)
+  for category in query.fetch(1):
+    return category
+  return None
 
 
 class AdminPageHandler(webapp.RequestHandler):
@@ -81,6 +100,15 @@ class AdminPageHandler(webapp.RequestHandler):
     for item in Responder.all():
       item.delete()
 
+    for item in SoftwareVersion.all():
+      item.delete()
+
+    for item in ResponderTag.all():
+      item.delete()
+
+    for item in ResponderTagRelationship.all():
+      item.delete()
+
   def LoadModels(self):
     memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
     manufacturers = {}
@@ -91,6 +119,9 @@ class AdminPageHandler(webapp.RequestHandler):
         manufacturers[manufacturer_id] = manufacturer_q.fetch(1)[0]
       return manufacturers[manufacturer_id]
 
+    tag_to_entity = {}
+    product_categories = {}
+
     for manufacturer_id, models in model_data.DEVICE_MODEL_DATA.iteritems():
       manufacturer = getManufacturer(manufacturer_id)
       for info in models:
@@ -99,12 +130,43 @@ class AdminPageHandler(webapp.RequestHandler):
                            model_description = info['model_description'])
 
         if 'product_category' in info:
-          device.product_category = info['product_category']
+          cateogry_id = info['product_category']
+          category = product_categories.get(cateogry_id)
+          if not category:
+            category = LookupProductCategory(cateogry_id)
+            product_categories[cateogry_id] = category
+          if category:
+            device.product_category = category
         if 'link' in info:
           device.link = info['link']
         if 'image_url' in info:
           device.image_url = info['image_url']
+
         device.put()
+
+        # add any tags
+        if 'tags' in info:
+          for tag_label in info['tags']:
+            tag_entity = tag_to_entity.get(tag_label)
+            if not tag_entity:
+              tag_entity = ResponderTag(label= tag_label)
+              tag_entity.put()
+              tag_to_entity[tag_label] = tag_entity
+              logging.info('added %s -> %s' % (tag_label, tag_entity))
+            relationship = ResponderTagRelationship(
+                tag = tag_entity,
+                responder = device)
+            relationship.put()
+
+
+  def ClearProductCategories(self):
+    for item in ProductCategory.all():
+      item.delete()
+
+  def LoadProductCategories(self):
+    for label, id in product_categories.PRODUCT_CATEGORIES.iteritems():
+      category = ProductCategory(id = id, name = label)
+      category.put()
 
   def get(self):
     ACTIONS = {
@@ -115,6 +177,8 @@ class AdminPageHandler(webapp.RequestHandler):
         'load_mp': self.LoadManufacturerPids,
         'clear_models': self.ClearModels,
         'load_models': self.LoadModels,
+        'clear_categories': self.ClearProductCategories,
+        'load_categories': self.LoadProductCategories,
     }
 
     ALLOWED_USERS = [
