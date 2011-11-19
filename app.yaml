@@ -29,7 +29,20 @@ handlers:
 - url: /images
   static_dir: images
 
-- url: /(download|export_models|pid|pid_search|missing_models|model_search|model_info|manufacturers|index_info)
+# common handlers
+- url: /(index_info|manufacturers|product_categories)
+  script: main.py
+
+# PID search / display handlers
+- url: /(pid|pid_search)
+  script: main.py
+
+# model search / display handlers
+- url: /(model_search|model_search)
+  script: main.py
+
+# export handlers
+- url: /(download|export_models|missing_models)
   script: main.py
 
 - url: /admin

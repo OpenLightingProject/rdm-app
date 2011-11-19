@@ -24,3 +24,6 @@ MANUFACTURER_CACHE_KEY = 'manufacturers'
 
 # Number of manufacturer pids
 MANUFACTURER_PID_COUNT_KEY = 'manufacturer_pid_count'
+
+# Json of product categories
+PRODUCT_CATEGORY_CACHE_KEY = 'product_categories'

@@ -100,8 +100,6 @@ class InfoHandler(webapp.RequestHandler):
 
 class ManufacturersHandler(webapp.RequestHandler):
   """Return the list of all manufacturers."""
-  CACHE_KEY = 'manufacturers'
-
   def BuildResponse(self):
     manufacturers = []
     for manufacturer in Manufacturer.all():
@@ -119,6 +117,32 @@ class ManufacturersHandler(webapp.RequestHandler):
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
     response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
+    if response is None:
+      response = self.BuildResponse()
+    self.response.out.write(response)
+
+
+class ProductCategoryHandler(webapp.RequestHandler):
+  """Return the list of all product categories."""
+  CACHE_KEY = 'manufacturers'
+
+  def BuildResponse(self):
+    categories = []
+    for category in ProductCategory.all():
+      categories.append({
+        'id': category.id,
+        'name': category.name,
+      })
+    response = simplejson.dumps({'categories': categories})
+    if not memcache.add(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY, response):
+      logging.error("Memcache set failed.")
+    return response
+
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.headers['Cache-Control'] = 'public; max-age=300;'
+
+    response = memcache.get(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY)
     if response is None:
       response = self.BuildResponse()
     self.response.out.write(response)
@@ -430,7 +454,12 @@ class ModelSearchHandler(webapp.RequestHandler):
 
         for manufacturer in query.fetch(1):
           results = manufacturer.responder_set
+    elif self.request.get('category'):
+      query = ProductCategory.all()
+      query.filter('id = ', int(self.request.get('category')))
 
+      for category in query.fetch(1):
+        results = category.responder_set
     else:
       results = Responder.all()
       results.order('device_model_id')
@@ -567,14 +596,15 @@ class MissingModelsHandler(webapp.RequestHandler):
 application = webapp.WSGIApplication(
   [
     ('/download', DownloadHandler),
+    ('/export_models', ExportModelsHandler),
+    ('/index_info', InfoHandler),
     ('/manufacturers', ManufacturersHandler),
+    ('/missing_models', MissingModelsHandler),
+    ('/model_info', ModelInfoHandler),
+    ('/model_search', ModelSearchHandler),
     ('/pid', PidHandler),
     ('/pid_search', SearchHandler),
-    ('/model_search', ModelSearchHandler),
-    ('/model_info', ModelInfoHandler),
-    ('/export_models', ExportModelsHandler),
-    ('/missing_models', MissingModelsHandler),
-    ('/index_info', InfoHandler),
+    ('/product_categories', ProductCategoryHandler),
   ],
   debug=True)
 
