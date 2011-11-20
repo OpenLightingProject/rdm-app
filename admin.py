@@ -271,14 +271,14 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def get(self):
     ACTIONS = {
-        'clear_m': self.ClearManufacturers,
+        #'clear_m': self.ClearManufacturers,
         'update_m': self.UpdateManufacturers,
         'clear_p': self.ClearPids,
         'load_p': self.LoadPids,
         'load_mp': self.LoadManufacturerPids,
         'clear_models': self.ClearModels,
         'load_models': self.LoadModels,
-        'clear_categories': self.ClearProductCategories,
+        #'clear_categories': self.ClearProductCategories,
         'update_categories': self.UpdateProductCategories,
     }
 
