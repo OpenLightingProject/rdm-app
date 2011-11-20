@@ -398,7 +398,27 @@ class ModelInfoHandler(BaseModelHandler):
           'version_id': version_info.version_id,
           'label': version_info.label,
       }
+      supported_parameters = version_info.supported_parameters
+      if supported_parameters is not None:
+        version_output['supported_parameters'] = supported_parameters
       software_versions.append(version_output)
+
+      for personality in version_info.personality_set:
+        personality_info = {
+          'description': personality.description,
+          'index': personality.index,
+          'slot_count': personality.slot_count,
+        }
+        version_output.setdefault('personalities', []).append(personality_info)
+
+      for sensor in version_info.sensor_set:
+        sensor_info = {
+            'description': sensor.description,
+            'index': sensor.index,
+            'type': sensor.type,
+            'supports_recording': sensor.supports_recording,
+        }
+        version_output.setdefault('sensors', []).append(sensor_info)
 
     output = {
       'description': model.model_description,
