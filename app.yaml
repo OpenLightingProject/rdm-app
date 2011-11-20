@@ -38,7 +38,7 @@ handlers:
   script: main.py
 
 # model search / display handlers
-- url: /(model_search|model_search)
+- url: /(model_search|model_info)
   script: main.py
 
 # export handlers

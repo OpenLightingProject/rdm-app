@@ -17,11 +17,13 @@
 # The handlers for /pid /pid_search and /manufacturers
 
 from model import *
+from image_fetcher import ImageFetcher
 import logging
 import memcache_keys
 import re
 import time
 from django.utils import simplejson
+from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -352,23 +354,24 @@ class ModelSearchHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
-class ModelInfoHandler(webapp.RequestHandler):
-  """Return information about a specific model."""
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
 
+class BaseModelHandler(webapp.RequestHandler):
+  """The base class for requests involving particular models.
+
+  Returns:
+    The Responder entity if found, otherwise None.
+  """
+  def LookupModelFromRequest(self):
     model_id_str = self.request.get('model')
     model_id = None
     try:
       model_id = int(model_id_str)
     except ValueError:
-      self.error(404)
-      return
+      return None
 
     manufacturer = GetManufacturer(self.request.get('manufacturer'))
     if manufacturer is None or model_id is None:
-      self.error(404)
-      return
+      return None
 
     results = {}
     models = Responder.all()
@@ -377,9 +380,19 @@ class ModelInfoHandler(webapp.RequestHandler):
 
     model_data = models.fetch(1)
     if not model_data:
+      return None
+    return model_data[0]
+
+
+class ModelInfoHandler(BaseModelHandler):
+  """Return information about a specific model."""
+  def get(self):
+    model = self.LookupModelFromRequest()
+    if not model:
       self.error(404)
       return
-    model = model_data[0]
+
+    self.response.headers['Content-Type'] = 'text/plain'
 
     # software version info
     software_versions = []
@@ -396,17 +409,33 @@ class ModelInfoHandler(webapp.RequestHandler):
       'model_id': model.device_model_id,
       'software_versions': software_versions,
     }
+    # link and product_category are optional
     if model.link:
       output['link'] = model.link
-    # add image url here
     category = model.product_category
     if category:
       output['product_category'] = category.name
 
+    # tags
     for tag in model.tag_set:
       tags = output.setdefault('tags', [])
       tags.append(tag.tag.label)
 
+    # fetch the image if we don't already have it
+    # TODO(simon): move this to a map reduce so it's not in the serving path
+    if model.image_url:
+      if not model.image_data:
+        fetcher = ImageFetcher()
+        blob_key = fetcher.FetchAndSaveImage(model.image_url)
+
+        if blob_key:
+          logging.info(blob_key)
+          model.image_data = blob_key
+          model.put()
+          output['image_key'] = images.get_serving_url(blob_key)
+
+      else:
+        output['image_key'] = images.get_serving_url(model.image_data.key())
 
     self.response.out.write(simplejson.dumps(output))
 

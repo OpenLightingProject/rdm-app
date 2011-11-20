@@ -16,6 +16,7 @@
 # Copyright (C) 2011 Simon Newton
 # The datastore model
 
+from google.appengine.ext import blobstore
 from google.appengine.ext import db
 
 SUBDEVICE_RANGE_DICT = {
@@ -52,6 +53,8 @@ class Responder(db.Model):
   link = db.LinkProperty();
   # image url
   image_url = db.LinkProperty();
+  # the blob for the image data
+  image_data = blobstore.BlobReferenceProperty()
 
 
 class ResponderTag(db.Model):
