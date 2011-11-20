@@ -56,11 +56,43 @@ class AdminPageHandler(webapp.RequestHandler):
     for item in Manufacturer.all():
       item.delete()
 
-  def LoadManufacturers(self):
+  def UpdateManufacturers(self):
+    new_data = {}
     for id, name in manufacturer_data.MANUFACTURER_DATA:
-      manufacturer = Manufacturer(esta_id = id, name = name)
-      manufacturer.put()
+      new_data[id] = name
+
+    existing_manufacturers = set()
+    manufacturers_to_delete = []
+    # invalidate the cache now
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
+
+    for manufacturer in Manufacturer.all():
+      id = manufacturer.esta_id
+      if id in new_data:
+        existing_manufacturers.add(id)
+        # update if required
+        new_name = new_data[id]
+        if new_name != manufacturer.name:
+          logging.info('Updating %s -> %s' % (manufacturer.name, new_name))
+          manufacturer.name = new_name
+          manufacturer.put()
+      else:
+        manufacturers_to_delete.append(manufacturer)
+
+    # add any new manufacturers
+    manufacturers_to_add = set(new_data.keys()) - existing_manufacturers
+    for manufacturer_id in sorted(manufacturers_to_add):
+      logging.info('adding %d (%s)' %
+                   (manufacturer_id, new_data[manufacturer_id]))
+      manufacturer = Manufacturer(esta_id = manufacturer_id,
+                                  name = new_data[manufacturer_id])
+      manufacturer.put()
+
+    # remove any extra manufacturers
+    for manufacturer in manufacturers_to_delete:
+      logging.info('removing %s' % manufacturer.name)
+      manufacturer.delete()
+    logging.info('update complete')
 
   def ClearPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
@@ -205,7 +237,7 @@ class AdminPageHandler(webapp.RequestHandler):
   def get(self):
     ACTIONS = {
         'clear_m': self.ClearManufacturers,
-        'load_m': self.LoadManufacturers,
+        'update_m': self.UpdateManufacturers,
         'clear_p': self.ClearPids,
         'load_p': self.LoadPids,
         'load_mp': self.LoadManufacturerPids,
