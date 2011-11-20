@@ -39,7 +39,7 @@ class ProductCategory(db.Model):
 
 
 class Responder(db.Model):
-  """Represents a particular product."""
+  """Represents a particular RDM product / device."""
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   # The Device Model ID field from DEVICE_INFO
   device_model_id = db.IntegerProperty()
@@ -47,8 +47,6 @@ class Responder(db.Model):
   model_description = db.StringProperty(required=True)
   # The product category
   product_category = db.ReferenceProperty(ProductCategory)
-  # this holds a list of Software Version keys
-  software_versions = db.ListProperty(db.Key, required=True)
   # link to the product page
   link = db.LinkProperty();
   # image url
@@ -58,11 +56,12 @@ class Responder(db.Model):
 
 
 class ResponderTag(db.Model):
+  """Tags that can be applied to responders."""
   # the tag label
   label = db.StringProperty(required=True)
 
-# The glue that maps tags to responders.
 class ResponderTagRelationship(db.Model):
+  """The glue that maps tags to responders."""
   tag = db.ReferenceProperty(ResponderTag,
                              required=True,
                              collection_name='responder_set')
@@ -77,10 +76,35 @@ class SoftwareVersion(db.Model):
   version_id = db.IntegerProperty(required=True)
   # Version label
   label = db.StringProperty(required=True)
-  # Still to include:
-  #  - supported params
-  #  - sensor names
-  #  - personalities
+  # supported params
+  supported_parameters = db.ListProperty(int)
+  # reference to the responder this version is associated with
+  responder = db.ReferenceProperty(Responder,
+                                   required=True,
+                                   collection_name='software_version_set')
+
+
+class ResponderPersonality(db.Model):
+  """Represents a personality of a responder."""
+  # TODO(simon): make description required some time once we have all the data.
+  description = db.StringProperty()
+  index = db.IntegerProperty(required=True)
+  slot_count = db.IntegerProperty(required=True)
+  # reference to the responder this version is associated with
+  sw_version = db.ReferenceProperty(SoftwareVersion,
+                                    required=True,
+                                    collection_name='personality_set')
+
+
+class ResponderSensor(db.Model):
+  """Represents a Sensor on a responder."""
+  description = db.StringProperty(required=True)
+  index = db.IntegerProperty(required=True)
+  type = db.IntegerProperty(required=True)
+  supports_recording = db.BooleanProperty()
+  sw_version = db.ReferenceProperty(SoftwareVersion,
+                                    required=True,
+                                    collection_name='sensor_set')
 
 
 # About Enums & Ranges:

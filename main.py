@@ -354,7 +354,6 @@ class ModelSearchHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
-
 class BaseModelHandler(webapp.RequestHandler):
   """The base class for requests involving particular models.
 
@@ -396,7 +395,7 @@ class ModelInfoHandler(BaseModelHandler):
 
     # software version info
     software_versions = []
-    for version_info in model.software_versions:
+    for version_info in model.software_version_set:
       version_output = {
           'version_id': version_info.version_id,
           'label': version_info.label,

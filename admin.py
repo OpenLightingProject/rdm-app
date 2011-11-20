@@ -58,7 +58,6 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def LoadManufacturers(self):
     for id, name in manufacturer_data.MANUFACTURER_DATA:
-      #logging.info('%d, %s' % (id, name))
       manufacturer = Manufacturer(esta_id = id, name = name)
       manufacturer.put()
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
@@ -129,6 +128,7 @@ class AdminPageHandler(webapp.RequestHandler):
                            device_model_id = info['device_model'],
                            model_description = info['model_description'])
 
+        # add product_category if it exists
         if 'product_category' in info:
           cateogry_id = info['product_category']
           category = product_categories.get(cateogry_id)
@@ -137,12 +137,46 @@ class AdminPageHandler(webapp.RequestHandler):
             product_categories[cateogry_id] = category
           if category:
             device.product_category = category
+
+        # add link and image_url if they exist, image data is fetched on demand
         if 'link' in info:
           device.link = info['link']
         if 'image_url' in info:
           device.image_url = info['image_url']
 
         device.put()
+
+        # add software version information
+        software_versions = info.get('software_versions')
+        if software_versions:
+          for version_id, version_info in software_versions.iteritems():
+            # create the new version object and store it
+            version_obj = SoftwareVersion(version_id = version_id,
+                                          label = version_info['label'],
+                                          responder = device)
+            supported_params = version_info.get('supported_parameters')
+            if supported_params:
+              version_obj.supported_parameters = supported_params
+            version_obj.put()
+
+          personalities = version_info.get('personalities', [])
+          for personality_info in personalities:
+            personality = ResponderPersonality(
+                description = personality_info['description'],
+                index = personality_info['index'],
+                slot_count = personality_info['slot_count'],
+                sw_version = version_obj)
+            personality.put()
+
+          sensors = version_info.get('sensors', [])
+          for offset, sensor_info in zip(range(len(sensors)), sensors):
+            sensor = ResponderSensor(
+                description = sensor_info['description'],
+                index = offset,
+                type = sensor_info['type'],
+                supports_recording = bool(sensor_info['supports_recording']),
+                sw_version = version_obj)
+            sensor.put()
 
         # add any tags
         if 'tags' in info:
