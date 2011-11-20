@@ -162,11 +162,11 @@ class AdminPageHandler(webapp.RequestHandler):
 
         # add product_category if it exists
         if 'product_category' in info:
-          cateogry_id = info['product_category']
-          category = product_categories.get(cateogry_id)
+          category_id = info['product_category']
+          category = product_categories.get(category_id)
           if not category:
-            category = LookupProductCategory(cateogry_id)
-            product_categories[cateogry_id] = category
+            category = LookupProductCategory(category_id)
+            product_categories[category_id] = category
           if category:
             device.product_category = category
 
@@ -229,10 +229,45 @@ class AdminPageHandler(webapp.RequestHandler):
     for item in ProductCategory.all():
       item.delete()
 
-  def LoadProductCategories(self):
-    for label, id in product_categories.PRODUCT_CATEGORIES.iteritems():
-      category = ProductCategory(id = id, name = label)
+  def UpdateProductCategories(self):
+    new_data = {}
+    for name, id in product_categories.PRODUCT_CATEGORIES.iteritems():
+      new_data[id] = name
+
+    existing_categories = set()
+    categories_to_delete = []
+    # invalidate the cache now
+    memcache.delete(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY)
+
+    for category in ProductCategory.all():
+      id = category.id
+      if id in new_data:
+        existing_categories.add(id)
+        # update if required
+        new_name = new_data[id]
+        if new_name != category.name:
+          logging.info('Updating %s -> %s' % (category.name, new_name))
+          category.name = new_name
+          category.put()
+      else:
+        categories_to_delete.append(category)
+
+    # add any new categories
+    categories_to_add = set(new_data.keys()) - existing_categories
+    for category_id in sorted(categories_to_add):
+      logging.info('adding %d (%s)' %
+                   (category_id, new_data[category_id]))
+      category = ProductCategory(id = category_id,
+                                 name = new_data[category_id])
       category.put()
+
+    # remove any extra categories
+    for category in categories_to_delete:
+      logging.info('removing %s' % category.name)
+      category.delete()
+    logging.info('update complete')
+
+
 
   def get(self):
     ACTIONS = {
@@ -244,7 +279,7 @@ class AdminPageHandler(webapp.RequestHandler):
         'clear_models': self.ClearModels,
         'load_models': self.LoadModels,
         'clear_categories': self.ClearProductCategories,
-        'load_categories': self.LoadProductCategories,
+        'update_categories': self.UpdateProductCategories,
     }
 
     ALLOWED_USERS = [

@@ -126,8 +126,6 @@ class ManufacturersHandler(webapp.RequestHandler):
 
 class ProductCategoryHandler(webapp.RequestHandler):
   """Return the list of all product categories."""
-  CACHE_KEY = 'manufacturers'
-
   def BuildResponse(self):
     categories = []
     for category in ProductCategory.all():
