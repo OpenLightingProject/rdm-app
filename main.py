@@ -129,11 +129,15 @@ class ProductCategoryHandler(webapp.RequestHandler):
   def BuildResponse(self):
     categories = []
     for category in ProductCategory.all():
-      categories.append({
-        'id': category.id,
-        'name': category.name,
+      categories.append((category.name, category.id))
+
+    category_output = []
+    for name, id in sorted(categories):
+      category_output.append({
+        'id': id,
+        'name': name,
       })
-    response = simplejson.dumps({'categories': categories})
+    response = simplejson.dumps({'categories': category_output})
     if not memcache.add(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY, response):
       logging.error("Memcache set failed.")
     return response
