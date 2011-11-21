@@ -3,13 +3,38 @@ body {
   padding: 0px;
   font-family: sans-serif;
   font-size: 13px;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+
+#wrap {
+  min-height: 100%;
+}
+
+#tab_pane {
+  overflow:auto;
+  padding-bottom: 60px;
 }
 
 #footer {
-  padding-top: 5px;
   text-align: center;
   clear: both;
+  height: 45px;
+  margin-top: -50px;
   font-size: 11px;
+}
+
+/*Opera Fix*/
+body:before {
+  content:"";
+  height:100%;
+  float:left;
+  width:0;
+  margin-top:-32767px;/
 }
 
 #status_bar_container {
