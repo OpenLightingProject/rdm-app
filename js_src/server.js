@@ -53,6 +53,7 @@ goog.addSingletonGetter(app.Server);
 // The max number of requests to have in the queue before displaying a warning
 app.Server.REQUEST_QUEUE_LIMIT = 10;
 app.Server.MANUFACTURERS_URL = 'manufacturers';
+app.Server.PRODUCT_CATEGORY_URL = 'product_categories';
 app.Server.SEARCH_URL = 'pid_search';
 app.Server.PID_URL = 'pid';
 app.Server.MODEL_SEARCH_URL = 'model_search';
@@ -158,6 +159,20 @@ app.Server.prototype.manufacturers = function(callback) {
 
 
 /**
+ * Fetch a list of product categories
+ */
+app.Server.prototype.productCategories = function(callback) {
+  var s = this;
+  this._initiateRequest(
+    app.Server.PRODUCT_CATEGORY_URL,
+    function(e) {
+      response = s.checkForErrorDialog(e);
+      callback(response);
+    });
+};
+
+
+/**
  * Search for manufacturer pids.
  */
 app.Server.prototype.manufacturerSearch = function(manufacturer_id, callback) {
@@ -224,10 +239,27 @@ app.Server.prototype.getPid = function(manufacturer_id, pid, callback) {
 /**
  * Get device model details for a particular manufacturer.
  */
-app.Server.prototype.modelSearch = function(manufacturer_id, callback) {
+app.Server.prototype.modelSearchByManufacturer = function(manufacturer_id,
+                                                          callback) {
   var s = this;
   this._initiateRequest(
     app.Server.MODEL_SEARCH_URL + '?manufacturer=' + manufacturer_id,
+    function(e) {
+      response = s.checkForErrorDialog(e);
+      if (response != undefined) {
+        callback(response);
+      }
+    });
+};
+
+
+/**
+ * Get device models matching a particular category
+ */
+app.Server.prototype.modelSearchByCategory = function(category_id, callback) {
+  var s = this;
+  this._initiateRequest(
+    app.Server.MODEL_SEARCH_URL + '?category=' + category_id,
     function(e) {
       response = s.checkForErrorDialog(e);
       if (response != undefined) {

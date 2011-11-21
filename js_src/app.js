@@ -98,7 +98,17 @@ app.PidSearcher.prototype.displayPid = function(pid_data) {
  * @constructor
  */
 app.ModelSearcher = function(state_manager) {
-  this.model_search_frame = new app.ModelSearchFrame(state_manager);
+  this.model_search_frame =
+    new app.ModelSearchFrame('device_search', state_manager);
+  this.model_search_frame.show();
+};
+
+
+/**
+ * Show the Model Search Frame.
+ */
+app.PidSearcher.prototype.showSearchFrame = function() {
+  this.model_search_frame.show();
 };
 
 
@@ -227,7 +237,14 @@ app.StateManager.prototype.navChanged = function(e) {
     case 'ps':
       this.status_bar.setSearching();
       this.tab_pane.setSelectedPage(this.model_search_page);
-      app.Server.getInstance().modelSearch(
+      app.Server.getInstance().modelSearchByManufacturer(
+        params[1],
+        function(response) { t.newDeviceModelResults(response); });
+      break;
+    case 'pc':
+      this.status_bar.setSearching();
+      this.tab_pane.setSelectedPage(this.model_search_page);
+      app.Server.getInstance().modelSearchByCategory(
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;

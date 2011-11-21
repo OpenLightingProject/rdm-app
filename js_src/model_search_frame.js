@@ -22,7 +22,10 @@ goog.require('goog.events');
 goog.require('goog.ui.AutoComplete.Basic');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.CustomButton');
+goog.require('goog.ui.MenuItem');
+goog.require('goog.ui.Select');
 
+goog.require('app.BaseFrame');
 goog.require('app.Server');
 goog.require('app.ModelTable');
 
@@ -33,10 +36,13 @@ goog.provide('app.ModelSearchFrame');
  * Create a new device model search frame.
  * @constructor
  */
-app.ModelSearchFrame = function(state_manager) {
+app.ModelSearchFrame = function(element, state_manager) {
+  app.BaseFrame.call(this, element);
   this._state_manager = state_manager;
+  this._index_to_product_categories = new Array();
 
   var t = this;
+  // setup the search-by-manufacturer
   this.manufacturer_search_input =
     goog.dom.$('device_model_manufacturer_input');
   goog.events.listen(
@@ -58,12 +64,29 @@ app.ModelSearchFrame = function(state_manager) {
       false,
       this);
 
+  // setup the search-by-product-category
+  this._product_category_select =
+    goog.ui.decorate(goog.dom.getElement('category_select'));
+  this._product_category_select.setScrollOnOverflow(true);
+  var category_search_button = goog.dom.$('device_model_category_button');
+  goog.ui.decorate(category_search_button);
+  goog.events.listen(
+      category_search_button,
+      goog.events.EventType.CLICK,
+      this.searchByCategory,
+      false,
+      this);
+
   // fire off a request to get the list of manufacturers
   var server = app.Server.getInstance();
   server.manufacturers(function(results) {t.newManufacturerList(results); });
+  server.productCategories(function(results) {
+      t.newProductCategories(results);
+  });
 
   this.model_table = new app.ModelTable('device_model_table', state_manager);
 };
+goog.inherits(app.ModelSearchFrame, app.BaseFrame);
 
 
 /**
@@ -86,6 +109,23 @@ app.ModelSearchFrame.prototype.newManufacturerList = function(results) {
 
 
 /**
+ * Store the list of product categories.
+ */
+app.ModelSearchFrame.prototype.newProductCategories = function(results) {
+  if (results == undefined) {
+    return;
+  }
+
+  for (var i = 0; i < results['categories'].length; ++i) {
+    category = results['categories'][i];
+    var label = category['name'] + ' (' + category['count'] + ')';
+    this._product_category_select.addItem(new goog.ui.MenuItem(label));
+    this._index_to_product_categories.push(category['id']);
+  }
+};
+
+
+/**
  * Called when the product search button is clicked.
  */
 app.ModelSearchFrame.prototype.searchByManufacturer = function() {
@@ -99,4 +139,14 @@ app.ModelSearchFrame.prototype.searchByManufacturer = function() {
  */
 app.ModelSearchFrame.prototype.newModels = function(models) {
   this.model_table.update(models);
+};
+
+
+/**
+ * Called when the product cateogry search button is clicked.
+ */
+app.ModelSearchFrame.prototype.searchByCategory = function() {
+  var value = this._product_category_select.getSelectedIndex();
+  var category = this._index_to_product_categories[value];
+ app.history.setToken('pc,' + category);
 };

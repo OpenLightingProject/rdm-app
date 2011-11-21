@@ -28,7 +28,7 @@
 
 <div id='tab_pane'></div>
 <div id='tab_page_1'>
- <div id="pid_search">
+ <div id="pid_search" style="display: none">
   <div class="upper_div">
    <table>
     <tr>
@@ -89,7 +89,7 @@
    </tbody>
   </table>
  </div>
- <div id="pid_display">
+ <div id="pid_display" style="display: none">
   <div class="upper_div">
     <a href="javascript:app.backToSearchResults()">&lt; Back to Search Results</a>
   </div>
@@ -174,7 +174,7 @@
  </div>
 </div>
 <div id='tab_page_2'>
- <div id="product_search">
+ <div id="device_search" style="display: none">
   <div class="upper_div">
    <table>
     <tr>
@@ -188,7 +188,22 @@
          class="goog-custom-button goog-inline-block"
          title="Search Device Models">Search</div>
        </form>
-    </td>
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2" style="padding-left: 30px">or</td>
+    </tr>
+    <tr>
+     <td>Product Category</td>
+     <td>
+      <div id="category_select" class="goog-select">
+       Select ...
+        <ul class="goog-menu" style="overflow:auto; height:200px"></ul>
+      </div>
+      <div id="device_model_category_button"
+        class="goog-custom-button goog-inline-block"
+        title="Search Device Models">Search</div>
+     </td>
     </tr>
    </table>
   </div>
@@ -203,6 +218,32 @@
    <tbody>
    </tbody>
   </table>
+ </div>
+ <div id="device_display" style="display: none">
+  <div class="upper_div">
+    <a href="javascript:app.backToSearchResults()">&lt; Back to Search Results</a>
+  </div>
+  <fieldset>
+   <legend>General Information</legend>
+   <table>
+    <tr>
+     <td style="padding-right: 15px">Manufacturer</td>
+     <td><span id="pid_manufacturer"></span></td>
+    </tr>
+    <tr>
+     <td>Name</td>
+     <td><span id="pid_name"></span></td>
+    </tr>
+    <tr>
+     <td>Value</td>
+     <td><span id="pid_value"></span></td>
+    </tr>
+    <tr id="pid_link_row">
+     <td>More Info</td>
+     <td><a id="pid_link" href=""></a></td>
+    </tr>
+   </table>
+  </fieldset>
  </div>
 </div>
 

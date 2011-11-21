@@ -46,7 +46,8 @@ class Responder(db.Model):
   # The DEVICE_MODEL_DESCRIPTION
   model_description = db.StringProperty(required=True)
   # The product category
-  product_category = db.ReferenceProperty(ProductCategory)
+  product_category = db.ReferenceProperty(ProductCategory,
+                                          collection_name='responder_set')
   # link to the product page
   link = db.LinkProperty();
   # image url

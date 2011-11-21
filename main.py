@@ -129,13 +129,15 @@ class ProductCategoryHandler(webapp.RequestHandler):
   def BuildResponse(self):
     categories = []
     for category in ProductCategory.all():
-      categories.append((category.name, category.id))
+      categories.append(
+          (category.name, category.id, category.responder_set.count()))
 
     category_output = []
-    for name, id in sorted(categories):
+    for name, id, count in sorted(categories):
       category_output.append({
         'id': id,
         'name': name,
+        'count': count,
       })
     response = simplejson.dumps({'categories': category_output})
     if not memcache.add(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY, response):
