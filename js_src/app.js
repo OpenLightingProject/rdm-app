@@ -107,7 +107,7 @@ app.ModelSearcher = function(state_manager) {
 /**
  * Show the Model Search Frame.
  */
-app.PidSearcher.prototype.showSearchFrame = function() {
+app.ModelSearcher.prototype.showSearchFrame = function() {
   this.model_search_frame.show();
 };
 
