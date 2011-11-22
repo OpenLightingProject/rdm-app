@@ -59,7 +59,7 @@ app.toHex = function(n, padding) {
  * Create a new pid table object.
  * @constructor
  */
-app.PidTable = function(element, state_manager) {
+app.PidTable = function(element) {
   var table = new goog.ui.TableSorter();
   table.decorate(goog.dom.$(element));
   table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
@@ -69,7 +69,7 @@ app.PidTable = function(element, state_manager) {
   table.setSortFunction(4, goog.ui.TableSorter.alphaSort);
   table.setSortFunction(5, goog.ui.TableSorter.alphaSort);
 
-  this.result_rows = new app.ResultsRows(state_manager);
+  this.result_rows = new app.ResultsRows();
 
   var table = goog.dom.$(element);
   var tbody = table.getElementsByTagName(goog.dom.TagName.TBODY)[0];
@@ -89,10 +89,9 @@ app.PidTable.prototype.update = function(new_pids) {
  * A row in the results table.
  * @constructor
  */
-app.PidRow = function(pid, state_manager, opt_domHelper) {
+app.PidRow = function(pid, opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
   this._pid = pid;
-  this._state_manager = state_manager;
 };
 goog.inherits(app.PidRow, goog.ui.Component);
 
@@ -170,8 +169,8 @@ app.PidRow.prototype.exitDocument = function() {
  * Call when the user clicks on this row
  */
 app.PidRow.prototype._rowClicked = function() {
-  this._state_manager.displayPid(this._pid['manufacturer_id'],
-                                this._pid['pid']);
+  app.history.setToken(app.History.PID_DISPLAY + ',' +
+      this._pid['manufacturer_id'] + ',' + this._pid['pid']);
 };
 
 
@@ -179,8 +178,7 @@ app.PidRow.prototype._rowClicked = function() {
  * Create a new result rows object.
  * @constructor
  */
-app.ResultsRows = function(state_manager, opt_domHelper) {
-  this._state_manager = state_manager;
+app.ResultsRows = function(opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
 };
 goog.inherits(app.ResultsRows, goog.ui.Component);
@@ -216,7 +214,7 @@ app.ResultsRows.prototype.update = function(results) {
 
   for (var i = 0; i < results.length; ++i) {
     var pid = results[i];
-    var new_row = new app.PidRow(pid, this._state_manager);
+    var new_row = new app.PidRow(pid);
     this.addChild(new_row, true);
   }
 };

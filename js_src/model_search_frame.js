@@ -26,8 +26,9 @@ goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.Select');
 
 goog.require('app.BaseFrame');
-goog.require('app.Server');
+goog.require('app.History');
 goog.require('app.ModelTable');
+goog.require('app.Server');
 
 goog.provide('app.ModelSearchFrame');
 
@@ -36,9 +37,8 @@ goog.provide('app.ModelSearchFrame');
  * Create a new device model search frame.
  * @constructor
  */
-app.ModelSearchFrame = function(element, state_manager) {
+app.ModelSearchFrame = function(element) {
   app.BaseFrame.call(this, element);
-  this._state_manager = state_manager;
   this._index_to_product_categories = new Array();
 
   var t = this;
@@ -82,7 +82,7 @@ app.ModelSearchFrame = function(element, state_manager) {
       t.newProductCategories(results);
   });
 
-  this.model_table = new app.ModelTable('device_model_table', state_manager);
+  this.model_table = new app.ModelTable('device_model_table');
 };
 goog.inherits(app.ModelSearchFrame, app.BaseFrame);
 
@@ -128,7 +128,7 @@ app.ModelSearchFrame.prototype.newProductCategories = function(results) {
  */
 app.ModelSearchFrame.prototype.searchByManufacturer = function() {
   var value = this.manufacturer_search_input.value;
-  app.history.setToken('ps,' + value);
+  app.history.setToken(app.History.MODEL_MANUFACTURER_SEARCH + ',' + value);
 };
 
 
@@ -138,7 +138,7 @@ app.ModelSearchFrame.prototype.searchByManufacturer = function() {
 app.ModelSearchFrame.prototype.searchByCategory = function() {
   var value = this._product_category_select.getSelectedIndex();
   var category = this._index_to_product_categories[value];
- app.history.setToken('pc,' + category);
+ app.history.setToken(app.History.MODEL_CATEGORY_SEARCH + ',' + category);
 };
 
 
@@ -148,5 +148,3 @@ app.ModelSearchFrame.prototype.searchByCategory = function() {
 app.ModelSearchFrame.prototype.update = function(models) {
   this.model_table.update(models);
 };
-
-

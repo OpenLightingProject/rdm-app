@@ -23,9 +23,10 @@ goog.require('goog.ui.AutoComplete.Basic');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.CustomButton');
 
-goog.require('app.Server');
 goog.require('app.BaseFrame');
+goog.require('app.History');
 goog.require('app.PidTable');
+goog.require('app.Server');
 
 goog.provide('app.PidSearchFrame');
 
@@ -34,9 +35,8 @@ goog.provide('app.PidSearchFrame');
  * Create a new pid search frame.
  * @constructor
  */
-app.PidSearchFrame = function(element, state_manager) {
+app.PidSearchFrame = function(element) {
   app.BaseFrame.call(this, element);
-  this._state_manager = state_manager;
 
   var t = this;
   // manufacturer search
@@ -56,7 +56,7 @@ app.PidSearchFrame = function(element, state_manager) {
   this._attachFormHandler('pid_form', function() {t.searchByPid(); });
   this._attachButtonHandlers('pid_search_button', this.searchByPid);
 
-  this.pid_table = new app.PidTable('pid_table', state_manager);
+  this.pid_table = new app.PidTable('pid_table');
 };
 goog.inherits(app.PidSearchFrame, app.BaseFrame);
 
@@ -85,7 +85,7 @@ app.PidSearchFrame.prototype.newManufacturers = function(results) {
  */
 app.PidSearchFrame.prototype.searchByManufacturer = function() {
   var value = this.manufacturer_search_input.value;
-  app.history.setToken('m,' + value);
+  app.history.setToken(app.History.PID_MANUFACTURER_SEARCH + ',' + value);
 };
 
 
@@ -94,7 +94,7 @@ app.PidSearchFrame.prototype.searchByManufacturer = function() {
  */
 app.PidSearchFrame.prototype.searchByPid = function() {
   var value = this.pid_search_input.value;
-  app.history.setToken('p,' + value);
+  app.history.setToken(app.History.PID_ID_SEARCH + ',' + value);
 };
 
 
@@ -103,7 +103,7 @@ app.PidSearchFrame.prototype.searchByPid = function() {
  */
 app.PidSearchFrame.prototype.searchByPidName = function() {
   var value = this.pid_name_search_input.value;
-  app.history.setToken('pn,' + value);
+  app.history.setToken(app.History.PID_NAME_SEARCH + ',' + value);
 };
 
 

@@ -252,9 +252,8 @@ app.MessageField.prototype.exitDocument = function() {
  * Create a new pid display frame.
  * @constructor
  */
-app.PidDisplayFrame = function(element, state_manager){
+app.PidDisplayFrame = function(element){
   app.BaseFrame.call(this, element);
-  this._state_manager = state_manager;
   this._get_request = new app.MessageStructure();
   this._get_request.decorate(goog.dom.$('get_request'));
   this._get_response = new app.MessageStructure();

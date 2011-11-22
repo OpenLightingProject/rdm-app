@@ -24,13 +24,14 @@ goog.require('goog.ui.Component');
 goog.require('goog.ui.TabPane');
 goog.require('goog.ui.Tooltip');
 
-goog.require('app.Server');
-goog.require('app.PidSearchFrame');
-goog.require('app.PidDisplayFrame');
-goog.require('app.ModelSearchFrame');
+goog.require('app.History');
 goog.require('app.ModelDisplayFrame');
-goog.require('app.StatusBar');
+goog.require('app.ModelSearchFrame');
+goog.require('app.PidDisplayFrame');
+goog.require('app.PidSearchFrame');
 goog.require('app.SearchDisplayPane');
+goog.require('app.Server');
+goog.require('app.StatusBar');
 
 goog.provide('app.setup');
 
@@ -68,13 +69,12 @@ app.StateManager = function() {
  */
 app.StateManager.prototype.init = function() {
   this.pid_searcher = new app.ManufacturerSearchDisplayPane(
-      new app.PidSearchFrame('pid_search', this),
-      new app.PidDisplayFrame('pid_display', this));
+      new app.PidSearchFrame('pid_search'),
+      new app.PidDisplayFrame('pid_display'));
 
   this.model_searcher = new app.ManufacturerSearchDisplayPane(
-    new app.ModelSearchFrame('device_search', this),
-    new app.ModelDisplayFrame('device_display', this));
-
+    new app.ModelSearchFrame('device_search'),
+    new app.ModelDisplayFrame('device_display'));
 
   var server = app.Server.getInstance();
   // fire off a request to get the list of manufacturers
@@ -86,16 +86,6 @@ app.StateManager.prototype.init = function() {
 };
 
 
-app.StateManager.prototype.displayPid = function(manufacturer_id, pid) {
-  app.history.setToken('pid,' + manufacturer_id + ',' + pid);
-};
-
-
-app.StateManager.prototype.displayModel = function(manufacturer_id, model_id) {
-  app.history.setToken('dm,' + manufacturer_id + ',' + model_id);
-};
-
-
 app.StateManager.prototype.navChanged = function(e) {
   if (e.token == null) {
     return;
@@ -104,47 +94,47 @@ app.StateManager.prototype.navChanged = function(e) {
   var t = this;
 
   switch (params[0]) {
-    case 'm':
+    case app.History.PID_MANUFACTURER_SEARCH:
       this.status_bar.setSearching();
       app.Server.getInstance().manufacturerSearch(
         params[1],
         function(response) { t.newPidResults(response); });
       break;
-    case 'p':
+    case app.History.PID_ID_SEARCH:
       this.status_bar.setSearching();
       app.Server.getInstance().pidSearch(
         params[1],
         function(response) { t.newPidResults(response); });
       break;
       break;
-    case 'pn':
+    case app.History.PID_NAME_SEARCH:
       this.status_bar.setSearching();
       app.Server.getInstance().pidNameSearch(
         params[1],
         function(response) { t.newPidResults(response); });
       break;
-    case 'pid':
+    case app.History.PID_DISPLAY:
       this.status_bar.setLoading();
       app.Server.getInstance().getPid(
         params[1],
         params[2],
         function(response) { t.newPidInfo(response); });
       break;
-    case 'ps':
+    case app.History.MODEL_MANUFACTURER_SEARCH:
       this.status_bar.setSearching();
       this.tab_pane.setSelectedPage(this.model_search_page);
       app.Server.getInstance().modelSearchByManufacturer(
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;
-    case 'pc':
+    case app.History.MODEL_CATEGORY_SEARCH:
       this.status_bar.setSearching();
       this.tab_pane.setSelectedPage(this.model_search_page);
       app.Server.getInstance().modelSearchByCategory(
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;
-    case 'dm':
+    case app.History.MODEL_DISPLAY:
       this.status_bar.setLoading();
       app.Server.getInstance().getModel(
         params[1],

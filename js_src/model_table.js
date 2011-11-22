@@ -21,7 +21,7 @@ goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.TableSorter');
-
+goog.require('app.History');
 
 goog.provide('app.ModelTable');
 
@@ -30,19 +30,18 @@ goog.provide('app.ModelTable');
  * Create a new product table object.
  * @constructor
  */
-app.ModelTable = function(element, state_manager) {
+app.ModelTable = function(element) {
   var table = new goog.ui.TableSorter();
   table.decorate(goog.dom.$(element));
   table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
   table.setSortFunction(1, app.hexSort);
   table.setSortFunction(2, goog.ui.TableSorter.alphaSort);
 
-  this.result_rows = new app.ResultsRows(state_manager);
+  this.result_rows = new app.ResultsRows();
 
   var table = goog.dom.$(element);
   var tbody = table.getElementsByTagName(goog.dom.TagName.TBODY)[0];
   this.result_rows.decorate(tbody);
-  this._state_manager = state_manager;
 };
 
 
@@ -54,7 +53,7 @@ app.ModelTable.prototype.update = function(new_models) {
 
   for (var i = 0; i < new_models.length; ++i) {
     var model = new_models[i];
-    var new_row = new app.ModelRow(model, this._state_manager);
+    var new_row = new app.ModelRow(model);
     this.result_rows.addChild(new_row, true);
   }
 };
@@ -64,10 +63,9 @@ app.ModelTable.prototype.update = function(new_models) {
  * A row in the device model results table.
  * @constructor
  */
-app.ModelRow = function(model, state_manager, opt_domHelper) {
+app.ModelRow = function(model, opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
   this._model = model;
-  this._state_manager = state_manager;
 };
 goog.inherits(app.ModelRow, goog.ui.Component);
 
@@ -131,6 +129,6 @@ app.ModelRow.prototype.exitDocument = function() {
  * Call when the user clicks on this row
  */
 app.ModelRow.prototype._rowClicked = function() {
-  this._state_manager.displayModel(this._model['manufacturer_id'],
-                                   this._model['device_model_id']);
+  app.history.setToken(app.History.MODEL_DISPLAY + ',' +
+      this._model['manufacturer_id'] + ',' + this._model['device_model_id']);
 };
