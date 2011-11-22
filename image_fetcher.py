@@ -59,6 +59,8 @@ class ImageFetcher(object):
     # shrink things if needed
     if img.width > self.RESIZE_WIDTH:
       img.resize(width=self.RESIZE_WIDTH)
+    # we need at least one transform, so use I'm feeling lucky :)
+    img.im_feeling_lucky();
     thumbnail = img.execute_transforms(output_encoding=images.JPEG)
 
     file_name = files.blobstore.create(mime_type='image/jpeg')
