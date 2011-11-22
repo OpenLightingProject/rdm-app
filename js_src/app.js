@@ -21,7 +21,6 @@ goog.require('goog.History');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
-goog.require('goog.ui.RoundedPanel');
 goog.require('goog.ui.TabPane');
 goog.require('goog.ui.Tooltip');
 
@@ -30,6 +29,7 @@ goog.require('app.PidSearchFrame');
 goog.require('app.PidDisplayFrame');
 goog.require('app.ModelSearchFrame');
 goog.require('app.ModelDisplayFrame');
+goog.require('app.StatusBar');
 
 goog.provide('app.setup');
 
@@ -137,41 +137,6 @@ app.ModelSearcher.prototype.displayModel = function(model_info) {
   this.model_display_frame.show();
   this.model_display_frame.displayModel(model_info);
 };
-
-
-/**
- * The small status bar the appears at the top of the screen to provide
- * feedback to users.
- * @constructor
- */
-app.StatusBar = function(element_id) {
-  var element = goog.dom.$(element_id)
-  this.panel = goog.ui.RoundedPanel.create(3,
-                                           3,
-                                           '#bbccff',
-                                           '#bbccff',
-                                           goog.ui.RoundedPanel.Corner.ALL);
-  this.panel.decorate(element);
-};
-
-
-app.StatusBar.prototype.setText = function(text) {
-  this.panel.getContentElement().innerHTML = text;
-  this.panel.getElement().style.display = 'block';
-};
-
-
-app.StatusBar.prototype.setSearching = function() {
-  this.setText('Searching ...');
-}
-
-app.StatusBar.prototype.setLoading = function() {
-  this.setText('Loading ...');
-}
-
-app.StatusBar.prototype.hide = function() {
-  this.panel.getElement().style.display = 'none';
-}
 
 
 /**
