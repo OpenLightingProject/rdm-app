@@ -30,114 +30,11 @@ goog.require('app.PidDisplayFrame');
 goog.require('app.ModelSearchFrame');
 goog.require('app.ModelDisplayFrame');
 goog.require('app.StatusBar');
+goog.require('app.SearchDisplayPane');
 
 goog.provide('app.setup');
 
 var app = app || {}
-
-/**
- * Top level class to manage PID searching.
- * @constructor
- */
-app.PidSearcher = function(state_manager) {
-  this.pid_search_frame = new app.PidSearchFrame('pid_search', state_manager);
-  this.pid_display_frame = new app.PidDisplayFrame('pid_display',
-                                                   state_manager);
-  this.pid_search_frame.show();
-  this.pid_display_frame.hide();
-};
-
-
-/**
- * Show the PID Search Frame.
- */
-app.PidSearcher.prototype.showSearchFrame = function() {
-  this.pid_search_frame.show();
-  this.pid_display_frame.hide();
-};
-
-
-/**
- * Show the PID display frame.
- */
-app.PidSearcher.prototype.showDisplayFrame = function() {
-  this.pid_search_frame.hide();
-  this.pid_display_frame.show();
-};
-
-
-/**
- * Display PID search results.
- */
-app.PidSearcher.prototype.displaySearchResults = function(search_results) {
-  if (search_results == undefined) {
-    return;
-  }
-  this.pid_search_frame.show();
-  this.pid_display_frame.hide();
-  this.pid_search_frame.newPids(search_results['pids']);
-};
-
-
-/**
- * Show the details for a particular PID.
- */
-app.PidSearcher.prototype.displayPid = function(pid_data) {
-  if (pid_data == undefined) {
-    return;
-  }
-  this.pid_search_frame.hide();
-  this.pid_display_frame.show();
-  this.pid_display_frame.displayPid(response);
-};
-
-
-
-
-/**
- * The top level class for handling device model searches.
- * @constructor
- */
-app.ModelSearcher = function(state_manager) {
-  this.model_search_frame =
-    new app.ModelSearchFrame('device_search', state_manager);
-  this.model_display_frame =
-    new app.ModelDisplayFrame('device_display', state_manager);
-  this.model_search_frame.show();
-};
-
-
-/**
- * Show the Model Search Frame.
- */
-app.ModelSearcher.prototype.showSearchFrame = function() {
-  this.model_search_frame.show();
-};
-
-
-/**
- * Display device model search results.
- */
-app.ModelSearcher.prototype.displaySearchResults = function(search_results) {
-  if (search_results == undefined) {
-    return;
-  }
-  this.model_search_frame.newModels(search_results['models']);
-};
-
-
-/**
- * Display device model information.
- */
-app.ModelSearcher.prototype.displayModel = function(model_info) {
-  if (model_info == undefined) {
-    return;
-  }
-  this.model_search_frame.hide();
-  this.model_display_frame.show();
-  this.model_display_frame.displayModel(model_info);
-};
-
 
 /**
  * This manages all the state transitions.
@@ -170,8 +67,14 @@ app.StateManager = function() {
  * Init the state manager.
  */
 app.StateManager.prototype.init = function() {
-  this.pid_searcher = new app.PidSearcher(this);
-  this.model_searcher = new app.ModelSearcher(this);
+  this.pid_searcher = new app.SearchDisplayPane(
+      new app.PidSearchFrame('pid_search', this),
+      new app.PidDisplayFrame('pid_display', this));
+
+  this.model_searcher = new app.SearchDisplayPane(
+    new app.ModelSearchFrame('device_search', this),
+    new app.ModelDisplayFrame('device_display', this));
+
   app.history.setEnabled(true);
 };
 
@@ -252,7 +155,7 @@ app.StateManager.prototype.navChanged = function(e) {
  */
 app.StateManager.prototype.newPidResults = function(response) {
   this.status_bar.hide();
-  this.pid_searcher.displaySearchResults(response);
+  this.pid_searcher.displaySearchResults(response['pids']);
 };
 
 
@@ -261,8 +164,8 @@ app.StateManager.prototype.newPidResults = function(response) {
  */
 app.StateManager.prototype.newPidInfo = function(response) {
   this.status_bar.hide();
-  this.pid_searcher.displayPid(response);
-  this.pid_searcher.showDisplayFrame();
+  this.pid_searcher.displayEntity(response);
+  //this.pid_searcher.showDisplayFrame();
 };
 
 /**
@@ -270,7 +173,7 @@ app.StateManager.prototype.newPidInfo = function(response) {
  */
 app.StateManager.prototype.newDeviceModelResults = function(response) {
   this.status_bar.hide();
-  this.model_searcher.displaySearchResults(response);
+  this.model_searcher.displaySearchResults(response['models']);
 };
 
 
@@ -279,7 +182,7 @@ app.StateManager.prototype.newDeviceModelResults = function(response) {
  */
 app.StateManager.prototype.newModel = function(response) {
   this.status_bar.hide();
-  this.model_searcher.displayModel(response);
+  this.model_searcher.displayEntity(response);
 };
 
 

@@ -135,14 +135,6 @@ app.ModelSearchFrame.prototype.searchByManufacturer = function() {
 
 
 /**
- * Update the pid table with the new list of pids.
- */
-app.ModelSearchFrame.prototype.newModels = function(models) {
-  this.model_table.update(models);
-};
-
-
-/**
  * Called when the product cateogry search button is clicked.
  */
 app.ModelSearchFrame.prototype.searchByCategory = function() {
@@ -150,3 +142,13 @@ app.ModelSearchFrame.prototype.searchByCategory = function() {
   var category = this._index_to_product_categories[value];
  app.history.setToken('pc,' + category);
 };
+
+
+/**
+ * Update the pid table with the new list of pids.
+ */
+app.ModelSearchFrame.prototype.update = function(models) {
+  this.model_table.update(models);
+};
+
+

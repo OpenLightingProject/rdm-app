@@ -115,7 +115,7 @@ app.PidSearchFrame.prototype.searchByPidName = function() {
 /**
  * Update the pid table with the new list of pids.
  */
-app.PidSearchFrame.prototype.newPids = function(pids) {
+app.PidSearchFrame.prototype.update = function(pids) {
   this.pid_table.update(pids);
 };
 

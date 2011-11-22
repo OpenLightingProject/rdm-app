@@ -308,7 +308,7 @@ app.PidDisplayFrame.prototype._attachToolTip = function(node, msg) {
 /**
  * Display the structure of a PID
  */
-app.PidDisplayFrame.prototype.displayPid = function(pid_info) {
+app.PidDisplayFrame.prototype.update = function(pid_info) {
   goog.dom.$('pid_manufacturer').innerHTML = pid_info['manufacturer'];
   goog.dom.$('pid_name').innerHTML = pid_info['name'];
   goog.dom.$('pid_value').innerHTML = '0x' + app.toHex(pid_info['value'], 4);
