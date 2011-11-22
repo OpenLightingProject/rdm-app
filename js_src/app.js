@@ -20,9 +20,7 @@
 goog.require('goog.History');
 goog.require('goog.dom');
 goog.require('goog.events');
-goog.require('goog.ui.Component');
 goog.require('goog.ui.TabPane');
-goog.require('goog.ui.Tooltip');
 
 goog.require('app.History');
 goog.require('app.ModelDisplayFrame');

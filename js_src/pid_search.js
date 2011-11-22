@@ -20,7 +20,6 @@
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.AutoComplete.Basic');
-goog.require('goog.ui.Component');
 goog.require('goog.ui.CustomButton');
 
 goog.require('app.BaseFrame');
