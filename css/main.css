@@ -99,16 +99,16 @@ h3 { margin: 5px; }
   border-bottom: 1px solid #76a7e0
 }
 
-#pid_table {
+.results_table {
   width: 100%;
 }
 
-#pid_table th {
+.results_table th {
   border-bottom: 1px solid #e4e9fe;
   cursor: pointer;
 }
 
-#pid_table td {
+.results_table td {
   cursor: pointer;
 }
 

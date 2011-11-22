@@ -17,6 +17,7 @@
  * Copyright (C) 2011 Simon Newton
  */
 
+goog.require('app.BaseFrame');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');

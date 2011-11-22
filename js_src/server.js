@@ -52,12 +52,15 @@ goog.addSingletonGetter(app.Server);
 
 // The max number of requests to have in the queue before displaying a warning
 app.Server.REQUEST_QUEUE_LIMIT = 10;
+app.Server.INDEX_INFO_URL = 'index_info';
 app.Server.MANUFACTURERS_URL = 'manufacturers';
 app.Server.PRODUCT_CATEGORY_URL = 'product_categories';
-app.Server.SEARCH_URL = 'pid_search';
+// urls for pid search / display
 app.Server.PID_URL = 'pid';
+app.Server.SEARCH_URL = 'pid_search';
+// urls for model search / display
 app.Server.MODEL_SEARCH_URL = 'model_search';
-app.Server.INFO_URL = 'index_info';
+app.Server.MODEL_INFO_URL = 'model_info';
 
 
 /**
@@ -270,12 +273,31 @@ app.Server.prototype.modelSearchByCategory = function(category_id, callback) {
 
 
 /**
+ * Get information about a particular model.
+ */
+app.Server.prototype.getModel = function(manufacturer_id,
+                                         model_id,
+                                         callback) {
+  var s = this;
+  this._initiateRequest(
+    app.Server.MODEL_INFO_URL + '?manufacturer=' + manufacturer_id +
+      '&model=' + model_id,
+    function(e) {
+      response = s.checkForErrorDialog(e);
+      if (response != undefined) {
+        callback(response);
+      }
+    });
+};
+
+
+/**
  * Get the stats for the data store.
  */
 app.Server.prototype.getIndexInfo = function(callback) {
   var s = this;
   this._initiateRequest(
-    app.Server.INFO_URL,
+    app.Server.INDEX_INFO_URL,
     function(e) {
       response = s.checkForErrorDialog(e);
       if (response != undefined) {

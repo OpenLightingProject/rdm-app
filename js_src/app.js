@@ -29,6 +29,7 @@ goog.require('app.Server');
 goog.require('app.PidSearchFrame');
 goog.require('app.PidDisplayFrame');
 goog.require('app.ModelSearchFrame');
+goog.require('app.ModelDisplayFrame');
 
 goog.provide('app.setup');
 
@@ -100,6 +101,8 @@ app.PidSearcher.prototype.displayPid = function(pid_data) {
 app.ModelSearcher = function(state_manager) {
   this.model_search_frame =
     new app.ModelSearchFrame('device_search', state_manager);
+  this.model_display_frame =
+    new app.ModelDisplayFrame('device_display', state_manager);
   this.model_search_frame.show();
 };
 
@@ -120,6 +123,19 @@ app.ModelSearcher.prototype.displaySearchResults = function(search_results) {
     return;
   }
   this.model_search_frame.newModels(search_results['models']);
+};
+
+
+/**
+ * Display device model information.
+ */
+app.ModelSearcher.prototype.displayModel = function(model_info) {
+  if (model_info == undefined) {
+    return;
+  }
+  this.model_search_frame.hide();
+  this.model_display_frame.show();
+  this.model_display_frame.displayModel(model_info);
 };
 
 
@@ -200,6 +216,11 @@ app.StateManager.prototype.displayPid = function(manufacturer_id, pid) {
 };
 
 
+app.StateManager.prototype.displayModel = function(manufacturer_id, model_id) {
+  app.history.setToken('dm,' + manufacturer_id + ',' + model_id);
+};
+
+
 app.StateManager.prototype.navChanged = function(e) {
   if (e.token == null) {
     return;
@@ -248,6 +269,13 @@ app.StateManager.prototype.navChanged = function(e) {
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;
+    case 'dm':
+      this.status_bar.setLoading();
+      app.Server.getInstance().getModel(
+        params[1],
+        params[2],
+        function(response) { t.newModel(response); });
+      break;
     default:
       this.pid_searcher.showSearchFrame();
   }
@@ -278,6 +306,15 @@ app.StateManager.prototype.newPidInfo = function(response) {
 app.StateManager.prototype.newDeviceModelResults = function(response) {
   this.status_bar.hide();
   this.model_searcher.displaySearchResults(response);
+};
+
+
+/**
+ * Called when new model data is available
+ */
+app.StateManager.prototype.newModel = function(response) {
+  this.status_bar.hide();
+  this.model_searcher.displayModel(response);
 };
 
 
