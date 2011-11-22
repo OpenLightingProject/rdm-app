@@ -351,8 +351,9 @@ class ModelSearchHandler(webapp.RequestHandler):
     models = []
     for model in results:
       models.append({
-        'manufacturer_name': model.manufacturer.name,
         'device_model_id': model.device_model_id,
+        'manufacturer_id': model.manufacturer.esta_id,
+        'manufacturer_name': model.manufacturer.name,
         'model_description': model.model_description,
       })
     self.response.out.write(simplejson.dumps({'models': models}))
