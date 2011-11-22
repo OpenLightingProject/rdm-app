@@ -52,20 +52,6 @@ app.StateManager = function() {
   this.tab_pane.addPage(this.pid_search_page);
   this.tab_pane.addPage(this.model_search_page);
 
-  goog.events.listen(app.history,
-                     goog.History.EventType.NAVIGATE,
-                     this.navChanged,
-                     false,
-                     this);
-
-  this.status_bar = new app.StatusBar('status_bar');
-};
-
-
-/**
- * Init the state manager.
- */
-app.StateManager.prototype.init = function() {
   this.pid_searcher = new app.ManufacturerSearchDisplayPane(
       new app.PidSearchFrame('pid_search'),
       new app.PidDisplayFrame('pid_display'));
@@ -73,6 +59,7 @@ app.StateManager.prototype.init = function() {
   this.model_searcher = new app.ManufacturerSearchDisplayPane(
     new app.ModelSearchFrame('device_search'),
     new app.ModelDisplayFrame('device_display'));
+  this.status_bar = new app.StatusBar('status_bar');
 
   var server = app.Server.getInstance();
   // fire off a request to get the list of manufacturers
@@ -80,10 +67,19 @@ app.StateManager.prototype.init = function() {
   var t = this;
   server.manufacturers(function(results) {t.newManufacturers(results); });
 
+  goog.events.listen(app.history,
+                     goog.History.EventType.NAVIGATE,
+                     this.navChanged,
+                     false,
+                     this);
+
   app.history.setEnabled(true);
 };
 
 
+/**
+ * This is called when the url changes and triggers a state change.
+ */
 app.StateManager.prototype.navChanged = function(e) {
   if (e.token == null) {
     return;
@@ -232,7 +228,6 @@ app.updateIndexInfo = function(response) {
  */
 app.setup = function() {
   var state_manager = new app.StateManager();
-  state_manager.init();
 
   // get the last updated time
   var server = app.Server.getInstance();
