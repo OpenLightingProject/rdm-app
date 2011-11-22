@@ -78,9 +78,7 @@ app.ModelSearchFrame = function(element, state_manager) {
       this);
 
   // fire off a request to get the list of manufacturers
-  var server = app.Server.getInstance();
-  server.manufacturers(function(results) {t.newManufacturerList(results); });
-  server.productCategories(function(results) {
+  app.Server.getInstance().productCategories(function(results) {
       t.newProductCategories(results);
   });
 
@@ -92,14 +90,14 @@ goog.inherits(app.ModelSearchFrame, app.BaseFrame);
 /**
  * Setup an auto-complete based on the list of manufacturers.
  */
-app.ModelSearchFrame.prototype.newManufacturerList = function(results) {
+app.ModelSearchFrame.prototype.newManufacturers = function(results) {
   if (results == undefined) {
     return;
   }
 
   var manufacturers = new Array();
-  for (var i = 0; i < results['manufacturers'].length; ++i) {
-    result = results['manufacturers'][i];
+  for (var i = 0; i < results.length; ++i) {
+    result = results[i];
     manufacturers.push(
       result['name'] + ' [' + app.toHex(result['id'], 4) + ']');
   }

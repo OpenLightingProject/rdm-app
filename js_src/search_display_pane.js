@@ -13,11 +13,12 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * The RDM PID Store app.
+ * Provides the search / display logic.
  * Copyright (C) 2011 Simon Newton
  */
 
 goog.provide('app.SearchDisplayPane');
+goog.provide('app.ManufacturerSearchDisplayPane');
 
 /**
  * A Pane that has two frames, one that provides the search UI and another that
@@ -74,4 +75,22 @@ app.SearchDisplayPane.prototype.displayEntity = function(data) {
   this._search_frame.hide();
   this._display_frame.update(data);
   this._display_frame.show();
+};
+
+
+/**
+ * A subclass of the SearchDisplayPane which uses a list of manufacturers.
+ */
+app.ManufacturerSearchDisplayPane = function(search_frame, display_frame) {
+  app.SearchDisplayPane.call(this, search_frame, display_frame);
+};
+goog.inherits(app.ManufacturerSearchDisplayPane, app.SearchDisplayPane);
+
+
+/**
+ * Handle notification of a new manufacturer list.
+ */
+app.ManufacturerSearchDisplayPane.prototype.newManufacturers = function(
+    manufacturers) {
+  this._search_frame.newManufacturers(manufacturers);
 };

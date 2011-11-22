@@ -56,11 +56,6 @@ app.PidSearchFrame = function(element, state_manager) {
   this._attachFormHandler('pid_form', function() {t.searchByPid(); });
   this._attachButtonHandlers('pid_search_button', this.searchByPid);
 
-
-  // fire off a request to get the list of manufacturers
-  var server = app.Server.getInstance();
-  server.manufacturers(function(results) {t.newManufacturerList(results); });
-
   this.pid_table = new app.PidTable('pid_table', state_manager);
 };
 goog.inherits(app.PidSearchFrame, app.BaseFrame);
@@ -69,14 +64,14 @@ goog.inherits(app.PidSearchFrame, app.BaseFrame);
 /**
  * Setup an auto-complete based on the list of manufacturers.
  */
-app.PidSearchFrame.prototype.newManufacturerList = function(results) {
+app.PidSearchFrame.prototype.newManufacturers = function(results) {
   if (results == undefined) {
     return;
   }
 
   var manufacturers = new Array();
-  for (var i = 0; i < results['manufacturers'].length; ++i) {
-    result = results['manufacturers'][i];
+  for (var i = 0; i < results.length; ++i) {
+    result = results[i];
     manufacturers.push(
       result['name'] + ' [' + app.toHex(result['id'], 4) + ']');
   }

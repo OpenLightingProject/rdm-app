@@ -67,13 +67,20 @@ app.StateManager = function() {
  * Init the state manager.
  */
 app.StateManager.prototype.init = function() {
-  this.pid_searcher = new app.SearchDisplayPane(
+  this.pid_searcher = new app.ManufacturerSearchDisplayPane(
       new app.PidSearchFrame('pid_search', this),
       new app.PidDisplayFrame('pid_display', this));
 
-  this.model_searcher = new app.SearchDisplayPane(
+  this.model_searcher = new app.ManufacturerSearchDisplayPane(
     new app.ModelSearchFrame('device_search', this),
     new app.ModelDisplayFrame('device_display', this));
+
+
+  var server = app.Server.getInstance();
+  // fire off a request to get the list of manufacturers
+  var server = app.Server.getInstance();
+  var t = this;
+  server.manufacturers(function(results) {t.newManufacturers(results); });
 
   app.history.setEnabled(true);
 };
@@ -151,6 +158,15 @@ app.StateManager.prototype.navChanged = function(e) {
 
 
 /**
+ * Called when a new manufacturer list arrives.
+ */
+app.StateManager.prototype.newManufacturers = function(response) {
+  this.pid_searcher.newManufacturers(response['manufacturers']);
+  this.model_searcher.newManufacturers(response['manufacturers']);
+};
+
+
+/**
  * Called when new pid results arrive
  */
 app.StateManager.prototype.newPidResults = function(response) {
@@ -165,7 +181,6 @@ app.StateManager.prototype.newPidResults = function(response) {
 app.StateManager.prototype.newPidInfo = function(response) {
   this.status_bar.hide();
   this.pid_searcher.displayEntity(response);
-  //this.pid_searcher.showDisplayFrame();
 };
 
 /**
