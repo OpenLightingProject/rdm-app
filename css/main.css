@@ -201,6 +201,22 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   -moz-user-select: none;
 }
 
+
+
+#device_display img {
+  margin-top: 10px;
+}
+
+#device_display fieldset {
+  margin-top: 10px;
+}
+
+#device_display fieldset table {
+  border-spacing: 5px;
+}
+
+
+/* tooltip styles */
 .goog-tooltip {
   background: infobackground;
   color: infotext;

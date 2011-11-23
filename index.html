@@ -173,7 +173,6 @@
     </table>
    </div>
   </fieldset>
-
   <fieldset>
    <legend>Notes</legend>
    <div id="pid_notes"></div>
@@ -230,9 +229,12 @@
   <div class="upper_div">
     <a href="javascript:app.backToSearchResults()">&lt; Back to Search Results</a>
   </div>
+  <div style="float: right;">
+    <img id="model_image"></img>
+  </div>
   <fieldset>
    <legend>General Information</legend>
-   <table>
+   <table width="100%">
     <tr>
      <td style="padding-right: 15px">Manufacturer</td>
      <td><span id="model_manufacturer"></span></td>
@@ -255,6 +257,12 @@
     </tr>
    </table>
   </fieldset>
+  <fieldset>
+   <legend>Software Version: </legend>
+   <p>foo bar baz</p>
+  </fieldset>
+  <!-- dummy p so the image doesn't overflow -->
+  <p style="clear: both"></p>
  </div>
 </div>
 </div>
