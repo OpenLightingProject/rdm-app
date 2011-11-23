@@ -78,6 +78,22 @@ app.StateManager = function() {
 
 
 /**
+ * Show the PID tab.
+ */
+app.StateManager.prototype.showPIDTab = function() {
+  this.tab_pane.setSelectedPage(this.pid_search_page);
+};
+
+
+/**
+ * Show the model tab.
+ */
+app.StateManager.prototype.showModelTab = function() {
+  this.tab_pane.setSelectedPage(this.model_search_page);
+};
+
+
+/**
  * This is called when the url changes and triggers a state change.
  */
 app.StateManager.prototype.navChanged = function(e) {
@@ -116,20 +132,21 @@ app.StateManager.prototype.navChanged = function(e) {
       break;
     case app.History.MODEL_MANUFACTURER_SEARCH:
       this.status_bar.setSearching();
-      this.tab_pane.setSelectedPage(this.model_search_page);
+      this.showModelTab();
       app.Server.getInstance().modelSearchByManufacturer(
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;
     case app.History.MODEL_CATEGORY_SEARCH:
       this.status_bar.setSearching();
-      this.tab_pane.setSelectedPage(this.model_search_page);
+      this.showModelTab();
       app.Server.getInstance().modelSearchByCategory(
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;
     case app.History.MODEL_DISPLAY:
       this.status_bar.setLoading();
+      this.showModelTab();
       app.Server.getInstance().getModel(
         params[1],
         params[2],
@@ -190,10 +207,10 @@ app.StateManager.prototype.newModel = function(response) {
  * is no history remaining.
  */
 app.backToSearchResults = function() {
-  if (history.previous == undefined) {
-    app.history.setToken('');
-  } else {
+  if (history.length > 0) {
     history.back();
+  } else {
+    app.history.setToken('');
   }
 };
 goog.exportSymbol('app.backToSearchResults', app.backToSearchResults);
