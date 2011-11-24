@@ -1,3 +1,5 @@
+/* base styles */
+html { height: 100%; }
 body {
   margin: 0px;
   padding: 0px;
@@ -6,14 +8,24 @@ body {
   height: 100%;
 }
 
-html {
-  height: 100%;
+table {
+  font-family: sans-serif;
+  font-size: 13px;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  border-spacing: 0px;
 }
 
-
-#wrap {
-  min-height: 100%;
+fieldset {
+  border: #67a7e3 1px solid;
+  margin-bottom: 5px;
 }
+legend { font-weight: bold; }
+h3 { margin: 5px; }
+
+/* floating footer styles */
+#wrap { min-height: 100%; }
 
 #tab_pane {
   overflow:auto;
@@ -37,6 +49,7 @@ body:before {
   margin-top:-32767px;/
 }
 
+/* status bar */
 #status_bar_container {
   position: absolute;
   top: 0px;
@@ -57,37 +70,14 @@ body:before {
   font-size: 12px;
 }
 
-table {
-  font-family: sans-serif;
-  font-size: 13px;
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
-  border-spacing: 0px;
-}
-
-legend { font-weight: bold; }
-fieldset {
-  border: #67a7e3 1px solid;
-  margin-bottom: 5px;
-}
-
-h3 { margin: 5px; }
-
-#pid_search {
-  display: none;
-}
-
+/* navigation bar in the top right */
 #nav_bar {
   text-align: right;
   padding: 4px;
   padding-bottom: 6px;
 }
 
-#nav_bar ul {
-  margin: 0px;
-}
-
+#nav_bar ul { margin: 0px; }
 #nav_bar li {
   display: inline;
   list-style-type: none;
@@ -130,9 +120,8 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   background-position: -16px 0px;
 }
 
-.message_table {
-  border-spacing: 5px;
-}
+/* CSS for PID display */
+.message_table { border-spacing: 5px; }
 
 .message_structure {
   border: 1px solid #000;
@@ -160,62 +149,42 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   padding: 4px;
 }
 
-.bool_field {
-  width: 20%;
+.subdevice_range_help { cursor: pointer; }
+
+.bool_field { width: 20%; }
+.uint8_field { width: 20%; }
+.int8_field { width: 20%; }
+.uint16_field { width: 40%; }
+.int16_field { width: 40%; }
+.uint32_field { width: 80%; }
+.int32_field { width: 80%; }
+.string_field { width: 80%; }
+
+
+/* CSS for device display */
+#device_info_table {
+  margin-top: 10px;
+  margin-left: 10px;
+
 }
-
-.uint8_field {
-  width: 20%;
-}
-
-.int8_field {
-  width: 20%;
-}
-
-.uint16_field {
-  width: 40%;
-}
-
-.int16_field {
-  width: 40%;
-}
-
-.uint32_field {
-  width: 80%;
-}
-
-.int32_field {
-  width: 80%;
-}
-
-.string_field {
-  width: 80%;
-}
-
-.cursor_pointer {
-  cursor: pointer;
-}
-
-.cursor_move {
-  cursor: move;
-  -moz-user-select: none;
-}
-
-
 
 #device_display img {
-  margin-top: 10px;
+  margin-top: 17px;
 }
 
 #device_display fieldset {
   margin-top: 10px;
 }
 
-#device_display fieldset table {
+#software_fieldset {
+  border-width: 1px 0px 0px 0px;
+}
+
+#device_display table {
   border-spacing: 5px;
 }
 
-.model_tag {
+.device_tag {
   color: #ffffff;
   background: #64992c;
   display: inline;
@@ -224,29 +193,32 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   font-size: 11px;
 }
 
-
 #model_image {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/* tooltip styles */
-.goog-tooltip {
-  background: infobackground;
-  color: infotext;
-  border: 1px solid infotext;
-  padding: 1px;
-  font: menu;
+#device_params_list {
+  padding-left: 20px;
 }
 
-.goog-tooltip ul {
-  margin: 0px;
+#software_fieldset table {
+  border-spacing: 0px;
+  border-collapse:collapse;
 }
 
-.subdevice_range_help {
-  cursor: pointer;
+#software_fieldset table th {
+  border: 1px solid #cccccc;
+  padding: 4px;
 }
 
+#software_fieldset table td {
+  border: 1px solid #cccccc;
+  padding: 4px;
+}
+
+/* ---- Closure Styles Follow ---- */
+/* base goog- CSS */
 .goog-control {
   cursor: pointer;
   outline: none;
@@ -258,6 +230,18 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   display: inline-block;
 }
 
+/* tooltip CSS */
+.goog-tooltip {
+  background: infobackground;
+  color: infotext;
+  border: 1px solid infotext;
+  padding: 1px;
+  font: menu;
+}
+
+.goog-tooltip ul { margin: 0px; }
+
+/* Auto complete CSS */
 .ac-renderer {
   font: normal 12px Arial, sans-serif;
   position: absolute;
@@ -273,16 +257,10 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   padding: .4em;
 }
 
-.ac-highlighted {
-  font-weight: bold;
-}
+.ac-highlighted { font-weight: bold; }
+.ac-active { background: #e4e9fe; }
 
-.ac-active {
-  background: #e4e9fe;
-}
-
-
-/* CSS for the tabs */
+/* tabpan CSS */
 .goog-tabpane {
   position: relative;
   margin: 3px;
@@ -306,15 +284,10 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   cursor: pointer;
 }
 
-.goog-tabpane-tab-selected {
-  background: #bbccff;
-}
+.goog-tabpane-tab-selected { background: #bbccff; }
+.goog-tabpane-cont { border: #67a7e3 1px solid; }
 
-.goog-tabpane-cont {
-  border: #67a7e3 1px solid;
-}
-
-/* CSS for the roundedpanel */
+/* roundedpanel CSS */
 .goog-roundedpanel {
   position: relative;
   z-index: 0;
@@ -327,9 +300,6 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   width: 100%;
   height: 100%;
   z-index: -1;
-}
-
-.goog-roundedpanel-content {
 }
 
 /* select drop down box */
@@ -472,4 +442,3 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   padding-bottom: 3px;
   padding-top: 3px;
 }
-

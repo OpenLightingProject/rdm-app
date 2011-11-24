@@ -48,7 +48,7 @@ app.StateManager = function() {
   this.pid_search_page = new goog.ui.TabPane.TabPage(
     goog.dom.$('tab_page_1'), "Parameter IDs");
   this.model_search_page = new goog.ui.TabPane.TabPage(
-    goog.dom.$('tab_page_2'), 'Device Models');
+    goog.dom.$('tab_page_2'), 'Devices & Responders');
   this.tab_pane.addPage(this.pid_search_page);
   this.tab_pane.addPage(this.model_search_page);
 

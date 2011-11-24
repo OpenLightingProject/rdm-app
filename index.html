@@ -31,7 +31,7 @@
   </ul>
 </div>
 
-<h3>RDM Manufacturer Library</h3>
+<h2>RDM Manufacturer Library</h2>
 
 <div id='tab_pane'></div>
 <div id='tab_page_1'>
@@ -245,43 +245,73 @@
     <a href="javascript:app.backToSearchResults()">&lt; Back to Search Results</a>
   </div>
   <div style="float: right;">
-    <img id="model_image"></img>
+    <img id="device_image"></img>
   </div>
-  <fieldset>
-   <legend>General Information</legend>
-   <table>
+   <table id="device_info_table">
     <tr>
      <td style="padding-right: 15px">Manufacturer</td>
-     <td><span id="model_manufacturer"></span></td>
+     <td><span id="device_manufacturer"></span></td>
     </tr>
     <tr>
      <td>Name</td>
-     <td><span id="model_name"></span></td>
+     <td><span id="device_name"></span></td>
     </tr>
     <tr>
      <td>Model Id</td>
-     <td><span id="model_id"></span></td>
+     <td><span id="device_id"></span></td>
     </tr>
-    <tr id="model_category_row">
+    <tr id="device_category_row">
      <td>Product Category</td>
-     <td><span id="model_category"></span></td>
+     <td><span id="device_category"></span></td>
     </tr>
-    <tr id="model_link_row">
+    <tr id="device_link_row">
      <td>Link</td>
-     <td><a id="model_link" href=""></a></td>
+     <td><a id="device_link" href=""></a></td>
     </tr>
-    <tr id="model_tags_row">
+    <tr id="device_tags_row">
      <td>Tags</td>
-     <td><div id="model_tags"></div></td>
+     <td><div id="device_tags"></div></td>
     </tr>
    </table>
-  </fieldset>
-  <fieldset>
-   <legend>Software Version: </legend>
-   <p>foo bar baz</p>
-  </fieldset>
   <!-- dummy p so the image doesn't overflow -->
   <p style="clear: both"></p>
+  <fieldset id="software_fieldset">
+    <legend>Software Version:
+      <div id="software_select" class="goog-select">
+        <ul class="goog-menu"></ul>
+      </div>
+    </legend>
+
+    <fieldset id="device_personality_fieldset">
+     <legend>DMX Personalities</legend>
+     <table>
+      <tr>
+       <th>Index</th>
+       <th>Slot Count</th>
+       <th>Description</th>
+      </tr>
+      <tbody id="device_personality_tbody"></tbody>
+     </table>
+    </fieldset>
+
+    <fieldset id="device_sensor_fieldset">
+      <legend>Sensor Information</legend>
+      <table>
+       <tr>
+        <th>Sensor Number</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Supports Recording</th>
+       </tr>
+       <tbody id="device_sensor_tbody"></tbody>
+      </table>
+    </fieldset>
+
+    <fieldset id="device_params_fieldset">
+      <legend>Supported Parameters</legend>
+      <ul id="device_params_list"></ul>
+    </fieldset>
+  </fieldset>
  </div>
 </div>
 </div>
