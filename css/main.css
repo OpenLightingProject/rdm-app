@@ -225,6 +225,11 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
 }
 
 
+#model_image {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 /* tooltip styles */
 .goog-tooltip {
   background: infobackground;

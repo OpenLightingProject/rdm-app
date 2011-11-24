@@ -144,6 +144,13 @@ app.StateManager.prototype.navChanged = function(e) {
         params[1],
         function(response) { t.newDeviceModelResults(response); });
       break;
+    case app.History.MODEL_TAG_SEARCH:
+      this.status_bar.setSearching();
+      this.showModelTab();
+      app.Server.getInstance().modelSearchByTag(
+        params[1],
+        function(response) { t.newDeviceModelResults(response); });
+      break;
     case app.History.MODEL_DISPLAY:
       this.status_bar.setLoading();
       this.showModelTab();

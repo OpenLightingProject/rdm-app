@@ -35,8 +35,8 @@ goog.inherits(app.ModelDisplayFrame, app.BaseFrame);
 /**
  * Hide a table row
  */
-app.ModelDisplayFrame.prototype.hideRow = function(row) {
-  row.style.display = 'none';
+app.ModelDisplayFrame.prototype.hideNode = function(node) {
+  node.style.display = 'none';
 }
 
 
@@ -45,6 +45,13 @@ app.ModelDisplayFrame.prototype.hideRow = function(row) {
  */
 app.ModelDisplayFrame.prototype.showRow = function(row) {
   row.style.display = 'table-row';
+}
+
+/**
+ * Show a inline node
+ */
+app.ModelDisplayFrame.prototype.showInline = function(node) {
+  node.style.display = 'block';
 }
 
 
@@ -60,7 +67,7 @@ app.ModelDisplayFrame.prototype.update = function(model_info) {
   var link = model_info['link'];
   var link_row = goog.dom.$('model_link_row');
   if (!link || link.size == 0) {
-    this.hideRow(link_row);
+    this.hideNode(link_row);
   } else {
     var href_element = goog.dom.$('model_link');
     href_element.innerHTML = link;
@@ -72,7 +79,7 @@ app.ModelDisplayFrame.prototype.update = function(model_info) {
   var product_category = model_info['product_category'];
   var category_row = goog.dom.$('model_category_row');
   if (!product_category || product_category.size == 0) {
-    this.hideRow(category_row);
+    this.hideNode(category_row);
   } else {
     var element = goog.dom.$('model_category');
     element.innerHTML = product_category;
@@ -81,10 +88,13 @@ app.ModelDisplayFrame.prototype.update = function(model_info) {
 
   // image
   var image_url = model_info['image_key'];
+  var image = goog.dom.$('model_image');
   if (image_url) {
-    goog.dom.$('model_image').src = image_url;
+    image.src = image_url;
+    this.showInline(image);
   } else {
-    goog.dom.$('model_image').src = '';
+    this.hideNode(image);
+    image.src = '';
   }
 
   // tags
@@ -102,6 +112,6 @@ app.ModelDisplayFrame.prototype.update = function(model_info) {
       goog.dom.appendChild(tags_div, div);
     }
   } else {
-    this.hideRow(tag_row);
+    this.hideNode(tag_row);
   }
 };

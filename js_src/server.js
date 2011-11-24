@@ -54,7 +54,7 @@ goog.addSingletonGetter(app.Server);
 app.Server.REQUEST_QUEUE_LIMIT = 10;
 app.Server.INDEX_INFO_URL = 'index_info';
 app.Server.MANUFACTURERS_URL = 'manufacturers';
-app.Server.PRODUCT_CATEGORY_URL = 'product_categories';
+app.Server.MODEL_CATEGORY_TAGS_URL = 'model_categories_and_tags';
 // urls for pid search / display
 app.Server.PID_URL = 'pid';
 app.Server.SEARCH_URL = 'pid_search';
@@ -162,12 +162,12 @@ app.Server.prototype.manufacturers = function(callback) {
 
 
 /**
- * Fetch a list of product categories
+ * Fetch a list of model categories and tags
  */
-app.Server.prototype.productCategories = function(callback) {
+app.Server.prototype.modelCategoriesAndTags = function(callback) {
   var s = this;
   this._initiateRequest(
-    app.Server.PRODUCT_CATEGORY_URL,
+    app.Server.MODEL_CATEGORY_TAGS_URL,
     function(e) {
       response = s.checkForErrorDialog(e);
       callback(response);
@@ -263,6 +263,22 @@ app.Server.prototype.modelSearchByCategory = function(category_id, callback) {
   var s = this;
   this._initiateRequest(
     app.Server.MODEL_SEARCH_URL + '?category=' + category_id,
+    function(e) {
+      response = s.checkForErrorDialog(e);
+      if (response != undefined) {
+        callback(response);
+      }
+    });
+};
+
+
+/**
+ * Get device models matching a particular tag
+ */
+app.Server.prototype.modelSearchByTag = function(tag, callback) {
+  var s = this;
+  this._initiateRequest(
+    app.Server.MODEL_SEARCH_URL + '?tag=' + tag,
     function(e) {
       response = s.checkForErrorDialog(e);
       if (response != undefined) {

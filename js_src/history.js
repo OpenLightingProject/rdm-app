@@ -26,5 +26,6 @@ app.History.PID_DISPLAY = 'pd';
 
 app.History.MODEL_MANUFACTURER_SEARCH = 'mm';
 app.History.MODEL_CATEGORY_SEARCH = 'mc';
+app.History.MODEL_TAG_SEARCH = "mt";
 app.History.MODEL_DISPLAY = 'md';
 

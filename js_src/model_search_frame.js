@@ -40,6 +40,7 @@ goog.provide('app.ModelSearchFrame');
 app.ModelSearchFrame = function(element) {
   app.BaseFrame.call(this, element);
   this._index_to_product_categories = new Array();
+  this._index_to_tags = new Array();
 
   var t = this;
   // setup the search-by-manufacturer
@@ -77,9 +78,22 @@ app.ModelSearchFrame = function(element) {
       false,
       this);
 
+  // setup the search by tag
+  this._tag_select =
+    goog.ui.decorate(goog.dom.getElement('tag_select'));
+  //this._tag_select.setScrollOnOverflow(true);
+  var tag_search_button = goog.dom.$('device_model_tag_button');
+  goog.ui.decorate(tag_search_button);
+  goog.events.listen(
+      tag_search_button,
+      goog.events.EventType.CLICK,
+      this.searchByTag,
+      false,
+      this);
+
   // fire off a request to get the list of manufacturers
-  app.Server.getInstance().productCategories(function(results) {
-      t.newProductCategories(results);
+  app.Server.getInstance().modelCategoriesAndTags(function(results) {
+      t.newCategoriesAndTags(results);
   });
 
   this.model_table = new app.ModelTable('device_model_table');
@@ -109,7 +123,7 @@ app.ModelSearchFrame.prototype.newManufacturers = function(results) {
 /**
  * Store the list of product categories.
  */
-app.ModelSearchFrame.prototype.newProductCategories = function(results) {
+app.ModelSearchFrame.prototype.newCategoriesAndTags = function(results) {
   if (results == undefined) {
     return;
   }
@@ -119,6 +133,14 @@ app.ModelSearchFrame.prototype.newProductCategories = function(results) {
     var label = category['name'] + ' (' + category['count'] + ')';
     this._product_category_select.addItem(new goog.ui.MenuItem(label));
     this._index_to_product_categories.push(category['id']);
+  }
+
+  // add tags
+  for (var i = 0; i < results['tags'].length; ++i) {
+    tag = results['tags'][i];
+    var label = tag['tag'] + ' (' + tag['count'] + ')';
+    this._tag_select.addItem(new goog.ui.MenuItem(label));
+    this._index_to_tags.push(tag['tag']);
   }
 };
 
@@ -133,12 +155,22 @@ app.ModelSearchFrame.prototype.searchByManufacturer = function() {
 
 
 /**
- * Called when the product cateogry search button is clicked.
+ * Called when the product category search button is clicked.
  */
 app.ModelSearchFrame.prototype.searchByCategory = function() {
   var value = this._product_category_select.getSelectedIndex();
   var category = this._index_to_product_categories[value];
  app.history.setToken(app.History.MODEL_CATEGORY_SEARCH + ',' + category);
+};
+
+
+/**
+ * Called when the tag search button is clicked.
+ */
+app.ModelSearchFrame.prototype.searchByTag = function() {
+ var value = this._tag_select.getSelectedIndex();
+ var tag = this._index_to_tags[value];
+ app.history.setToken(app.History.MODEL_TAG_SEARCH + ',' + tag);
 };
 
 

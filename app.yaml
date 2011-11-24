@@ -30,7 +30,7 @@ handlers:
   static_dir: images
 
 # common handlers
-- url: /(index_info|manufacturers|product_categories)
+- url: /(index_info|manufacturers|model_categories_and_tags)
   script: main.py
 
 # PID search / display handlers

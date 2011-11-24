@@ -27,3 +27,6 @@ MANUFACTURER_PID_COUNT_KEY = 'manufacturer_pid_count'
 
 # Json of product categories
 PRODUCT_CATEGORY_CACHE_KEY = 'product_categories'
+
+# Json of tags
+MODEL_TAGS_CACHE_KEY = 'model_tags';

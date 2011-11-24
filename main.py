@@ -100,8 +100,29 @@ class InfoHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps(output))
 
 
-class ManufacturersHandler(webapp.RequestHandler):
+class CacheableRequest(webapp.RequestHandler):
+  """The base class for cachable requests.
+
+  Subclasses provide:
+    CACHE_KEY
+    BuildResponse()
+    AddHeaders()
+  """
+  def get(self):
+    self.AddHeaders();
+
+    response = memcache.get(self.CACHE_KEY)
+    if response is None:
+      response = self.BuildResponse()
+      if not memcache.add(self.CACHE_KEY, response):
+        logging.error("Memcache set failed.")
+    self.response.out.write(response)
+
+
+class ManufacturersHandler(CacheableRequest):
   """Return the list of all manufacturers."""
+  CACHE_KEY = memcache_keys.MANUFACTURER_CACHE_KEY
+
   def BuildResponse(self):
     manufacturers = []
     for manufacturer in Manufacturer.all():
@@ -109,23 +130,20 @@ class ManufacturersHandler(webapp.RequestHandler):
         'name': manufacturer.name,
         'id': manufacturer.esta_id
       })
-    response = simplejson.dumps({'manufacturers': manufacturers})
+    return simplejson.dumps({'manufacturers': manufacturers})
     if not memcache.add(memcache_keys.MANUFACTURER_CACHE_KEY, response):
       logging.error("Memcache set failed.")
     return response
 
-  def get(self):
+  def AddHeaders(self):
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
-    response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
-    if response is None:
-      response = self.BuildResponse()
-    self.response.out.write(response)
 
-
-class ProductCategoryHandler(webapp.RequestHandler):
+class ModelCategoriesAndTags(CacheableRequest):
   """Return the list of all product categories."""
+  CACHE_KEY = memcache_keys.PRODUCT_CATEGORY_CACHE_KEY
+
   def BuildResponse(self):
     categories = []
     for category in ProductCategory.all():
@@ -139,19 +157,26 @@ class ProductCategoryHandler(webapp.RequestHandler):
         'name': name,
         'count': count,
       })
-    response = simplejson.dumps({'categories': category_output})
-    if not memcache.add(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY, response):
-      logging.error("Memcache set failed.")
-    return response
 
-  def get(self):
+    tags = []
+    for tag in ResponderTag.all():
+      tags.append(
+          (tag.label, tag.responder_set.count()))
+
+    tags_output = []
+    for tag, count in sorted(tags):
+      tags_output.append({
+        'tag': tag,
+        'count': count,
+      })
+    return simplejson.dumps({
+      'categories': category_output,
+      'tags': tags_output
+    })
+
+  def AddHeaders(self):
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
-
-    response = memcache.get(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY)
-    if response is None:
-      response = self.BuildResponse()
-    self.response.out.write(response)
 
 
 class SearchHandler(webapp.RequestHandler):
@@ -344,6 +369,16 @@ class ModelSearchHandler(webapp.RequestHandler):
 
       for category in query.fetch(1):
         results = category.responder_set
+    elif self.request.get('tag'):
+      query = ResponderTag.all()
+      logging.info(self.request.get('tag'))
+      query.filter('label = ', self.request.get('tag'))
+      tags = query.fetch(1)
+      logging.info(tags)
+      if tags:
+        tag_relationships = tags[0].responder_set
+        results = [r.responder for r in tag_relationships]
+
     else:
       results = Responder.all()
       results.order('device_model_id')
@@ -472,7 +507,7 @@ application = webapp.WSGIApplication(
     ('/model_search', ModelSearchHandler),
     ('/pid', PidHandler),
     ('/pid_search', SearchHandler),
-    ('/product_categories', ProductCategoryHandler),
+    ('/model_categories_and_tags', ModelCategoriesAndTags),
   ],
   debug=True)
 
