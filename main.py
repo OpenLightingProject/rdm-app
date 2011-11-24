@@ -440,6 +440,10 @@ class ModelInfoHandler(BaseModelHandler):
           'version_id': version_info.version_id,
           'label': version_info.label,
       }
+      category = model.product_category
+      if category:
+        version_output['product_category'] = category.name
+
       supported_parameters = version_info.supported_parameters
       if supported_parameters is not None:
         version_output['supported_parameters'] = supported_parameters

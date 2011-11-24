@@ -146,7 +146,7 @@ app.ModelDisplayFrame.prototype.update = function(device_info) {
   // software versions
   var versions = device_info['software_versions'];
   var software_fieldset = goog.dom.$('software_fieldset');
-  if (versions) {
+  if (versions && versions.length) {
     this._software_versions = versions;
     this.showBlock(software_fieldset);
     while (this._software_select.getItemCount() > 0) {

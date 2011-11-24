@@ -22,7 +22,7 @@ fieldset {
   margin-bottom: 5px;
 }
 legend { font-weight: bold; }
-h3 { margin: 5px; }
+h2 { margin: 5px; }
 
 /* floating footer styles */
 #wrap { min-height: 100%; }
