@@ -215,6 +215,15 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   border-spacing: 5px;
 }
 
+.model_tag {
+  color: #ffffff;
+  background: #64992c;
+  display: inline;
+  padding: 2px 5px 2px 5px;
+  margin: 0px 5px 0px 0px;
+  font-size: 11px;
+}
+
 
 /* tooltip styles */
 .goog-tooltip {
