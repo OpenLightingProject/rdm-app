@@ -24,6 +24,7 @@ goog.require('goog.ui.Component');
 goog.require('goog.ui.CustomButton');
 goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.Select');
+goog.require('goog.ui.Tooltip');
 
 goog.require('app.BaseFrame');
 goog.require('app.History');
@@ -78,6 +79,12 @@ app.ModelSearchFrame = function(element) {
       false,
       this);
 
+  //var category_help_image = goog.dom.$('category_search_help');
+  //var category_help_image = this._product_category_select.getElement();
+  var category_tt = new goog.ui.Tooltip(
+    this._product_category_select.getElement(),
+    "Search by RDM (E1.20) Product Category");
+
   // setup the search by tag
   this._tag_select =
     goog.ui.decorate(goog.dom.getElement('tag_select'));
@@ -90,6 +97,9 @@ app.ModelSearchFrame = function(element) {
       this.searchByTag,
       false,
       this);
+  var tag_tt = new goog.ui.Tooltip(
+    this._tag_select.getElement(),
+    "Search by Custom Tags");
 
   // fire off a request to get the list of manufacturers
   app.Server.getInstance().modelCategoriesAndTags(function(results) {
