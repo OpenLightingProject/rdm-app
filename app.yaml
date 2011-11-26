@@ -48,6 +48,10 @@ handlers:
 - url: /admin
   script: admin.py
 
+- url: /tasks/fetch_image
+  script: tasks.py
+  login: admin
+
 builtins:
 - datastore_admin: on
 - remote_api: on

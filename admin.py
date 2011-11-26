@@ -24,6 +24,7 @@ import os
 import pid_data
 import product_categories
 from google.appengine.api import memcache
+from google.appengine.api import taskqueue
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
@@ -290,7 +291,6 @@ class AdminPageHandler(webapp.RequestHandler):
       keys_to_blobs[blob.key()] = blob
 
     for responder in Responder.all():
-      logging.info(responder.image_data)
       image_blob = responder.image_data
       if image_blob:
         key = image_blob.key()
@@ -306,6 +306,20 @@ class AdminPageHandler(webapp.RequestHandler):
     else:
       return 'No blobs to delete'
 
+  def InitiateImageFetch(self):
+    """Add /fetch_image tasks for all responders missing image data."""
+    urls = []
+    for responder in Responder.all():
+      if responder.image_url and not responder.image_data:
+        url = '/tasks/fetch_image?key=%s' % responder.key()
+        task = taskqueue.Task(method='GET', url=url)
+        task.add()
+        urls.append(responder.image_url)
+
+    if urls:
+      return 'Fetching urls: \n%s' % '\n'.join(urls)
+    else:
+      return 'No images to fetch'
 
   def get(self):
     ACTIONS = {
@@ -317,6 +331,7 @@ class AdminPageHandler(webapp.RequestHandler):
         'load_models': self.LoadModels,
         'update_categories': self.UpdateProductCategories,
         'gc_blobs': self.GarbageCollectBlobs,
+        'initiate_image_fetch': self.InitiateImageFetch,
     }
 
     ALLOWED_USERS = [

@@ -17,7 +17,6 @@
 # The handlers for /pid /pid_search and /manufacturers
 
 from model import *
-from image_fetcher import ImageFetcher
 import logging
 import memcache_keys
 import re
@@ -484,21 +483,8 @@ class ModelInfoHandler(BaseModelHandler):
       tags = output.setdefault('tags', [])
       tags.append(tag.tag.label)
 
-    # fetch the image if we don't already have it
-    # TODO(simon): move this to a map reduce so it's not in the serving path
-    if model.image_url:
-      if not model.image_data:
-        fetcher = ImageFetcher()
-        blob_key = fetcher.FetchAndSaveImage(model.image_url)
-
-        if blob_key:
-          logging.info(blob_key)
-          model.image_data = blob_key
-          model.put()
-          output['image_key'] = images.get_serving_url(blob_key)
-
-      else:
-        output['image_key'] = images.get_serving_url(model.image_data.key())
+    if model.image_data:
+      output['image_key'] = images.get_serving_url(model.image_data.key())
 
     self.response.out.write(simplejson.dumps(output))
 

@@ -61,7 +61,12 @@ class ImageFetcher(object):
       img.resize(width=self.RESIZE_WIDTH)
     # we need at least one transform, so use I'm feeling lucky :)
     img.im_feeling_lucky();
-    thumbnail = img.execute_transforms(output_encoding=images.PNG)
+    try:
+      thumbnail = img.execute_transforms(output_encoding=images.PNG)
+    except SystemError, e:
+      # this fires on the dev server if it can't load the PIL module
+      logging.info(e)
+      return None
 
     file_name = files.blobstore.create(mime_type='image/png')
     with files.open(file_name, 'a') as f:
