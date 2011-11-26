@@ -26,6 +26,7 @@ import product_categories
 from google.appengine.api import memcache
 from google.appengine.api import users
 from google.appengine.ext import webapp
+from google.appengine.ext.blobstore import BlobInfo
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from model import *
@@ -52,10 +53,6 @@ def LookupProductCategory(id_str):
 
 class AdminPageHandler(webapp.RequestHandler):
   """Admin functions."""
-  def ClearManufacturers(self):
-    for item in Manufacturer.all():
-      item.delete()
-
   def UpdateManufacturers(self):
     new_data = {}
     for id, name in manufacturer_data.MANUFACTURER_DATA:
@@ -65,6 +62,7 @@ class AdminPageHandler(webapp.RequestHandler):
     manufacturers_to_delete = []
     # invalidate the cache now
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
+    added = removed = updated = 0
 
     for manufacturer in Manufacturer.all():
       id = manufacturer.esta_id
@@ -76,6 +74,7 @@ class AdminPageHandler(webapp.RequestHandler):
           logging.info('Updating %s -> %s' % (manufacturer.name, new_name))
           manufacturer.name = new_name
           manufacturer.put()
+          updated += 1
       else:
         manufacturers_to_delete.append(manufacturer)
 
@@ -87,12 +86,16 @@ class AdminPageHandler(webapp.RequestHandler):
       manufacturer = Manufacturer(esta_id = manufacturer_id,
                                   name = new_data[manufacturer_id])
       manufacturer.put()
+      added += 1
 
     # remove any extra manufacturers
     for manufacturer in manufacturers_to_delete:
       logging.info('removing %s' % manufacturer.name)
       manufacturer.delete()
+      removed += 1
     logging.info('update complete')
+    return ('Manufacturers: added %d, removed %d, updated %d' %
+            (added, removed, updated))
 
   def ClearPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
@@ -113,18 +116,25 @@ class AdminPageHandler(webapp.RequestHandler):
 
     for item in AllowedRange.all():
       item.delete()
+    return ''
 
   def LoadPids(self):
     loader = PidLoader()
+    added = 0
     for pid in pid_data.ESTA_PIDS:
       loader.AddPid(pid)
+      added += 1
+    return 'Added %d PIDs' % added
 
   def LoadManufacturerPids(self):
     loader = PidLoader()
+    added = 0
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
     for manufacturer in pid_data.MANUFACTURER_PIDS:
       for pid in manufacturer['pids']:
         loader.AddPid(pid, manufacturer['id'])
+        added += 1
+    return 'Added %d PIDs' % added
 
   def ClearModels(self):
     memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
@@ -139,10 +149,12 @@ class AdminPageHandler(webapp.RequestHandler):
 
     for item in ResponderTagRelationship.all():
       item.delete()
+    return ''
 
   def LoadModels(self):
     memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
     manufacturers = {}
+    added = 0
     def getManufacturer(manufacturer_id):
       if manufacturer_id not in manufacturers:
         manufacturer_q = Manufacturer.all()
@@ -176,6 +188,7 @@ class AdminPageHandler(webapp.RequestHandler):
         if 'image_url' in info:
           device.image_url = info['image_url']
 
+        added += 1
         device.put()
 
         # add software version information
@@ -223,13 +236,12 @@ class AdminPageHandler(webapp.RequestHandler):
                 tag = tag_entity,
                 responder = device)
             relationship.put()
+    return 'Models: added %d' % added
 
-
-  def ClearProductCategories(self):
-    for item in ProductCategory.all():
-      item.delete()
 
   def UpdateProductCategories(self):
+    """Update the list of Product Categories."""
+    added = removed = updated = 0
     new_data = {}
     for name, id in product_categories.PRODUCT_CATEGORIES.iteritems():
       new_data[id] = name
@@ -249,6 +261,7 @@ class AdminPageHandler(webapp.RequestHandler):
           logging.info('Updating %s -> %s' % (category.name, new_name))
           category.name = new_name
           category.put()
+          updated += 1
       else:
         categories_to_delete.append(category)
 
@@ -260,26 +273,50 @@ class AdminPageHandler(webapp.RequestHandler):
       category = ProductCategory(id = category_id,
                                  name = new_data[category_id])
       category.put()
+      added += 1
 
     # remove any extra categories
     for category in categories_to_delete:
       logging.info('removing %s' % category.name)
       category.delete()
+      removed += 1
     logging.info('update complete')
+    return ('Categories: added %d, removed %d, updated %d' %
+            (added, removed, updated))
 
+  def GarbageCollectBlobs(self):
+    keys_to_blobs = {}
+    for blob in BlobInfo.all():
+      keys_to_blobs[blob.key()] = blob
+
+    for responder in Responder.all():
+      logging.info(responder.image_data)
+      image_blob = responder.image_data
+      if image_blob:
+        key = image_blob.key()
+        if key in keys_to_blobs:
+          del keys_to_blobs[key]
+
+    for key, blob_info in keys_to_blobs.iteritems():
+      logging.info('deleting %s' % key)
+      blob_info.delete()
+
+    if keys_to_blobs:
+      return 'Deleted blobs: \n%s' % '\n'.join(str(k) for k in keys_to_blobs)
+    else:
+      return 'No blobs to delete'
 
 
   def get(self):
     ACTIONS = {
-        #'clear_m': self.ClearManufacturers,
         'update_m': self.UpdateManufacturers,
         'clear_p': self.ClearPids,
         'load_p': self.LoadPids,
         'load_mp': self.LoadManufacturerPids,
         'clear_models': self.ClearModels,
         'load_models': self.LoadModels,
-        #'clear_categories': self.ClearProductCategories,
         'update_categories': self.UpdateProductCategories,
+        'gc_blobs': self.GarbageCollectBlobs,
     }
 
     ALLOWED_USERS = [
@@ -298,12 +335,16 @@ class AdminPageHandler(webapp.RequestHandler):
       return
 
     action = self.request.get('action')
+    output = ''
     if action in ACTIONS:
-      ACTIONS[action]()
+      output = ACTIONS[action]()
 
     template_data = {
         'logout_url': users.create_logout_url("/"),
     }
+
+    if output:
+      template_data['output'] = output
     self.response.headers['Content-Type'] = 'text/html'
     self.response.out.write(template.render('templates/admin.tmpl',
                                             template_data))
