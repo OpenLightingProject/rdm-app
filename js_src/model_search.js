@@ -46,9 +46,9 @@ app.ModelSearchFrame = function(element) {
   var t = this;
   // setup the search-by-manufacturer
   this.manufacturer_search_input =
-    goog.dom.$('device_model_manufacturer_input');
+    goog.dom.$('model_manufacturer_input');
   goog.events.listen(
-    goog.dom.$('device_model_form'),
+    goog.dom.$('model_form'),
     goog.events.EventType.SUBMIT,
     function(e) {
       e.stopPropagation();
@@ -57,7 +57,7 @@ app.ModelSearchFrame = function(element) {
       return false;
     },
     false, this);
-  var search_button = goog.dom.$('device_model_manufacturer_button');
+  var search_button = goog.dom.$('model_manufacturer_button');
   goog.ui.decorate(search_button);
   goog.events.listen(
       search_button,
@@ -68,9 +68,9 @@ app.ModelSearchFrame = function(element) {
 
   // setup the search-by-product-category
   this._product_category_select =
-    goog.ui.decorate(goog.dom.getElement('category_select'));
+    goog.ui.decorate(goog.dom.getElement('model_category_select'));
   this._product_category_select.setScrollOnOverflow(true);
-  var category_search_button = goog.dom.$('device_model_category_button');
+  var category_search_button = goog.dom.$('model_category_button');
   goog.ui.decorate(category_search_button);
   goog.events.listen(
       category_search_button,
@@ -79,17 +79,14 @@ app.ModelSearchFrame = function(element) {
       false,
       this);
 
-  //var category_help_image = goog.dom.$('category_search_help');
-  //var category_help_image = this._product_category_select.getElement();
   var category_tt = new goog.ui.Tooltip(
-    this._product_category_select.getElement(),
+    category_search_button,
     "Search by RDM (E1.20) Product Category");
 
   // setup the search by tag
   this._tag_select =
-    goog.ui.decorate(goog.dom.getElement('tag_select'));
-  //this._tag_select.setScrollOnOverflow(true);
-  var tag_search_button = goog.dom.$('device_model_tag_button');
+    goog.ui.decorate(goog.dom.getElement('model_tag_select'));
+  var tag_search_button = goog.dom.$('model_tag_button');
   goog.ui.decorate(tag_search_button);
   goog.events.listen(
       tag_search_button,
@@ -98,7 +95,7 @@ app.ModelSearchFrame = function(element) {
       false,
       this);
   var tag_tt = new goog.ui.Tooltip(
-    this._tag_select.getElement(),
+    tag_search_button,
     "Search by Custom Tags");
 
   // fire off a request to get the list of manufacturers
@@ -106,7 +103,7 @@ app.ModelSearchFrame = function(element) {
       t.newCategoriesAndTags(results);
   });
 
-  this.model_table = new app.ModelTable('device_model_table');
+  this.model_table = new app.ModelTable('model_table');
 };
 goog.inherits(app.ModelSearchFrame, app.BaseFrame);
 

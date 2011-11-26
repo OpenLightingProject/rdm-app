@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * The code to display device information.
+ * The code to display model information.
  * Copyright (C) 2011 Simon Newton
  */
 
@@ -27,7 +27,7 @@ goog.provide('app.ModelDisplayFrame');
 
 
 /**
- * Create a new device display frame.
+ * Create a new model display frame.
  * @constructor
  */
 app.ModelDisplayFrame = function(element){
@@ -85,39 +85,39 @@ app.ModelDisplayFrame.prototype.newTD = function(text) {
 
 
 /**
- * Display the information for a device.
+ * Display the information for a model.
  */
-app.ModelDisplayFrame.prototype.update = function(device_info) {
-  goog.dom.$('device_manufacturer').innerHTML = device_info['manufacturer'];
-  goog.dom.$('device_name').innerHTML = device_info['description'];
-  goog.dom.$('device_id').innerHTML = '0x' + app.toHex(device_info['model_id'], 4);
+app.ModelDisplayFrame.prototype.update = function(model_info) {
+  goog.dom.$('model_manufacturer').innerHTML = model_info['manufacturer'];
+  goog.dom.$('model_name').innerHTML = model_info['description'];
+  goog.dom.$('model_id').innerHTML = '0x' + app.toHex(model_info['model_id'], 4);
 
   // link
-  var link = device_info['link'];
-  var link_row = goog.dom.$('device_link_row');
+  var link = model_info['link'];
+  var link_row = goog.dom.$('model_link_row');
   if (!link || link.size == 0) {
     this.hideNode(link_row);
   } else {
-    var href_element = goog.dom.$('device_link');
+    var href_element = goog.dom.$('model_link');
     href_element.innerHTML = link;
     href_element.href = link;
     this.showRow(link_row);
   }
 
   // product category
-  var product_category = device_info['product_category'];
-  var category_row = goog.dom.$('device_category_row');
+  var product_category = model_info['product_category'];
+  var category_row = goog.dom.$('model_category_row');
   if (!product_category || product_category.size == 0) {
     this.hideNode(category_row);
   } else {
-    var element = goog.dom.$('device_category');
+    var element = goog.dom.$('model_category');
     element.innerHTML = product_category;
     this.showRow(category_row);
   }
 
   // image
-  var image_url = device_info['image_key'];
-  var image = goog.dom.$('device_image');
+  var image_url = model_info['image_key'];
+  var image = goog.dom.$('model_image');
   if (image_url) {
     image.src = image_url;
     this.showInline(image);
@@ -127,15 +127,15 @@ app.ModelDisplayFrame.prototype.update = function(device_info) {
   }
 
   // tags
-  var tags = device_info['tags']
-  var tag_row = goog.dom.$('device_tags_row');
+  var tags = model_info['tags']
+  var tag_row = goog.dom.$('model_tags_row');
   if (tags) {
     this.showRow(tag_row);
-    var tags_div = goog.dom.$('device_tags');
+    var tags_div = goog.dom.$('model_tags');
     goog.dom.removeChildren(tags_div);
     for (var i = 0; i < tags.length; ++i) {
       var div = goog.dom.createDom('div');
-      div.className = 'device_tag';
+      div.className = 'model_tag';
       div.innerHTML = tags[i];
       goog.dom.appendChild(tags_div, div);
     }
@@ -144,7 +144,7 @@ app.ModelDisplayFrame.prototype.update = function(device_info) {
   }
 
   // software versions
-  var versions = device_info['software_versions'];
+  var versions = model_info['software_versions'];
   var software_fieldset = goog.dom.$('software_fieldset');
   if (versions && versions.length) {
     this._software_versions = versions;
@@ -175,9 +175,9 @@ app.ModelDisplayFrame.prototype.displaySoftwareVersion = function() {
 
   // DMX Personalities
   var personalities = software_version['personalities'];
-  var personality_fieldset = goog.dom.$('device_personality_fieldset');
+  var personality_fieldset = goog.dom.$('model_personality_fieldset');
   if (personalities && personalities.length) {
-    var tbody = goog.dom.$('device_personality_tbody');
+    var tbody = goog.dom.$('model_personality_tbody');
     goog.dom.removeChildren(tbody);
     for (var i = 0; i < personalities.length; ++i) {
       var personality = personalities[i];
@@ -195,9 +195,9 @@ app.ModelDisplayFrame.prototype.displaySoftwareVersion = function() {
 
   // Sensors
   var sensors = software_version['sensors'];
-  var sensor_fieldset = goog.dom.$('device_sensor_fieldset');
+  var sensor_fieldset = goog.dom.$('model_sensor_fieldset');
   if (sensors && sensors.length) {
-    var tbody = goog.dom.$('device_sensor_tbody');
+    var tbody = goog.dom.$('model_sensor_tbody');
     goog.dom.removeChildren(tbody);
     for (var i = 0; i < sensors.length; ++i) {
       var sensor = sensors[i];
@@ -216,9 +216,9 @@ app.ModelDisplayFrame.prototype.displaySoftwareVersion = function() {
 
   // supported params
   var supported_params = software_version['supported_parameters'];
-  var supported_params_fieldset = goog.dom.$('device_params_fieldset');
+  var supported_params_fieldset = goog.dom.$('model_params_fieldset');
   if (supported_params && supported_params.length) {
-    var supported_params_list = goog.dom.$('device_params_list');
+    var supported_params_list = goog.dom.$('model_params_list');
     goog.dom.removeChildren(supported_params_list);
     for (var i = 0; i < supported_params.length; ++i) {
       var li = goog.dom.createDom('li');

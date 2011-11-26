@@ -60,7 +60,7 @@ app.ModelTable.prototype.update = function(new_models) {
 
 
 /**
- * A row in the device model results table.
+ * A row in the model results table.
  * @constructor
  */
 app.ModelRow = function(model, opt_domHelper) {
@@ -91,7 +91,7 @@ app.ModelRow.prototype.createDom = function() {
       goog.dom.createDom('td', {}, this._model['manufacturer_name']),
       goog.dom.createDom('td',
                          {},
-                         '0x' + app.toHex(this._model['device_model_id'], 4)),
+                         '0x' + app.toHex(this._model['model_id'], 4)),
       goog.dom.createDom('td', {}, this._model['model_description']));
   this.setElementInternal(tr);
 };
@@ -130,5 +130,5 @@ app.ModelRow.prototype.exitDocument = function() {
  */
 app.ModelRow.prototype._rowClicked = function() {
   app.history.setToken(app.History.MODEL_DISPLAY + ',' +
-      this._model['manufacturer_id'] + ',' + this._model['device_model_id']);
+      this._model['manufacturer_id'] + ',' + this._model['model_id']);
 };

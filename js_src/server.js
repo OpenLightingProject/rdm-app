@@ -240,7 +240,7 @@ app.Server.prototype.getPid = function(manufacturer_id, pid, callback) {
 
 
 /**
- * Get device model details for a particular manufacturer.
+ * Get model details for a particular manufacturer.
  */
 app.Server.prototype.modelSearchByManufacturer = function(manufacturer_id,
                                                           callback) {
@@ -257,7 +257,7 @@ app.Server.prototype.modelSearchByManufacturer = function(manufacturer_id,
 
 
 /**
- * Get device models matching a particular category
+ * Get models matching a particular category
  */
 app.Server.prototype.modelSearchByCategory = function(category_id, callback) {
   var s = this;
@@ -273,7 +273,7 @@ app.Server.prototype.modelSearchByCategory = function(category_id, callback) {
 
 
 /**
- * Get device models matching a particular tag
+ * Get models matching a particular tag
  */
 app.Server.prototype.modelSearchByTag = function(tag, callback) {
   var s = this;

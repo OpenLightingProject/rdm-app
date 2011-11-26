@@ -53,7 +53,7 @@ class InfoHandler(webapp.RequestHandler):
   This returns:
    - the last uptime time
    - the number of manufacturer pids
-   - the number of device models
+   - the number of models
   """
   ESTA_ID = 0
 
@@ -72,14 +72,14 @@ class InfoHandler(webapp.RequestHandler):
     return manufacturer_pids
 
   def DeviceModelCount(self):
-    """Return the number of device models."""
-    model_count = memcache.get(memcache_keys.DEVICE_MODEL_COUNT_KEY)
+    """Return the number of models."""
+    model_count = memcache.get(memcache_keys.MODEL_COUNT_KEY)
     if model_count is None:
       model_count = 0
 
       for pid in Responder.all():
         model_count += 1
-      if not memcache.add(memcache_keys.DEVICE_MODEL_COUNT_KEY,
+      if not memcache.add(memcache_keys.MODEL_COUNT_KEY,
                           model_count):
         logging.error("Memcache set failed.")
     return model_count
@@ -96,7 +96,7 @@ class InfoHandler(webapp.RequestHandler):
       timestamp = int(time.mktime(pids[0].update_time.timetuple()))
       output['timestamp'] = timestamp
     output['manufacturer_pid_count'] = self.ManufacturerPidCount()
-    output['device_model_count'] = self.DeviceModelCount()
+    output['model_count'] = self.DeviceModelCount()
     self.response.out.write(simplejson.dumps(output))
 
 
@@ -349,7 +349,7 @@ class PidHandler(webapp.RequestHandler):
 
 
 class ModelSearchHandler(webapp.RequestHandler):
-  """Return all device models for a manufacturer."""
+  """Return all models for a manufacturer."""
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
@@ -386,7 +386,7 @@ class ModelSearchHandler(webapp.RequestHandler):
     models = []
     for model in results:
       models.append({
-        'device_model_id': model.device_model_id,
+        'model_id': model.device_model_id,
         'manufacturer_id': model.manufacturer.esta_id,
         'manufacturer_name': model.manufacturer.name,
         'model_description': model.model_description,

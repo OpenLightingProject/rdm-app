@@ -48,7 +48,7 @@ app.StateManager = function() {
   this.pid_search_page = new goog.ui.TabPane.TabPage(
     goog.dom.$('tab_page_1'), "Parameter IDs");
   this.model_search_page = new goog.ui.TabPane.TabPage(
-    goog.dom.$('tab_page_2'), 'Devices & Responders');
+    goog.dom.$('tab_page_2'), 'Device Models');
   this.tab_pane.addPage(this.pid_search_page);
   this.tab_pane.addPage(this.model_search_page);
 
@@ -57,8 +57,8 @@ app.StateManager = function() {
       new app.PidDisplayFrame('pid_display'));
 
   this.model_searcher = new app.ManufacturerSearchDisplayPane(
-    new app.ModelSearchFrame('device_search'),
-    new app.ModelDisplayFrame('device_display'));
+    new app.ModelSearchFrame('model_search'),
+    new app.ModelDisplayFrame('model_display'));
   this.status_bar = new app.StatusBar('status_bar');
 
   var server = app.Server.getInstance();
@@ -135,21 +135,21 @@ app.StateManager.prototype.navChanged = function(e) {
       this.showModelTab();
       app.Server.getInstance().modelSearchByManufacturer(
         params[1],
-        function(response) { t.newDeviceModelResults(response); });
+        function(response) { t.newModelResults(response); });
       break;
     case app.History.MODEL_CATEGORY_SEARCH:
       this.status_bar.setSearching();
       this.showModelTab();
       app.Server.getInstance().modelSearchByCategory(
         params[1],
-        function(response) { t.newDeviceModelResults(response); });
+        function(response) { t.newModelResults(response); });
       break;
     case app.History.MODEL_TAG_SEARCH:
       this.status_bar.setSearching();
       this.showModelTab();
       app.Server.getInstance().modelSearchByTag(
         params[1],
-        function(response) { t.newDeviceModelResults(response); });
+        function(response) { t.newModelResults(response); });
       break;
     case app.History.MODEL_DISPLAY:
       this.status_bar.setLoading();
@@ -192,9 +192,9 @@ app.StateManager.prototype.newPidInfo = function(response) {
 };
 
 /**
- * Called when new device model results arrive
+ * Called when new model results arrive
  */
-app.StateManager.prototype.newDeviceModelResults = function(response) {
+app.StateManager.prototype.newModelResults = function(response) {
   this.status_bar.hide();
   this.model_searcher.displaySearchResults(response['models']);
 };
@@ -242,7 +242,7 @@ app.updateIndexInfo = function(response) {
   div.innerHTML = (
       'Last Updated: ' + update_time + '<br>' +
       response['manufacturer_pid_count'] +  ' Manufacturer PIDs, ' +
-      response['device_model_count'] + ' Device Models.');
+      response['model_count'] + ' Models.');
   div.style.display = 'block';
 };
 

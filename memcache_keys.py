@@ -16,8 +16,8 @@
 # Copyright (C) 2011 Simon Newton
 # The keys used for memcache.
 
-# Number of device models
-DEVICE_MODEL_COUNT_KEY = 'device_model_count'
+# Number of models
+MODEL_COUNT_KEY = 'device_model_count'
 
 # Json of manufacturers
 MANUFACTURER_CACHE_KEY = 'manufacturers'

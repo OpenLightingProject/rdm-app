@@ -162,17 +162,17 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
 
 
 /* CSS for device display */
-#device_info_table {
+#model_info_table {
   margin-top: 10px;
   margin-left: 10px;
 
 }
 
-#device_display img {
+#model_display img {
   margin-top: 17px;
 }
 
-#device_display fieldset {
+#model_display fieldset {
   margin-top: 10px;
 }
 
@@ -180,11 +180,11 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   border-width: 1px 0px 0px 0px;
 }
 
-#device_display table {
+#model_display table {
   border-spacing: 5px;
 }
 
-.device_tag {
+.model_tag {
   color: #ffffff;
   background: #64992c;
   display: inline;
@@ -198,7 +198,7 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   padding-right: 5px;
 }
 
-#device_params_list {
+#model_params_list {
   padding-left: 20px;
 }
 

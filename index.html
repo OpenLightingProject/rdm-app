@@ -180,17 +180,17 @@
  </div>
 </div>
 <div id='tab_page_2'>
- <div id="device_search" style="display: none">
+ <div id="model_search" style="display: none">
   <div class="upper_div">
    <table>
     <tr>
      <td>Manufacturer</td>
      <td>
-       <form id="device_model_form">
-       <input id="device_model_manufacturer_input" type="text" style="width:400px"
+       <form id="model_form">
+       <input id="model_manufacturer_input" type="text" style="width:400px"
          autocomplete="off" tabindex=1
          title="Enter a manufacturer name or hex id, e.g. 7a70">
-       <div id="device_model_manufacturer_button"
+       <div id="model_manufacturer_button"
          class="goog-custom-button goog-inline-block"
          title="Search Device Models">Search</div>
        </form>
@@ -202,11 +202,11 @@
     <tr>
      <td>Product Category</td>
      <td>
-      <div id="category_select" class="goog-select">
+      <div id="model_category_select" class="goog-select">
        Select ...
         <ul class="goog-menu" style="overflow:auto; height:200px"></ul>
       </div>
-      <div id="device_model_category_button"
+      <div id="model_category_button"
         class="goog-custom-button goog-inline-block"
         title="Search Device Models">Search</div>
      </td>
@@ -217,18 +217,18 @@
     <tr>
      <td>Tag</td>
      <td>
-      <div id="tag_select" class="goog-select">
+      <div id="model_tag_select" class="goog-select">
        Select ...
         <ul class="goog-menu"></ul>
       </div>
-      <div id="device_model_tag_button"
+      <div id="model_tag_button"
         class="goog-custom-button goog-inline-block"
         title="Search Device Models">Search</div>
      </td>
     </tr>
    </table>
   </div>
-  <table id="device_model_table" class="results_table">
+  <table id="model_table" class="results_table">
    <thead>
     <tr>
      <th>Manufacturer Name<div class="sorter_icon">&nbsp;</div></th>
@@ -240,37 +240,37 @@
    </tbody>
   </table>
  </div>
- <div id="device_display" style="display: none">
+ <div id="model_display" style="display: none">
   <div class="upper_div">
     <a href="javascript:app.backToSearchResults()">&lt; Back to Search Results</a>
   </div>
   <div style="float: right;">
-    <img id="device_image"></img>
+    <img id="model_image"></img>
   </div>
-   <table id="device_info_table">
+   <table id="model_info_table">
     <tr>
      <td style="padding-right: 15px">Manufacturer</td>
-     <td><span id="device_manufacturer"></span></td>
+     <td><span id="model_manufacturer"></span></td>
     </tr>
     <tr>
      <td>Name</td>
-     <td><span id="device_name"></span></td>
+     <td><span id="model_name"></span></td>
     </tr>
     <tr>
      <td>Model Id</td>
-     <td><span id="device_id"></span></td>
+     <td><span id="model_id"></span></td>
     </tr>
-    <tr id="device_category_row">
+    <tr id="model_category_row">
      <td>Product Category</td>
-     <td><span id="device_category"></span></td>
+     <td><span id="model_category"></span></td>
     </tr>
-    <tr id="device_link_row">
+    <tr id="model_link_row">
      <td>Link</td>
-     <td><a id="device_link" href=""></a></td>
+     <td><a id="model_link" href=""></a></td>
     </tr>
-    <tr id="device_tags_row">
+    <tr id="model_tags_row">
      <td>Tags</td>
-     <td><div id="device_tags"></div></td>
+     <td><div id="model_tags"></div></td>
     </tr>
    </table>
   <!-- dummy p so the image doesn't overflow -->
@@ -282,7 +282,7 @@
       </div>
     </legend>
 
-    <fieldset id="device_personality_fieldset">
+    <fieldset id="model_personality_fieldset">
      <legend>DMX Personalities</legend>
      <table>
       <tr>
@@ -290,11 +290,11 @@
        <th>Slot Count</th>
        <th>Description</th>
       </tr>
-      <tbody id="device_personality_tbody"></tbody>
+      <tbody id="model_personality_tbody"></tbody>
      </table>
     </fieldset>
 
-    <fieldset id="device_sensor_fieldset">
+    <fieldset id="model_sensor_fieldset">
       <legend>Sensor Information</legend>
       <table>
        <tr>
@@ -303,13 +303,13 @@
         <th>Type</th>
         <th>Supports Recording</th>
        </tr>
-       <tbody id="device_sensor_tbody"></tbody>
+       <tbody id="model_sensor_tbody"></tbody>
       </table>
     </fieldset>
 
-    <fieldset id="device_params_fieldset">
+    <fieldset id="model_params_fieldset">
       <legend>Supported Parameters</legend>
-      <ul id="device_params_list"></ul>
+      <ul id="model_params_list"></ul>
     </fieldset>
   </fieldset>
  </div>
