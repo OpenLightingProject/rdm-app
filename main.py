@@ -391,6 +391,8 @@ class ModelSearchHandler(webapp.RequestHandler):
         'manufacturer_name': model.manufacturer.name,
         'model_description': model.model_description,
       })
+
+    models.sort(key=lambda x: (x['manufacturer_name'], x['model_id']))
     self.response.out.write(simplejson.dumps({'models': models}))
 
 

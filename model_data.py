@@ -365,6 +365,7 @@ DEVICE_MODEL_DATA = {
            'product_category': 2049,
            'link': 'http://www.citytheatrical.com/',
            'image_url': 'http://www.citytheatrical.com/images/PDS-375.gif',
+           'tags': ['wireless'],
            'software_versions': {16973828: {'label': '1.3.4',
                                             'personalities': [{'description': 'Output: Normal Mode',
                                                                'index': 1,
