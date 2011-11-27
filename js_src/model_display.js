@@ -205,7 +205,14 @@ app.ModelDisplayFrame.prototype.displaySoftwareVersion = function() {
       // add the cells
       goog.dom.appendChild(tr, this.newTD(sensor['index']));
       goog.dom.appendChild(tr, this.newTD(sensor['description']));
-      goog.dom.appendChild(tr, this.newTD(sensor['type']));
+      var type_str = sensor['type_str'];
+      var sensor_type = '';
+      if (type_str) {
+        sensor_type = type_str + ' (0x' + app.toHex(sensor['type'], 2) + ')';
+      } else  {
+        sensor_type = app.toHex(sensor['type'], 2)
+      }
+      goog.dom.appendChild(tr, this.newTD(sensor_type));
       goog.dom.appendChild(tr, this.newTD(sensor['supports_recording']));
       goog.dom.appendChild(tbody, tr);
     }

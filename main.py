@@ -14,12 +14,13 @@
 #
 # main.py
 # Copyright (C) 2011 Simon Newton
-# The handlers for /pid /pid_search and /manufacturers
+# The main handlers used by the app.
 
 from model import *
 import logging
 import memcache_keys
 import re
+import sensor_types
 import time
 from django.utils import simplejson
 from google.appengine.api import images
@@ -463,6 +464,9 @@ class ModelInfoHandler(BaseModelHandler):
             'type': sensor.type,
             'supports_recording': sensor.supports_recording,
         }
+        type_str = sensor_types.SENSOR_TYPES.get(sensor.type)
+        if type_str is not None:
+          sensor_info['type_str'] = type_str
         version_output.setdefault('sensors', []).append(sensor_info)
 
     output = {
