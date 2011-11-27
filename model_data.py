@@ -172,7 +172,7 @@ DEVICE_MODEL_DATA = {
            'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&product_id=331',
            'image_url': 'http://www.lightmoves.com/whatsnew/jump-start.jpg',
            'software_versions': {},
-           'tags': ['tool',' controller']},
+           'tags': ['tool', 'controller']},
           {'device_model': 12,
            'model_description': 'Rail-Demux',
            'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&product_id=339',
