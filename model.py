@@ -60,6 +60,7 @@ class ResponderTag(db.Model):
   """Tags that can be applied to responders."""
   # the tag label
   label = db.StringProperty(required=True)
+  exclude_from_search = db.BooleanProperty(default=False)
 
 class ResponderTagRelationship(db.Model):
   """The glue that maps tags to responders."""

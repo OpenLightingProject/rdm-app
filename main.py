@@ -160,8 +160,9 @@ class ModelCategoriesAndTags(CacheableRequest):
 
     tags = []
     for tag in ResponderTag.all():
-      tags.append(
-          (tag.label, tag.responder_set.count()))
+      if not tag.exclude_from_search:
+        tags.append(
+            (tag.label, tag.responder_set.count()))
 
     tags_output = []
     for tag, count in sorted(tags):
