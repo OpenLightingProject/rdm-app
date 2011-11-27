@@ -449,14 +449,20 @@ class ModelInfoHandler(BaseModelHandler):
         version_output['supported_parameters'] = supported_parameters
       software_versions.append(version_output)
 
+      personalities = []
       for personality in version_info.personality_set:
         personality_info = {
           'description': personality.description,
           'index': personality.index,
           'slot_count': personality.slot_count,
         }
-        version_output.setdefault('personalities', []).append(personality_info)
+        personalities.append(personality_info)
 
+      if personalities:
+        personalities.sort(key=lambda x: x['index'])
+        version_output['personalities'] = personalities;
+
+      sensors = []
       for sensor in version_info.sensor_set:
         sensor_info = {
             'description': sensor.description,
@@ -467,7 +473,11 @@ class ModelInfoHandler(BaseModelHandler):
         type_str = sensor_types.SENSOR_TYPES.get(sensor.type)
         if type_str is not None:
           sensor_info['type_str'] = type_str
-        version_output.setdefault('sensors', []).append(sensor_info)
+        sensors.append(sensor_info)
+
+      if sensors:
+        sensors.sort(key=lambda x: x['index'])
+        version_output['sensors'] = sensors
 
     output = {
       'description': model.model_description,
