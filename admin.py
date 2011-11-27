@@ -20,6 +20,7 @@ import logging
 import manufacturer_data
 import memcache_keys
 import model_data
+import model_loader
 import os
 import pid_data
 import product_categories
@@ -138,7 +139,7 @@ class AdminPageHandler(webapp.RequestHandler):
     return 'Added %d PIDs' % added
 
   def ClearModels(self):
-    memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
+    memcache.delete(memcache_keys.MODEL_COUNT_KEY)
     for item in Responder.all():
       item.delete()
 
@@ -152,93 +153,12 @@ class AdminPageHandler(webapp.RequestHandler):
       item.delete()
     return ''
 
-  def LoadModels(self):
-    memcache.delete(memcache_keys.DEVICE_MODEL_COUNT_KEY)
-    manufacturers = {}
-    added = 0
-    def getManufacturer(manufacturer_id):
-      if manufacturer_id not in manufacturers:
-        manufacturer_q = Manufacturer.all()
-        manufacturer_q.filter('esta_id =', manufacturer_id)
-        manufacturers[manufacturer_id] = manufacturer_q.fetch(1)[0]
-      return manufacturers[manufacturer_id]
-
-    tag_to_entity = {}
-    product_categories = {}
-
-    for manufacturer_id, models in model_data.DEVICE_MODEL_DATA.iteritems():
-      manufacturer = getManufacturer(manufacturer_id)
-      for info in models:
-        device = Responder(manufacturer = manufacturer,
-                           device_model_id = info['device_model'],
-                           model_description = info['model_description'])
-
-        # add product_category if it exists
-        if 'product_category' in info:
-          category_id = info['product_category']
-          category = product_categories.get(category_id)
-          if not category:
-            category = LookupProductCategory(category_id)
-            product_categories[category_id] = category
-          if category:
-            device.product_category = category
-
-        # add link and image_url if they exist, image data is fetched on demand
-        if 'link' in info:
-          device.link = info['link']
-        if 'image_url' in info:
-          device.image_url = info['image_url']
-
-        added += 1
-        device.put()
-
-        # add software version information
-        software_versions = info.get('software_versions')
-        if software_versions:
-          for version_id, version_info in software_versions.iteritems():
-            # create the new version object and store it
-            version_obj = SoftwareVersion(version_id = version_id,
-                                          label = version_info['label'],
-                                          responder = device)
-            supported_params = version_info.get('supported_parameters')
-            if supported_params:
-              version_obj.supported_parameters = supported_params
-            version_obj.put()
-
-          personalities = version_info.get('personalities', [])
-          for personality_info in personalities:
-            personality = ResponderPersonality(
-                description = personality_info['description'],
-                index = personality_info['index'],
-                slot_count = personality_info['slot_count'],
-                sw_version = version_obj)
-            personality.put()
-
-          sensors = version_info.get('sensors', [])
-          for offset, sensor_info in zip(range(len(sensors)), sensors):
-            sensor = ResponderSensor(
-                description = sensor_info['description'],
-                index = offset,
-                type = sensor_info['type'],
-                supports_recording = bool(sensor_info['supports_recording']),
-                sw_version = version_obj)
-            sensor.put()
-
-        # add any tags
-        if 'tags' in info:
-          for tag_label in info['tags']:
-            tag_entity = tag_to_entity.get(tag_label)
-            if not tag_entity:
-              tag_entity = ResponderTag(label= tag_label)
-              tag_entity.put()
-              tag_to_entity[tag_label] = tag_entity
-              logging.info('added %s -> %s' % (tag_label, tag_entity))
-            relationship = ResponderTagRelationship(
-                tag = tag_entity,
-                responder = device)
-            relationship.put()
-    return 'Models: added %d' % added
-
+  def UpdateModels(self):
+    loader = model_loader.ModelLoader(model_data.DEVICE_MODEL_DATA)
+    added, updated = loader.Update()
+    if added or updated:
+      memcache.delete(memcache_keys.MODEL_COUNT_KEY)
+    return ('Models: added %d, updated %d' % (added, updated))
 
   def UpdateProductCategories(self):
     """Update the list of Product Categories."""
@@ -282,8 +202,22 @@ class AdminPageHandler(webapp.RequestHandler):
       category.delete()
       removed += 1
     logging.info('update complete')
-    return ('Categories: added %d, removed %d, updated %d' %
+    return ('categories: added %d, removed %d, updated %d' %
             (added, removed, updated))
+
+  def GarbageCollectTags(self):
+    """Delete any tags that don't have Responders linked to them."""
+    deleted_tags = []
+    for tag in ResponderTag.all():
+      responders = tag.responder_set.fetch(1)
+      if responders == []:
+        deleted_tags.append(tag.label)
+        tag.delete()
+
+    if deleted_tags:
+      return 'Deleted tags: \n%s' % '\n'.join(deleted_tags)
+    else:
+      return 'No tags to delete'
 
   def GarbageCollectBlobs(self):
     keys_to_blobs = {}
@@ -323,15 +257,16 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def get(self):
     ACTIONS = {
-        'update_m': self.UpdateManufacturers,
-        'clear_p': self.ClearPids,
-        'load_p': self.LoadPids,
-        'load_mp': self.LoadManufacturerPids,
         'clear_models': self.ClearModels,
-        'load_models': self.LoadModels,
-        'update_categories': self.UpdateProductCategories,
+        'clear_p': self.ClearPids,
         'gc_blobs': self.GarbageCollectBlobs,
+        'gc_tags': self.GarbageCollectTags,
         'initiate_image_fetch': self.InitiateImageFetch,
+        'load_mp': self.LoadManufacturerPids,
+        'load_p': self.LoadPids,
+        'update_categories': self.UpdateProductCategories,
+        'update_m': self.UpdateManufacturers,
+        'update_models': self.UpdateModels,
     }
 
     ALLOWED_USERS = [
