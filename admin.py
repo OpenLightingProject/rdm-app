@@ -159,7 +159,8 @@ class AdminPageHandler(webapp.RequestHandler):
     if added or updated:
       memcache.delete(memcache_keys.MODEL_COUNT_KEY)
       memcache.delete(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY)
-    return ('Models: added %d, updated %d' % (added, updated))
+    return ('Models:\nAdded: %s\nUpdated: %s' %
+            (', '.join(added), ', '.join(updated)))
 
   def UpdateProductCategories(self):
     """Update the list of Product Categories."""

@@ -380,22 +380,24 @@ class ModelLoader(object):
       A tuple in the form (added, updated), with the number of entities added
       or updated.
     """
-    added = updated = 0
+    added = []
+    updated = []
 
     for manufacturer_id, models in self._model_data.iteritems():
       manufacturer = self._LookupManufacturer(manufacturer_id)
-      was_added = False
-      was_modified = False
       if not manufacturer:
         logging.error('No manufacturer found for %hx' % manufacturer_id)
         continue
 
       for model_info in models:
+        was_added = False
+        was_modified = False
         model_id = model_info['device_model']
         responder = self._LookupResponder(manufacturer.key(), model_id)
         if responder:
           # update
           if self._UpdateResponder(responder, model_info):
+            logging.info(' responder changed')
             was_modified = True
         else:
           # add a new one
@@ -415,11 +417,12 @@ class ModelLoader(object):
         # list
         if 'tags' in model_info:
           if self._UpdateTags(responder, model_info['tags']):
+            logging.info(' tag changed')
             was_modified = True
 
         if was_added:
-          added += 1
+          added.append(model_info['model_description'])
         elif was_modified:
-          updated += 1
+          updated.append(model_info['model_description'])
 
     return added, updated
