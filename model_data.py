@@ -450,6 +450,7 @@ DEVICE_MODEL_DATA = {
            'model_description': 'RDM Coffee Pot',
            'link': 'http://www.dfd.com/coffee.html',
            'image_url': 'http://www.dfd.com/images/coffeepot2.jpg',
+           'tags': ['novelty'],
            'product_category': 32767,
            'software_versions': {}}],
   18501: [{'device_model': 258,
