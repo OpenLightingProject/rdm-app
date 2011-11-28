@@ -434,6 +434,13 @@ class ModelInfoHandler(BaseModelHandler):
       self.error(404)
       return
 
+    esta_manufacturer = GetManufacturer(0)
+    if not esta_manufacturer:
+      logging.error("Can't find ESTA manufacturer!")
+      # 404 early here
+      self.error(404)
+      return
+
     self.response.headers['Content-Type'] = 'text/plain'
 
     # software version info
@@ -449,7 +456,22 @@ class ModelInfoHandler(BaseModelHandler):
 
       supported_parameters = version_info.supported_parameters
       if supported_parameters is not None:
-        version_output['supported_parameters'] = supported_parameters
+        param_output = []
+        for param in supported_parameters:
+          query = Pid.all()
+          query.filter('pid_id =' , param)
+          if param >= 0x8000:
+            query.filter('manufacturer = ', model.manufacturer)
+          else:
+            query.filter('manufacturer = ', esta_manufacturer)
+
+          results = query.fetch(1)
+          if results:
+            param_output.append('%s (0x%04hx)' % (results[0].name, param))
+          else:
+            param_output.append('0x%04hx' % param)
+
+        version_output['supported_parameters'] = sorted(param_output)
       software_versions.append(version_output)
 
       personalities = []

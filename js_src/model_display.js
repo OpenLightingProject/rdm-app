@@ -229,7 +229,7 @@ app.ModelDisplayFrame.prototype.displaySoftwareVersion = function() {
     goog.dom.removeChildren(supported_params_list);
     for (var i = 0; i < supported_params.length; ++i) {
       var li = goog.dom.createDom('li');
-      li.innerHTML = '0x' + app.toHex(supported_params[i], 4);
+      li.innerHTML = supported_params[i];
       goog.dom.appendChild(supported_params_list, li);
     }
     this.showBlock(supported_params_fieldset);
