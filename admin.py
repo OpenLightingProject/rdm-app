@@ -16,12 +16,16 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for the admin page.
 
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+from google.appengine.dist import use_library
+use_library('django', '1.2')
+
 import logging
 import manufacturer_data
 import memcache_keys
 import model_data
 import model_loader
-import os
 import pid_data
 import product_categories
 from google.appengine.api import memcache
@@ -101,6 +105,7 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def ClearPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     for item in MessageItem.all():
       item.delete()
 
@@ -121,6 +126,7 @@ class AdminPageHandler(webapp.RequestHandler):
     return ''
 
   def LoadPids(self):
+    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     loader = PidLoader()
     added = 0
     for pid in pid_data.ESTA_PIDS:
@@ -132,6 +138,7 @@ class AdminPageHandler(webapp.RequestHandler):
     loader = PidLoader()
     added = 0
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     for manufacturer in pid_data.MANUFACTURER_PIDS:
       for pid in manufacturer['pids']:
         loader.AddPid(pid, manufacturer['id'])
@@ -157,8 +164,9 @@ class AdminPageHandler(webapp.RequestHandler):
     loader = model_loader.ModelLoader(model_data.DEVICE_MODEL_DATA)
     added, updated = loader.Update()
     if added or updated:
-      memcache.delete(memcache_keys.MODEL_COUNT_KEY)
-      memcache.delete(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY)
+      memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
+      memcache.delete(memcache_keys.CATEGORY_MODEL_COUNTS)
+      memcache.delete(memcache_keys.TAG_MODEL_COUNTS)
     return ('Models:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))
 

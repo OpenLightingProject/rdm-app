@@ -17,244 +17,205 @@
  * Copyright (C) 2011 Simon Newton
  */
 
-goog.require('goog.History');
 goog.require('goog.dom');
 goog.require('goog.events');
-goog.require('goog.ui.TabPane');
-
-goog.require('app.History');
-goog.require('app.ModelDisplayFrame');
-goog.require('app.ModelSearchFrame');
-goog.require('app.PidDisplayFrame');
-goog.require('app.PidSearchFrame');
-goog.require('app.SearchDisplayPane');
-goog.require('app.Server');
-goog.require('app.StatusBar');
+goog.require('goog.ui.Component');
+goog.require('goog.ui.TableSorter');
+goog.require('app.MessageStructure');
 
 goog.provide('app.setup');
 
 var app = app || {}
 
+// Empty list, this is populated in the page
+app.SOFTWARE_VERSIONS = []
+
 /**
- * This manages all the state transitions.
- * @constructor
+ * Sort hex values
+ * @param {*} a First sort value.
+ * @param {*} b Second sort value.
+ * @return {number} Negative if a < b, 0 if a = b, and positive if a > b.
  */
-app.StateManager = function() {
-  this.pid_searcher = undefined;
-  this.model_searcher = undefined;
-
-  // setup the tab pane
-  this.tab_pane = new goog.ui.TabPane(goog.dom.$('tab_pane'));
-  this.pid_search_page = new goog.ui.TabPane.TabPage(
-    goog.dom.$('tab_page_1'), "Parameter IDs");
-  this.model_search_page = new goog.ui.TabPane.TabPage(
-    goog.dom.$('tab_page_2'), 'Device Models');
-  this.tab_pane.addPage(this.pid_search_page);
-  this.tab_pane.addPage(this.model_search_page);
-
-  this.pid_searcher = new app.ManufacturerSearchDisplayPane(
-      new app.PidSearchFrame('pid_search'),
-      new app.PidDisplayFrame('pid_display'));
-
-  this.model_searcher = new app.ManufacturerSearchDisplayPane(
-    new app.ModelSearchFrame('model_search'),
-    new app.ModelDisplayFrame('model_display'));
-  this.status_bar = new app.StatusBar('status_bar');
-
-  var server = app.Server.getInstance();
-  // fire off a request to get the list of manufacturers
-  var server = app.Server.getInstance();
-  var t = this;
-  server.manufacturers(function(results) {t.newManufacturers(results); });
-
-  goog.events.listen(app.history,
-                     goog.History.EventType.NAVIGATE,
-                     this.navChanged,
-                     false,
-                     this);
-
-  app.history.setEnabled(true);
+app.hexSort = function(a, b) {
+  return parseInt(a) - parseInt(b);
 };
 
 
 /**
- * Show the PID tab.
+ * Convert a number to the hex representation
+ * @param {number} n the number to convert.
+ * @param {number} padding the length to pad to
+ * @return {string} the hex representation of the number.
  */
-app.StateManager.prototype.showPIDTab = function() {
-  this.tab_pane.setSelectedPage(this.pid_search_page);
+app.toHex = function(n, padding) {
+  if (n < 0) {
+    n = 0xffffffff + n + 1;
+  }
+  var s = n.toString(16);
+  while (s.length < padding) {
+    s = '0' + s;
+  }
+  return s;
 };
 
 
 /**
- * Show the model tab.
+ * Hide a node.
  */
-app.StateManager.prototype.showModelTab = function() {
-  this.tab_pane.setSelectedPage(this.model_search_page);
-};
+app.hideNode = function(node) {
+  node.style.display = 'none';
+}
+
+/**
+ * Show a block node
+ */
+app.showBlock = function(node) {
+  node.style.display = 'block';
+}
+
+/**
+ * Show a inline node
+ */
+app.showInline = function(node) {
+  node.style.display = 'inline';
+}
+
+/**
+ * Show a table row
+ */
+app.showRow = function(row) {
+  row.style.display = 'table-row';
+}
 
 
 /**
- * This is called when the url changes and triggers a state change.
+ * Create a TD node and set the innerHTML property
  */
-app.StateManager.prototype.navChanged = function(e) {
-  if (e.token == null) {
+app.newTD = function(text) {
+  var td = goog.dom.createDom('td');
+  td.innerHTML = text;
+  return td;
+}
+
+
+/**
+ * Make the model table sortable
+ */
+app.makeModelTable = function(table_id) {
+  var table = new goog.ui.TableSorter();
+  table.decorate(goog.dom.$(table_id));
+
+  table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
+  table.setSortFunction(1, app.hexSort);
+  table.setSortFunction(2, goog.ui.TableSorter.alphaSort);
+};
+goog.exportSymbol('app.makeModelTable', app.makeModelTable);
+
+
+/**
+ * Display info for the currently selected software version
+ */
+app.changeSoftwareVersion = function(element) {
+  // default to displaying the first version
+  var index = 0;
+  if (element) {
+    index = element.selectedIndex;
+  }
+  if (index >= app.SOFTWARE_VERSIONS.length) {
     return;
   }
-  params = e.token.split(',');
-  var t = this;
+  var software_version = app.SOFTWARE_VERSIONS[index];
 
-  switch (params[0]) {
-    case app.History.PID_MANUFACTURER_SEARCH:
-      this.status_bar.setSearching();
-      app.Server.getInstance().manufacturerSearch(
-        params[1],
-        function(response) { t.newPidResults(response); });
-      break;
-    case app.History.PID_ID_SEARCH:
-      this.status_bar.setSearching();
-      app.Server.getInstance().pidSearch(
-        params[1],
-        function(response) { t.newPidResults(response); });
-      break;
-      break;
-    case app.History.PID_NAME_SEARCH:
-      this.status_bar.setSearching();
-      app.Server.getInstance().pidNameSearch(
-        params[1],
-        function(response) { t.newPidResults(response); });
-      break;
-    case app.History.PID_DISPLAY:
-      this.status_bar.setLoading();
-      app.Server.getInstance().getPid(
-        params[1],
-        params[2],
-        function(response) { t.newPidInfo(response); });
-      break;
-    case app.History.MODEL_MANUFACTURER_SEARCH:
-      this.status_bar.setSearching();
-      this.showModelTab();
-      app.Server.getInstance().modelSearchByManufacturer(
-        params[1],
-        function(response) { t.newModelResults(response); });
-      break;
-    case app.History.MODEL_CATEGORY_SEARCH:
-      this.status_bar.setSearching();
-      this.showModelTab();
-      app.Server.getInstance().modelSearchByCategory(
-        params[1],
-        function(response) { t.newModelResults(response); });
-      break;
-    case app.History.MODEL_TAG_SEARCH:
-      this.status_bar.setSearching();
-      this.showModelTab();
-      app.Server.getInstance().modelSearchByTag(
-        params[1],
-        function(response) { t.newModelResults(response); });
-      break;
-    case app.History.MODEL_DISPLAY:
-      this.status_bar.setLoading();
-      this.showModelTab();
-      app.Server.getInstance().getModel(
-        params[1],
-        params[2],
-        function(response) { t.newModel(response); });
-      break;
-    default:
-      this.pid_searcher.showSearchFrame();
-  }
-};
-
-
-/**
- * Called when a new manufacturer list arrives.
- */
-app.StateManager.prototype.newManufacturers = function(response) {
-  this.pid_searcher.newManufacturers(response['manufacturers']);
-  this.model_searcher.newManufacturers(response['manufacturers']);
-};
-
-
-/**
- * Called when new pid results arrive
- */
-app.StateManager.prototype.newPidResults = function(response) {
-  this.status_bar.hide();
-  this.pid_searcher.displaySearchResults(response['pids']);
-};
-
-
-/**
- * Called when new pid info is available.
- */
-app.StateManager.prototype.newPidInfo = function(response) {
-  this.status_bar.hide();
-  this.pid_searcher.displayEntity(response);
-};
-
-/**
- * Called when new model results arrive
- */
-app.StateManager.prototype.newModelResults = function(response) {
-  this.status_bar.hide();
-  this.model_searcher.displaySearchResults(response['models']);
-};
-
-
-/**
- * Called when new model data is available
- */
-app.StateManager.prototype.newModel = function(response) {
-  this.status_bar.hide();
-  this.model_searcher.displayEntity(response);
-};
-
-
-/**
- * Navigate back to the previous state, or go to the main search page if there
- * is no history remaining.
- */
-app.backToSearchResults = function() {
-  if (history.length > 0) {
-    history.back();
+  // DMX Personalities
+  var personalities = software_version['personalities'];
+  var personality_fieldset = goog.dom.$('model_personality_fieldset');
+  if (personalities && personalities.length) {
+    var tbody = goog.dom.$('model_personality_tbody');
+    goog.dom.removeChildren(tbody);
+    for (var i = 0; i < personalities.length; ++i) {
+      var personality = personalities[i];
+      var tr = goog.dom.createDom('tr');
+      // add the cells
+      goog.dom.appendChild(tr, app.newTD(personality['index']));
+      goog.dom.appendChild(tr, app.newTD(personality['slot_count']));
+      goog.dom.appendChild(tr, app.newTD(personality['description']));
+      goog.dom.appendChild(tbody, tr);
+    }
+    app.showBlock(personality_fieldset);
   } else {
-    app.history.setToken('');
+    app.hideNode(personality_fieldset);
+  }
+
+  // Sensors
+  var sensors = software_version['sensors'];
+  var sensor_fieldset = goog.dom.$('model_sensor_fieldset');
+  if (sensors && sensors.length) {
+    var tbody = goog.dom.$('model_sensor_tbody');
+    goog.dom.removeChildren(tbody);
+    for (var i = 0; i < sensors.length; ++i) {
+      var sensor = sensors[i];
+      var tr = goog.dom.createDom('tr');
+      // add the cells
+      goog.dom.appendChild(tr, app.newTD(sensor['index']));
+      goog.dom.appendChild(tr, app.newTD(sensor['description']));
+      var type_str = sensor['type_str'];
+      var sensor_type = '';
+      if (type_str) {
+        sensor_type = type_str + ' (0x' + app.toHex(sensor['type'], 2) + ')';
+      } else  {
+        sensor_type = app.toHex(sensor['type'], 2)
+      }
+      goog.dom.appendChild(tr, app.newTD(sensor_type));
+      goog.dom.appendChild(tr, app.newTD(sensor['supports_recording']));
+      goog.dom.appendChild(tbody, tr);
+    }
+    app.showBlock(sensor_fieldset);
+  } else {
+    app.hideNode(sensor_fieldset);
+  }
+
+  // supported params
+  var supported_params = software_version['supported_parameters'];
+  var supported_params_fieldset = goog.dom.$('model_params_fieldset');
+  if (supported_params && supported_params.length) {
+    var supported_params_list = goog.dom.$('model_params_list');
+    goog.dom.removeChildren(supported_params_list);
+    for (var i = 0; i < supported_params.length; ++i) {
+      var li = goog.dom.createDom('li');
+      li.innerHTML = supported_params[i];
+      goog.dom.appendChild(supported_params_list, li);
+    }
+    app.showBlock(supported_params_fieldset);
+  } else {
+    app.hideNode(supported_params_fieldset);
   }
 };
-goog.exportSymbol('app.backToSearchResults', app.backToSearchResults);
+goog.exportSymbol('app.changeSoftwareVersion', app.changeSoftwareVersion);
 
 
 /**
- * Init the history tracking object
+ * Make the pid table sortable
  */
-app.initHistory = function() {
-  goog.require('goog.History');
-  app.history = new goog.History();
+app.makePIDTable = function(table_id) {
+  var table = new goog.ui.TableSorter();
+  table.decorate(goog.dom.$(table_id));
+
+  table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
+  table.setSortFunction(1, app.hexSort);
+  table.setSortFunction(2, app.hexSort);
+  table.setSortFunction(3, goog.ui.TableSorter.alphaSort);
+  table.setSortFunction(4, goog.ui.TableSorter.alphaSort);
+  table.setSortFunction(5, goog.ui.TableSorter.alphaSort);
 };
-goog.exportSymbol('app.initHistory', app.initHistory);
+goog.exportSymbol('app.makePIDTable', app.makePIDTable);
 
 
 /**
- * Update the last updated time, and the pid / model counts.
+ * Display a pid command
  */
-app.updateIndexInfo = function(response) {
-  var update_time = new Date(response['timestamp'] * 1000);
-  var div = goog.dom.$('update_time');
-  div.innerHTML = (
-      'Last Updated: ' + update_time + '<br>' +
-      response['manufacturer_pid_count'] +  ' Manufacturer PIDs, ' +
-      response['model_count'] + ' Models.');
-  div.style.display = 'block';
+app.displayCommand = function(json, element_id) {
+  var msg_structure = new app.MessageStructure();
+  msg_structure.decorate(goog.dom.$(element_id));
+  msg_structure.update(json['items']);
 };
-
-
-/**
- * The main setup function
- */
-app.setup = function() {
-  var state_manager = new app.StateManager();
-
-  // get the last updated time
-  var server = app.Server.getInstance();
-  server.getIndexInfo(app.updateIndexInfo);
-};
-goog.exportSymbol('app.setup', app.setup);
+goog.exportSymbol('app.displayCommand', app.displayCommand);

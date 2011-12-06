@@ -19,14 +19,20 @@
 # Number of models
 MODEL_COUNT_KEY = 'device_model_count'
 
-# Json of manufacturers
-MANUFACTURER_CACHE_KEY = 'manufacturers'
-
 # Number of manufacturer pids
 MANUFACTURER_PID_COUNT_KEY = 'manufacturer_pid_count'
 
-# Json of product categories
-PRODUCT_CATEGORY_CACHE_KEY = 'product_categories'
+# PID manufacturer counts
+MANUFACTURER_PID_COUNTS = 'manufacturer_pids'
 
-# Json of tags
-MODEL_TAGS_CACHE_KEY = 'model_tags';
+# Manufacturer model counts
+MANUFACTURER_MODEL_COUNTS = 'manufacturer_models'
+
+# Category model counts
+CATEGORY_MODEL_COUNTS = 'category_models'
+
+# Tag model counts
+TAG_MODEL_COUNTS = 'tag_models'
+
+# Index info data
+INDEX_INFO = 'index_info'

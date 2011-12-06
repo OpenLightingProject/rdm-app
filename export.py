@@ -210,8 +210,63 @@ class MissingModelsHandler(webapp.RequestHandler):
       self.response.out.write('\n')
 
 
+class InfoHandler(webapp.RequestHandler):
+  """Return the information about the index.
+
+  This returns:
+   - the last uptime time
+   - the number of manufacturer pids
+   - the number of models
+  """
+  ESTA_ID = 0
+
+  def ManufacturerPidCount(self):
+    """Return the number of manufacturer PIDs."""
+    manufacturer_pids = memcache.get(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+    if manufacturer_pids is None:
+      manufacturer_pids = 0
+
+      for pid in Pid.all():
+        if pid.manufacturer.esta_id != self.ESTA_ID:
+          manufacturer_pids += 1
+      if not memcache.add(memcache_keys.MANUFACTURER_PID_COUNT_KEY,
+                          manufacturer_pids):
+        logging.error("Memcache set failed.")
+    return manufacturer_pids
+
+  def DeviceModelCount(self):
+    """Return the number of models."""
+    model_count = memcache.get(memcache_keys.MODEL_COUNT_KEY)
+    if model_count is None:
+      model_count = 0
+
+      for pid in Responder.all():
+        model_count += 1
+      if not memcache.add(memcache_keys.MODEL_COUNT_KEY,
+                          model_count):
+        logging.error("Memcache set failed.")
+    return model_count
+
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+
+    output = {'timestamp': None}
+    results = Pid.all()
+    results.order('-update_time')
+
+    pids = results.fetch(1)
+    if pids:
+      timestamp = int(time.mktime(pids[0].update_time.timetuple()))
+      output['timestamp'] = timestamp
+    output['manufacturer_pid_count'] = self.ManufacturerPidCount()
+    output['model_count'] = self.DeviceModelCount()
+    self.response.out.write(simplejson.dumps(output))
+
+
+
 application = webapp.WSGIApplication(
   [
+    ('/index_info', InfoHandler),
     ('/download', PidDefinitionsAsProto),
     ('/export_models', ExportModelsHandler),
     ('/missing_models', MissingModelsHandler),

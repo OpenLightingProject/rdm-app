@@ -1,0 +1,10 @@
+{% extends "base_pid_search.tmpl" %}
+
+{% block title %}Search PIDs by Name{% endblock %}
+
+{% block search_widget %}
+<form action="/pid/name" method="get">
+PID Name: <input type="text" name="name">
+<input type="submit" value="Search">
+</form>
+{% endblock %}

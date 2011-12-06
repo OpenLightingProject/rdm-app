@@ -12,10 +12,6 @@ handlers:
   static_files: favicon.ico
   upload: favicon.ico
 
-- url: /
-  static_files: index.html
-  upload: index.html
-
 - url: /admin/.*
   script: admin.py
   login: required
@@ -29,20 +25,24 @@ handlers:
 - url: /images
   static_dir: images
 
-# common handlers
-- url: /(index_info|manufacturers|model_categories_and_tags)
-  script: main.py
+# default landing page
+- url: /
+  script: model_handler.py
 
-# PID search / display handlers
-- url: /(pid|pid_search)
-  script: main.py
+# page handlers
+- url: /(contact|disclaimer)
+  script: pages.py
 
-# model search / display handlers
-- url: /(model_search|model_info)
-  script: main.py
+# model handlers
+- url: /model/.*
+  script: model_handler.py
+
+# pid handlers
+- url: /pid/.*
+  script: pid_handler.py
 
 # export handlers
-- url: /(download|export_models|missing_models)
+- url: /(download|export_models|index_info|missing_models)
   script: export.py
 
 - url: /admin

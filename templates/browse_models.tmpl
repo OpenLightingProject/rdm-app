@@ -1,0 +1,68 @@
+
+{% extends "base.tmpl" %}
+
+{% block title %}Browse Models, Page {{ page_number }}{% endblock %}
+{% block content %}
+
+<div class="browse_nav">
+<div style="float: left; text-align: left">
+{% if previous %}
+<a href="/model/browse?page={{ previous }}">Previous Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+
+Displaying {{ start }} to {{ end }} of {{ total }}
+
+<div style="float: right; text-align: right">
+{% if next %}
+<a href="/model/browse?page={{ next }}">Next Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+</div>
+
+<table class="browse_table">
+  {% for row in model_rows %}
+    <tr>
+    {% for model in row %}
+     <td>
+       <a href="/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id}}">
+       {% if model.image_key %}
+        <img src="{{ model.image_key }}=s100"></img><br>
+       {% else %}
+         <div class="missing_image">No Image Available</div>
+       {% endif %}
+       {{ model.name }}</a>
+     </td>
+    {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+
+<div class="browse_nav">
+<div style="float: left; text-align: left">
+{% if previous %}
+<a href="/model/browse?page={{ previous }}">Previous Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+
+Displaying {{ start }} to {{ end }} of {{ total }}
+
+<div style="float: right; text-align: right">
+{% if next %}
+<a href="/model/browse?page={{ next }}">Next Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+</div>
+
+
+
+</div>
+{% endblock %}

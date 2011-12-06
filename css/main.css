@@ -1,22 +1,52 @@
-/* base styles */
 html { height: 100%; }
 body {
-  margin: 0px;
-  padding: 0px;
-  font-family: sans-serif;
-  font-size: 13px;
   height: 100%;
-}
-
-table {
   font-family: sans-serif;
   font-size: 13px;
-  padding: 0px;
   margin: 0px;
-  border: 0px;
-  border-spacing: 0px;
+  padding: 0px;
 }
 
+#main {
+  overflow: auto;
+  padding-bottom: 50px;
+}
+
+#wrap {
+  min-height: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#footer {
+  position: relative;
+  margin-top: -47px;
+  height: 42px;
+  clear: both;
+  text-align: center;
+  font-size: 11px;
+}
+
+#outer_content {
+  border: #67a7e3 1px solid;
+  background-color: #e4e9fe;
+}
+
+#inner_content {
+  background-color: #ffffff;
+  margin: 5px;
+}
+
+/*Opera Fix*/
+body:before {
+  content: "";
+  height: 100%;
+  float: left;
+  width: 0;
+  margin-top: -32767px;/
+}
+
+/* base sryles */
 fieldset {
   border: #67a7e3 1px solid;
   margin-bottom: 5px;
@@ -24,73 +54,155 @@ fieldset {
 legend { font-weight: bold; }
 h2 { margin: 5px; }
 
-/* floating footer styles */
-#wrap { min-height: 100%; }
-
-#tab_pane {
-  overflow:auto;
-  padding-bottom: 77px;
-}
-
-#footer {
-  text-align: center;
-  clear: both;
-  height: 62px;
-  margin-top: -67px;
-  font-size: 11px;
-}
-
-/*Opera Fix*/
-body:before {
-  content:"";
-  height:100%;
-  float:left;
-  width:0;
-  margin-top:-32767px;/
-}
-
-/* status bar */
-#status_bar_container {
-  position: absolute;
-  top: 0px;
-  width: 100%;
-}
-
-#status_bar {
-  height: 15px;
-  margin-left: auto;
-  margin-right: auto;
-  display: none;
-}
-
-#status_bar .goog-roundedpanel-content {
-  padding-top: 3px;
-  font-weight: bold;
-  text-align: center;
-  font-size: 12px;
-}
-
-/* navigation bar in the top right */
-#nav_bar {
+/* login bar in the top right */
+#login {
   text-align: right;
   padding: 4px;
   padding-bottom: 6px;
 }
 
-#nav_bar ul { margin: 0px; }
-#nav_bar li {
+#login ul { margin: 0px; }
+#login li {
   display: inline;
   list-style-type: none;
 }
 
-.upper_div {
+/* navigation bar */
+#nav_bar {
+  padding-left: 10px;
+  margin-top: 2px;
+  color: #333;
+}
+
+/* All links */
+#nav_bar a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Both the tabs and the drop down menus */
+#nav_bar ul {
+  z-index: 5; /* We need to be above the other layers on the page */
+  list-style: none; /* Turn off bullets */
+}
+
+/* The first ul, this is the horizontal tabs */
+#nav_bar > ul {
+  margin: 0px;
+  height: 23px;
+  padding: 0px;
+  text-align: left;
+  cursor: default;
+}
+
+/* The first set of li, these are the tabs */
+#nav_bar ul > li {
+  font: bold 12px verdana, arial, sans-serif;
+  float: left;
+  position: relative;
+  margin-top: 0px;
+  padding: 0px;
+
+  padding: 3px 10px;
+  border-width: 1px 1px 1px 0px;
   background-color: #e4e9fe;
+  border-color: #67a7e3;
+  height: 16px;
+  border-style: solid;
+  display: block;
+}
+
+#nav_bar > ul > li:first-child {
+  border-left: 1px solid #67a7e3;
+}
+
+/* The drop down menus */
+#nav_bar li ul {
+  display: none;
+  position: absolute;
   padding: 5px;
-  border-bottom: 1px solid #76a7e0
+  top: 22px;
+}
+
+#nav_bar li ul {
+  border: 1px solid #67a7e3;
+  background-color: #e4e9fe;
+  margin-left: -11px;
+}
+
+#nav_bar li ul li {
+  width: 300px;
+  padding: 1px;
+  border: 0px;
+}
+
+/* Hover behaviour */
+#nav_bar li:hover ul { display: block; }
+#nav_bar li:hover > a { background-color: #fff; }
+/* End tabs & menus */
+
+/* browse page */
+.browse_nav {
+  padding: 3px;
+  border-bottom: 1px solid #e4e9fe;
+  border-top: 1px solid #e4e9fe;
+  text-align: center;
+}
+
+.browse_nav div {
+  width: 100px;
+}
+
+.browse_table {
+  width: 100%;
+}
+
+.browse_table tr {
+  height: 140px;
+}
+
+.browse_table td {
+  padding: 10px;
+  height: 130px;
+}
+
+.browse_table a {
+  text-decoration: none;
+}
+
+.browse_table a:hover {
+  text-decoration: underline;
+}
+
+.browse_table td {
+  height: 50px;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.missing_image {
+  border: 1px solid #000000;
+  width: 100px;
+  height: 100px;
+  background-color: #cccccc;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000000;
+}
+
+a:hover .missing_image {
+  text-decoration: none;
+}
+
+/* search results table */
+.search_div {
+  padding: 5px;
+  border-bottom: 1px solid #e4e9fe;
 }
 
 .results_table {
   width: 100%;
+  border-spacing: 0px;
 }
 
 .results_table th {
@@ -100,6 +212,11 @@ body:before {
 
 .results_table td {
   cursor: pointer;
+  padding: 2px;
+}
+
+.results_row:hover {
+  background: #cccccc;
 }
 
 th .sorter_icon {
@@ -120,52 +237,15 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   background-position: -16px 0px;
 }
 
-/* CSS for PID display */
-.message_table { border-spacing: 5px; }
-
-.message_structure {
-  border: 1px solid #000;
-  text-align: center;
-  height: 100%;
-  margin: 10px;
-}
-
-.message_group {
-  border: 1px solid #0f0;
-  text-align: center;
-  height: 100%;
-  margin: 10px;
-}
-
-.message_field {
-  border: 1px solid #00c;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-  padding: 4px;
-}
-
-.subdevice_range_help { cursor: pointer; }
-
-.bool_field { width: 20%; }
-.uint8_field { width: 20%; }
-.int8_field { width: 20%; }
-.uint16_field { width: 40%; }
-.int16_field { width: 40%; }
-.uint32_field { width: 80%; }
-.int32_field { width: 80%; }
-.string_field { width: 80%; }
-
 
 /* CSS for device display */
 #model_info_table {
   margin-top: 10px;
   margin-left: 10px;
+}
 
+#model_info_table td {
+  padding: 5px;
 }
 
 #model_display img {
@@ -217,18 +297,46 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
   padding: 4px;
 }
 
-/* ---- Closure Styles Follow ---- */
-/* base goog- CSS */
-.goog-control {
-  cursor: pointer;
-  outline: none;
+
+/* CSS for PID display */
+.message_table { border-spacing: 5px; }
+
+.message_structure {
+  border: 1px solid #000;
+  text-align: center;
+  height: 100%;
+  margin: 10px;
 }
 
-.goog-inline-block {
-  position: relative;
-  display: -moz-inline-box; /* Ignored by FF3 and later. */
-  display: inline-block;
+.message_group {
+  border: 1px solid #0f0;
+  text-align: center;
+  height: 100%;
+  margin: 10px;
 }
+
+.message_field {
+  border: 1px solid #00c;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  padding: 4px;
+}
+
+.subdevice_range_help { cursor: pointer; }
+
+.bool_field { width: 20%; }
+.uint8_field { width: 20%; }
+.int8_field { width: 20%; }
+.uint16_field { width: 40%; }
+.int16_field { width: 40%; }
+.uint32_field { width: 80%; }
+.int32_field { width: 80%; }
+.string_field { width: 80%; }
 
 /* tooltip CSS */
 .goog-tooltip {
@@ -240,205 +348,3 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
 }
 
 .goog-tooltip ul { margin: 0px; }
-
-/* Auto complete CSS */
-.ac-renderer {
-  font: normal 12px Arial, sans-serif;
-  position: absolute;
-  background: #fff;
-  border: 1px solid #666;
-  -moz-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
-  -webkit-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
-  width: 400px;
-}
-
-.ac-row {
-  cursor: pointer;
-  padding: .4em;
-}
-
-.ac-highlighted { font-weight: bold; }
-.ac-active { background: #e4e9fe; }
-
-/* tabpan CSS */
-.goog-tabpane {
-  position: relative;
-  margin: 3px;
-}
-
-.goog-tabpane-tabs {
-  outline: none;
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-  position: relative;
-}
-
-.goog-tabpane-tab, .goog-tabpane-tab-selected {
-  display: block;
-  background: #e3e9ff;
-  border-right: 1px solid #67a7e3;
-  margin: 0px;
-  padding: 5px 10px;
-  float: left;
-  cursor: pointer;
-}
-
-.goog-tabpane-tab-selected { background: #bbccff; }
-.goog-tabpane-cont { border: #67a7e3 1px solid; }
-
-/* roundedpanel CSS */
-.goog-roundedpanel {
-  position: relative;
-  z-index: 0;
-}
-
-.goog-roundedpanel-background {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-/* select drop down box */
-.goog-menu-button {
-  background: #ddd url(/images/button-bg.png) repeat-x top left;
-  border: 0;
-  color: #000;
-  cursor: pointer;
-  list-style: none;
-  margin: 2px;
-  outline: none;
-  padding: 0;
-  text-decoration: none;
-  vertical-align: middle;
-  font-size: 11px;
-}
-
-/* Pseudo-rounded corners. */
-.goog-menu-button-outer-box,
-.goog-menu-button-inner-box {
-  border-style: solid;
-  border-color: #aaa;
-  vertical-align: top;
-}
-.goog-menu-button-outer-box {
-  margin: 0;
-  border-width: 1px 0;
-  padding: 0;
-}
-.goog-menu-button-inner-box {
-  margin: 0 -1px;
-  border-width: 0 1px;
-  padding: 3px 4px;
-}
-
-/* Pre-IE7 IE hack; ignored by IE7 and all non-IE browsers. */
-* html .goog-menu-button-inner-box {
-  /* IE6 needs to have the box shifted to make the borders line up. */
-  left: -1px;
-}
-
-/* Pre-IE7 BiDi fixes. */
-* html .goog-menu-button-rtl .goog-menu-button-outer-box {
-  /* @noflip */ left: -1px;
-  /* @noflip */ right: auto;
-}
-* html .goog-menu-button-rtl .goog-menu-button-inner-box {
-  /* @noflip */ right: auto;
-}
-
-/* IE7-only hack; ignored by all other browsers. */
-*:first-child+html .goog-menu-button-inner-box {
-  /* IE7 needs to have the box shifted to make the borders line up. */
-  left: -1px;
-}
-/* IE7 BiDi fix. */
-*:first-child+html .goog-menu-button-rtl .goog-menu-button-inner-box {
-  /* @noflip */ left: 1px;
-  /* @noflip */ right: auto;
-}
-
-/* Safari-only hacks. */
-::root .goog-menu-button,
-::root .goog-menu-button-outer-box,
-::root .goog-menu-button-inner-box {
-  /* Required to make pseudo-rounded corners work on Safari. */
-  line-height: 0;
-}
-::root .goog-menu-button-caption,
-::root .goog-menu-button-dropdown {
-  /* Required to make pseudo-rounded corners work on Safari. */
-  line-height: normal;
-}
-
-/* State: hover. */
-.goog-menu-button-hover .goog-menu-button-outer-box,
-.goog-menu-button-hover .goog-menu-button-inner-box {
-  border-color: #9cf #69e #69e #7af !important; /* Hover border wins. */
-}
-
-/* State: active, open. */
-.goog-menu-button-active,
-.goog-menu-button-open {
-  background-color: #bbb;
-  background-position: bottom left;
-}
-
-/* State: focused. */
-.goog-menu-button-focused .goog-menu-button-outer-box,
-.goog-menu-button-focused .goog-menu-button-inner-box {
-  border-color: orange;
-}
-
-.goog-menu-button-caption {
-  padding: 0 4px 0 0;
-  vertical-align: top;
-}
-
-.goog-menu-button-dropdown {
-  height: 13px;
-  width: 7px;
-  background: url(/images/expander.png) no-repeat -73px 0;
-  vertical-align: top;
-}
-
-.goog-menu {
-  background: #fff;
-  border-color: #ccc #666 #666 #ccc;
-  border-style: solid;
-  border-width: 1px;
-  cursor: default;
-  font: normal 11px Arial, sans-serif;
-  margin: 0;
-  outline: none;
-  padding: 4px 0;
-  position: absolute;
-  z-index: 20000;
-}
-
-.goog-menuitem {
-  color: #000;
-  list-style: none;
-  margin: 0;
-  padding: 4px 7em 4px 10px;
-  white-space: nowrap;
-}
-
-.goog-menuitem-content {
-  color: #000;
-}
-
-.goog-menuitem-highlight,
-.goog-menuitem-hover {
-  background-color: #d6e9f8;
-  /* Use an explicit top and bottom border so that the selection is visible
-   * in high contrast mode. */
-  border-color: #d6e9f8;
-  border-style: dotted;
-  border-width: 1px 0;
-  padding-bottom: 3px;
-  padding-top: 3px;
-}

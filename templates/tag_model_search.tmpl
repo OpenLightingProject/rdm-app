@@ -1,0 +1,18 @@
+{% extends "base_model_search.tmpl" %}
+
+{% block title %}Search Models by Tag{% endblock %}
+
+{% block search_widget %}
+<form action="/model/tag" method="get">
+Tag: 
+<select name="tag">
+  {% for tag in tags %}
+  <option
+    value="{{ tag.label }}"
+    {% if tag.label == current_tag %} selected {% endif %}>
+    {{ tag.label }} ({{tag.responder_count }})</option>
+  {% endfor %}
+</select>
+<input type="submit" value="Search">
+</form>
+{% endblock %}

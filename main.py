@@ -47,59 +47,6 @@ def GetManufacturer(manufacturer_id):
   return None
 
 
-class InfoHandler(webapp.RequestHandler):
-  """Return the information about the index.
-
-  This returns:
-   - the last uptime time
-   - the number of manufacturer pids
-   - the number of models
-  """
-  ESTA_ID = 0
-
-  def ManufacturerPidCount(self):
-    """Return the number of manufacturer PIDs."""
-    manufacturer_pids = memcache.get(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
-    if manufacturer_pids is None:
-      manufacturer_pids = 0
-
-      for pid in Pid.all():
-        if pid.manufacturer.esta_id != self.ESTA_ID:
-          manufacturer_pids += 1
-      if not memcache.add(memcache_keys.MANUFACTURER_PID_COUNT_KEY,
-                          manufacturer_pids):
-        logging.error("Memcache set failed.")
-    return manufacturer_pids
-
-  def DeviceModelCount(self):
-    """Return the number of models."""
-    model_count = memcache.get(memcache_keys.MODEL_COUNT_KEY)
-    if model_count is None:
-      model_count = 0
-
-      for pid in Responder.all():
-        model_count += 1
-      if not memcache.add(memcache_keys.MODEL_COUNT_KEY,
-                          model_count):
-        logging.error("Memcache set failed.")
-    return model_count
-
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-
-    output = {'timestamp': None}
-    results = Pid.all()
-    results.order('-update_time')
-
-    pids = results.fetch(1)
-    if pids:
-      timestamp = int(time.mktime(pids[0].update_time.timetuple()))
-      output['timestamp'] = timestamp
-    output['manufacturer_pid_count'] = self.ManufacturerPidCount()
-    output['model_count'] = self.DeviceModelCount()
-    self.response.out.write(simplejson.dumps(output))
-
-
 class CacheableRequest(webapp.RequestHandler):
   """The base class for cachable requests.
 
@@ -117,67 +64,6 @@ class CacheableRequest(webapp.RequestHandler):
       if not memcache.add(self.CACHE_KEY, response):
         logging.error("Memcache set failed.")
     self.response.out.write(response)
-
-
-class ManufacturersHandler(CacheableRequest):
-  """Return the list of all manufacturers."""
-  CACHE_KEY = memcache_keys.MANUFACTURER_CACHE_KEY
-
-  def BuildResponse(self):
-    manufacturers = []
-    for manufacturer in Manufacturer.all():
-      manufacturers.append({
-        'name': manufacturer.name,
-        'id': manufacturer.esta_id
-      })
-    return simplejson.dumps({'manufacturers': manufacturers})
-    if not memcache.add(memcache_keys.MANUFACTURER_CACHE_KEY, response):
-      logging.error("Memcache set failed.")
-    return response
-
-  def AddHeaders(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.headers['Cache-Control'] = 'public; max-age=300;'
-
-
-class ModelCategoriesAndTags(CacheableRequest):
-  """Return the list of all product categories."""
-  CACHE_KEY = memcache_keys.PRODUCT_CATEGORY_CACHE_KEY
-
-  def BuildResponse(self):
-    categories = []
-    for category in ProductCategory.all():
-      categories.append(
-          (category.name, category.id, category.responder_set.count()))
-
-    category_output = []
-    for name, id, count in sorted(categories):
-      category_output.append({
-        'id': id,
-        'name': name,
-        'count': count,
-      })
-
-    tags = []
-    for tag in ResponderTag.all():
-      if not tag.exclude_from_search:
-        tags.append(
-            (tag.label, tag.responder_set.count()))
-
-    tags_output = []
-    for tag, count in sorted(tags):
-      tags_output.append({
-        'tag': tag,
-        'count': count,
-      })
-    return simplejson.dumps({
-      'categories': category_output,
-      'tags': tags_output
-    })
-
-  def AddHeaders(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
 
 class SearchHandler(webapp.RequestHandler):
@@ -530,13 +416,10 @@ class ModelInfoHandler(BaseModelHandler):
 
 application = webapp.WSGIApplication(
   [
-    ('/index_info', InfoHandler),
-    ('/manufacturers', ManufacturersHandler),
     ('/model_info', ModelInfoHandler),
     ('/model_search', ModelSearchHandler),
     ('/pid', PidHandler),
     ('/pid_search', SearchHandler),
-    ('/model_categories_and_tags', ModelCategoriesAndTags),
   ],
   debug=True)
 

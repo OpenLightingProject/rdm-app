@@ -17,14 +17,12 @@
  * Copyright (C) 2011 Simon Newton
  */
 
-goog.require('app.BaseFrame');
 goog.require('goog.dom');
-goog.require('goog.events');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Tooltip');
 
 
-goog.provide('app.PidDisplayFrame');
+goog.provide('app.MessageStructure');
 
 
 /**
@@ -127,13 +125,6 @@ app.MessageField.prototype.enterDocument = function() {
 app.MessageField.prototype.exitDocument = function() {
   app.MessageField.superClass_.exitDocument.call(this);
   this.tt.detach(this.getElement());
-};
-
-
-/**
- * Call when the user clicks on this field to rename it.
- */
-app.MessageField.prototype._fieldClicked = function() {
 };
 
 
@@ -244,125 +235,5 @@ app.MessageField.prototype.exitDocument = function() {
   app.MessageField.superClass_.exitDocument.call(this);
   if (this.tt) {
     this.tt.detach(this.getElement());
-  }
-};
-
-
-/**
- * Create a new pid display frame.
- * @constructor
- */
-app.PidDisplayFrame = function(element){
-  app.BaseFrame.call(this, element);
-  this._get_request = new app.MessageStructure();
-  this._get_request.decorate(goog.dom.$('get_request'));
-  this._get_response = new app.MessageStructure();
-  this._get_response.decorate(goog.dom.$('get_response'));
-
-  this._set_request = new app.MessageStructure();
-  this._set_request.decorate(goog.dom.$('set_request'));
-  this._set_response = new app.MessageStructure();
-  this._set_response.decorate(goog.dom.$('set_response'));
-
-  var subdevice_help_nodes = goog.dom.getElementsByTagNameAndClass(
-    'img', 'subdevice_range_help');
-  this._attachToolTipForNodes(
-    subdevice_help_nodes,
-    "The allowed values for the sub device field. Options are: <ul>" +
-    "<li>Root device only (0x0)</li>" +
-    "<li>Root or all sub-devices (0x0 - 0x200, 0xffff)</li>" +
-    "<li>Root or sub devices (0x0 - 0x200)</li>" +
-    "<li>Only sub-devices (0x1 - 0x200)</li>" +
-    "</ul>"
-    );
-};
-goog.inherits(app.PidDisplayFrame, app.BaseFrame);
-
-
-
-/**
- * Attach a tooltip for each node in a list.
- */
-app.PidDisplayFrame.prototype._attachToolTipForNodes = function(nodes, msg) {
-  for (var i = 0; i < nodes.length; ++i) {
-    this._attachToolTip(nodes[i], msg);
-  }
-}
-
-
-/**
- * Attach a tooltip to a node, this also adds an on click handler.
- */
-app.PidDisplayFrame.prototype._attachToolTip = function(node, msg) {
-  var tt = new goog.ui.Tooltip(node);
-  tt.setHtml(msg);
-
-  goog.events.listen(
-      node,
-      goog.events.EventType.CLICK,
-      function() { tt.showForElement(node); });
-};
-
-
-/**
- * Display the structure of a PID
- */
-app.PidDisplayFrame.prototype.update = function(pid_info) {
-  goog.dom.$('pid_manufacturer').innerHTML = pid_info['manufacturer'];
-  goog.dom.$('pid_name').innerHTML = pid_info['name'];
-  goog.dom.$('pid_value').innerHTML = '0x' + app.toHex(pid_info['value'], 4);
-
-  var link = pid_info['link'];
-  var link_row = goog.dom.$('pid_link_row');
-  if (!link || link.size == 0) {
-    link_row.style.display = 'none';
-  } else {
-    var href_element = goog.dom.$('pid_link');
-    href_element.innerHTML = link;
-    href_element.href = link;
-    link_row.style.display = 'table-row';
-  }
-  goog.dom.$('pid_notes').innerHTML = pid_info['notes'];
-
-  this._updateCommand(pid_info, 'get');
-  this._updateCommand(pid_info, 'set');
-};
-
-
-app.PidDisplayFrame.prototype._hideNode = function(node) {
-  node.style.display = 'none';
-}
-
-
-app.PidDisplayFrame.prototype._showNode = function(node) {
-  node.style.display = 'block';
-}
-
-app.PidDisplayFrame.prototype._updateCommand = function(pid_info, mode) {
-  var unsupported_node = goog.dom.$(mode + '_command_unsupported');
-  var info_node = goog.dom.$(mode + '_command_description');
-
-  var request_key = mode + '_request';
-  var response_key = mode + '_response';
-
-  if (pid_info[request_key] == null) {
-    this._showNode(unsupported_node);
-    this._hideNode(info_node);
-  } else {
-    this._hideNode(unsupported_node);
-    this._showNode(info_node);
-    goog.dom.$(mode + '_subdevice_range').innerHTML = (
-      pid_info[mode + '_subdevice_range']);
-
-    var request = pid_info[request_key];
-    var response = pid_info[response_key];
-
-    if (mode == 'get') {
-      this._get_request.update(request['items']);
-      this._get_response.update(response['items']);
-    } else {
-      this._set_request.update(request['items']);
-      this._set_response.update(response['items']);
-    }
   }
 };

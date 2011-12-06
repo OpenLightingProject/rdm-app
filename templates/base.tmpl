@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}RDM Manufacturer Index{% endblock %}</title>
+  <meta name="description" content="A searchable index of RDM devices and parameter IDs">
+  <meta name="keywords" content="RDM, Remote Device Management, DMX512, Lighting Control, Open Lighting Project">
+  <link href="https://plus.google.com/u/0/b/106460627923808853381/" rel="publisher" />
+  <link rel='stylesheet' href='/css/main.css'>
+  {% block extra_headers %} {% endblock %}
+
+  <!--[if !IE 7]>
+    <style type="text/css">
+      #wrap { display: table; height: 100%}
+    </style>
+  <![endif]-->
+</head>
+<body>
+
+<div id="wrap">
+<div id="login">
+  <ul>
+    <li><a href="/admin">Admin Page</a></li>
+  </ul>
+</div>
+
+<h2>RDM Manufacturer Library</h2>
+
+<div id="main">
+  <div id="nav_bar">
+  <ul>
+   <li>Device Models
+    <ul>
+     <li><a href="/model/browse">Browse</a></li>
+     <li><a href="/model/manufacturer">Search By Manufacturer</a></li>
+     <li><a href="/model/category">Search By Product Category</a></li>
+     <li><a href="/model/tag">Search By Tag</a></li>
+    </ul>
+   </li>
+   <li>Parameters
+     <ul>
+      <li><a href="/pid/manufacturer">Search By Manufacturer</a></li>
+      <li><a href="/pid/name">Search By Name</a></li>
+      <li><a href="/pid/id">Search Models By ID</a></li>
+     </ul>
+   </li>
+  </ul>
+  </div>
+
+  <div id="outer_content">
+    <div id="inner_content">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="footer">
+  <a href="/contact">Contact</a> |
+  <a href="/disclaimer">Disclaimer</a> |
+  <a href="http://www.openlighting.org">Open Lighting Project</a>
+  <div>
+    Last Updated: {{ last_updated|date:"D d M Y" }} <br>
+    {{ manufacturer_pid_count }} Manufacturer PIDs,
+    {{ model_count }} Models.
+  </div>
+</div>
+</body>
+</html>
