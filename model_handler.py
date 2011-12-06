@@ -125,7 +125,6 @@ class SearchByManufacturer(BaseSearchHandler):
               'name': manufacturer.name,
               'responder_count': responders,
           })
-      logging.info(manufacturer_list)
       memcache.set(memcache_keys.MANUFACTURER_MODEL_COUNTS, manufacturer_list)
 
     return {
@@ -339,7 +338,6 @@ class DisplayModel(webapp.RequestHandler):
     if model.image_data:
       output['image_key'] = images.get_serving_url(model.image_data.key())
 
-    logging.info(output)
     self.response.headers['Content-Type'] = 'text/html'
     self.response.out.write(
         template.render('templates/display_model.tmpl',
