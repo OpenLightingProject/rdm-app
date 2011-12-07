@@ -219,8 +219,11 @@ class SearchByTag(BaseSearchHandler):
     return []
 
 
-class DisplayModel(webapp.RequestHandler):
+class DisplayModel(common.BasePageHandler):
   """Display information about a particular model."""
+
+  TEMPLATE = 'templates/display_model.tmpl'
+
   def LookupModelFromRequest(self):
     model_id_str = self.request.get('model')
     model_id = None
@@ -243,7 +246,7 @@ class DisplayModel(webapp.RequestHandler):
       return None
     return model_data[0]
 
-  def get(self):
+  def GetTemplateData(self):
     model = self.LookupModelFromRequest()
     if not model:
       self.error(404)
@@ -344,12 +347,7 @@ class DisplayModel(webapp.RequestHandler):
 
     if model.image_data:
       output['image_key'] = images.get_serving_url(model.image_data.key())
-
-    self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(
-        template.render('templates/display_model.tmpl',
-                        output))
-
+    return output
 
 
 application = webapp.WSGIApplication(

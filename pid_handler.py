@@ -134,8 +134,11 @@ class SearchById(BaseSearchHandler):
     return []
 
 
-class DisplayPid(webapp.RequestHandler):
+class DisplayPid(common.BasePageHandler):
   """Display information about a particular PID."""
+
+  TEMPLATE = 'templates/display_pid.tmpl'
+
   def LookupPIDFromRequest(self):
     pid_id = self.request.get('pid')
     try:
@@ -224,7 +227,7 @@ class DisplayPid(webapp.RequestHandler):
     }
     return command
 
-  def get(self):
+  def GetTemplateData(self):
     pid = self.LookupPIDFromRequest()
     if not pid:
       self.error(404)
@@ -245,11 +248,7 @@ class DisplayPid(webapp.RequestHandler):
     if pid.set_command:
       command = self.BuildCommand(pid.set_command)
       output['set_command'] = command
-
-    self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(
-        template.render('templates/display_pid.tmpl',
-                        output))
+    return output
 
 
 application = webapp.WSGIApplication(
