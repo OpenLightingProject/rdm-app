@@ -270,20 +270,27 @@ class DisplayModel(webapp.RequestHandler):
       if supported_parameters is not None:
         param_output = []
         for param in supported_parameters:
+          param_dict = {
+              'id': param,
+          }
+
           query = Pid.all()
           query.filter('pid_id =' , param)
           if param >= 0x8000:
             query.filter('manufacturer = ', model.manufacturer)
+            param_dict['manufacturer_id'] = model.manufacturer.esta_id
           else:
             query.filter('manufacturer = ', esta_manufacturer)
+            param_dict['manufacturer_id'] = esta_manufacturer.esta_id
 
           results = query.fetch(1)
           if results:
-            param_output.append('%s (0x%04hx)' % (results[0].name, param))
-          else:
-            param_output.append('0x%04hx' % param)
+            param_dict['name'] = results[0].name
+          param_output.append(param_dict)
 
-        version_output['supported_parameters'] = sorted(param_output)
+        version_output['supported_parameters'] = sorted(
+            param_output,
+            key=lambda x: x['id'])
       software_versions.append(version_output)
 
       personalities = []

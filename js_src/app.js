@@ -181,8 +181,18 @@ app.changeSoftwareVersion = function(element) {
     var supported_params_list = goog.dom.$('model_params_list');
     goog.dom.removeChildren(supported_params_list);
     for (var i = 0; i < supported_params.length; ++i) {
+      var param = supported_params[i];
       var li = goog.dom.createDom('li');
-      li.innerHTML = supported_params[i];
+      var a = goog.dom.createDom('a');
+      var param_name = param['name'];
+      if (param_name) {
+        a.innerHTML = param_name + ' (0x' + app.toHex(param['id'], 4) + ')';
+      } else {
+        a.innerHTML = '0x' + app.toHex(param['id'], 4);
+      }
+      a.href = ('/pid/display?manufacturer=' + param['manufacturer_id'] +
+        '&pid=' + param['id']);
+      goog.dom.appendChild(li, a)
       goog.dom.appendChild(supported_params_list, li);
     }
     app.showBlock(supported_params_fieldset);
