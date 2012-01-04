@@ -20,6 +20,9 @@
 MODEL_COUNT_KEY = 'device_model_count'
 
 # Number of manufacturer pids
+MANUFACTURER_CACHE_KEY = 'manufacturers'
+
+# Number of manufacturer pids
 MANUFACTURER_PID_COUNT_KEY = 'manufacturer_pid_count'
 
 # PID manufacturer counts

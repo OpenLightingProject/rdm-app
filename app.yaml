@@ -42,7 +42,7 @@ handlers:
   script: pid_handler.py
 
 # export handlers
-- url: /(download|export_models|index_info|missing_models)
+- url: /(download|export_models|index_info|manufacturers|missing_models)
   script: export.py
 
 - url: /admin
