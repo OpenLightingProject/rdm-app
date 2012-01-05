@@ -164,6 +164,7 @@ class AdminPageHandler(webapp.RequestHandler):
     loader = model_loader.ModelLoader(model_data.DEVICE_MODEL_DATA)
     added, updated = loader.Update()
     if added or updated:
+      memcache.delete(memcache_keys.INDEX_INFO)
       memcache.delete(memcache_keys.MODEL_COUNT_KEY)
       memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
       memcache.delete(memcache_keys.CATEGORY_MODEL_COUNTS)
