@@ -138,7 +138,9 @@ class SearchByManufacturer(BaseSearchHandler):
       query.filter('esta_id = ', self._manufacturer_id)
 
       for manufacturer in query.fetch(1):
-        return manufacturer.responder_set
+        responder_query = manufacturer.responder_set
+        responder_query.order('device_model_id')
+        return responder_query
     return []
 
 
