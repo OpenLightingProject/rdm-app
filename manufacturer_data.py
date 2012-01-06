@@ -228,7 +228,7 @@ MANUFACTURER_DATA = [
 (0x5253, "Robe Show Lighting s.r.o."),
 (0x5341, "Stage Technologies Limited"),
 (0x5342, "Industrias Sola Basic S.A. de C.V."),
-(0x5343, "Ocean Optics Inc."),
+(0x5343, "Ocean Thin Films Inc."),
 (0x5344, "Stardraw.com Ltd."),
 (0x5345, "Selador"),
 (0x5346, "Synthe FX, LLC"),

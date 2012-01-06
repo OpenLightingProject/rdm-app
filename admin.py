@@ -68,6 +68,8 @@ class AdminPageHandler(webapp.RequestHandler):
     manufacturers_to_delete = []
     # invalidate the cache now
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
+    memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
     added = removed = updated = 0
 
     for manufacturer in Manufacturer.all():
