@@ -21,6 +21,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 from google.appengine.dist import use_library
 use_library('django', '1.2')
 
+import controller_data
+import controller_loader
 import logging
 import manufacturer_data
 import memcache_keys
@@ -221,17 +223,31 @@ class AdminPageHandler(webapp.RequestHandler):
 
   def GarbageCollectTags(self):
     """Delete any tags that don't have Responders linked to them."""
-    deleted_tags = []
+    deleted_responder_tags = []
     for tag in ResponderTag.all():
       responders = tag.responder_set.fetch(1)
       if responders == []:
-        deleted_tags.append(tag.label)
+        deleted_responder_tags.append(tag.label)
         tag.delete()
 
-    if deleted_tags:
-      return 'Deleted tags: \n%s' % '\n'.join(deleted_tags)
-    else:
-      return 'No tags to delete'
+    deleted_controller_tags = []
+    for tag in ControllerTag.all():
+      controllers = tag.controller_set.fetch(1)
+      if controllers == []:
+        deleted_controller_tags.append(tag.label)
+        tag.delete()
+
+    output = ''
+    if deleted_responder_tags:
+      output += ('Deleted Responder tags: \n%s\n' %
+          '\n'.join(deleted_responder_tags))
+    if deleted_controller_tags:
+      output += ('Deleted Controller tags: \n%s\n' %
+          '\n'.join(deleted_controller_tags))
+
+    if output == '':
+      output = 'No tags to delete'
+    return output
 
   def GarbageCollectBlobs(self):
     keys_to_blobs = {}
@@ -240,6 +256,13 @@ class AdminPageHandler(webapp.RequestHandler):
 
     for responder in Responder.all():
       image_blob = responder.image_data
+      if image_blob:
+        key = image_blob.key()
+        if key in keys_to_blobs:
+          del keys_to_blobs[key]
+
+    for controller in Controller.all():
+      image_blob = controller.image_data
       if image_blob:
         key = image_blob.key()
         if key in keys_to_blobs:
@@ -264,13 +287,43 @@ class AdminPageHandler(webapp.RequestHandler):
         task.add()
         urls.append(responder.image_url)
 
+    for controller in Controller.all():
+      if controller.image_url and not controller.image_data:
+        url = '/tasks/fetch_controller_image?key=%s' % controller.key()
+        task = taskqueue.Task(method='GET', url=url)
+        task.add()
+        urls.append(controller.image_url)
+        break
+
     if urls:
       return 'Fetching urls: \n%s' % '\n'.join(urls)
     else:
       return 'No images to fetch'
 
+  def ClearControllers(self):
+    for item in Controller.all():
+      item.delete()
+
+    for item in ControllerTag.all():
+      item.delete()
+
+    for item in ControllerTagRelationship.all():
+      item.delete()
+    return ''
+
+  def UpdateControllers(self):
+    loader = controller_loader.ControllerLoader(
+        controller_data.CONTROLLER_DATA)
+    added, updated = loader.Update()
+    if added or updated:
+      #memcache.delete(memcache_keys.TAG_MODEL_COUNTS)
+      pass
+    return ('Controllers:\nAdded: %s\nUpdated: %s' %
+            (', '.join(added), ', '.join(updated)))
+
   def get(self):
     ACTIONS = {
+        'clear_controllers': self.ClearControllers,
         'clear_models': self.ClearModels,
         'clear_p': self.ClearPids,
         'gc_blobs': self.GarbageCollectBlobs,
@@ -281,6 +334,7 @@ class AdminPageHandler(webapp.RequestHandler):
         'update_categories': self.UpdateProductCategories,
         'update_m': self.UpdateManufacturers,
         'update_models': self.UpdateModels,
+        'update_controllers': self.UpdateControllers,
     }
 
     ALLOWED_USERS = [

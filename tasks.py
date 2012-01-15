@@ -19,11 +19,11 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
-from model import Responder
+from model import Controller,Responder
 from image_fetcher import ImageFetcher
 
 
-class FetchImage(webapp.RequestHandler):
+class FetchResponderImage(webapp.RequestHandler):
   """Fetch the image for a responder entity."""
   def get(self):
     key = self.request.get('key')
@@ -41,9 +41,28 @@ class FetchImage(webapp.RequestHandler):
     return 200
 
 
+class FetchControllerImage(webapp.RequestHandler):
+  """Fetch the image for a controller entity."""
+  def get(self):
+    key = self.request.get('key')
+    controller = Controller.get(key)
+    if not controller:
+      return 200
+
+    if controller.image_url and not controller.image_data:
+      fetcher = ImageFetcher()
+      blob_key = fetcher.FetchAndSaveImage(controller.image_url)
+
+      if blob_key:
+        controller.image_data = blob_key
+        controller.put()
+    return 200
+
+
 application = webapp.WSGIApplication(
   [
-    ('/tasks/fetch_image', FetchImage),
+    ('/tasks/fetch_image', FetchResponderImage),
+    ('/tasks/fetch_controller_image', FetchControllerImage),
   ],
   debug=True)
 

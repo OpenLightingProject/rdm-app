@@ -37,6 +37,10 @@ handlers:
 - url: /model/.*
   script: model_handler.py
 
+# controller handlers
+- url: /controller/.*
+  script: controller_handler.py
+
 # pid handlers
 - url: /pid/.*
   script: pid_handler.py
@@ -48,7 +52,7 @@ handlers:
 - url: /admin
   script: admin.py
 
-- url: /tasks/fetch_image
+- url: /tasks/(fetch_image|fetch_controller_image)
   script: tasks.py
   login: admin
 
