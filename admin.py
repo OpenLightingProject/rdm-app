@@ -293,7 +293,6 @@ class AdminPageHandler(webapp.RequestHandler):
         task = taskqueue.Task(method='GET', url=url)
         task.add()
         urls.append(controller.image_url)
-        break
 
     if urls:
       return 'Fetching urls: \n%s' % '\n'.join(urls)
