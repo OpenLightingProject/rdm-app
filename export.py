@@ -179,6 +179,37 @@ class ExportModelsHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps({'models': models}))
 
 
+class ExportControllersHandler(webapp.RequestHandler):
+  """Return all controllers for the RDM Protocol Site.
+
+  This is used by the rdmprotocol.org site. Don't change the format without
+  checking in with Peter Kirkup.
+  """
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    results = Controller.all()
+
+    controllers = []
+    for controller in Controller.all():
+      controller_output = {
+        'manufacturer_name': controller.manufacturer.name,
+        'name': controller.name,
+      }
+      if controller.link:
+        controller_output['link'] = controller.link
+      if controller.image_url:
+        controller_output['image_url'] = controller.image_url
+      tags = list(controller.tag_set)
+      if tags:
+        tags = []
+        for tag in controller.tag_set:
+          tags.append(tag.tag.label)
+        controller_output['tags'] = tags
+
+      controllers.append(controller_output)
+    self.response.out.write(simplejson.dumps({'controllers': controllers}))
+
+
 class MissingModelsHandler(webapp.RequestHandler):
   """Return all device models that are missing info / image urls in csv."""
   def get(self):
@@ -293,6 +324,7 @@ application = webapp.WSGIApplication(
     ('/index_info', InfoHandler),
     ('/download', PidDefinitionsAsProto),
     ('/export_models', ExportModelsHandler),
+    ('/export_controllers', ExportControllersHandler),
     ('/manufacturers', ExportManufacturers),
     ('/missing_models', MissingModelsHandler),
   ],
