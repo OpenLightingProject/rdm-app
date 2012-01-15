@@ -316,7 +316,8 @@ class AdminPageHandler(webapp.RequestHandler):
         controller_data.CONTROLLER_DATA)
     added, updated = loader.Update()
     if added or updated:
-      #memcache.delete(memcache_keys.TAG_MODEL_COUNTS)
+      memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
+      memcache.delete(memcache_keys.TAG_CONTROLLER_COUNTS)
       pass
     return ('Controllers:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))

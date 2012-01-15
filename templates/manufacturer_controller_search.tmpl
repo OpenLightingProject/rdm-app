@@ -1,0 +1,18 @@
+{% extends "base_controller_search.tmpl" %}
+
+{% block title %}Search Controllers by Manufacturer{% endblock %}
+
+{% block search_widget %}
+<form action="/controller/manufacturer" method="get">
+Manufacturer:
+<select name="manufacturer">
+  {% for manufacturer in manufacturers %}
+  <option
+    value="{{ manufacturer.id }}"
+    {% if manufacturer.id == current_id %} selected {% endif %}>
+    {{ manufacturer.name }} ({{manufacturer.controller_count }})</option>
+  {% endfor %}
+</select>
+<input type="submit" value="Search">
+</form>
+{% endblock %}

@@ -68,4 +68,14 @@ CONTROLLER_DATA = {
      'image_url': 'http://common.zero88.com/public/images/JesterTLXtraLAngRGB.jpg',
      'tags': ['console']},
   ],
+  0x4744: [
+    {'name': 'DMXter4 RDM',
+     'link': 'http://www.goddarddesign.com/dmxter4a.html',
+     'image_url': 'http://www.goddarddesign.com/dmxter4_s1-020web.jpg',
+     'tags': ['tool']},
+    {'name': 'MiniDMXter4',
+     'link': 'http://www.goddarddesign.com/mini4_09.html',
+     'image_url': 'http://www.goddarddesign.com/mini4_270web.jpg',
+     'tags': ['tool']},
+  ],
 }

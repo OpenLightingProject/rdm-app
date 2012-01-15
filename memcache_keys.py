@@ -31,11 +31,17 @@ MANUFACTURER_PID_COUNTS = 'manufacturer_pids'
 # Manufacturer model counts
 MANUFACTURER_MODEL_COUNTS = 'manufacturer_models'
 
+# Manufacturer controller counts
+MANUFACTURER_CONTROLLER_COUNTS = 'manufacturer_controllers'
+
 # Category model counts
 CATEGORY_MODEL_COUNTS = 'category_models'
 
 # Tag model counts
 TAG_MODEL_COUNTS = 'tag_models'
+
+# Tag controller counts
+TAG_CONTROLLER_COUNTS = 'tag_controllers'
 
 # Index info data
 INDEX_INFO = 'index_info'
