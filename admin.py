@@ -185,8 +185,6 @@ class AdminPageHandler(webapp.RequestHandler):
 
     existing_categories = set()
     categories_to_delete = []
-    # invalidate the cache now
-    memcache.delete(memcache_keys.PRODUCT_CATEGORY_CACHE_KEY)
 
     for category in ProductCategory.all():
       id = category.id
