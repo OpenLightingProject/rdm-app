@@ -50,7 +50,7 @@ class BrowseModels(common.BasePageHandler):
     page -= 1
 
     query = Responder.all()
-    query.order('-image_url')
+    query.order('-score')
     total = query.count()
     models = query.fetch(limit=self.RESULTS_PER_PAGE,
                          offset=page * self.RESULTS_PER_PAGE)

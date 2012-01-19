@@ -138,6 +138,10 @@ class AdminPageHandler(webapp.RequestHandler):
       added += 1
     return 'Added %d PIDs' % added
 
+  def RankDevices(self):
+    task = taskqueue.Task(method='GET', url='/tasks/rank_devices')
+    task.add()
+
   def LoadManufacturerPids(self):
     loader = PidLoader()
     added = 0
@@ -329,6 +333,7 @@ class AdminPageHandler(webapp.RequestHandler):
         'initiate_image_fetch': self.InitiateImageFetch,
         'load_mp': self.LoadManufacturerPids,
         'load_p': self.LoadPids,
+        'rank_devices': self.RankDevices,
         'update_categories': self.UpdateProductCategories,
         'update_m': self.UpdateManufacturers,
         'update_models': self.UpdateModels,

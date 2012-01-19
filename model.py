@@ -54,6 +54,8 @@ class Responder(db.Model):
   image_url = db.LinkProperty();
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
+  # the scoring rank
+  score = db.IntegerProperty()
 
 
 class ResponderTag(db.Model):
@@ -61,6 +63,7 @@ class ResponderTag(db.Model):
   # the tag label
   label = db.StringProperty(required=True)
   exclude_from_search = db.BooleanProperty(default=False)
+
 
 class ResponderTagRelationship(db.Model):
   """The glue that maps tags to responders."""

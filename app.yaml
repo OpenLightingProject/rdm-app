@@ -52,7 +52,7 @@ handlers:
 - url: /admin
   script: admin.py
 
-- url: /tasks/(fetch_image|fetch_controller_image)
+- url: /tasks/(fetch_image|fetch_controller_image|rank_devices)
   script: tasks.py
   login: admin
 

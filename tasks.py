@@ -59,10 +59,31 @@ class FetchControllerImage(webapp.RequestHandler):
     return 200
 
 
+class RankDevices(webapp.RequestHandler):
+  """Rank the devices according to a simple scoring algorithm."""
+  def get(self):
+    for device in Responder.all():
+      score = 0
+      if device.image_data is not None:
+        # 10 point boost for having an image
+        score += 10
+      if device.link is not None:
+        # 10 point boost for having a link
+        score += 1
+      if device.software_version_set.count():
+        # 10 point boost for having version information
+        score += 10
+
+      device.score = score
+      device.put()
+    return 200
+
+
 application = webapp.WSGIApplication(
   [
     ('/tasks/fetch_image', FetchResponderImage),
     ('/tasks/fetch_controller_image', FetchControllerImage),
+    ('/tasks/rank_devices', RankDevices),
   ],
   debug=True)
 
