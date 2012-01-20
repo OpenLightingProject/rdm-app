@@ -80,7 +80,7 @@ MANUFACTURER_DATA = [
 (0x4144, "ADB - TTV Technologies nv"),
 (0x4145, "ADE Elettronica srl"),
 (0x4149, "Anidea Engineering, INC."),
-(0x414C, "Artistic Licence (UK) Ltd."),
+(0x414C, "Artistic Licence Engineering Ltd."),
 (0x414D, "Amptown Lichttechnik GmbH"),
 (0x414E, "Anytronics Ltd."),
 (0x4150, "Apogee Lighting"),
