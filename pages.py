@@ -16,11 +16,6 @@
 # Copyright (C) 2011 Simon Newton
 # Handlers for simple static pages
 
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-from google.appengine.dist import use_library
-use_library('django', '1.2')
-
 import common
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template

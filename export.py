@@ -16,6 +16,9 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for exporting information to third parties.
 
+from google.appengine.dist import use_library
+use_library('django', '1.2')
+
 from model import *
 import logging
 import memcache_keys

@@ -16,11 +16,6 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for the admin page.
 
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-from google.appengine.dist import use_library
-use_library('django', '1.2')
-
 import controller_data
 import controller_loader
 import logging

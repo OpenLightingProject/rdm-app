@@ -19,7 +19,7 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
-from model import Controller,Responder
+from model import Controller, Responder
 from image_fetcher import ImageFetcher
 
 
