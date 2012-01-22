@@ -70,7 +70,6 @@ class BrowseControllers(common.BasePageHandler):
         'start': start + 1,
         'total' : total,
     }
-    logging.info(data)
     if page:
       data['previous'] = page
     if start + len(controllers) < total:
