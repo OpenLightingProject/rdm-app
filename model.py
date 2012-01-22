@@ -50,10 +50,12 @@ class Responder(db.Model):
                                           collection_name='responder_set')
   # link to the product page
   link = db.LinkProperty();
-  # image url
+  # url of the source image
   image_url = db.LinkProperty();
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
+  # the url we're serving the image on
+  image_serving_url = db.LinkProperty()
   # the scoring rank
   score = db.IntegerProperty()
   # the score penalty, used to demote responders

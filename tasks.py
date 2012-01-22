@@ -37,6 +37,7 @@ class FetchResponderImage(webapp.RequestHandler):
 
       if blob_key:
         responder.image_data = blob_key
+        responder.image_serving_url = images.get_serving_url(blob_key)
         responder.put()
     return 200
 

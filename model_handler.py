@@ -60,7 +60,14 @@ class BrowseModels(common.BasePageHandler):
           'model_id': model.device_model_id,
       }
       if model.image_data:
-        output['image_key'] = images.get_serving_url(model.image_data.key())
+        serving_url = model.image_serving_url
+        if not serving_url:
+          serving_url = images.get_serving_url(model.image_data.key())
+          model.image_serving_url = serving_url
+          model.put()
+          logging.info('saving %s' % serving_url)
+        output['image_key'] = serving_url
+
       rows[-1].append(output)
 
     start = page * self.RESULTS_PER_PAGE
@@ -343,7 +350,12 @@ class DisplayModel(common.BasePageHandler):
       tags.append(tag.tag.label)
 
     if model.image_data:
-      output['image_key'] = images.get_serving_url(model.image_data.key())
+      serving_url = model.image_serving_url
+      if not serving_url:
+        serving_url = images.get_serving_url(model.image_data.key())
+        model.image_serving_url = serving_url
+        model.put()
+      output['image_key'] = serving_url
     return output
 
 
