@@ -56,6 +56,8 @@ class Responder(db.Model):
   image_data = blobstore.BlobReferenceProperty()
   # the scoring rank
   score = db.IntegerProperty()
+  # the score penalty, used to demote responders
+  score_penalty = db.IntegerProperty()
 
 
 class ResponderTag(db.Model):

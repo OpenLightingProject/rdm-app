@@ -74,6 +74,9 @@ class RankDevices(webapp.RequestHandler):
         # 10 point boost for having version information
         score += 10
 
+      if device.score_penalty:
+        score -= device.score_penalty
+
       device.score = score
       device.put()
     return 200
