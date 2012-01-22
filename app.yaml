@@ -57,6 +57,7 @@ handlers:
   login: admin
 
 builtins:
+- appstats: on
 - datastore_admin: on
 - remote_api: on
 
