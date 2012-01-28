@@ -17,6 +17,7 @@
 # Defines the task queue handlers.
 
 import logging
+from google.appengine.api import images
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from model import Controller, Responder

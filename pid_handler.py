@@ -23,7 +23,6 @@ import sensor_types
 import common
 from model import *
 from django.utils import simplejson
-from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
