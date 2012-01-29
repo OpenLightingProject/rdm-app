@@ -204,6 +204,25 @@ goog.exportSymbol('app.changeSoftwareVersion', app.changeSoftwareVersion);
 
 
 /**
+ * Display the latest version for the element.
+ */
+app.setLatestVersion = function(element) {
+  var index = 0;
+  var version = 0;
+  for (var i = 0; i < app.SOFTWARE_VERSIONS.length; ++i) {
+    var version_id = app.SOFTWARE_VERSIONS[i]['version_id'];
+    if (version_id > version) {
+      version = version_id;
+      index = i;
+    }
+  }
+  element.selectedIndex = index;
+  app.changeSoftwareVersion(element);
+}
+goog.exportSymbol('app.setLatestVersion', app.setLatestVersion);
+
+
+/**
  * Make the pid table sortable
  */
 app.makePIDTable = function(table_id) {

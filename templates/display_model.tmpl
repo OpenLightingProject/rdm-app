@@ -114,7 +114,7 @@
 
 <script type="text/javascript">
 app.SOFTWARE_VERSIONS = {{ software_versions_json|safe }}
-app.changeSoftwareVersion();
+app.setLatestVersion(document.getElementById('software_select'));
 </script>
 {% endif %}
 {% endblock %}
