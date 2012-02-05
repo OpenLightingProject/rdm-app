@@ -23,6 +23,7 @@ from model import *
 import logging
 import memcache_keys
 import time
+import timestamp_keys
 from django.utils import simplejson
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -281,17 +282,26 @@ class InfoHandler(webapp.RequestHandler):
         logging.error("Memcache set failed.")
     return model_count
 
+  def TimestampToInt(self, timestamp):
+    """Convert a DateTimeProperty to an int."""
+    return int(time.mktime(timestamp.timetuple()))
+
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
-    output = {'timestamp': None}
-    results = Pid.all()
-    results.order('-update_time')
+    output = {}
+    # update timestamps for pids & devices
+    for update_timestamp in LastUpdateTime.all():
+      if update_timestamp.name == timestamp_keys.CONTROLLERS:
+        output['controller_update_time'] = self.TimestampToInt(
+            update_timestamp.update_time)
+      elif update_timestamp.name == timestamp_keys.DEVICES:
+        output['device_update_time'] = self.TimestampToInt(
+            update_timestamp.update_time)
+      elif update_timestamp.name == timestamp_keys.PIDS:
+        output['pid_update_time'] = self.TimestampToInt(
+            update_timestamp.update_time)
 
-    pids = results.fetch(1)
-    if pids:
-      timestamp = int(time.mktime(pids[0].update_time.timetuple()))
-      output['timestamp'] = timestamp
     output['manufacturer_pid_count'] = self.ManufacturerPidCount()
     output['model_count'] = self.DeviceModelCount()
     self.response.out.write(simplejson.dumps(output))

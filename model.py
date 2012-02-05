@@ -27,6 +27,12 @@ SUBDEVICE_RANGE_DICT = {
 }
 
 
+class LastUpdateTime(db.Model):
+  """Tracks the last update time for each section of the index."""
+  name = db.StringProperty(required=True)
+  update_time = db.DateTimeProperty()
+
+
 class Manufacturer(db.Model):
   """Represents a Manufacturer."""
   esta_id = db.IntegerProperty(required=True)
@@ -209,4 +215,3 @@ class Pid(db.Model):
                                      collection_name='pid_get_command_set')
   set_command = db.ReferenceProperty(Command,
                                      collection_name='pid_set_command_set')
-  update_time = db.DateTimeProperty(auto_now=True)

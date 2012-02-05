@@ -18,6 +18,7 @@
 
 import controller_data
 import controller_loader
+import datetime
 import logging
 import manufacturer_data
 import memcache_keys
@@ -25,6 +26,7 @@ import model_data
 import model_loader
 import pid_data
 import product_categories
+import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
 from google.appengine.api import users
@@ -34,6 +36,22 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from model import *
 from pid_loader import PidLoader
+
+
+def UpdateModificationTime(timestamp_name):
+  """Update a particular timestamp."""
+  query = LastUpdateTime.all()
+  query.filter('name = ', timestamp_name)
+  result = query.fetch(1)
+  if not result:
+    result = LastUpdateTime(name = timestamp_name)
+  else:
+    result = result[0]
+  result.update_time = datetime.datetime.now()
+  result.put()
+
+  # delete the index info cache
+  memcache.delete(memcache_keys.INDEX_INFO)
 
 
 def LookupProductCategory(id_str):
@@ -99,6 +117,7 @@ class AdminPageHandler(webapp.RequestHandler):
       manufacturer.delete()
       removed += 1
     logging.info('update complete')
+    UpdateModificationTime(timestamp_keys.MANUFACTURERS)
     return ('Manufacturers: added %d, removed %d, updated %d' %
             (added, removed, updated))
 
@@ -131,6 +150,7 @@ class AdminPageHandler(webapp.RequestHandler):
     for pid in pid_data.ESTA_PIDS:
       loader.AddPid(pid)
       added += 1
+    UpdateModificationTime(timestamp_keys.PIDS)
     return 'Added %d PIDs' % added
 
   def RankDevices(self):
@@ -146,6 +166,7 @@ class AdminPageHandler(webapp.RequestHandler):
       for pid in manufacturer['pids']:
         loader.AddPid(pid, manufacturer['id'])
         added += 1
+    UpdateModificationTime(timestamp_keys.PIDS)
     return 'Added %d PIDs' % added
 
   def ClearModels(self):
@@ -172,6 +193,8 @@ class AdminPageHandler(webapp.RequestHandler):
       memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
       memcache.delete(memcache_keys.CATEGORY_MODEL_COUNTS)
       memcache.delete(memcache_keys.TAG_MODEL_COUNTS)
+
+    UpdateModificationTime(timestamp_keys.DEVICES)
     return ('Models:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))
 
@@ -315,6 +338,8 @@ class AdminPageHandler(webapp.RequestHandler):
       memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
       memcache.delete(memcache_keys.TAG_CONTROLLER_COUNTS)
       pass
+
+    UpdateModificationTime(timestamp_keys.CONTROLLERS)
     return ('Controllers:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))
 

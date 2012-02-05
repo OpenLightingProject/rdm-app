@@ -108,13 +108,12 @@ class BasePageHandler(webapp.RequestHandler):
     output = memcache.get(memcache_keys.INDEX_INFO)
     if not output:
       output = {'last_updated': None}
-      results = Pid.all()
+      results = LastUpdateTime.all()
       results.order('-update_time')
-
-      pids = results.fetch(1)
-      if pids:
-        stamp = datetime.datetime(*pids[0].update_time.timetuple()[0:6])
-        output['last_updated'] = stamp
+      update_timestamp = results.fetch(1)
+      if update_timestamp:
+        output['last_updated'] = datetime.datetime(
+            *update_timestamp[0].update_time.timetuple()[0:6])
       output['manufacturer_pid_count'] = self.ManufacturerPidCount()
       output['model_count'] = self.DeviceModelCount()
       memcache.set(memcache_keys.INDEX_INFO, output)
