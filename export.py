@@ -255,33 +255,6 @@ class InfoHandler(webapp.RequestHandler):
   """
   ESTA_ID = 0
 
-  def ManufacturerPidCount(self):
-    """Return the number of manufacturer PIDs."""
-    manufacturer_pids = memcache.get(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
-    if manufacturer_pids is None:
-      manufacturer_pids = 0
-
-      for pid in Pid.all():
-        if pid.manufacturer.esta_id != self.ESTA_ID:
-          manufacturer_pids += 1
-      if not memcache.add(memcache_keys.MANUFACTURER_PID_COUNT_KEY,
-                          manufacturer_pids):
-        logging.error("Memcache set failed.")
-    return manufacturer_pids
-
-  def DeviceModelCount(self):
-    """Return the number of models."""
-    model_count = memcache.get(memcache_keys.MODEL_COUNT_KEY)
-    if model_count is None:
-      model_count = 0
-
-      for pid in Responder.all():
-        model_count += 1
-      if not memcache.add(memcache_keys.MODEL_COUNT_KEY,
-                          model_count):
-        logging.error("Memcache set failed.")
-    return model_count
-
   def TimestampToInt(self, timestamp):
     """Convert a DateTimeProperty to an int."""
     return int(time.mktime(timestamp.timetuple()))
@@ -301,9 +274,10 @@ class InfoHandler(webapp.RequestHandler):
       elif update_timestamp.name == timestamp_keys.PIDS:
         output['pid_update_time'] = self.TimestampToInt(
             update_timestamp.update_time)
+      elif update_timestamp.name == timestamp_keys.MANUFACTURERS:
+        output['manufacturer_update_time'] = self.TimestampToInt(
+            update_timestamp.update_time)
 
-    output['manufacturer_pid_count'] = self.ManufacturerPidCount()
-    output['model_count'] = self.DeviceModelCount()
     self.response.out.write(simplejson.dumps(output))
 
 

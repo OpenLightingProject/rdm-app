@@ -104,6 +104,12 @@ CONTROLLER_DATA = {
      'image_url': 'http://www.robe.cz/typo3temp/pics/f9107213d2.png',
      'tags': ['tool', 'RDM Responder Tests', 'USB']},
   ],
+  0x6574: [
+    {'name': 'Ion',
+     'link': 'http://www.etcconnect.com/product.overview.aspx?ID=20351',
+     'image_url': 'http://www.etcconnect.com/img/products/ion-productGallery-2x10-2x20.jpg',
+     'tags': ['console']},
+  ],
   0x6864: [
     {'name': 'DMX-TRI MK1',
      'link': 'http://www.jese.co.uk/product/001/',
