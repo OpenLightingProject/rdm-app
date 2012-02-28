@@ -132,6 +132,8 @@ class Controller(db.Model):
   image_url = db.LinkProperty();
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
+  # the url we're serving the image on
+  image_serving_url = db.LinkProperty()
 
 
 class ControllerTag(db.Model):

@@ -59,7 +59,13 @@ class BrowseControllers(common.BasePageHandler):
           'key': controller.key(),
       }
       if controller.image_data:
-        output['image_key'] = images.get_serving_url(controller.image_data.key())
+        serving_url = controller.image_serving_url
+        if not serving_url:
+          serving_url = images.get_serving_url(controller.image_data.key())
+          controller.image_serving_url = serving_url
+          controller.put()
+          logging.info('saving %s' % serving_url)
+        output['image_key'] = serving_url
       rows[-1].append(output)
 
     start = page * self.RESULTS_PER_PAGE
@@ -205,7 +211,13 @@ class DisplayController(common.BasePageHandler):
       tags.append(tag.tag.label)
 
     if controller.image_data:
-      output['image_key'] = images.get_serving_url(controller.image_data.key())
+      serving_url = controller.image_serving_url
+      if not serving_url:
+        serving_url = images.get_serving_url(controller.image_data.key())
+        controller.image_serving_url = serving_url
+        controller.put()
+        logging.info('saving %s' % serving_url)
+      output['image_key'] = serving_url
     return output
 
 

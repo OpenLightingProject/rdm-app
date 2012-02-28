@@ -57,6 +57,7 @@ class FetchControllerImage(webapp.RequestHandler):
 
       if blob_key:
         controller.image_data = blob_key
+        controller.image_serving_url = images.get_serving_url(blob_key)
         controller.put()
     return 200
 
