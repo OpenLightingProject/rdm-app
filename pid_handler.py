@@ -80,6 +80,7 @@ class SearchByManufacturer(BaseSearchHandler):
 
       for manufacturer in query.fetch(1):
         query = manufacturer.pid_set
+        query.filter('draft = ', False)
         query.order('pid_id')
         return query
     return []
@@ -95,6 +96,7 @@ class SearchByName(BaseSearchHandler):
       name = name.strip().replace(' ', '_').upper()
       # do full string matching for now
       results = Pid.all()
+      results.filter('draft = ', False)
       results.filter('name =' , name)
 
       return results
@@ -123,6 +125,7 @@ class SearchById(BaseSearchHandler):
 
       results = Pid.all()
       results.filter('pid_id =' , int_id)
+      results.filter('draft = ', False)
       return results
 
     return []

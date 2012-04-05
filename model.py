@@ -213,6 +213,7 @@ class Pid(db.Model):
   name = db.StringProperty(required=True);
   link = db.LinkProperty();
   notes = db.TextProperty()
+  draft = db.BooleanProperty(default=False)
   get_command = db.ReferenceProperty(Command,
                                      collection_name='pid_get_command_set')
   set_command = db.ReferenceProperty(Command,

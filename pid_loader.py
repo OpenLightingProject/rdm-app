@@ -115,9 +115,10 @@ class PidLoader():
     elif manufacturer_id == 0:
       pid_data.link = 'http://tsp.plasa.org/tsp/documents/published_docs.php'
 
-
     if pid.get('notes'):
       pid_data.notes = pid['notes']
+
+    pid_data.draft = pid.get('draft', False)
 
     logging.info(pid['name'])
 
