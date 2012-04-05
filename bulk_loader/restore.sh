@@ -86,7 +86,7 @@ for kind in $kinds; do
     --url=http://$HOST/_ah/remote_api \
     --filename=$dir/output-$input \
     --kind=$kind \
-    --email=$EMAIL \
+    --email=$email \
     --passin \
     --config_file=bulkloader.yaml \
     --num_threads=1;
