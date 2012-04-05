@@ -58,7 +58,6 @@ handlers:
 
 builtins:
 - appstats: on
-- datastore_admin: on
 - remote_api: on
 
 skip_files:
