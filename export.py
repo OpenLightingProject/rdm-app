@@ -30,6 +30,11 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 
+def TimestampToInt(timestamp):
+  """Convert a DateTimeProperty to an int."""
+  return int(time.mktime(timestamp.timetuple()))
+
+
 class PidDefinitionsAsProto(webapp.RequestHandler):
   """Dump the PID definitions in protobuf format."""
   ESTA_ID = 0
@@ -124,12 +129,8 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
     esta_pids = []
     manufacturers = {}
     pids = Pid.all()
-    update_time = None
 
     for pid in pids:
-      if update_time is None or pid.update_time > update_time:
-        update_time = pid.update_time
-
       if pid.manufacturer.esta_id == self.ESTA_ID:
         esta_pids.append(pid)
       else:
@@ -147,8 +148,13 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
       self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
                             manufacturer_pids)
 
-    timestamp = int(time.mktime(update_time.timetuple()))
-    self.Write('version: %d' % timestamp)
+
+    query = LastUpdateTime.all()
+    query.filter('name = ', timestamp_keys.PIDS)
+    update_time = query.fetch(1)
+    if update_time:
+      timestamp = TimestampToInt(update_time[0].update_time)
+      self.Write('version: %d' % timestamp)
 
 
 class ExportModelsHandler(webapp.RequestHandler):
@@ -255,10 +261,6 @@ class InfoHandler(webapp.RequestHandler):
   """
   ESTA_ID = 0
 
-  def TimestampToInt(self, timestamp):
-    """Convert a DateTimeProperty to an int."""
-    return int(time.mktime(timestamp.timetuple()))
-
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
@@ -266,16 +268,16 @@ class InfoHandler(webapp.RequestHandler):
     # update timestamps for pids & devices
     for update_timestamp in LastUpdateTime.all():
       if update_timestamp.name == timestamp_keys.CONTROLLERS:
-        output['controller_update_time'] = self.TimestampToInt(
+        output['controller_update_time'] = TimestampToInt(
             update_timestamp.update_time)
       elif update_timestamp.name == timestamp_keys.DEVICES:
-        output['device_update_time'] = self.TimestampToInt(
+        output['device_update_time'] = TimestampToInt(
             update_timestamp.update_time)
       elif update_timestamp.name == timestamp_keys.PIDS:
-        output['pid_update_time'] = self.TimestampToInt(
+        output['pid_update_time'] = TimestampToInt(
             update_timestamp.update_time)
       elif update_timestamp.name == timestamp_keys.MANUFACTURERS:
-        output['manufacturer_update_time'] = self.TimestampToInt(
+        output['manufacturer_update_time'] = TimestampToInt(
             update_timestamp.update_time)
 
     self.response.out.write(simplejson.dumps(output))
