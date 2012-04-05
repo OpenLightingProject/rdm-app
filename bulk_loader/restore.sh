@@ -90,4 +90,10 @@ for kind in $kinds; do
     --passin \
     --config_file=bulkloader.yaml \
     --num_threads=1;
+  if [ $? -ne 0 ]; then
+    exit $?;
+  fi;
+  # We need to sleep between kinds because the bulkloader uses the timestamp as
+  # as part of the progress database. Talk about dumb.
+  sleep 1
 done

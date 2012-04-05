@@ -100,7 +100,7 @@ transformers:
     - property: image_data
       external_name: image_data
       #If importing to a new instance uncomment this
-      #import_transform: "lambda x: None"
+      import_transform: "lambda x: None"
       export_transform: "lambda x: ''"
 
     - property: image_serving_url
@@ -393,7 +393,7 @@ transformers:
     - property: image_data
       external_name: image_data
       #If importing to a new instance uncomment this
-      #import_transform: "lambda x: None"
+      import_transform: "lambda x: None"
       export_transform: "lambda x: ''"
 
     - property: image_serving_url
