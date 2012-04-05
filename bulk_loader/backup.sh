@@ -96,4 +96,7 @@ for kind in $(echo $kinds | tr " " "\n" | sort | uniq | xargs); do
     --passin \
     --num_threads=1 \
     --config_file=bulkloader.yaml;
+  if [ $? -ne 0 ]; then
+    exit $?;
+  fi;
 done
