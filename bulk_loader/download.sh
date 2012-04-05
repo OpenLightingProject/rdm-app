@@ -1,21 +1,77 @@
 #!/bin/bash
 
 #########################################################
-
 APPCFG=appcfg.py
-KINDS="AllowedRange Command ControllerTagRelationship ControllerTag Controller EnumValue LastUpdateTime Manufacturer Message MessageItem Pid ProductCategory ResponderPersonality ResponderSensor ResponderTagRelationship ResponderTag Responder SoftwareVersion"
-EMAIL="simon@nomis52.net"
-HOST="rdm.openlighting.org"
-PASSWORD="czigyzwsgaxaifku"
+BASE_KINDS="Manufacturer"
+PID_KINDS="${BASE_KINDS} AllowedRange Command EnumValue Message MessageItem Pid"
+CONTROLLER_KINDS="ControllerTagRelationship ControllerTag Controller"
+RESPONDER_KINDS="ProductCategory ResponderPersonality ResponderSensor ResponderTagRelationship ResponderTag Responder SoftwareVersion"
+ALL_KINDS="${PID_KINDS} ${CONTROLLER_KINDS} ${RESPONDER_KINDS} ${BASE_KINDS} LastUpdateTime"
+HOST="localhost:8080"
 #########################################################
 
 set +x
-if [ $# -ne 1 ]; then
-  echo "Usage: `basename $0` <output_dir>"
+
+usage() {
+cat << EOF
+usage: $0 options
+
+Dump the data store out to files.
+
+OPTIONS:
+   -d <path>      Output directory
+   -e <email>     Email address to login with
+   -h             Show this message
+   -H <hostname>  Hostname to fetch from
+   -m             Backup messages (PIDs) only
+   -p <password>  password
+EOF
+}
+
+email=
+dir=
+# default to everything
+kinds=$ALL_KINDS;
+
+while getopts “d:e:hH:mp:” option
+do
+  case $option in
+    d)
+      dir=$OPTARG
+      ;;
+    e)
+      email=$OPTARG
+      ;;
+    h)
+      usage;
+      exit 1
+      ;;
+    H)
+      HOST=$OPTARG
+      ;;
+    m)
+      kinds=$PID_KINDS
+      ;;
+    p)
+      password=$OPTARG
+      ;;
+    ?)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+
+if [ -z "$dir" ]; then
+  usage
   exit 65;
 fi
 
-dir=$1
+if [ -z "$email" ]; then
+  usage
+  exit 65;
+fi
 
 if [ ! -d $dir ]; then
   if [ -e $dir ]; then
@@ -25,20 +81,19 @@ if [ ! -d $dir ]; then
   mkdir -p $dir;
 fi
 
-if [ -z $PASSWORD ]; then
+if [ -z $password ]; then
   echo "Enter password or enter to skip";
-  read passwd;
-else
-  passwd=$PASSWORD;
+  read password;
 fi
 
-for kind in $KINDS; do
+for kind in $(echo $kinds | tr " " "\n" | sort | uniq | xargs); do
   output=$(echo $kind | tr '[A-Z]' '[a-z]');
-  echo $passwd | $APPCFG download_data \
+  echo $password | $APPCFG download_data \
     --url=http://$HOST/_ah/remote_api \
     --filename=$dir/output-$output \
     --kind=$kind \
-    --email=$EMAIL \
+    --email=$email \
     --passin \
+    --num_threads=1 \
     --config_file=bulkloader.yaml;
 done

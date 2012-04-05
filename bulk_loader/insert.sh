@@ -1,21 +1,72 @@
 #!/bin/bash
 
 #########################################################
-
 APPCFG=appcfg.py
-KINDS="AllowedRange Command ControllerTagRelationship ControllerTag Controller EnumValue LastUpdateTime Manufacturer Message MessageItem Pid ProductCategory ResponderPersonality ResponderSensor ResponderTagRelationship ResponderTag Responder SoftwareVersion"
-EMAIL="simon@nomis52.net"
+BASE_KINDS="Manufacturer"
+PID_KINDS="${BASE_KINDS} AllowedRange Command EnumValue Message MessageItem Pid"
+CONTROLLER_KINDS="ControllerTagRelationship ControllerTag Controller"
+RESPONDER_KINDS="ProductCategory ResponderPersonality ResponderSensor ResponderTagRelationship ResponderTag Responder SoftwareVersion"
+ALL_KINDS="${PID_KINDS} ${CONTROLLER_KINDS} ${RESPONDER_KINDS} ${BASE_KINDS} LastUpdateTime"
 HOST="localhost:8080"
-PASSWORD="czigyzwsgaxaifku"
 #########################################################
 
 set +x
-if [ $# -ne 1 ]; then
-  echo "Usage: `basename $0` <output_dir>"
+
+usage() {
+cat << EOF
+usage: $0 options
+
+Insert the backup into a data store.
+
+OPTIONS:
+   -d <path>      Directory to read data from
+   -e <email>     Email address to login with
+   -h             Show this message
+   -H <hostname>  Hostname to upload to
+   -m             Insert messages (PIDs) only
+   -p <password>  password
+EOF
+}
+
+email=
+dir=
+# default to everything
+kinds=$ALL_KINDS;
+
+while getopts “d:e:hH:mp:” option
+do
+  case $option in
+    d)
+      dir=$OPTARG
+      ;;
+    e)
+      email=$OPTARG
+      ;;
+    h)
+      usage;
+      exit 1
+      ;;
+    H)
+      HOST=$OPTARG
+      ;;
+    m)
+      kinds=$PID_KINDS
+      ;;
+    p)
+      password=$OPTARG
+      ;;
+    ?)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+
+if [ -z "$email" ]; then
+  usage
   exit 65;
 fi
-
-dir=$1
 
 if [ ! -d $dir ]; then
   echo "Usage: `basename $0` <output_dir>"
@@ -28,7 +79,7 @@ else
   passwd=$PASSWORD;
 fi
 
-for kind in $KINDS; do
+for kind in $kinds; do
   input=$(echo $kind | tr '[A-Z]' '[a-z]');
   echo "INSERTING $kind";
   echo $passwd | $APPCFG upload_data \
@@ -38,5 +89,5 @@ for kind in $KINDS; do
     --email=$EMAIL \
     --passin \
     --config_file=bulkloader.yaml \
-    --num_threads=5;
+    --num_threads=1;
 done
