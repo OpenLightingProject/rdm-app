@@ -14,23 +14,6 @@ python_preamble:
 
 transformers:
 
-- kind: AllowedRange
-  connector: csv
-  connector_options:
-  property_map:
-    - property: __key__
-      external_name: key
-      export_transform: transform.key_id_or_name_as_string
-
-    - property: max
-      external_name: max
-      import_transform: transform.none_if_empty(int)
-
-    - property: min
-      external_name: min
-      import_transform: transform.none_if_empty(int)
-
-
 - kind: Command
   connector: csv
   connector_options:
@@ -41,13 +24,11 @@ transformers:
 
     - property: request
       external_name: request
-      import_transform: transform.create_foreign_key('Message')
-      export_transform: transform.key_id_or_name_as_string
+      import_transform: db.Text
 
     - property: response
       external_name: response
-      import_transform: transform.create_foreign_key('Message')
-      export_transform: transform.key_id_or_name_as_string
+      import_transform: db.Text
 
     - property: sub_device_range
       external_name: sub_device_range
@@ -124,22 +105,6 @@ transformers:
       external_name: name
 
 
-- kind: EnumValue
-  connector: csv
-  connector_options:
-  property_map:
-    - property: __key__
-      external_name: key
-      export_transform: transform.key_id_or_name_as_string
-
-    - property: label
-      external_name: label
-
-    - property: value
-      external_name: value
-      import_transform: transform.none_if_empty(int)
-
-
 - kind: LastUpdateTime
   connector: csv
   connector_options:
@@ -171,62 +136,6 @@ transformers:
 
     - property: name
       external_name: name
-
-
-- kind: MessageItem
-  connector: csv
-  connector_options:
-  property_map:
-    - property: __key__
-      external_name: key
-      export_transform: transform.key_id_or_name_as_string
-
-    - property: allowed_values
-      external_name: allowed_values
-      import_transform: custom_transforms.list(transform.create_foreign_key('AllowedRange'))
-      export_transform: custom_transforms.export_list(transform.key_id_or_name_as_string)
-
-    - property: enums
-      external_name: enums
-      import_transform: custom_transforms.list(transform.create_foreign_key('EnumValue'))
-      export_transform: custom_transforms.export_list(transform.key_id_or_name_as_string)
-
-    - property: items
-      external_name: items
-      import_transform: custom_transforms.list(transform.create_foreign_key('MessageItem'))
-      export_transform: custom_transforms.export_list(transform.key_id_or_name_as_string)
-
-    - property: max_size
-      external_name: max_size
-      import_transform: transform.none_if_empty(int)
-
-    - property: min_size
-      external_name: min_size
-      import_transform: transform.none_if_empty(int)
-
-    - property: multiplier
-      external_name: multiplier
-      import_transform: transform.none_if_empty(int)
-
-    - property: name
-      external_name: name
-
-    - property: type
-      external_name: type
-
-
-- kind: Message
-  connector: csv
-  connector_options:
-  property_map:
-    - property: __key__
-      external_name: key
-      export_transform: transform.key_id_or_name_as_string
-
-    - property: items
-      external_name: items
-      import_transform: custom_transforms.list(transform.create_foreign_key('MessageItem'))
-      export_transform: custom_transforms.export_list(transform.key_id_or_name_as_string)
 
 
 - kind: Pid

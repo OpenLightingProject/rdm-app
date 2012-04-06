@@ -3,7 +3,7 @@
 #########################################################
 APPCFG=appcfg.py
 BASE_KINDS="Manufacturer"
-PID_KINDS="${BASE_KINDS} AllowedRange Command EnumValue Message MessageItem Pid"
+PID_KINDS="${BASE_KINDS} Command Pid"
 CONTROLLER_KINDS="ControllerTagRelationship ControllerTag Controller"
 RESPONDER_KINDS="ProductCategory ResponderPersonality ResponderSensor ResponderTagRelationship ResponderTag Responder SoftwareVersion"
 ALL_KINDS="${PID_KINDS} ${CONTROLLER_KINDS} ${RESPONDER_KINDS} ${BASE_KINDS} LastUpdateTime"
