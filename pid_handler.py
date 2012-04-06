@@ -158,54 +158,50 @@ class DisplayPid(common.BasePageHandler):
     else:
       return None
 
+  def CopyToDict(self, input_d, output_d, keys):
+    for key in keys:
+      if key in input_d:
+        output_d[key] = input_d[key]
+
   def PopulateItem(self, item):
     """Build the data structure for an item."""
-    item_output = {
-        'name': item.name,
-        'type': item.type,
-    }
-    if item.min_size:
-      item_output['min_size'] = item.min_size
-    if item.max_size:
-      item_output['max_size'] = item.max_size
-    if item.multiplier:
-      item_output['multiplier'] = item.multiplier
+    item_output = {}
+    self.CopyToDict(item,
+                    item_output,
+                    ['name', 'type', 'min_size', 'max_size', 'multiplier'])
 
-    if item.type == 'group':
+    if item['type'] == 'group':
       children = []
-      for child_key in item.items:
-        child_item = MessageItem.get(child_key)
+      for child_item in item['items']:
         child_item_output = self.PopulateItem(child_item)
         children.append(child_item_output)
       item_output['items'] = children
 
-    enums = []
-    for enum_key in item.enums:
-      enum = EnumValue.get(enum_key)
-      enum_output = {
-        'value': enum.value,
-        'label': enum.label,
+    labeled_values = []
+    for value, label in item.get('labels', []):
+      labeled_value_output = {
+        'value': value,
+        'label': label,
       }
-      enums.append(enum_output)
-    if enums:
-      item_output['enums'] = enums
+      labeled_values.append(labeled_value_output)
+    if labeled_values:
+      item_output['enums'] = labeled_values
 
     ranges = []
-    for range in item.allowed_values:
-      range = AllowedRange.get(range)
+    for min_value, max_value in item.get('range', []):
       range_output = {
-        'min': range.min,
-        'max': range.max,
+        'min': min_value,
+        'max': max_value,
       }
       ranges.append(range_output)
     if ranges:
       item_output['ranges'] = ranges
     return item_output
 
-  def PopulateMessage(self, message_output, message):
+  def PopulateMessage(self, message_output, message_str):
+    message_data = eval(message_str)
     items = []
-    for item_key in message.items:
-      item = MessageItem.get(item_key)
+    for item in message_data['items']:
       item_output = self.PopulateItem(item)
       items.append(item_output)
 

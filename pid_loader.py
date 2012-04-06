@@ -34,6 +34,7 @@ class InvalidDataException(Exception):
 class PidLoader():
   """Load pids."""
 
+  """
   def AddItem(self, item):
     item_data = MessageItem(name = item['name'], type = item['type'])
     if item.get('min_size'):
@@ -100,6 +101,7 @@ class PidLoader():
     message_data = Message(items = items)
     message_data.put()
     return message_data
+  """
 
   def AddPid(self, pid, manufacturer_id = 0):
     manufacturer_q = Manufacturer.all()
@@ -123,8 +125,8 @@ class PidLoader():
     logging.info(pid['name'])
 
     if pid.get('get_request'):
-      get_request = self.AddMessage(pid['get_request'])
-      get_response = self.AddMessage(pid['get_response'])
+      get_request = str(pid.get('get_request', {}))
+      get_response = str(pid.get('get_response', {}))
 
       command = Command(sub_device_range = pid['get_sub_device_range'],
                         request = get_request,
@@ -134,8 +136,8 @@ class PidLoader():
 
 
     if pid.get('set_request'):
-      set_request = self.AddMessage(pid['set_request'])
-      set_response = self.AddMessage(pid['set_response'])
+      set_request = str(pid.get('set_request', {}))
+      set_response = str(pid.get('set_response', {}))
 
       command = Command(sub_device_range = pid['set_sub_device_range'],
                         request = set_request,

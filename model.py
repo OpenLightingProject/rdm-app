@@ -160,50 +160,13 @@ class ControllerTagRelationship(db.Model):
 #   (inclusive).
 # If both are specified, the enum values must fall into the specified ranges.
 
-class EnumValue(db.Model):
-  """Represents a Enum value."""
-  value = db.IntegerProperty()
-  label = db.StringProperty()
-
-
-class AllowedRange(db.Model):
-  # min and max are inclusive
-  min = db.IntegerProperty()
-  max = db.IntegerProperty()
-
-
-class MessageItem(db.Model):
-  """Represents a item within a message."""
-  name = db.StringProperty(required=True)
-  type = db.StringProperty(
-      required=True,
-      choices=set(['bool', 'group', 'uint8', 'uint16', 'uint32', 'int8',
-                   'int16', 'int32', 'string']))
-  min_size = db.IntegerProperty()
-  max_size = db.IntegerProperty()
-  # called prefixes in the RDM standard, range between -24 and +24
-  multiplier = db.IntegerProperty()
-  # if the values for a item are restricted, this provides the enums
-  enums = db.ListProperty(db.Key)
-  # allowed ranges for this value, only valid for int message types
-  allowed_values = db.ListProperty(db.Key)
-  # if type is group, these are the child messages
-  items = db.ListProperty(db.Key)
-
-
-class Message(db.Model):
-  """Represents a request or response."""
-  # this holds a list of MessageItem keys
-  items = db.ListProperty(db.Key, required=True)
-
-
 class Command(db.Model):
   """Represents a GET or SET Command Description."""
   sub_device_range = db.IntegerProperty(
       required=True,
       choices=set(xrange(4)))
-  request = db.ReferenceProperty(Message, collection_name='request_set')
-  response = db.ReferenceProperty(Message, collection_name='response_set')
+  request = db.TextProperty()
+  response = db.TextProperty()
 
 
 class Pid(db.Model):
