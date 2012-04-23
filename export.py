@@ -56,40 +56,37 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
 
   def WriteItem(self, item, indent=0):
     self.Write('field {', indent)
-    self.Write('  type: %s' % item.type.upper(), indent)
-    self.Write('  name: "%s"' % item.name, indent)
-    if item.min_size is not None:
-      self.Write('  min_size: %d' % item.min_size, indent)
-    if item.max_size is not None:
-      self.Write('  max_size: %d' % item.max_size, indent)
-    if item.multiplier is not None:
-      self.Write('  multiplier: %d' % item.multiplier, indent)
+    self.Write('  type: %s' % item['type'].upper(), indent)
+    self.Write('  name: "%s"' % item['name'], indent)
+    if 'min_size' in item:
+      self.Write('  min_size: %d' % item['min_size'], indent)
+    if 'max_size' in item:
+      self.Write('  max_size: %d' % item['max_size'], indent)
+    if 'multiplier' in item:
+      self.Write('  multiplier: %d' % item['multiplier'], indent)
 
-    if item.type == 'group':
-      for child_key in item.items:
-        child_item = MessageItem.get(child_key)
+    if item['type'] == 'group':
+      for child_item in item['items']:
         self.WriteItem(child_item, indent+2)
 
-    for enum_key in item.enums:
-      enum = EnumValue.get(enum_key)
+    for value, label in item.get('labels', []):
       self.Write('  label {', indent)
-      self.Write('    value: %d' % enum.value, indent)
-      self.Write('    label: "%s"' % enum.label, indent)
+      self.Write('    value: %d' % value, indent)
+      self.Write('    label: "%s"' % label, indent)
       self.Write('  }', indent)
 
-    for range_key in item.allowed_values:
-      range = AllowedRange.get(range_key)
+    for min_value, max_value in item.get('range', []):
       self.Write('  range {', indent)
-      self.Write('    min: %d' % range.min, indent)
-      self.Write('    max: %d' % range.max, indent)
+      self.Write('    min: %d' % min_value, indent)
+      self.Write('    max: %d' % max_value, indent)
       self.Write('  }', indent)
 
     self.Write('}', indent)
 
-  def WriteMessage(self, type, message, indent=0):
+  def WriteMessage(self, type, message_str, indent=0):
+    message = eval(message_str)
     self.Write('%s {' % type, indent)
-    for item_key in message.items:
-      item = MessageItem.get(item_key)
+    for item in message['items']:
       self.WriteItem(item, indent+2)
     self.Write('}', indent)
 

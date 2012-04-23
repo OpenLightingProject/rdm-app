@@ -607,7 +607,6 @@ MANUFACTURER_PIDS = [
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'generator_state',
                                    'type': 'string',
-                                   'min_size': 0,
                                    'max_size': 20}]},
         'get_sub_device_range': 0,
         'name': 'MDG_GENERATOR_STATE',
