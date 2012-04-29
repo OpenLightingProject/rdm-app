@@ -94,6 +94,16 @@ CONTROLLER_DATA = {
      'image_url': 'http://www.goddarddesign.com/mini4_270web.jpg',
      'tags': ['tool', 'RDM Responder Tests', 'USB']},
   ],
+  0x4D50: [
+    {'name': 'M1',
+     'link': 'http://www.martin.com/product/product.asp?product=m1',
+     'image_url': 'http://www.martin.com/product/images/m1.jpg',
+     'tags': ['console']},
+    {'name': 'M-PC',
+     'link': 'http://www.martin.com/product/product.asp?product=m-pc',
+     'image_url': 'http://www.martin.com/product/images/m-pc.jpg',
+    },
+  ],
   0x5253: [
     {'name': 'RDM-communicator',
      'link': 'http://www.robe.cz/products/article/rdm-communicator/',
