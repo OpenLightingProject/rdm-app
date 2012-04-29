@@ -113,7 +113,7 @@
 </div>
 
 <script type="text/javascript">
-app.SOFTWARE_VERSIONS = {{ software_versions_json|safe }}
+app.setSoftwareVersions({{ software_versions_json|safe }});
 app.setLatestVersion(document.getElementById('software_select'));
 </script>
 {% endif %}

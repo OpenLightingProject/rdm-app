@@ -113,6 +113,15 @@ goog.exportSymbol('app.makeModelTable', app.makeModelTable);
 
 
 /**
+ * Set the software versions
+ */
+app.setSoftwareVersions = function(version_info) {
+  app.SOFTWARE_VERSIONS = version_info;
+};
+goog.exportSymbol('app.setSoftwareVersions', app.setSoftwareVersions);
+
+
+/**
  * Display info for the currently selected software version
  */
 app.changeSoftwareVersion = function(element) {
