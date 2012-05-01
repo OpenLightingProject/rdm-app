@@ -49,6 +49,7 @@ MANUFACTURER_DATA = [
 (0x2239, "Dream Solutions Ltd."),
 (0x22A0, "EAS Systems"),
 (0x22A9, "Engineering Solutions Inc."),
+(0x22B9, "Etherlight"),
 (0x23B2, "Gekko Technology Ltd."),
 (0x242A, "Hungaroflash"),
 (0x24AA, "IT Ihme"),

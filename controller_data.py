@@ -68,6 +68,12 @@ CONTROLLER_DATA = {
      'image_url': 'http://common.zero88.com/public/images/JesterTLXtraLAngRGB.jpg',
      'tags': ['console']},
   ],
+  0x22b9: [
+    {'name': 'Etherlight-D1',
+     'link': 'http://www.etherlight.com/products/etherlight-d1',
+     'image_url': 'http://www.etherlight.com/uploads/2011/04/D1-Pers-300x214.jpg',
+    },
+  ],
   0x414c: [
     {'name': 'Jump-Start',
      'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&product_id=331',
