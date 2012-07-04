@@ -185,6 +185,44 @@ class ExportModelsHandler(webapp.RequestHandler):
       models.append(model_output)
     self.response.out.write(simplejson.dumps({'models': models}))
 
+class ExportPersonalities(webapp.RequestHandler):
+  """Returns json of the personalities for each model.
+
+  """
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    results = Responder.all()
+
+    models = []
+    for model in results:
+      versions = []
+      for version_info in model.software_version_set:
+        personalities = []
+        for personality in version_info.personality_set:
+          personality_info = {
+            'description': personality.description,
+            'index': personality.index,
+          }
+          personalities.append(personality_info)
+
+        version_output = {
+            'version_id': version_info.version_id,
+            'label': version_info.label,
+            'personalities': personalities,
+        }
+        versions.append(version_output)
+
+      model_output = {
+        'manufacturer_name': model.manufacturer.name,
+        'manufacturer_id': model.manufacturer.esta_id,
+        'device_model_id': model.device_model_id,
+        'model_description': model.model_description,
+        'versions': versions,
+      }
+
+      models.append(model_output)
+    self.response.out.write(simplejson.dumps(models))
+
 
 class ExportControllersHandler(webapp.RequestHandler):
   """Return all controllers for the RDM Protocol Site.
@@ -310,6 +348,7 @@ application = webapp.WSGIApplication(
     ('/index_info', InfoHandler),
     ('/download', PidDefinitionsAsProto),
     ('/export_models', ExportModelsHandler),
+    ('/export_personalities', ExportPersonalities),
     ('/export_controllers', ExportControllersHandler),
     ('/manufacturers', ExportManufacturers),
     ('/missing_models', MissingModelsHandler),
