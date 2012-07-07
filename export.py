@@ -102,6 +102,16 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
                  self.SUB_DEVICE_RANGE_TO_ENUM[pid.get_command.sub_device_range],
                  indent)
 
+    if pid.discovery_command:
+      self.WriteMessage('discovery_request',
+                        pid.discovery_command.request, indent + 2)
+      self.WriteMessage('discovery_response',
+                        pid.discovery_command.response, indent + 2)
+      self.Write(
+          '  discovery_sub_device_range: %s' %
+          self.SUB_DEVICE_RANGE_TO_ENUM[pid.discovery_command.sub_device_range],
+          indent)
+
     if pid.set_command:
       self.WriteMessage('set_request', pid.set_command.request, indent + 2)
       self.WriteMessage('set_response', pid.set_command.response, indent + 2)

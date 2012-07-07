@@ -2389,6 +2389,38 @@ MANUFACTURER_PIDS = [
 
 
 ESTA_PIDS = [
+ {'discovery_request': {'items': [
+    {'type': 'group', 'name': 'lower', 'max_size': 1, 'min_size': 1,
+     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
+               {'name': 'device_id', 'type': 'uint32'}]},
+    {'type': 'group', 'name': 'upper', 'max_size': 1, 'min_size': 1,
+     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
+               {'name': 'device_id', 'type': 'uint32'}]},
+  ]},
+  'discovery_response': {'items': []},
+  'discovery_sub_device_range': 0,
+  'name': 'DISC_UNIQUE_BRANCH',
+  'value': 1},
+ {'discovery_request': {'items': []},
+  'discovery_response': {'items': [
+    {'name': 'control_field', 'type': 'uint16'},
+    {'type': 'group', 'name': 'binding_uid', 'max_size': 1, 'min_size': 0,
+     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
+               {'name': 'device_id', 'type': 'uint32'}]},
+  ]},
+  'discovery_sub_device_range': 0,
+  'name': 'DISC_MUTE',
+  'value': 2},
+ {'discovery_request': {'items': []},
+  'discovery_response': {'items': [
+    {'name': 'control_field', 'type': 'uint16'},
+    {'type': 'group', 'name': 'binding_uid', 'max_size': 1, 'min_size': 0,
+     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
+               {'name': 'device_id', 'type': 'uint32'}]},
+  ]},
+  'discovery_sub_device_range': 0,
+  'name': 'DISC_UNMUTE',
+  'value': 3},
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'description',
                               'max_size': 32,

@@ -30,6 +30,40 @@
   {% endif %}
  </table>
 </fieldset>
+
+{% if discovery_command %}
+<fieldset>
+ <legend>Discovery Command</legend>
+    <div>
+      Sub Device Range:
+       <span>{{ discovery_command.subdevice_range}}</span>
+     <table width="100%" class="message_table">
+      <tr>
+       <th>Discovery Request</th>
+       <th>Discovery Response</th>
+      </tr>
+      <tr>
+       <td width="50%" class="message_structure">
+        <div id="discovery_request"></div>
+       </td>
+       <td width="50%" class="message_structure">
+        <div id="discovery_response"></div>
+       </td>
+      </tr>
+     </table>
+    </div>
+    <script type="text/javascript">
+      app.displayCommand(
+        {{ discovery_command.request_json|safe }},
+        'discovery_request');
+      app.displayCommand(
+        {{ discovery_command.response_json|safe }},
+        'discovery_response');
+    </script>
+</fieldset>
+{% endif %}
+
+
 <fieldset>
  <legend>Get Command</legend>
   {% if get_command %}

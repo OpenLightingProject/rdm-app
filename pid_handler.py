@@ -238,6 +238,10 @@ class DisplayPid(common.BasePageHandler):
       command = self.BuildCommand(pid.get_command)
       output['get_command'] = command
 
+    if pid.discovery_command:
+      command = self.BuildCommand(pid.discovery_command)
+      output['discovery_command'] = command
+
     if pid.set_command:
       command = self.BuildCommand(pid.set_command)
       output['set_command'] = command

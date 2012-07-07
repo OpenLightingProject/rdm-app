@@ -124,6 +124,16 @@ class PidLoader():
 
     logging.info(pid['name'])
 
+    if pid.get('discovery_request'):
+      discovery_request = str(pid.get('discovery_request', {}))
+      discovery_response = str(pid.get('discovery_response', {}))
+
+      command = Command(sub_device_range = pid['discovery_sub_device_range'],
+                        request = discovery_request,
+                        response = discovery_response)
+      command.put()
+      pid_data.discovery_command = command
+
     if pid.get('get_request'):
       get_request = str(pid.get('get_request', {}))
       get_response = str(pid.get('get_response', {}))

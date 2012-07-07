@@ -124,22 +124,10 @@ class AdminPageHandler(webapp.RequestHandler):
   def ClearPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
-    for item in MessageItem.all():
-      item.delete()
-
-    for item in Message.all():
-      item.delete()
-
     for item in Command.all():
       item.delete()
 
     for item in Pid.all():
-      item.delete()
-
-    for item in EnumValue.all():
-      item.delete()
-
-    for item in AllowedRange.all():
       item.delete()
     return ''
 

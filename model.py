@@ -177,6 +177,9 @@ class Pid(db.Model):
   link = db.LinkProperty();
   notes = db.TextProperty()
   draft = db.BooleanProperty(default=False)
+  discovery_command = db.ReferenceProperty(
+      Command,
+      collection_name='pid_discovery_command_set')
   get_command = db.ReferenceProperty(Command,
                                      collection_name='pid_get_command_set')
   set_command = db.ReferenceProperty(Command,
