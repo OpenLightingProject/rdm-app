@@ -312,9 +312,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the MAC address. Set is only allowed in debug mode.',
        'value': 0x8010},
       {'name': 'SET_UID',
-       'set_request': {'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-                                 {'name': 'device_id', 'type': 'uint32'},
-                      ]},
+       'set_request': {'items': [{'name': 'uid', 'type': 'uid'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'link': '',
@@ -403,11 +401,9 @@ MANUFACTURER_PIDS = [
            'type': 'group',
            'name': 'uids',
            'items': [
-               {'name': 'manufacturer_id', 'type': 'uint16'},
-               {'name': 'device_id', 'type': 'uint32'},
+               {'name': 'uid', 'type': 'uid'},
                {'name': 'control_bits', 'type': 'uint16'},
-               {'name': 'binding_uid_manufacturer_id', 'type': 'uint16'},
-               {'name': 'binding_uid_device_id', 'type': 'uint32'},
+               {'name': 'binding_uid', 'type': 'uid'},
            ],
          }]},
        'get_sub_device_range': 0,
@@ -2390,12 +2386,8 @@ MANUFACTURER_PIDS = [
 
 ESTA_PIDS = [
  {'discovery_request': {'items': [
-    {'type': 'group', 'name': 'lower', 'max_size': 1, 'min_size': 1,
-     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-               {'name': 'device_id', 'type': 'uint32'}]},
-    {'type': 'group', 'name': 'upper', 'max_size': 1, 'min_size': 1,
-     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-               {'name': 'device_id', 'type': 'uint32'}]},
+    {'name': 'lower_uid', 'type': 'uid'},
+    {'name': 'upper_uid', 'type': 'uid'}
   ]},
   'discovery_response': {'items': []},
   'discovery_sub_device_range': 0,
@@ -2404,9 +2396,7 @@ ESTA_PIDS = [
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
-    {'type': 'group', 'name': 'binding_uid', 'max_size': 1, 'min_size': 0,
-     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-               {'name': 'device_id', 'type': 'uint32'}]},
+    {'type': 'uid', 'name': 'binding_uid'}
   ]},
   'discovery_sub_device_range': 0,
   'name': 'DISC_MUTE',
@@ -2414,9 +2404,7 @@ ESTA_PIDS = [
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
-    {'type': 'group', 'name': 'binding_uid', 'max_size': 1, 'min_size': 0,
-     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-               {'name': 'device_id', 'type': 'uint32'}]},
+    {'type': 'uid', 'name': 'binding_uid'},
   ]},
   'discovery_sub_device_range': 0,
   'name': 'DISC_UNMUTE',
@@ -2509,8 +2497,7 @@ ESTA_PIDS = [
  {'get_request': {'items': []},
   'get_response': {'items': [{'type': 'group',
                               'name': 'uids',
-                              'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-                                        {'name': 'device_id', 'type': 'uint32'}],
+                              'items': [{'name': 'uid', 'type': 'uid'}],
                    }]},
   'get_sub_device_range': 0,
   'name': 'PROXIED_DEVICES',
@@ -3428,8 +3415,7 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
     {'name': 'endpoints', 'type': 'group',
-     'items': [{'name': 'manufacturer_id', 'type': 'uint16'},
-               {'name': 'device_id', 'type': 'uint32'},
+     'items': [{'name': 'uid', 'type': 'uid'},
                {'name': 'control_bits', 'type': 'uint16'},
                {'name': 'binding_uid_manufacturer_id', 'type': 'uint16'},
                {'name': 'binding_uid_device_id', 'type': 'uint32'},
@@ -3478,7 +3464,7 @@ ESTA_PIDS = [
  {'get_request': {'items': [
   ]},
   'get_response': {'items': [
-    {'name': 'controller_ip', 'type': 'uint32',
+    {'name': 'controller_ip', 'type': 'ipv4',
      'labels': [(0, 'No Connection')]},
     {'name': 'unhealthy_events', 'type': 'uint16'},
     {'name': 'connection_events', 'type': 'uint16'},
