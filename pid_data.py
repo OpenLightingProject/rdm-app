@@ -2396,7 +2396,9 @@ ESTA_PIDS = [
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
-    {'type': 'uid', 'name': 'binding_uid'}
+    {'name': 'binding_uid', 'type': 'group', 'items': [
+      {'type': 'uid', 'name': 'binding_uid'}
+    ]},
   ]},
   'discovery_sub_device_range': 0,
   'name': 'DISC_MUTE',
@@ -2404,7 +2406,9 @@ ESTA_PIDS = [
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
-    {'type': 'uid', 'name': 'binding_uid'},
+    {'name': 'binding_uid', 'type': 'group', 'items': [
+      {'type': 'uid', 'name': 'binding_uid'}
+    ]},
   ]},
   'discovery_sub_device_range': 0,
   'name': 'DISC_UNMUTE',
