@@ -26,7 +26,6 @@ from model import *
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
 
 
 class BaseSearchHandler(common.BasePageHandler):
@@ -248,7 +247,7 @@ class DisplayPid(common.BasePageHandler):
     return output
 
 
-application = webapp.WSGIApplication(
+pid_application = webapp.WSGIApplication(
   [
     ('/pid/manufacturer', SearchByManufacturer),
     ('/pid/name', SearchByName),
@@ -256,11 +255,3 @@ application = webapp.WSGIApplication(
     ('/pid/display', DisplayPid),
   ],
   debug=True)
-
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()

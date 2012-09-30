@@ -28,37 +28,37 @@ handlers:
 
 # default landing page
 - url: /
-  script: model_handler.py
+  script: model_handler.model_application
 
 # page handlers
 - url: /(contact|disclaimer)
-  script: pages.py
+  script: pages.pages_application
 
 # model handlers
 - url: /model/.*
-  script: model_handler.py
+  script: model_handler.model_application
 
 # controller handlers
 - url: /controller/.*
-  script: controller_handler.py
+  script: controller_handler.controller_application
 
 # pid handlers
 - url: /pid/.*
-  script: pid_handler.py
+  script: pid_handler.pid_application
 
 # incoming data
 - url: /incoming/.*
-  script: incoming_handler.py
+  script: incoming_handler.incoming_application
 
 # export handlers
 - url: /(download|export_controllers|export_models|export_personalities|index_info|manufacturers|missing_models)
-  script: export.py
+  script: export.export_application
 
 - url: /admin
-  script: admin.py
+  script: admin.admin_application
 
 - url: /tasks/(fetch_image|fetch_controller_image|rank_devices)
-  script: tasks.py
+  script: tasks.tasks_application
   login: admin
 
 builtins:

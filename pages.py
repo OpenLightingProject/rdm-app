@@ -19,7 +19,6 @@
 import common
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
 
 
 class ContactPageHandler(common.BasePageHandler):
@@ -32,16 +31,9 @@ class DisclaimerPageHandler(common.BasePageHandler):
   TEMPLATE = 'templates/disclaimer.tmpl'
 
 
-application = webapp.WSGIApplication(
+pages_application = webapp.WSGIApplication(
   [
     ('/contact', ContactPageHandler),
     ('/disclaimer', DisclaimerPageHandler),
   ],
   debug=True)
-
-
-def main():
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()

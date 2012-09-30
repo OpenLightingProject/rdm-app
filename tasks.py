@@ -19,7 +19,6 @@
 import logging
 from google.appengine.api import images
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
 from model import Controller, Responder
 from image_fetcher import ImageFetcher
 
@@ -85,18 +84,10 @@ class RankDevices(webapp.RequestHandler):
     return 200
 
 
-application = webapp.WSGIApplication(
+tasks_application = webapp.WSGIApplication(
   [
     ('/tasks/fetch_image', FetchResponderImage),
     ('/tasks/fetch_controller_image', FetchControllerImage),
     ('/tasks/rank_devices', RankDevices),
   ],
   debug=True)
-
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()

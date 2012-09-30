@@ -33,7 +33,6 @@ from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
 from model import *
 from pid_loader import PidLoader
 
@@ -379,16 +378,8 @@ class AdminPageHandler(webapp.RequestHandler):
                                             template_data))
 
 
-application = webapp.WSGIApplication(
+admin_application = webapp.WSGIApplication(
   [
     ('/admin', AdminPageHandler),
   ],
   debug=True)
-
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()

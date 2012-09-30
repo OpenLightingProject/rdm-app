@@ -26,7 +26,6 @@ from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
 
 
 class BrowseControllers(common.BasePageHandler):
@@ -220,7 +219,7 @@ class DisplayController(common.BasePageHandler):
     return output
 
 
-application = webapp.WSGIApplication(
+controller_application = webapp.WSGIApplication(
   [
     ('/controller/browse', BrowseControllers),
     ('/controller/manufacturer', SearchByManufacturer),
@@ -228,11 +227,3 @@ application = webapp.WSGIApplication(
     ('/controller/display', DisplayController),
   ],
   debug=True)
-
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()

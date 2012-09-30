@@ -16,9 +16,6 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for exporting information to third parties.
 
-from google.appengine.dist import use_library
-use_library('django', '1.2')
-
 from model import *
 import json
 import logging
@@ -27,7 +24,6 @@ import time
 import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
 
 
 def TimestampToInt(timestamp):
@@ -353,7 +349,7 @@ class ExportManufacturers(webapp.RequestHandler):
     return json.dumps({'manufacturers': manufacturers})
 
 
-application = webapp.WSGIApplication(
+export_application = webapp.WSGIApplication(
   [
     ('/index_info', InfoHandler),
     ('/download', PidDefinitionsAsProto),
@@ -364,11 +360,3 @@ application = webapp.WSGIApplication(
     ('/missing_models', MissingModelsHandler),
   ],
   debug=True)
-
-
-def main():
-  logging.getLogger().setLevel(logging.INFO)
-  run_wsgi_app(application)
-
-if __name__ == "__main__":
-  main()
