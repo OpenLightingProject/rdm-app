@@ -17,12 +17,12 @@
 # Model search / display handlers
 
 import common
+import json
 import logging
 import memcache_keys
 import re
 import sensor_types
 from model import *
-from django.utils import simplejson
 from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -335,7 +335,7 @@ class DisplayModel(common.BasePageHandler):
       'manufacturer': model.manufacturer.name,
       'model_id': model.device_model_id,
       'software_versions': software_versions,
-      'software_versions_json': simplejson.dumps(software_versions),
+      'software_versions_json': json.dumps(software_versions),
     }
     # link and product_category are optional
     if model.link:

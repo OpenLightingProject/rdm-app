@@ -16,13 +16,13 @@
 # Copyright (C) 2011 Simon Newton
 # PID search / display handlers.
 
+import json
 import logging
 import memcache_keys
 import re
 import sensor_types
 import common
 from model import *
-from django.utils import simplejson
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -213,8 +213,8 @@ class DisplayPid(common.BasePageHandler):
     response = {}
     self.PopulateMessage(response, command.response)
     command = {
-        'request_json': simplejson.dumps(request),
-        'response_json': simplejson.dumps(response),
+        'request_json': json.dumps(request),
+        'response_json': json.dumps(response),
         'subdevice_range': SUBDEVICE_RANGE_DICT.get(
             command.sub_device_range, ''),
     }

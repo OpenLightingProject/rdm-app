@@ -19,12 +19,10 @@
 from __future__ import with_statement
 from model import *
 import logging
-from django.utils import simplejson
 from google.appengine.api import files
 from google.appengine.api import images
 from google.appengine.api import urlfetch
 from google.appengine.ext import blobstore
-
 
 
 class ImageFetcher(object):

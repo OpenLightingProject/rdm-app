@@ -20,11 +20,11 @@ from google.appengine.dist import use_library
 use_library('django', '1.2')
 
 from model import *
+import json
 import logging
 import memcache_keys
 import time
 import timestamp_keys
-from django.utils import simplejson
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -193,7 +193,7 @@ class ExportModelsHandler(webapp.RequestHandler):
         model_output['tags'] = tags
 
       models.append(model_output)
-    self.response.out.write(simplejson.dumps({'models': models}))
+    self.response.out.write(json.dumps({'models': models}))
 
 class ExportPersonalities(webapp.RequestHandler):
   """Returns json of the personalities for each model.
@@ -231,7 +231,7 @@ class ExportPersonalities(webapp.RequestHandler):
       }
 
       models.append(model_output)
-    self.response.out.write(simplejson.dumps(models))
+    self.response.out.write(json.dumps(models))
 
 
 class ExportControllersHandler(webapp.RequestHandler):
@@ -262,7 +262,7 @@ class ExportControllersHandler(webapp.RequestHandler):
         controller_output['tags'] = tags
 
       controllers.append(controller_output)
-    self.response.out.write(simplejson.dumps({'controllers': controllers}))
+    self.response.out.write(json.dumps({'controllers': controllers}))
 
 
 class MissingModelsHandler(webapp.RequestHandler):
@@ -325,7 +325,7 @@ class InfoHandler(webapp.RequestHandler):
         output['manufacturer_update_time'] = TimestampToInt(
             update_timestamp.update_time)
 
-    self.response.out.write(simplejson.dumps(output))
+    self.response.out.write(json.dumps(output))
 
 
 class ExportManufacturers(webapp.RequestHandler):
@@ -350,7 +350,7 @@ class ExportManufacturers(webapp.RequestHandler):
         'name': manufacturer.name,
         'id': manufacturer.esta_id
       })
-    return simplejson.dumps({'manufacturers': manufacturers})
+    return json.dumps({'manufacturers': manufacturers})
 
 
 application = webapp.WSGIApplication(

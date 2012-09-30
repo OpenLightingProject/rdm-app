@@ -1,7 +1,8 @@
-application: "rdmprotocol"
+application: "rdmprotocol-hrd"
 version: 1
-runtime: python
+runtime: python27
 api_version: 1
+threadsafe: no
 
 handlers:
 - url: /(.*\.html)
@@ -44,6 +45,10 @@ handlers:
 # pid handlers
 - url: /pid/.*
   script: pid_handler.py
+
+# incoming data
+- url: /incoming/.*
+  script: incoming_handler.py
 
 # export handlers
 - url: /(download|export_controllers|export_models|export_personalities|index_info|manufacturers|missing_models)

@@ -22,7 +22,6 @@ import memcache_keys
 import re
 import sensor_types
 from model import *
-from django.utils import simplejson
 from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
