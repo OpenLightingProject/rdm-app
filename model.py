@@ -192,5 +192,6 @@ class UploadedResponderInfo(db.Model):
   manufacturer_id = db.IntegerProperty()
   device_model_id = db.IntegerProperty()
   info = db.TextProperty()
-  link_url = db.LinkProperty();
-  image_url = db.LinkProperty();
+  link_url = db.LinkProperty()
+  image_url = db.LinkProperty()
+  email_or_name = db.TextProperty()
