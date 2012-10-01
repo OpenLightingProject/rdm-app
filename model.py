@@ -184,3 +184,13 @@ class Pid(db.Model):
                                      collection_name='pid_get_command_set')
   set_command = db.ReferenceProperty(Command,
                                      collection_name='pid_set_command_set')
+
+
+class UploadedResponderInfo(db.Model):
+  # This doesn't link to a Manufacturer, since we may not know about all
+  # manufacturers.
+  manufacturer_id = db.IntegerProperty()
+  device_model_id = db.IntegerProperty()
+  info = db.TextProperty()
+  link_url = db.LinkProperty();
+  image_url = db.LinkProperty();

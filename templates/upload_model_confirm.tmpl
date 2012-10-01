@@ -1,16 +1,184 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+  <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js'></script>
+  <script src='/js/jquery.json-2.3.min.js'></script>
+  <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/redmond/jquery-ui.css' type='text/css'>
   <title>RDM Responder Publisher</title>
-  <meta name="description" content="">
+  <style type='text/css'>
+    body {
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    .responder-table {
+      width: 100%;
+      font-family: sans-serif;
+      font-size: 13px;
+      padding: 0px;
+      margin: 0px;
+      border: 0px;
+      border-spacing: 0px;
+      border-collapse: collapse;
+    }
+
+    .responder-table td {
+      background: #f0f0f0;
+      border: #1C94C4 1px solid;
+      height: 20px;
+    }
+
+    .url-input {
+      margin: 0px;
+      padding: 0px;
+      width: 100%;
+      border: 0px;
+      height: 20px;
+      background: #ffffff;
+    }
+
+    #container {
+      padding: 5px;
+    }
+
+    .button-container {
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .button-container button {
+      margin: 0px auto 0px auto;
+    }
+
+    #contact-input {
+      border: #1C94C4 1px solid;
+      width: 200px;
+      height: 20px;
+      font-size: 1em;
+    }
+
+    .no-close .ui-dialog-titlebar-close {display: none }
+  </style>
+  <script>
+    var responder_keys = [
+      '{% for responder in responders %}{{ responder.key }}{% if not forloop.last %},{% endif %}{% endfor %}'
+    ];
+
+
+    function submit_form() {
+      $('#save-button').button('disable');
+      $('#loader-image').css('visibility', 'visible');
+
+      var dialog = $('#dialog');
+      dialog.dialog({
+          autoOpen: false,
+          closeOnEscape: false,
+          dialogClass: 'no-close',
+          draggable: false,
+          height: 160,
+          modal: true,
+          resizable: false,
+      });
+
+      values = new Array();
+      $.each(responder_keys, function(i, key) {
+        var url = $('#url_' + i).val();
+        var image = $('#url_' + i).val();
+        values.push({
+          'key': key,
+          'url': url,
+          'image': image,
+        });
+      });
+
+      $.ajax({
+        url: '/incoming/update_model_data',
+        type: 'POST',
+        data: {
+          'data': $.toJSON(values),
+          'email': $('#contact-input').val()
+        },
+        dataType: 'json',
+        error: function(jqXHR, textStatus, errorThrown) {
+          dialog.dialog('option', 'title', 'Server Error');
+          dialog.html('Bad');
+          dialog.dialog('open');
+        },
+        success: function(data) {
+          dialog.dialog('option', 'title', 'Thank You.');
+          dialog.html(
+              'Your changes have been saved. You can now close this ' +
+              'window or visit the <a id="out-link" href="http://rdm.openlighting.org">' +
+              'rdm.openlighting.org</a> site.');
+          dialog.dialog('open');
+          $('#out-link').blur();
+        },
+        cache: false
+      });
+    }
+    function bind_dom() {
+      $('#save-button').button().click(function() {
+        submit_form();
+      });
+    }
+
+    $(document).ready(function() {
+      bind_dom();
+    });
+  </script>
 </head>
 <body>
 
-{% if upload_ok %}
-Post worked, but Simon hasn't written the storage logic.
+<div id='container'>
+{% if responders %}
 <form>
 
-</form>
+<p>Thank you for submitting RDM responder information. One of the moderators
+will confirm the information and then publish it. If you know of URLs for
+the products webpage and image please enter them below.</p>
+
+<table class='responder-table'>
+  <tr>
+   <th width="160px">Manufacturer ID</td>
+   <th width="120px">Device Model ID</td>
+   <th width="160px">Model Description</td>
+   <th>Product Website</td>
+   <th>Product Image</td>
+  </tr>
+  {% for responder in responders %}
+  <tr>
+   <td>
+    {% if responder.manufacturer %}
+      {{ responder.manufacturer }}
+    {% else %}
+      {{ responder.manufacturer_id }} (0x{{ responder.manufacturer_id|stringformat:"04x" }})</td>
+    {% endif %}
+   <td>{{ responder.device_model_id }} (0x{{ responder.device_model_id|stringformat:"04x" }})</td>
+   <td>{{ responder.model_description }}</td>
+   <td>
+    <input class='ui-widget url-input' type='text' id='url_{{ forloop.counter0 }}' value="http://">
+   </td>
+   <td>
+    <input class='ui-widget url-input' type='text' id='image_{{ forloop.counter0 }}' value='http://'>
+   </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p>You can also enter an email address (or name if we have your details already)
+which will be notified when the information is published. If we have questions
+about the information you posted we may contact you for clarification.</p>
+
+Email or Name: <input type='text' id='contact-input' name='contact'>
+
+<div class="button-container">
+  <button id='save-button'>Update Responders</button>
+  <img id="loader-image" style="visibility: hidden" src="/images/loader.gif">
+  <div></div>
+</div>
+</div>
+<div id="dialog"></div>
 {% else %}
 Missing request data.
 {% endif %}
