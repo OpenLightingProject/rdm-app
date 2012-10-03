@@ -1,0 +1,47 @@
+<html>
+<body>
+
+<a href="{{ logout_url }}">Logout</a> <br/>
+<br/>
+
+{% if manufacturer_id %}
+
+<table>
+ <tr>
+  <td>Manufacturer:</td>
+  <td>
+    {% if manufacturer_name %}
+    {{ manufacturer_name }}
+    {% else %}
+      {{ manufacturer_id }} (0x{{ manufacturer_id|stringformat:"04x" }})
+    {% endif %}
+  </td>
+ </tr>
+ <tr>
+  <td>Device ID:</td>
+  <td>
+    {{ device_id }} (0x{{ device_id|stringformat:"04x" }})
+  </td>
+ </tr>
+</table>
+
+
+<table border="1" width="100%">
+ <tr>
+  <th>Uploaded Data</th>
+  <th>Existing Data</th>
+ </tr>
+ <tr>
+  <td>
+  </td>
+  <td>
+  </td>
+ </tr>
+</table>
+
+{% else %}
+No responders in the queue. <a href="/admin">Back</a> to the admin console.
+{% endif %}
+
+</body>
+</html>

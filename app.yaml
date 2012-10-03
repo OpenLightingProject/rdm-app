@@ -13,10 +13,6 @@ handlers:
   static_files: favicon.ico
   upload: favicon.ico
 
-- url: /admin/.*
-  script: admin.py
-  login: required
-
 - url: /css
   static_dir: css
 
@@ -54,8 +50,10 @@ handlers:
 - url: /(download|export_controllers|export_models|export_personalities|index_info|manufacturers|missing_models)
   script: export.export_application
 
-- url: /admin
+# Admin page
+- url: /admin(/.*)?
   script: admin.admin_application
+  login: required
 
 - url: /tasks/(fetch_image|fetch_controller_image|rank_devices)
   script: tasks.tasks_application

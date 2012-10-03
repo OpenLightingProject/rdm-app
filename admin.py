@@ -71,7 +71,27 @@ def LookupProductCategory(id_str):
   return None
 
 
-class AdminPageHandler(webapp.RequestHandler):
+class BaseAdminPageHandler(webapp.RequestHandler):
+  """The base handler for admin requests."""
+  ALLOWED_USERS = [
+      'nomis52@gmail.com',
+      'simon@nomis52.net',
+  ]
+
+  def get(self):
+    user = users.get_current_user()
+    if not user:
+      self.redirect(users.create_login_url(self.request.uri))
+      return
+
+    if user.email() not in self.ALLOWED_USERS:
+      self.error(403)
+      return
+
+    self.HandleRequest()
+
+
+class AdminPageHandler(BaseAdminPageHandler):
   """Admin functions."""
   def UpdateManufacturers(self):
     new_data = {}
@@ -330,7 +350,7 @@ class AdminPageHandler(webapp.RequestHandler):
     return ('Controllers:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))
 
-  def get(self):
+  def HandleRequest(self):
     ACTIONS = {
         'clear_controllers': self.ClearControllers,
         'clear_models': self.ClearModels,
@@ -347,21 +367,6 @@ class AdminPageHandler(webapp.RequestHandler):
         'update_controllers': self.UpdateControllers,
     }
 
-    ALLOWED_USERS = [
-        'nomis52@gmail.com',
-        'simon@nomis52.net',
-    ]
-
-    user = users.get_current_user()
-
-    if not user:
-      self.redirect(users.create_login_url(self.request.uri))
-      return
-
-    if user.email() not in ALLOWED_USERS:
-      self.error(403)
-      return
-
     action = self.request.get('action')
     output = ''
     if action in ACTIONS:
@@ -369,6 +374,7 @@ class AdminPageHandler(webapp.RequestHandler):
 
     template_data = {
         'logout_url': users.create_logout_url("/"),
+        'responders_to_moderate': UploadedResponderInfo.all().count(),
     }
 
     if output:
@@ -378,8 +384,38 @@ class AdminPageHandler(webapp.RequestHandler):
                                             template_data))
 
 
+class ResponderModerator(BaseAdminPageHandler):
+  """Displays the UI for moderating responder data."""
+  def HandleRequest(self):
+    template_data = {
+        'logout_url': users.create_logout_url("/"),
+    }
+
+    responder = UploadedResponderInfo.all().fetch(1)
+    if (responder):
+      self.DiffResponders(responder[0], template_data)
+
+    self.response.headers['Content-Type'] = 'text/html'
+    self.response.out.write(template.render(
+      'templates/admin-moderate-responder.tmpl',
+      template_data))
+
+  def DiffResponders(self, responder, template_data):
+    template_data['manufacturer_id'] = responder.manufacturer_id
+    template_data['device_id'] = responder.device_model_id
+
+    manufacturer_query = Manufacturer.all().filter('esta_id = ', responder.manufacturer_id)
+    results = manufacturer_query.fetch(1)
+
+    if results:
+      template_data['manufacturer_name'] = results[0].name
+
+    return {}, {}
+
+
 admin_application = webapp.WSGIApplication(
   [
     ('/admin', AdminPageHandler),
+    ('/admin/moderate_responder_data', ResponderModerator),
   ],
   debug=True)

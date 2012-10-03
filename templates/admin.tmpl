@@ -3,9 +3,17 @@
 <body>
 
 <a href="{{ logout_url }}">Logout</a> <br/>
+<br/>
 
 {% if output %}
 <pre style="border: 1px solid #ff0000; padding: 3px">{{ output }}</pre>
+{% endif %}
+
+{% if responders_to_moderate %}
+<div style="border: 1px solid #0000ff; padding: 3px">
+{{ responders_to_moderate }} Responders in the
+<a href="/admin/moderate_responder_data">moderation queue</a>
+</div>
 {% endif %}
 
 <h4>Actions</h4>
