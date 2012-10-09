@@ -195,3 +195,4 @@ class UploadedResponderInfo(db.Model):
   link_url = db.LinkProperty()
   image_url = db.LinkProperty()
   email_or_name = db.TextProperty()
+  upload_time = db.DateTimeProperty()
