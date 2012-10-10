@@ -46,9 +46,13 @@ handlers:
 - url: /incoming/.*
   script: incoming_handler.incoming_application
 
-# export handlers
+# export handlers, deprecated, move most of these to /json/
 - url: /(download|export_controllers|export_models|export_personalities|index_info|manufacturers|missing_models)
   script: export.export_application
+
+# json handlers
+- url: /api/1/json/.*
+  script: json_v1_app.json_application
 
 # Admin page
 - url: /admin(/.*)?
