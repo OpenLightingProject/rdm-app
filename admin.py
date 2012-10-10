@@ -104,7 +104,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
     memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
-    added = removed = updated = 0
+    added = removed = updated = errors = 0
 
     for manufacturer in Manufacturer.all():
       id = manufacturer.esta_id
@@ -123,10 +123,16 @@ class AdminPageHandler(BaseAdminPageHandler):
     # add any new manufacturers
     manufacturers_to_add = set(new_data.keys()) - existing_manufacturers
     for manufacturer_id in sorted(manufacturers_to_add):
-      logging.info('adding %d (%s)' %
-                   (manufacturer_id, new_data[manufacturer_id]))
+      try:
+        manufacturer_name = new_data[manufacturer_id].decode()
+      except UnicodeDecodeError as e:
+        logging.error('Failed to add 0x%hx: %s' % (manufacturer_id, e))
+        errors += 1
+        continue
+
+      logging.info('adding %d (%s)' % (manufacturer_id, manufacturer_name))
       manufacturer = Manufacturer(esta_id = manufacturer_id,
-                                  name = new_data[manufacturer_id])
+                                  name = manufacturer_name)
       manufacturer.put()
       added += 1
 
@@ -137,8 +143,8 @@ class AdminPageHandler(BaseAdminPageHandler):
       removed += 1
     logging.info('update complete')
     UpdateModificationTime(timestamp_keys.MANUFACTURERS)
-    return ('Manufacturers: added %d, removed %d, updated %d' %
-            (added, removed, updated))
+    return ('Manufacturers: added %d, removed %d, updated %d, errors %d' %
+            (added, removed, updated, errors))
 
   def ClearPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
