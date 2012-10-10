@@ -74,6 +74,16 @@ CONTROLLER_DATA = {
      'image_url': 'http://www.etherlight.com/uploads/2011/04/D1-Pers-300x214.jpg',
     },
   ],
+  0x4144: [
+    {'name': 'Freedom',
+     'link': 'http://www.adblighting.com/?page=productdetails&cat=5&subcat=24',
+     'image_url': 'http://www.adblighting.com/gallery/Freedom%20lo.jpg',
+     'tags': ['console']},
+    {'name': 'Liberty',
+     'link': 'http://www.adblighting.com/?page=productdetails&cat=5&subcat=24&id=191',
+     'image_url': 'http://www.adblighting.com/gallery/LIBERTY%20lo.jpg',
+     'tags': ['console']},
+  ],
   0x414c: [
     {'name': 'Jump-Start',
      'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&product_id=331',
