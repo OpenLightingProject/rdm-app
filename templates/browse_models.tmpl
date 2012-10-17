@@ -36,6 +36,10 @@ Displaying {{ start }} to {{ end }} of {{ total }}
          <div class="missing_image">No Image Available</div>
        {% endif %}
        {{ model.name }}</a>
+       {% if model.star_width %}
+         <span class="rdm_rating" style="width: {{ model.star_width }}px"
+               title="RDM Responder Test Score: {{ model.rating }}%"> </span>
+       {% endif %}
      </td>
     {% endfor %}
     </tr>

@@ -66,6 +66,8 @@ class Responder(db.Model):
   score = db.IntegerProperty()
   # the score penalty, used to demote responders
   score_penalty = db.IntegerProperty()
+  # test score, this is updated with the latest score
+  rdm_responder_rating = db.RatingProperty()
 
 
 class ResponderTag(db.Model):
@@ -196,3 +198,4 @@ class UploadedResponderInfo(db.Model):
   image_url = db.LinkProperty()
   email_or_name = db.TextProperty()
   upload_time = db.DateTimeProperty()
+  processed = db.BooleanProperty(default=False)

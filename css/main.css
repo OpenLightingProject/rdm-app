@@ -194,6 +194,13 @@ a:hover .missing_image {
   text-decoration: none;
 }
 
+.rdm_rating {
+  background-image: url(/images/stars.png);
+  display: block;
+  margin: auto;
+  height: 12px;
+}
+
 /* search results table */
 .search_div {
   padding: 5px;

@@ -53,10 +53,16 @@ class BrowseModels(common.BasePageHandler):
       if index % self.COLUMNS == 0:
         rows.append([])
 
+      rating_scale = None
+      if model.rdm_responder_rating is not None:
+        rating_scale = 2 + int(model.rdm_responder_rating / 20 * 13)
+
       output = {
-          'name': model.model_description,
           'manufacturer_id': model.manufacturer.esta_id,
           'model_id': model.device_model_id,
+          'name': model.model_description,
+          'rating': model.rdm_responder_rating,
+          'star_width': rating_scale,
       }
       if model.image_data:
         serving_url = model.image_serving_url
