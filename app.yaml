@@ -50,9 +50,9 @@ handlers:
 - url: /(download|export_controllers|export_models|export_personalities|index_info|manufacturers|missing_models)
   script: export.export_application
 
-# json handlers
-- url: /api/1/json/.*
-  script: json_v1_app.json_application
+# API handlers
+- url: /api/(json|proto)/1/.*
+  script: api.\1_v1.app
 
 # Admin page
 - url: /admin(/.*)?
