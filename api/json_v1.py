@@ -12,9 +12,9 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# json_app.py
+# json.py
 # Copyright (C) 2012 Simon Newton
-# The handlers for exporting information to third parties.
+# Version 1 of the JSON API.
 
 from model import *
 import common
