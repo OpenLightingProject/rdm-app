@@ -55,7 +55,7 @@ class BrowseModels(common.BasePageHandler):
 
       rating_scale = None
       if model.rdm_responder_rating is not None:
-        rating_scale = 2 + int(model.rdm_responder_rating / 20 * 13)
+        rating_scale = 2 + int(model.rdm_responder_rating / 10 * 6.5)
 
       output = {
           'manufacturer_id': model.manufacturer.esta_id,
@@ -256,7 +256,7 @@ class DisplayModel(common.BasePageHandler):
     return model_data[0]
 
   def GetTemplateData(self):
-    model = self.LookupModelFromRequest()
+    model = common.LookupModelFromRequest(self.request)
     if not model:
       self.error(404)
       return

@@ -56,7 +56,7 @@ handlers:
 
 # Admin page
 - url: /admin(/.*)?
-  script: admin.admin_application
+  script: admin.app
   login: required
 
 - url: /tasks/(fetch_image|fetch_controller_image|rank_devices)

@@ -1,0 +1,56 @@
+<html>
+<head>
+  <style type='text/css'>
+    body {
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    .button-container {
+      padding-top: 10px;
+      text-align: center;
+    }
+ </style>
+</head>
+<body>
+
+<a href="{{ logout_url }}">Logout</a> <br/>
+<br/>
+
+
+{% if message %}
+<div>
+{{ message }}
+</div>
+{% endif %}
+
+
+<form method="get" action="/admin/adjust_test_score">
+<table>
+ <tr>
+  <td>Manufacturer ID:</td>
+  <td>
+   <input type="text" name="manufacturer">
+  </td>
+ </tr>
+ <tr>
+  <td>Device ID:</td>
+  <td>
+   <input type="text" name="model">
+  </td>
+ </tr>
+ <tr>
+  <td>New Rating:</td>
+  <td>
+   <input type="text" name="rating">
+  </td>
+ </tr>
+</table>
+
+<div class="button-container">
+  <button id='save-button'>Update</button>
+</div>
+</form>
+
+</body>
+</html>

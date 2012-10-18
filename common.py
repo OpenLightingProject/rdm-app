@@ -43,6 +43,29 @@ def GetManufacturer(manufacturer_id):
     return manufacturer
   return None
 
+def LookupModelFromRequest(request):
+  """Lookup a model based on the URL params."""
+  model_id_str = request.get('model')
+  model_id = None
+  try:
+    model_id = int(model_id_str)
+  except ValueError:
+    return None
+
+  manufacturer = GetManufacturer(request.get('manufacturer'))
+  if manufacturer is None or model_id is None:
+    return None
+
+  results = {}
+  models = Responder.all()
+  models.filter('device_model_id = ', model_id)
+  models.filter('manufacturer = ', manufacturer.key())
+
+  model_data = models.fetch(1)
+  if not model_data:
+    return None
+  return model_data[0]
+
 def ConvertToInt(value):
   """Convert a value to an int."""
   if value:
