@@ -21,9 +21,9 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
 
-class ContactPageHandler(common.BasePageHandler):
-  """Display the contact page."""
-  TEMPLATE = 'templates/contact.tmpl'
+class AboutPageHandler(common.BasePageHandler):
+  """Display the about page."""
+  TEMPLATE = 'templates/about.tmpl'
 
 
 class DisclaimerPageHandler(common.BasePageHandler):
@@ -31,9 +31,10 @@ class DisclaimerPageHandler(common.BasePageHandler):
   TEMPLATE = 'templates/disclaimer.tmpl'
 
 
-pages_application = webapp.WSGIApplication(
+app = webapp.WSGIApplication(
   [
-    ('/contact', ContactPageHandler),
+    ('/about', AboutPageHandler),
+    ('/contact', AboutPageHandler),
     ('/disclaimer', DisclaimerPageHandler),
   ],
   debug=True)

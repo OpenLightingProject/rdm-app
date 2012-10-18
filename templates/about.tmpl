@@ -1,0 +1,56 @@
+{% extends "base.tmpl" %}
+
+{% block title %}RDM Manufacturer Index - Contact Information{% endblock %}
+
+{% block content %}
+<div style="padding: 5px">
+
+<p>
+This website is part of the <a href="http://www.openlighting.org">Open Lighting
+Project</a>, a distributed, volunteer-driven effort to promote new protocols within the
+entertainment lighting industry. This site is not associated with any
+manufacturers and aims to be a free resource for people seeking information
+about RDM enabled products.
+</p>
+
+<h3>Adding Information</h3>
+
+We're more than happy to list new products. Please see the sections below for
+how to add information.
+
+<h4>RDM Controllers</h4>
+
+Please email the following production information to nomis52 &lt;at&gt; gmail &lt;dot&gt; com.
+
+<ul>
+ <li>Product Name</li>
+ <li>Manufacturer</li>
+ <li>Product URL</li>
+ <li>Image URL (jpeg or png preferred)</li>
+</ul>
+
+<h4>RDM Responders</h4>
+
+RDM Responder data can be automatically collected and uploaded using the <a
+href="http://opendmx.net/index.php/Using_the_RDM_Test_UI#RDM_Responder_Publisher">
+RDM Responder Publisher</a>. This tool is bundled with the RDM Responder tests
+and uses RDM to collect the information required for the site.
+For many people the easist way to run the tests is to use a <a
+href="http://opendmx.net/index.php/Responder_Testing_with_the_Raspberry_Pi">Raspberry
+Pi</a>.
+
+
+<h4>Parameter ID (PID) Data</h4>
+
+Please email changes to  nomis52 &lt;at&gt; gmail &lt;dot&gt; com.
+
+<h3>External API</h3>
+
+Much of the information available on this site is available through JSON APIs.
+Specifically, we offer the following:
+<ul>
+ <li>Download the manufacturer PID information.</li>
+ <li>Lookup the latest known firmware for a responder.</li>
+</ul>
+</div>
+{% endblock %}

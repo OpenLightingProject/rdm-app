@@ -27,8 +27,8 @@ handlers:
   script: model_handler.model_application
 
 # page handlers
-- url: /(contact|disclaimer)
-  script: pages.pages_application
+- url: /(about|contact|disclaimer)
+  script: pages.app
 
 # model handlers
 - url: /model/.*
