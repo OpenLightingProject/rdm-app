@@ -324,31 +324,6 @@ class InfoHandler(webapp.RequestHandler):
     self.response.out.write(json.dumps(output))
 
 
-class ExportManufacturers(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
-  CACHE_KEY = memcache_keys.MANUFACTURER_CACHE_KEY
-
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.headers['Cache-Control'] = 'public; max-age=300;'
-
-    response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
-    if response is None:
-      response = self.BuildResponse()
-      if not memcache.add(self.CACHE_KEY, response):
-        logging.error("Manufacturer Memcache set failed.")
-    self.response.out.write(response)
-
-  def BuildResponse(self):
-    manufacturers = []
-    for manufacturer in Manufacturer.all():
-      manufacturers.append({
-        'name': manufacturer.name,
-        'id': manufacturer.esta_id
-      })
-    return json.dumps({'manufacturers': manufacturers})
-
-
 export_application = webapp.WSGIApplication(
   [
     ('/index_info', InfoHandler),
@@ -356,7 +331,6 @@ export_application = webapp.WSGIApplication(
     ('/export_models', ExportModelsHandler),
     ('/export_personalities', ExportPersonalities),
     ('/export_controllers', ExportControllersHandler),
-    ('/manufacturers', ExportManufacturers),
     ('/missing_models', MissingModelsHandler),
   ],
   debug=True)
