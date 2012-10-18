@@ -1,6 +1,10 @@
 
 {% extends "base.tmpl" %}
 
+{% block extra_headers %}
+<script src="/js/app.js"></script>
+{% endblock %}
+
 {% block title %}Browse Devices, Page {{ page_number }}{% endblock %}
 {% block content %}
 
@@ -37,14 +41,29 @@ Displaying {{ start }} to {{ end }} of {{ total }}
        {% endif %}
        {{ model.name }}</a>
        {% if model.star_width %}
-         <span class="rdm_rating" style="width: {{ model.star_width }}px"
-               title="RDM Responder Test Score: {{ model.rating }}%"> </span>
+         <span id="rating_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}"
+               class="rdm_rating" style="width: {{ model.star_width }}px">
+         </span>
        {% endif %}
      </td>
     {% endfor %}
     </tr>
   {% endfor %}
 </table>
+
+<script type="text/javascript">
+function attachTooltip(i, j, rating) {
+  var el = document.getElementById('rating_' + i + '_' + j);
+  var tt = new goog.ui.Tooltip(el);
+  tt.setHtml('RDM Responder Test Score: ' + rating + '%');
+}
+
+{% for row in model_rows %} {% for model in row %} {% if model.rating %}
+attachTooltip({{ forloop.parentloop.counter0 }},
+              {{ forloop.counter0 }},
+              {{ model.rating }});
+{% endif %} {% endfor %} {% endfor %}
+</script>
 
 <div class="browse_nav">
 <div style="float: left; text-align: left">
