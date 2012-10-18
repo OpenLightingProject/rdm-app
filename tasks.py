@@ -70,7 +70,7 @@ class RankDevices(webapp.RequestHandler):
         # 10 point boost for having an image
         score += 10
       if device.link is not None:
-        # 10 point boost for having a link
+        # 1 point boost for having a link
         score += 1
       if device.software_version_set.count():
         # 10 point boost for having version information
@@ -78,6 +78,10 @@ class RankDevices(webapp.RequestHandler):
 
       if device.score_penalty:
         score -= device.score_penalty
+
+      # up to +20 pts for having test results
+      if device.rdm_responder_rating is not None:
+        score += int(device.rdm_responder_rating / 5)
 
       device.score = score
       device.put()
