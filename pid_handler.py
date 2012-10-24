@@ -23,6 +23,7 @@ import re
 import sensor_types
 import common
 from model import *
+from utils import StringToInt
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -107,26 +108,12 @@ class SearchById(BaseSearchHandler):
   TEMPLATE = 'templates/id_pid_search.tmpl'
 
   def GetResults(self):
-    pid_id = self.request.get('id')
+    pid_id = StringToInt(self.request.get('id'))
     if pid_id is not None:
-      int_id = None
-      pid_id = pid_id.strip()
-      if pid_id.startswith('0x'):
-        try:
-          int_id = int(pid_id, 16)
-        except ValueError:
-          pass
-      else:
-        try:
-          int_id = int(pid_id)
-        except ValueError:
-          pass
-
       results = Pid.all()
-      results.filter('pid_id =' , int_id)
+      results.filter('pid_id =' , pid_id)
       results.filter('draft = ', False)
       return results
-
     return []
 
 
