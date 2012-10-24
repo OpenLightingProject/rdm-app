@@ -21,8 +21,34 @@ import common
 import json
 import logging
 import memcache_keys
+import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
+
+
+class ManufacturerList(webapp.RequestHandler):
+  """Return the list of all manufacturers."""
+  CACHE_KEY = memcache_keys.MANUFACTURER_CACHE_KEY
+
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.headers['Cache-Control'] = 'public; max-age=300;'
+
+    response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
+    if response is None:
+      response = self.BuildResponse()
+      if not memcache.add(self.CACHE_KEY, response):
+        logging.error("Manufacturer Memcache set failed.")
+    self.response.out.write(response)
+
+  def BuildResponse(self):
+    manufacturers = []
+    for manufacturer in Manufacturer.all():
+      manufacturers.append({
+        'name': manufacturer.name,
+        'id': manufacturer.esta_id
+      })
+    return json.dumps({'manufacturers': manufacturers})
 
 
 class ResponderFirmware(webapp.RequestHandler):
@@ -75,34 +101,35 @@ class ResponderFirmware(webapp.RequestHandler):
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
     self.response.out.write(json.dumps(output))
 
-class ManufacturerList(webapp.RequestHandler):
-  """Return the list of all manufacturers."""
-  CACHE_KEY = memcache_keys.MANUFACTURER_CACHE_KEY
 
+class UpdateTimeHandler(webapp.RequestHandler):
+  """Return the last update time for various parts of the index."""
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
-    self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
-    response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
-    if response is None:
-      response = self.BuildResponse()
-      if not memcache.add(self.CACHE_KEY, response):
-        logging.error("Manufacturer Memcache set failed.")
-    self.response.out.write(response)
+    output = {}
+    # update timestamps for pids & devices
+    for update_timestamp in LastUpdateTime.all():
+      if update_timestamp.name == timestamp_keys.CONTROLLERS:
+        output['controller_update_time'] = common.TimestampToInt(
+            update_timestamp.update_time)
+      elif update_timestamp.name == timestamp_keys.DEVICES:
+        output['device_update_time'] = common.TimestampToInt(
+            update_timestamp.update_time)
+      elif update_timestamp.name == timestamp_keys.PIDS:
+        output['pid_update_time'] = common.TimestampToInt(
+            update_timestamp.update_time)
+      elif update_timestamp.name == timestamp_keys.MANUFACTURERS:
+        output['manufacturer_update_time'] = common.TimestampToInt(
+            update_timestamp.update_time)
 
-  def BuildResponse(self):
-    manufacturers = []
-    for manufacturer in Manufacturer.all():
-      manufacturers.append({
-        'name': manufacturer.name,
-        'id': manufacturer.esta_id
-      })
-    return json.dumps({'manufacturers': manufacturers})
+    self.response.out.write(json.dumps(output))
 
 
 app = webapp.WSGIApplication(
   [
-    ('/api/json/1/newest_responder_firmware', ResponderFirmware),
     ('/api/json/1/manufacturers', ManufacturerList),
+    ('/api/json/1/newest_responder_firmware', ResponderFirmware),
+    ('/api/json/1/update_times', UpdateTimeHandler),
   ],
   debug=True)

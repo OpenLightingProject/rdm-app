@@ -17,6 +17,7 @@
 # The handlers for exporting information to third parties.
 
 from model import *
+import common
 import json
 import logging
 import memcache_keys
@@ -24,11 +25,6 @@ import time
 import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
-
-
-def TimestampToInt(timestamp):
-  """Convert a DateTimeProperty to an int."""
-  return int(time.mktime(timestamp.timetuple()))
 
 
 class PidDefinitionsAsProto(webapp.RequestHandler):
@@ -156,7 +152,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
     query.filter('name = ', timestamp_keys.PIDS)
     update_time = query.fetch(1)
     if update_time:
-      timestamp = TimestampToInt(update_time[0].update_time)
+      timestamp = common.TimestampToInt(update_time[0].update_time)
       self.Write('version: %d' % timestamp)
 
 
@@ -309,16 +305,16 @@ class InfoHandler(webapp.RequestHandler):
     # update timestamps for pids & devices
     for update_timestamp in LastUpdateTime.all():
       if update_timestamp.name == timestamp_keys.CONTROLLERS:
-        output['controller_update_time'] = TimestampToInt(
+        output['controller_update_time'] = common.TimestampToInt(
             update_timestamp.update_time)
       elif update_timestamp.name == timestamp_keys.DEVICES:
-        output['device_update_time'] = TimestampToInt(
+        output['device_update_time'] = common.TimestampToInt(
             update_timestamp.update_time)
       elif update_timestamp.name == timestamp_keys.PIDS:
-        output['pid_update_time'] = TimestampToInt(
+        output['pid_update_time'] = common.TimestampToInt(
             update_timestamp.update_time)
       elif update_timestamp.name == timestamp_keys.MANUFACTURERS:
-        output['manufacturer_update_time'] = TimestampToInt(
+        output['manufacturer_update_time'] = common.TimestampToInt(
             update_timestamp.update_time)
 
     self.response.out.write(json.dumps(output))

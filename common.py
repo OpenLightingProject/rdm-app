@@ -66,6 +66,7 @@ def LookupModelFromRequest(request):
     return None
   return model_data[0]
 
+
 def ConvertToInt(value):
   """Convert a value to an int."""
   if value:
@@ -75,6 +76,11 @@ def ConvertToInt(value):
       return None
     return int_value
   return None
+
+
+def TimestampToInt(timestamp):
+  """Convert a DateTimeProperty to an int."""
+  return int(time.mktime(timestamp.timetuple()))
 
 
 class BasePageHandler(webapp.RequestHandler):
