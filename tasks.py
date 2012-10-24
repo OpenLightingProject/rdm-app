@@ -29,7 +29,7 @@ class FetchResponderImage(webapp.RequestHandler):
     key = self.request.get('key')
     responder = Responder.get(key)
     if not responder:
-      return 200
+      return
 
     if responder.image_url and not responder.image_data:
       fetcher = ImageFetcher()
@@ -39,7 +39,7 @@ class FetchResponderImage(webapp.RequestHandler):
         responder.image_data = blob_key
         responder.image_serving_url = images.get_serving_url(blob_key)
         responder.put()
-    return 200
+    return
 
 
 class FetchControllerImage(webapp.RequestHandler):
@@ -48,7 +48,7 @@ class FetchControllerImage(webapp.RequestHandler):
     key = self.request.get('key')
     controller = Controller.get(key)
     if not controller:
-      return 200
+      return
 
     if controller.image_url and not controller.image_data:
       fetcher = ImageFetcher()
@@ -58,7 +58,7 @@ class FetchControllerImage(webapp.RequestHandler):
         controller.image_data = blob_key
         controller.image_serving_url = images.get_serving_url(blob_key)
         controller.put()
-    return 200
+    return
 
 
 class RankDevices(webapp.RequestHandler):
@@ -85,7 +85,7 @@ class RankDevices(webapp.RequestHandler):
 
       device.score = score
       device.put()
-    return 200
+    return
 
 
 tasks_application = webapp.WSGIApplication(
