@@ -16,7 +16,7 @@
 # Copyright (C) 2011 Simon Newton
 # Various functions to make things easier.
 
-
+import time
 import logging
 
 def StringToInt(value, allow_hex = True):
@@ -44,3 +44,8 @@ def StringToInt(value, allow_hex = True):
     except ValueError:
       pass
   return int_value
+
+
+def TimestampToInt(timestamp):
+  """Convert a DateTimeProperty to an int."""
+  return int(time.mktime(timestamp.timetuple()))

@@ -20,7 +20,6 @@ from model import *
 from utils import StringToInt
 import logging
 import memcache_keys
-import time
 import datetime
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -74,11 +73,6 @@ def ConvertToInt(value):
       return None
     return int_value
   return None
-
-
-def TimestampToInt(timestamp):
-  """Convert a DateTimeProperty to an int."""
-  return int(time.mktime(timestamp.timetuple()))
 
 
 class BasePageHandler(webapp.RequestHandler):
