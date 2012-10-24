@@ -33,23 +33,17 @@ class HandleModelData(webapp.RequestHandler):
   TEMPLATE = 'templates/upload_model_confirm.tmpl'
 
   def get(self):
-    model_data = self.request.get('model_data')
-    status = self.VerifyAndStoreData(model_data)
-    self.WriteResponse({
-        'responders': status,
-    })
+    self.post()
 
   def post(self):
     model_data = self.request.get('model_data')
-    status = self.VerifyAndStoreData(model_data)
-    self.WriteResponse({
-        'responders': status,
-    })
+    logging.info(model_data)
+    responders = self.VerifyAndStoreData(model_data)
+    logging.info('Responders is %s' % responders)
 
-  def WriteResponse(self, output):
-    # Update template data
     self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(template.render(self.TEMPLATE, output))
+    self.response.out.write(
+        template.render(self.TEMPLATE, {'responders': responders}))
 
   def VerifyAndStoreData(self, data):
     """Check the data look reasonable and if it does, store it.
