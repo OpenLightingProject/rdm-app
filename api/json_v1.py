@@ -51,6 +51,22 @@ class ManufacturerList(webapp.RequestHandler):
     return json.dumps({'manufacturers': manufacturers})
 
 
+class ManufacturerLookup(webapp.RequestHandler):
+  """Query on manufacturer ID."""
+
+  def get(self):
+    manufacturer = common.GetManufacturer(self.request.get('manufacturer'))
+    output = {}
+
+    if manufacturer:
+      output['name'] = manufacturer.name
+      output['esta_id'] = manufacturer.esta_id
+
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.headers['Cache-Control'] = 'public; max-age=300;'
+    self.response.out.write(json.dumps(output))
+
+
 class ResponderFirmware(webapp.RequestHandler):
   """Return the latest firmware for a responder."""
 
@@ -129,6 +145,7 @@ class UpdateTimeHandler(webapp.RequestHandler):
 app = webapp.WSGIApplication(
   [
     ('/api/json/1/manufacturers', ManufacturerList),
+    ('/api/json/1/manufacturer', ManufacturerLookup),
     ('/api/json/1/newest_responder_firmware', ResponderFirmware),
     ('/api/json/1/update_times', UpdateTimeHandler),
   ],

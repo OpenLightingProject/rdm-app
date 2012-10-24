@@ -17,6 +17,7 @@
 # Common functions
 
 from model import *
+from utils import StringToInt
 import logging
 import memcache_keys
 import time
@@ -27,18 +28,15 @@ from google.appengine.ext.webapp import template
 
 
 def GetManufacturer(manufacturer_id):
-  """Lookup a manufacturer entity by manufacturer id.
+  """Lookup a manufacturer entity by manufacturer id. The manufacturer id can
+     be decimal or hex (prepend with 0x)
 
   Returns:
-    The entity object, or None if not found.
+    The Manufacturer entity object, or None if not found.
   """
-  try:
-    id = int(manufacturer_id)
-  except ValueError:
-    return None
-
+  manufacturer_id = StringToInt(manufacturer_id)
   query = Manufacturer.all()
-  query.filter('esta_id = ', id)
+  query.filter('esta_id = ', manufacturer_id)
   for manufacturer in query.fetch(1):
     return manufacturer
   return None
