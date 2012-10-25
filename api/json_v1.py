@@ -163,7 +163,7 @@ app = webapp.WSGIApplication(
   [
     ('/api/json/1/manufacturers', ManufacturerList),
     ('/api/json/1/manufacturer', ManufacturerLookup),
-    ('/api/json/1/newest_responder_firmware', ResponderFirmware),
+    ('/api/json/1/latest_responder_firmware', ResponderFirmware),
     ('/api/json/1/responder_personalities', ResponderPersonalities),
     ('/api/json/1/update_times', UpdateTimeHandler),
   ],
