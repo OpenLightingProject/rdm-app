@@ -288,7 +288,6 @@ export_application = webapp.WSGIApplication(
     ('/index_info', InfoHandler),
     ('/download', PidDefinitionsAsProto),
     ('/export_models', ExportModelsHandler),
-    ('/export_personalities', ExportPersonalities),
     ('/export_controllers', ExportControllersHandler),
     ('/missing_models', MissingModelsHandler),
   ],
