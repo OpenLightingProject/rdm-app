@@ -65,7 +65,6 @@
       '{% for responder in responders %}{{ responder.key }}{% if not forloop.last %},{% endif %}{% endfor %}'
     ];
 
-
     function submit_form() {
       $('#save-button').button('disable');
       $('#loader-image').css('visibility', 'visible');
@@ -117,14 +116,11 @@
         cache: false
       });
     }
-    function bind_dom() {
+
+    $(document).ready(function() {
       $('#save-button').button().click(function() {
         submit_form();
       });
-    }
-
-    $(document).ready(function() {
-      bind_dom();
     });
   </script>
 </head>
@@ -132,7 +128,7 @@
 
 <div id='container'>
 {% if responders %}
-<form>
+<form onsubmit="return false">
 
 <p>Thank you for submitting RDM responder information. One of the moderators
 will confirm the information and then publish it. If you know of URLs for
