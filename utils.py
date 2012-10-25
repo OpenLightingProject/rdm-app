@@ -28,7 +28,13 @@ def StringToInt(value, allow_hex = True):
     Returns:
       The value, or None if the value wasn't valid.
   """
-  if value is None or type(value) not in [str, unicode]:
+  if value is None:
+    return None
+
+  if type(value) == int:
+    return value
+
+  if type(value) not in [str, unicode]:
     return None
 
   int_value = None

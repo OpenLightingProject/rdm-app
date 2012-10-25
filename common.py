@@ -28,12 +28,13 @@ from google.appengine.ext.webapp import template
 
 def GetManufacturer(manufacturer_id):
   """Lookup a manufacturer entity by manufacturer id. The manufacturer id can
-     be decimal or hex (prepend with 0x)
+     be a string in decimal or hex (prepend with 0x), or an int
 
   Returns:
     The Manufacturer entity object, or None if not found.
   """
-  manufacturer_id = StringToInt(manufacturer_id)
+  if type(manufacturer_id) != int:
+    manufacturer_id = StringToInt(manufacturer_id)
   query = Manufacturer.all()
   query.filter('esta_id = ', manufacturer_id)
   for manufacturer in query.fetch(1):
@@ -44,9 +45,10 @@ def LookupModelFromRequest(request):
   return LookupModel(request.get('manufacturer'),
                      request.get('model'))
 
-def LookupModel(manufacturer, model_id_str,):
+def LookupModel(manufacturer, model_id):
   """Lookup a model based on the URL params."""
-  model_id = StringToInt(model_id_str)
+  if type(model_id) != int:
+    model_id = StringToInt(model_id)
   manufacturer = GetManufacturer(manufacturer)
   if manufacturer is None or model_id is None:
     return None
@@ -86,10 +88,11 @@ class BasePageHandler(webapp.RequestHandler):
 
   def get(self):
     output = self.IndexInfo()
-    output.update(self.GetTemplateData())
-
-    self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(template.render(self.TEMPLATE, output))
+    page_data = self.GetTemplateData()
+    if page_data is not None:
+      output.update(page_data)
+      self.response.headers['Content-Type'] = 'text/html'
+      self.response.out.write(template.render(self.TEMPLATE, output))
 
   def ManufacturerPidCount(self):
     """Return the number of manufacturer PIDs."""
