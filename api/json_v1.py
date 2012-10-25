@@ -53,15 +53,16 @@ class ManufacturerList(webapp.RequestHandler):
 
 class ManufacturerLookup(webapp.RequestHandler):
   """Query on manufacturer ID."""
-
   def get(self):
     manufacturer = common.GetManufacturer(self.request.get('manufacturer'))
-    output = {}
+    if manufacturer is None:
+      self.error(404)
+      return
 
-    if manufacturer:
-      output['name'] = manufacturer.name
-      output['esta_id'] = manufacturer.esta_id
-
+    output = {
+      'name': manufacturer.name,
+      'esta_id': manufacturer.esta_id,
+    }
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
     self.response.out.write(json.dumps(output))
@@ -69,38 +70,16 @@ class ManufacturerLookup(webapp.RequestHandler):
 
 class ResponderFirmware(webapp.RequestHandler):
   """Return the latest firmware for a responder."""
-
-  def LookupModelFromRequest(self):
-    model_id_str = self.request.get('model')
-    model_id = None
-    try:
-      model_id = int(model_id_str)
-    except ValueError:
-      return None
-
-    manufacturer = common.GetManufacturer(self.request.get('manufacturer'))
-    if manufacturer is None or model_id is None:
-      return None
-
-    results = {}
-    models = Responder.all()
-    models.filter('device_model_id = ', model_id)
-    models.filter('manufacturer = ', manufacturer.key())
-
-    model_data = models.fetch(1)
-    if not model_data:
-      return None
-    return model_data[0]
-
   def get(self):
-    model_data = self.LookupModelFromRequest()
-    if model_data is None:
+    responder = common.LookupModel(self.request.get('manufacturer'),
+                                    self.request.get('model'))
+    if responder is None:
       self.error(404)
       return
 
     max_version = None
     max_label = None
-    for version in model_data.software_version_set:
+    for version in responder.software_version_set:
       if max_version is None or version.version_id > max_version:
         max_version = version.version_id
         max_label = version.label
@@ -114,6 +93,44 @@ class ResponderFirmware(webapp.RequestHandler):
       'URL': '',
     }
     self.response.headers['Content-Type'] = 'text/json'
+    self.response.headers['Cache-Control'] = 'public; max-age=300;'
+    self.response.out.write(json.dumps(output))
+
+
+class ResponderPersonalities(webapp.RequestHandler):
+  """Returns the personalities for a responder."""
+  def get(self):
+    responder = common.LookupModel(self.request.get('manufacturer'),
+                                   self.request.get('model'))
+    if responder is None:
+      self.error(404)
+      return
+
+    versions = []
+    for version_info in responder.software_version_set:
+      personalities = []
+      for personality in version_info.personality_set:
+        personality_info = {
+          'description': personality.description,
+          'index': personality.index,
+        }
+        personalities.append(personality_info)
+
+      version_output = {
+          'version_id': version_info.version_id,
+          'label': version_info.label,
+          'personalities': personalities,
+      }
+      versions.append(version_output)
+
+    output = {
+      'manufacturer_name': responder.manufacturer.name,
+      'manufacturer_id': responder.manufacturer.esta_id,
+      'device_model_id': responder.device_model_id,
+      'model_description': responder.model_description,
+      'versions': versions,
+    }
+    self.response.headers['Content-Type'] = 'text/plain'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
     self.response.out.write(json.dumps(output))
 
@@ -147,6 +164,7 @@ app = webapp.WSGIApplication(
     ('/api/json/1/manufacturers', ManufacturerList),
     ('/api/json/1/manufacturer', ManufacturerLookup),
     ('/api/json/1/newest_responder_firmware', ResponderFirmware),
+    ('/api/json/1/responder_personalities', ResponderPersonalities),
     ('/api/json/1/update_times', UpdateTimeHandler),
   ],
   debug=True)

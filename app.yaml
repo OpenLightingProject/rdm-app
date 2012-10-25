@@ -47,7 +47,7 @@ handlers:
   script: incoming_handler.incoming_application
 
 # export handlers, deprecated, move most of these to /json/
-- url: /(download|export_controllers|export_models|export_personalities|index_info|manufacturers|missing_models)
+- url: /(download|export_controllers|export_models|index_info|missing_models)
   script: export.export_application
 
 # API handlers

@@ -41,15 +41,13 @@ def GetManufacturer(manufacturer_id):
   return None
 
 def LookupModelFromRequest(request):
-  """Lookup a model based on the URL params."""
-  model_id_str = request.get('model')
-  model_id = None
-  try:
-    model_id = int(model_id_str)
-  except ValueError:
-    return None
+  return LookupModel(request.get('manufacturer'),
+                     request.get('model'))
 
-  manufacturer = GetManufacturer(request.get('manufacturer'))
+def LookupModel(manufacturer, model_id_str,):
+  """Lookup a model based on the URL params."""
+  model_id = StringToInt(model_id_str)
+  manufacturer = GetManufacturer(manufacturer)
   if manufacturer is None or model_id is None:
     return None
 
