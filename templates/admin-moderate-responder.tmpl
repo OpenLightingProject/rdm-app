@@ -1,24 +1,74 @@
 <html>
+<head>
+  <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+  <style type='text/css'>
+    body {
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    table {
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    #responder_diff {
+      width: 100%;
+      padding: 0px;
+      margin: 0px;
+      border-spacing: 0px;
+      border-collapse: collapse;
+    }
+
+    #responder_diff td {
+      border: 1px solid #000000;
+    }
+
+    #responder_diff label {
+      display: block;
+    }
+
+    .diff_select {
+      text-align: center;
+    }
+
+    .button-container {
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .error {
+      border: 1px solid #ff0000;
+      background-color: #ffcccc;
+      padding: 4px;
+    }
+
+    .selected {
+      background-color: #ccffcc
+    }
+ </style>
+</head>
 <body>
 
 <a href="{{ logout_url }}">Logout</a> <br/>
 <br/>
 
-{% if manufacturer_id %}
+{% if manufacturer %}
+
+{% for error in errors %}
+<div class="error">
+<img src="/images/warning.gif">
+{{ error }} <br>
+</div>
+{% endfor %}
 
 <table>
  <tr>
   <td>Manufacturer:</td>
-  <td>
-    {% if manufacturer_name %}
-    {{ manufacturer_name }}
-    {% else %}
-      {{ manufacturer_id }} (0x{{ manufacturer_id|stringformat:"04x" }})
-    {% endif %}
-  </td>
+  <td>{{ manufacturer.name }}</td>
  </tr>
  <tr>
-  <td>Device ID:</td>
+  <td>Device Model ID:</td>
   <td>
     {{ device_id }} (0x{{ device_id|stringformat:"04x" }})
   </td>
@@ -26,21 +76,95 @@
 </table>
 
 
-<table border="1" width="100%">
+<table id="responder_diff">
  <tr>
-  <th>Uploaded Data</th>
-  <th>Existing Data</th>
+  <th width="40%">Uploaded Data</th>
+  <th>&nbsp;</th>
+  <th width="40%">Existing Data</th>
  </tr>
- <tr>
-  <td>
-  </td>
-  <td>
-  </td>
- </tr>
+ {% for field in changed_fields %}
+   <tr>
+    <td id="{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
+      <label for="{{ field.key }}_left_b">{{ field.left }}</label>
+    </td>
+    <td class="diff_select">
+     <input type="radio" name="{{ field.key }}" id="{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
+     {{ field.name }}
+     <input type="radio" name="{{ field.key }}" id="{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
+    </td>
+    <td id="{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
+      <label for="{{ field.key }}_right_b">{{ field.right }}</label>
+      </td>
+   </tr>
+ {% endfor %}
 </table>
 
+<script>
+var keys = [
+{% for f in changed_fields %}'{{ f.key }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+];
+
+$(document).ready(function() {
+  /*
+  var key = '{{ field.key }}';
+  $('#' + key + '_left_b').change(function() {
+    alert('click');
+  });
+  */
+  $.each(keys, function(i, key) {
+    var base_key = '#' + key;
+    $(base_key + '_left_b').change(function() {
+      $(base_key + '_left').addClass('selected');
+      $(base_key + '_right').removeClass('selected');
+    });
+    $(base_key + '_right_b').change(function() {
+      $(base_key + '_right').addClass('selected');
+      $(base_key + '_left').removeClass('selected');
+    });
+  });
+});
+
+</script>
+
+
+<div class="button-container">
+  <button id='save-button'>Update</button>
+</div>
+
+<hr>
+
+<h3>Unused fields</h3>
+
+<table id="responder_diff">
+ <tr>
+  <th width="40%">Uploaded Data</th>
+  <th>&nbsp;</th>
+  <th width="40%">Existing Data</th>
+ </tr>
+ {% for field in unchanged_fields %}
+   <tr>
+    <td {% if field.different %}class="diff"{% endif %}>
+      {{ field.left }}</td>
+    <td class="diff_select">
+     <input type="radio" name="{{ field.key }}" value="left" {% if field.prefer_left %}checked{% endif %}>
+     {{ field.name }}
+     <input type="radio" name="{{ field.key }}" value="right" {% if field.prefer_right %}checked{% endif %}>
+    </td>
+    <td {% if field.different %}class="diff"{% endif %}>
+      {{ field.right }}</td>
+   </tr>
+ {% endfor %}
+</table>
+
+
+{% else %}
+{% if device_id %}
+
+Unknown manufacturer {{ manufacturer_id }}
+(0x{{ manufacturer_id|stringformat:"04x" }})
 {% else %}
 No responders in the queue. <a href="/admin">Back</a> to the admin console.
+{% endif %}
 {% endif %}
 
 </body>

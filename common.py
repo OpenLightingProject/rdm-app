@@ -33,7 +33,7 @@ def GetManufacturer(manufacturer_id):
   Returns:
     The Manufacturer entity object, or None if not found.
   """
-  if type(manufacturer_id) != int:
+  if type(manufacturer_id) not in (int, long):
     manufacturer_id = StringToInt(manufacturer_id)
   query = Manufacturer.all()
   query.filter('esta_id = ', manufacturer_id)
@@ -63,6 +63,19 @@ def LookupModel(manufacturer, model_id):
     return None
   return model_data[0]
 
+def LookupProductCategory(category_id):
+  """Lookup a ProductCategory entity by id.
+
+  Returns:
+    The entity object, or None if not found.
+  """
+  query = ProductCategory.all()
+  query.filter('id = ', category_id)
+  categories = query.fetch(1)
+  if categories:
+    return categories[0]
+  else:
+    return None
 
 def ConvertToInt(value):
   """Convert a value to an int."""

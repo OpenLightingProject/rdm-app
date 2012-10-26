@@ -16,6 +16,7 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for the admin page.
 
+import common
 import controller_data
 import controller_loader
 import datetime
@@ -51,24 +52,6 @@ def UpdateModificationTime(timestamp_name):
 
   # delete the index info cache
   memcache.delete(memcache_keys.INDEX_INFO)
-
-
-def LookupProductCategory(id_str):
-  """Lookup a ProductCategory entity by id.
-
-  Returns:
-    The entity object, or None if not found.
-  """
-  try:
-    id = int(id_str)
-  except ValueError:
-    return None
-
-  query = ProductCategory.all()
-  query.filter('id = ', id)
-  for category in query.fetch(1):
-    return category
-  return None
 
 
 class BaseAdminPageHandler(webapp.RequestHandler):
@@ -392,13 +375,22 @@ class AdminPageHandler(BaseAdminPageHandler):
 
 class ResponderModerator(BaseAdminPageHandler):
   """Displays the UI for moderating responder data."""
+  def EvalData(self, data):
+    try:
+      evaled_data = eval(data, {})
+      return evaled_data
+    except Exception as e:
+      logging.info(data)
+      logging.error(e)
+      return {}
+
   def HandleRequest(self):
     template_data = {
-        'logout_url': users.create_logout_url("/"),
+      'logout_url': users.create_logout_url("/"),
     }
 
     responder = UploadedResponderInfo.all().fetch(1)
-    if (responder):
+    if responder:
       self.DiffResponders(responder[0], template_data)
 
     self.response.headers['Content-Type'] = 'text/html'
@@ -406,22 +398,136 @@ class ResponderModerator(BaseAdminPageHandler):
       'templates/admin-moderate-responder.tmpl',
       template_data))
 
+  def DiffProperty(self, name, key, left_dict, right_dict):
+    """
+    Args:
+      name: The human name of this property
+      key: the key by which to look up this property in both dicts.
+      left_dict:
+      right_dict:
+
+    Returns:
+      A dict in the form {
+
+      }
+    """
+    logging.info(key)
+    left = left_dict.get(key, '')
+    right = right_dict.get(key, '')
+
+    prefer_left = False
+    prefer_right = False
+    if left and not right:
+      prefer_left = True
+    if right and not left:
+      prefer_right = True
+
+    return  {
+      'name': name,
+      'key': key,
+      'left': left,
+      'different': left != right,
+      'prefer_left': prefer_left,
+      'prefer_right': prefer_right,
+      'right': right,
+    }
+
   def DiffResponders(self, responder, template_data):
-    template_data['manufacturer_id'] = responder.manufacturer_id
+    errors = []
+
     template_data['device_id'] = responder.device_model_id
+    template_data['manufacturer_id'] = responder.manufacturer_id
 
-    manufacturer_query = Manufacturer.all().filter('esta_id = ', responder.manufacturer_id)
-    results = manufacturer_query.fetch(1)
+    manufacturer = common.GetManufacturer(responder.manufacturer_id)
+    template_data['manufacturer'] = manufacturer
+    if not manufacturer:
+      return
 
-    if results:
-      template_data['manufacturer_name'] = results[0].name
+    template_data['manufacturer_name'] = manufacturer.name
+    existing_model = common.LookupModel(responder.manufacturer_id,
+                                        responder.device_model_id)
 
-    return {}, {}
+    # build a dict for the existing responder
+    existing_responder_dict = {}
+    if existing_model is not None:
+      existing_responder_dict = {
+          'model_description': existing_model.model_description,
+          'image_url': existing_model.image_url,
+          'url': existing_model.link_url,
+          'product_category': existing_model.product_category.name
+      }
+
+    # Build a dict for the new responder
+    new_responder_dict = self.EvalData(responder.info)
+    new_responder_dict['image_url'] = responder.image_url or ''
+    new_responder_dict['url'] = responder.link_url or ''
+    if 'product_category' in new_responder_dict:
+      category = common.LookupProductCategory(
+          new_responder_dict['product_category'])
+      if category:
+        new_responder_dict['product_category'] = category.name
+      else:
+        errors.append('Unknown product category %d' %
+          new_responder_dict['product_category'])
+
+    logging.info(existing_responder_dict)
+    logging.info(new_responder_dict)
+    fields = [
+        ('Model Description', 'model_description'),
+        ('Image URL', 'image_url'),
+        ('URL', 'url'),
+        ('Product Category', 'product_category'),
+    ]
+
+    changed_fields = []
+    unchanged_fields = []
+    for name, key in fields:
+      field_dict = self.DiffProperty(name, key,
+                                     new_responder_dict,
+                                     existing_responder_dict)
+      if field_dict['different']:
+        changed_fields.append(field_dict)
+      else:
+        unchanged_fields.append(field_dict)
+
+    logging.info(changed_fields)
+    logging.info(unchanged_fields)
+    template_data['changed_fields'] = changed_fields
+    template_data['unchanged_fields'] = unchanged_fields
+    template_data['errors'] = errors
 
 
-admin_application = webapp.WSGIApplication(
+class AdjustTestScore(BaseAdminPageHandler):
+  """Displays the UI for adjusting a responder's test score.
+    TODO(simon): automate all of this.
+  """
+  def HandleRequest(self):
+    template_data = {
+      'logout_url': users.create_logout_url("/"),
+      'message': '',
+    }
+
+    responder = common.LookupModelFromRequest(self.request)
+    rating = self.request.get('rating')
+    if responder is not None and rating is not None:
+      rating_int = common.ConvertToInt(rating)
+      if rating_int >= 0 and rating_int <= 100:
+        template_data['message'] = (
+            'Set rating of %s to %d' %
+            (responder.model_description, rating_int))
+        responder.rdm_responder_rating = db.Rating(rating_int)
+        responder.put()
+
+    self.response.headers['Content-Type'] = 'text/html'
+    self.response.out.write(template.render(
+      'templates/admin-adjust-test-score.tmpl',
+      template_data))
+
+
+app = webapp.WSGIApplication(
   [
     ('/admin', AdminPageHandler),
     ('/admin/moderate_responder_data', ResponderModerator),
+    ('/admin/adjust_test_score', AdjustTestScore),
   ],
   debug=True)
