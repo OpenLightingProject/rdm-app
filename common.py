@@ -77,17 +77,6 @@ def LookupProductCategory(category_id):
   else:
     return None
 
-def ConvertToInt(value):
-  """Convert a value to an int."""
-  if value:
-    try:
-      int_value = int(value)
-    except ValueError:
-      return None
-    return int_value
-  return None
-
-
 class BasePageHandler(webapp.RequestHandler):
   """The base class for all page requests.
 

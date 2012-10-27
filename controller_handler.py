@@ -22,6 +22,7 @@ import memcache_keys
 import re
 import sensor_types
 from model import *
+from utils import StringToInt
 from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -36,7 +37,7 @@ class BrowseControllers(common.BasePageHandler):
   RESULTS_PER_PAGE = ROWS * COLUMNS
 
   def GetTemplateData(self):
-    page = common.ConvertToInt(self.request.get('page'))
+    page = StringToInt(self.request.get('page'), False)
     if page is None:
       page = 1
     # 0 offset
@@ -86,15 +87,6 @@ class BaseSearchHandler(common.BasePageHandler):
   def Init(self):
     pass
 
-  def ConvertToInt(self, value):
-    if value:
-      try:
-        int_value = int(value)
-      except ValueError:
-        return None
-      return int_value
-    return None
-
   def GetTemplateData(self):
     self.Init()
     data = self.GetSearchData()
@@ -107,7 +99,8 @@ class SearchByManufacturer(BaseSearchHandler):
   TEMPLATE = 'templates/manufacturer_controller_search.tmpl'
 
   def Init(self):
-    self._manufacturer_id = self.ConvertToInt(self.request.get('manufacturer'))
+    self._manufacturer_id = StringToInt(self.request.get('manufacturer'))
+    self._manufacturer = common.GetManufacturer(self._manufacturer_id)
 
   def GetSearchData(self):
     manufacturer_list = memcache.get(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
@@ -132,14 +125,10 @@ class SearchByManufacturer(BaseSearchHandler):
     }
 
   def GetResults(self):
-    if self._manufacturer_id is not None:
-      query = Manufacturer.all()
-      query.filter('esta_id = ', self._manufacturer_id)
-
-      for manufacturer in query.fetch(1):
-        responder_query = manufacturer.controller_set
-        responder_query.order('name')
-        return responder_query
+    if self._manufacturer is not None:
+      responder_query = self._manufacturer.controller_set
+      responder_query.order('name')
+      return responder_query
     return []
 
 

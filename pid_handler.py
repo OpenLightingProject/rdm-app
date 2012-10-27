@@ -49,8 +49,7 @@ class SearchByManufacturer(BaseSearchHandler):
   TEMPLATE = 'templates/manufacturer_pid_search.tmpl'
 
   def Init(self):
-    self._manufacturer_id = common.ConvertToInt(
-        self.request.get('manufacturer'))
+    self._manufacturer_id = StringToInt(self.request.get('manufacturer'))
 
   def GetSearchData(self):
     manufacturer_list = memcache.get(memcache_keys.MANUFACTURER_PID_COUNTS)
