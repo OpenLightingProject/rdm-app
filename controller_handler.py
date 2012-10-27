@@ -20,7 +20,6 @@ import common
 import logging
 import memcache_keys
 import re
-import sensor_types
 from model import *
 from utils import StringToInt
 from google.appengine.api import images

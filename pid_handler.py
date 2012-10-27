@@ -20,7 +20,6 @@ import json
 import logging
 import memcache_keys
 import re
-import sensor_types
 import common
 from model import *
 from utils import StringToInt

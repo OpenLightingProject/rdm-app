@@ -21,7 +21,7 @@ import json
 import logging
 import memcache_keys
 import re
-import sensor_types
+from data.sensor_types import SENSOR_TYPES
 from model import *
 from utils import StringToInt
 from google.appengine.api import images
@@ -289,7 +289,7 @@ class DisplayModel(common.BasePageHandler):
             'type': sensor.type,
             'supports_recording': sensor.supports_recording,
         }
-        type_str = sensor_types.SENSOR_TYPES.get(sensor.type)
+        type_str = SENSOR_TYPES.get(sensor.type)
         if type_str is not None:
           sensor_info['type_str'] = type_str
         sensors.append(sensor_info)

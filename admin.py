@@ -17,16 +17,16 @@
 # The handlers for the admin page.
 
 import common
-import controller_data
+from data.controller_data import CONTROLLER_DATA
+from data.manufacturer_data import MANUFACTURER_DATA
+from data.model_data import DEVICE_MODEL_DATA
+from data.product_categories import PRODUCT_CATEGORIES
 import controller_loader
 import datetime
 import logging
-import manufacturer_data
 import memcache_keys
-import model_data
 import model_loader
 import pid_data
-import product_categories
 import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
@@ -35,6 +35,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
 from google.appengine.ext.webapp import template
 from model import *
+from utils import StringToInt
 from pid_loader import PidLoader
 
 
@@ -78,7 +79,7 @@ class AdminPageHandler(BaseAdminPageHandler):
   """Admin functions."""
   def UpdateManufacturers(self):
     new_data = {}
-    for id, name in manufacturer_data.MANUFACTURER_DATA:
+    for id, name in MANUFACTURER_DATA:
       new_data[id] = name
 
     existing_manufacturers = set()
@@ -181,7 +182,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     return ''
 
   def UpdateModels(self):
-    loader = model_loader.ModelLoader(model_data.DEVICE_MODEL_DATA)
+    loader = model_loader.ModelLoader(DEVICE_MODEL_DATA)
     added, updated = loader.Update()
     if added or updated:
       memcache.delete(memcache_keys.INDEX_INFO)
@@ -198,7 +199,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     """Update the list of Product Categories."""
     added = removed = updated = 0
     new_data = {}
-    for name, id in product_categories.PRODUCT_CATEGORIES.iteritems():
+    for name, id in PRODUCT_CATEGORIES.iteritems():
       new_data[id] = name
 
     existing_categories = set()
@@ -327,8 +328,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     return ''
 
   def UpdateControllers(self):
-    loader = controller_loader.ControllerLoader(
-        controller_data.CONTROLLER_DATA)
+    loader = controller_loader.ControllerLoader(CONTROLLER_DATA)
     added, updated = loader.Update()
     if added or updated:
       memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
@@ -411,24 +411,15 @@ class ResponderModerator(BaseAdminPageHandler):
 
       }
     """
-    logging.info(key)
     left = left_dict.get(key, '')
     right = right_dict.get(key, '')
-
-    prefer_left = False
-    prefer_right = False
-    if left and not right:
-      prefer_left = True
-    if right and not left:
-      prefer_right = True
-
     return  {
       'name': name,
       'key': key,
       'left': left,
       'different': left != right,
-      'prefer_left': prefer_left,
-      'prefer_right': prefer_right,
+      'prefer_left': left and not right,
+      'prefer_right': right and not left,
       'right': right,
     }
 
@@ -470,8 +461,6 @@ class ResponderModerator(BaseAdminPageHandler):
         errors.append('Unknown product category %d' %
           new_responder_dict['product_category'])
 
-    logging.info(existing_responder_dict)
-    logging.info(new_responder_dict)
     fields = [
         ('Model Description', 'model_description'),
         ('Image URL', 'image_url'),
@@ -494,8 +483,26 @@ class ResponderModerator(BaseAdminPageHandler):
     logging.info(unchanged_fields)
     template_data['changed_fields'] = changed_fields
     template_data['unchanged_fields'] = unchanged_fields
+
+    # now work on the software versions
+    new_software_versions = new_responder_dict.get('software_versions', {})
+    if new_software_versions:
+      versions = self.DiffVersions(new_software_versions, existing_model)
+
     template_data['errors'] = errors
 
+  def DiffVersions(self, new_software_versions, existing_responder):
+    """
+
+    Returns:
+      [{
+        'version': <int>'
+        'fields': [ <fields> ],
+      },
+      ]
+    """
+
+    return []
 
 class AdjustTestScore(BaseAdminPageHandler):
   """Displays the UI for adjusting a responder's test score.
@@ -510,7 +517,7 @@ class AdjustTestScore(BaseAdminPageHandler):
     responder = common.LookupModelFromRequest(self.request)
     rating = self.request.get('rating')
     if responder is not None and rating is not None:
-      rating_int = common.ConvertToInt(rating)
+      rating_int = StringToInt(rating, False)
       if rating_int >= 0 and rating_int <= 100:
         template_data['message'] = (
             'Set rating of %s to %d' %
