@@ -23,6 +23,7 @@ import memcache_keys
 import re
 import sensor_types
 from model import *
+from utils import StringToInt
 from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -37,7 +38,7 @@ class BrowseModels(common.BasePageHandler):
   RESULTS_PER_PAGE = ROWS * COLUMNS
 
   def GetTemplateData(self):
-    page = common.ConvertToInt(self.request.get('page'))
+    page = StringToInt(self.request.get('page'), False)
     if page is None:
       page = 1
     # 0 offset
@@ -95,15 +96,6 @@ class BaseSearchHandler(common.BasePageHandler):
   def Init(self):
     pass
 
-  def ConvertToInt(self, value):
-    if value:
-      try:
-        int_value = int(value)
-      except ValueError:
-        return None
-      return int_value
-    return None
-
   def GetTemplateData(self):
     self.Init()
     data = self.GetSearchData()
@@ -112,11 +104,12 @@ class BaseSearchHandler(common.BasePageHandler):
 
 
 class SearchByManufacturer(BaseSearchHandler):
-  """Search by Manfacturer."""
+  """Search by Manufacturer."""
   TEMPLATE = 'templates/manufacturer_model_search.tmpl'
 
   def Init(self):
-    self._manufacturer_id = self.ConvertToInt(self.request.get('manufacturer'))
+    self._manufacturer_id = StringToInt(self.request.get('manufacturer'))
+    self._manufacturer = common.GetManufacturer(self._manufacturer_id)
 
   def GetSearchData(self):
     manufacturer_list = memcache.get(memcache_keys.MANUFACTURER_MODEL_COUNTS)
@@ -140,14 +133,10 @@ class SearchByManufacturer(BaseSearchHandler):
     }
 
   def GetResults(self):
-    if self._manufacturer_id is not None:
-      query = Manufacturer.all()
-      query.filter('esta_id = ', self._manufacturer_id)
-
-      for manufacturer in query.fetch(1):
-        responder_query = manufacturer.responder_set
-        responder_query.order('device_model_id')
-        return responder_query
+    if self._manufacturer is not None:
+      responder_query = self._manufacturer.responder_set
+      responder_query.order('device_model_id')
+      return responder_query
     return []
 
 
@@ -156,7 +145,8 @@ class SearchByCategory(BaseSearchHandler):
   TEMPLATE = 'templates/category_model_search.tmpl'
 
   def Init(self):
-    self._category_id = self.ConvertToInt(self.request.get('category'))
+    self._category_id = StringToInt(self.request.get('category'))
+    self._category = common.LookupProductCategory(self._category_id)
 
   def GetSearchData(self):
     category_list = memcache.get(memcache_keys.CATEGORY_MODEL_COUNTS)
@@ -180,12 +170,8 @@ class SearchByCategory(BaseSearchHandler):
     }
 
   def GetResults(self):
-    if self._category_id is not None:
-      query = ProductCategory.all()
-      query.filter('id = ', self._category_id)
-
-      for category in query.fetch(1):
-        return category.responder_set
+    if self._category is not None:
+      return self._category.responder_set
     return []
 
 
@@ -230,30 +216,7 @@ class SearchByTag(BaseSearchHandler):
 
 class DisplayModel(common.BasePageHandler):
   """Display information about a particular model."""
-
   TEMPLATE = 'templates/display_model.tmpl'
-
-  def LookupModelFromRequest(self):
-    model_id_str = self.request.get('model')
-    model_id = None
-    try:
-      model_id = int(model_id_str)
-    except ValueError:
-      return None
-
-    manufacturer = common.GetManufacturer(self.request.get('manufacturer'))
-    if manufacturer is None or model_id is None:
-      return None
-
-    results = {}
-    models = Responder.all()
-    models.filter('device_model_id = ', model_id)
-    models.filter('manufacturer = ', manufacturer.key())
-
-    model_data = models.fetch(1)
-    if not model_data:
-      return None
-    return model_data[0]
 
   def GetTemplateData(self):
     model = common.LookupModelFromRequest(self.request)
