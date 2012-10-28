@@ -189,6 +189,7 @@ $(document).ready(function() {
       $('#' + key + '_left_b').attr('checked', true);
       selectLeft('#' + key);
     });
+    return false;
   });
   $('#all-right').click(function() {
     $.each(keys, function(i, key) {
@@ -196,6 +197,7 @@ $(document).ready(function() {
       $('#' + key + '_right_b').attr('checked', true);
       selectRight('#' + key);
     });
+    return false;
   });
   $('#save-button').click(function() {
     submit();

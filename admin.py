@@ -398,10 +398,53 @@ class ResponderModerator(BaseAdminPageHandler):
       return
     logging.info(responder_info)
 
+    fields_to_update = set(fields.split(','))
+    logging.info(fields_to_update)
+    data_dict = self.EvalData(responder_info.info)
+
+    # same format as in data/model_data.py
+    model_data = {
+      'device_model': responder_info.device_model_id
+    }
+
+    if ('model_description' in fields_to_update and
+        'model_description' in data_dict):
+      model_data['model_description'] = data_dict['model_description']
+    if 'image_url' in fields_to_update and responder_info.image_url:
+      model_datal['image_url'] = responder_info.image_url
+    if 'url' in fields_to_update and responder_info.link_url:
+      model_data['link'] = responder_info.link_url
+    if ('product_category' in fields_to_update and
+        'product_category' in data_dict):
+      model_data['product_category'] = data_dict['product_category']
+
+    if 'software_versions' in data_dict:
+      for version_id, version_data in data_dict['software_versions'].iteritems():
+        if type(version_id) == int:
+          version_dict = self.BuildVersionDict(version_id, version_data,
+                                               fields_to_update)
+          if version_dict:
+            versions = model_data.setdefault('software_versions', {})
+            versions[version_id] = version_dict
+
+    logging.info(model_data)
+
+    existing_responder = common.LookupModel(responder_info.manufacturer_id,
+                                            responder_info.device_model_id)
+
 
     # finally mark this one as done
     #responder_info.processed = True
     #responder_info.put()
+  def BuildVersionDict(self, version_id, version_data, fields_to_update):
+    version_dict = {}
+
+    fields = ['label', 'personalities', 'sensors', 'supported_parameters']
+    for field in fields:
+      if (('%d_%s' % (version_id, field)) in fields_to_update and
+          field in version_data):
+        version_dict[field] = version_data[field]
+    return version_dict
 
   def HandleRequest(self):
     template_data = {
@@ -418,7 +461,7 @@ class ResponderModerator(BaseAdminPageHandler):
     responder = query.fetch(1)
     if responder:
       template_data['key'] = responder[0].key()
-      self.DiffResponders(responder[0], template_data)
+      self.DiffResponder(responder[0], template_data)
 
     self.response.headers['Content-Type'] = 'text/html'
     self.response.out.write(template.render(
@@ -466,7 +509,7 @@ class ResponderModerator(BaseAdminPageHandler):
         unchanged_fields.append(field_dict)
     return changed_fields, unchanged_fields
 
-  def DiffResponders(self, responder, template_data):
+  def DiffResponder(self, responder, template_data):
     errors = []
 
     template_data['device_id'] = responder.device_model_id
