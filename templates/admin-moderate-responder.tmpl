@@ -22,10 +22,12 @@
 
     #responder_diff td {
       border: 1px solid #000000;
+      cursor: pointer;
     }
 
     #responder_diff label {
       display: block;
+      cursor: pointer;
     }
 
     .diff_select {
@@ -85,7 +87,7 @@
  {% for field in changed_fields %}
    <tr>
     <td id="{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
-      <label for="{{ field.key }}_left_b">{{ field.left }}</label>
+      <label for="{{ field.key }}_left_b">{{ field.left|default_if_none:"" }}</label>
     </td>
     <td class="diff_select">
      <input type="radio" name="{{ field.key }}" id="{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
@@ -93,43 +95,98 @@
      <input type="radio" name="{{ field.key }}" id="{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
     </td>
     <td id="{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
-      <label for="{{ field.key }}_right_b">{{ field.right }}</label>
+      <label for="{{ field.key }}_right_b">{{ field.right|default_if_none:"" }}&nbsp;</label>
       </td>
    </tr>
  {% endfor %}
 </table>
 
+<br/>
+
+{% for version in versions %}
+<table id="responder_diff">
+ <tr>
+  <th width="40%">Uploaded Data</th>
+  <th>Version 0x{{ version.version|stringformat:"08x" }}</th>
+  <th width="40%">Existing Data</th>
+ </tr>
+ {% for field in version.fields %}
+   <tr>
+    <td id="{{ version.version }}_{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
+      <label for="{{ version.version }}_{{ field.key }}_left_b">{{ field.left|default_if_none:"" }}</label>
+    </td>
+    <td class="diff_select">
+     <input type="radio" name="{{ version.version }}_{{ field.key }}" id="{{ version.version }}_{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
+     {{ field.name }}
+     <input type="radio" name="{{ version.version }}_{{ field.key }}" id="{{ version.version }}_{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
+    </td>
+    <td id="{{ version.version }}_{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
+      <label for="{{ version.version }}_{{ field.key }}_right_b">{{ field.right|default_if_none:"" }}&nbsp;</label>
+      </td>
+   </tr>
+ {% endfor %}
+</table>
+{% endfor %}
+
+<div class="button-container">
+  <button id='all-left'>Select All Left</button>
+  <button id='all-right'>Select All Right</button>
+</div>
+
+<div class="button-container">
+  <button id='save-button'>Update</button>
+</div>
+
 <script>
 var keys = [
-{% for f in changed_fields %}'{{ f.key }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+{% for f in changed_fields %}'{{ f.key }}',{% endfor %}
+{% for version in versions %}
+{% for f in version.fields %}'{{ version.version }}_{{ f.key }}',{% endfor %}
+{% endfor %}
+''
 ];
 
+
+function selectLeft(key) {
+  $(key + '_left').addClass('selected');
+  $(key + '_right').removeClass('selected');
+};
+
+function selectRight(key) {
+  $(key + '_right').addClass('selected');
+  $(key + '_left').removeClass('selected');
+};
+
+
 $(document).ready(function() {
-  /*
-  var key = '{{ field.key }}';
-  $('#' + key + '_left_b').change(function() {
-    alert('click');
-  });
-  */
   $.each(keys, function(i, key) {
+    if (key == '') return;
     var base_key = '#' + key;
     $(base_key + '_left_b').change(function() {
-      $(base_key + '_left').addClass('selected');
-      $(base_key + '_right').removeClass('selected');
+      selectLeft(base_key);
     });
     $(base_key + '_right_b').change(function() {
-      $(base_key + '_right').addClass('selected');
-      $(base_key + '_left').removeClass('selected');
+      selectRight(base_key);
+    });
+  });
+  $('#all-left').click(function() {
+    $.each(keys, function(i, key) {
+      if (key == '') return;
+      $('#' + key + '_left_b').attr('checked', true);
+      selectLeft('#' + key);
+    });
+  });
+  $('#all-right').click(function() {
+    $.each(keys, function(i, key) {
+      if (key == '') return;
+      $('#' + key + '_right_b').attr('checked', true);
+      selectRight('#' + key);
     });
   });
 });
 
 </script>
 
-
-<div class="button-container">
-  <button id='save-button'>Update</button>
-</div>
 
 <hr>
 

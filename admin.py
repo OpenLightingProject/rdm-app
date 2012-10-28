@@ -411,17 +411,34 @@ class ResponderModerator(BaseAdminPageHandler):
 
       }
     """
-    left = left_dict.get(key, '')
-    right = right_dict.get(key, '')
+    left = left_dict.get(key)
+    right = right_dict.get(key)
+    logging.info(left)
     return  {
       'name': name,
       'key': key,
       'left': left,
       'different': left != right,
-      'prefer_left': left and not right,
-      'prefer_right': right and not left,
+      'prefer_left': left is not None and right is None,
+      'prefer_right': right is not None and left is None,
       'right': right,
     }
+
+  def DiffProperties(self, fields, left_dict, right_dict):
+    """
+
+    Returns:
+      changed_fields, unchanged_fields
+    """
+    changed_fields = []
+    unchanged_fields = []
+    for name, key in fields:
+      field_dict = self.DiffProperty(name, key, left_dict, right_dict)
+      if field_dict['different']:
+        changed_fields.append(field_dict)
+      else:
+        unchanged_fields.append(field_dict)
+    return changed_fields, unchanged_fields
 
   def DiffResponders(self, responder, template_data):
     errors = []
@@ -450,8 +467,8 @@ class ResponderModerator(BaseAdminPageHandler):
 
     # Build a dict for the new responder
     new_responder_dict = self.EvalData(responder.info)
-    new_responder_dict['image_url'] = responder.image_url or ''
-    new_responder_dict['url'] = responder.link_url or ''
+    new_responder_dict['image_url'] = responder.image_url or None
+    new_responder_dict['url'] = responder.link_url or None
     if 'product_category' in new_responder_dict:
       category = common.LookupProductCategory(
           new_responder_dict['product_category'])
@@ -468,16 +485,8 @@ class ResponderModerator(BaseAdminPageHandler):
         ('Product Category', 'product_category'),
     ]
 
-    changed_fields = []
-    unchanged_fields = []
-    for name, key in fields:
-      field_dict = self.DiffProperty(name, key,
-                                     new_responder_dict,
-                                     existing_responder_dict)
-      if field_dict['different']:
-        changed_fields.append(field_dict)
-      else:
-        unchanged_fields.append(field_dict)
+    changed_fields, unchanged_fields = self.DiffProperties(fields,
+        new_responder_dict, existing_responder_dict)
 
     logging.info(changed_fields)
     logging.info(unchanged_fields)
@@ -488,11 +497,17 @@ class ResponderModerator(BaseAdminPageHandler):
     new_software_versions = new_responder_dict.get('software_versions', {})
     if new_software_versions:
       versions = self.DiffVersions(new_software_versions, existing_model)
+      template_data['versions'] = versions
+      logging.info(versions)
 
     template_data['errors'] = errors
 
   def DiffVersions(self, new_software_versions, existing_responder):
     """
+
+    Args:
+      new_software_versions: a dict of version_id : dict mappings
+      existing_responder: A Responder Entity, or None
 
     Returns:
       [{
@@ -501,8 +516,84 @@ class ResponderModerator(BaseAdminPageHandler):
       },
       ]
     """
+    known_versions = {}  # version_id : SoftwareVersion mapping
+    if existing_responder:
+      for known_version in existing_responder.software_version_set():
+        known_versions[known_version.version_id()] = known_version
 
-    return []
+    logging.info(known_versions)
+    output = []
+
+    for version_id, data in new_software_versions.iteritems():
+      if type(version_id) == int:
+        fields = self.DiffVersion(version_id, data,
+                                  known_versions.get(version_id))
+        output.append({
+          'version': version_id,
+          'fields': fields,
+        })
+      else:
+        logging.error('Invalid version id %s' % version_id)
+    return output
+
+  def DiffVersion(self, version_id, new_data, current_version):
+    """
+
+    Args:
+      version_id: The software version
+      new_data: The dict of new data
+      existing_version: A SoftwareVersion Entity or None
+    """
+    logging.info('Diff %d' % version_id)
+
+    current_version_dict = {
+      'personalities': self.BuildPersonalityList(current_version),
+      'sensors': self.BuildSensorList(current_version),
+    }
+    if current_version:
+      current_version_dict['label'] = current_version.label
+      current_version_dict['supported_parameters'] = (
+          current_version.supported_parameters)
+
+    fields = [
+        ('Software Label', 'label'),
+        ('Supported Parameters', 'supported_parameters'),
+        ('Personalities', 'personalities'),
+        ('Sensors', 'sensors'),
+    ]
+    logging.info(new_data)
+
+    changed_fields, unchanged_fields = self.DiffProperties(fields,
+        new_data, current_version_dict)
+    return changed_fields
+
+  def BuildPersonalityList(self, software_version):
+    if software_version is None:
+      return None
+
+    personalities = []
+    for personality in software_version.personality_set():
+      personalities.append({
+        'index': personality.index,
+        'description': personality.description,
+        'slot_count': personality.slot_count,
+    })
+    return personalities
+
+  def BuildSensorList(self, software_version):
+    if software_version is None:
+      return None
+
+    sensors = []
+    for sensor in software_version.sensor_set():
+      sensors.append({
+        'description': sensor.description,
+        'index': sensor.index,
+        'supports_recording': sensor.supports_recording,
+        'type': sensor.type,
+    })
+    return sensors
+
 
 class AdjustTestScore(BaseAdminPageHandler):
   """Displays the UI for adjusting a responder's test score.
