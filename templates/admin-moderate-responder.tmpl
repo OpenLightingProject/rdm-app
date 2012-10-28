@@ -78,6 +78,7 @@
 </table>
 
 
+<form id="moderator_form" action="/admin/moderate_responder_data" method="post">
 <table id="responder_diff">
  <tr>
   <th width="40%">Uploaded Data</th>
@@ -132,6 +133,8 @@
   <button id='all-left'>Select All Left</button>
   <button id='all-right'>Select All Right</button>
 </div>
+<input type="hidden" name="fields" id="fields">
+<input type="hidden" name="key" value="{{ key }}">
 
 <div class="button-container">
   <button id='save-button'>Update</button>
@@ -157,6 +160,17 @@ function selectRight(key) {
   $(key + '_left').removeClass('selected');
 };
 
+function submit() {
+  var field_data = [];
+  $.each(keys, function(i, key) {
+    if (key == '') return;
+    if ($('#' + key + '_left_b').attr('checked')) {
+      field_data.push(key);
+    }
+  });
+  $('#fields').val(field_data.join(','));
+  $('moderator_form').submit();
+};
 
 $(document).ready(function() {
   $.each(keys, function(i, key) {
@@ -183,10 +197,13 @@ $(document).ready(function() {
       selectRight('#' + key);
     });
   });
+  $('#save-button').click(function() {
+    submit();
+  });
 });
 
 </script>
-
+</form>
 
 <hr>
 

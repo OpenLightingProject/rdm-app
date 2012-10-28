@@ -63,6 +63,12 @@ class BaseAdminPageHandler(webapp.RequestHandler):
   ]
 
   def get(self):
+    self.do_request()
+
+  def post(self):
+    self.do_request()
+
+  def do_request(self):
     user = users.get_current_user()
     if not user:
       self.redirect(users.create_login_url(self.request.uri))
@@ -361,9 +367,11 @@ class AdminPageHandler(BaseAdminPageHandler):
     if action in ACTIONS:
       output = ACTIONS[action]()
 
+    pending_uploads = UploadedResponderInfo.all().filter('processed = ',
+                                                         False).count()
     template_data = {
         'logout_url': users.create_logout_url("/"),
-        'responders_to_moderate': UploadedResponderInfo.all().count(),
+        'responders_to_moderate': pending_uploads,
     }
 
     if output:
@@ -384,13 +392,32 @@ class ResponderModerator(BaseAdminPageHandler):
       logging.error(e)
       return {}
 
+  def ApplyChanges(self, key, fields):
+    responder_info = UploadedResponderInfo.get(key)
+    if not responder_info:
+      return
+    logging.info(responder_info)
+
+
+    # finally mark this one as done
+    #responder_info.processed = True
+    #responder_info.put()
+
   def HandleRequest(self):
     template_data = {
       'logout_url': users.create_logout_url("/"),
     }
 
-    responder = UploadedResponderInfo.all().fetch(1)
+    key = self.request.get('key')
+    fields = self.request.get('fields')
+    if key and fields:
+      self.ApplyChanges(key, fields)
+
+    query = UploadedResponderInfo.all()
+    query.filter('processed = ', False)
+    responder = query.fetch(1)
     if responder:
+      template_data['key'] = responder[0].key()
       self.DiffResponders(responder[0], template_data)
 
     self.response.headers['Content-Type'] = 'text/html'
@@ -413,7 +440,6 @@ class ResponderModerator(BaseAdminPageHandler):
     """
     left = left_dict.get(key)
     right = right_dict.get(key)
-    logging.info(left)
     return  {
       'name': name,
       'key': key,
@@ -488,8 +514,6 @@ class ResponderModerator(BaseAdminPageHandler):
     changed_fields, unchanged_fields = self.DiffProperties(fields,
         new_responder_dict, existing_responder_dict)
 
-    logging.info(changed_fields)
-    logging.info(unchanged_fields)
     template_data['changed_fields'] = changed_fields
     template_data['unchanged_fields'] = unchanged_fields
 
@@ -498,7 +522,6 @@ class ResponderModerator(BaseAdminPageHandler):
     if new_software_versions:
       versions = self.DiffVersions(new_software_versions, existing_model)
       template_data['versions'] = versions
-      logging.info(versions)
 
     template_data['errors'] = errors
 
@@ -521,7 +544,6 @@ class ResponderModerator(BaseAdminPageHandler):
       for known_version in existing_responder.software_version_set():
         known_versions[known_version.version_id()] = known_version
 
-    logging.info(known_versions)
     output = []
 
     for version_id, data in new_software_versions.iteritems():
@@ -544,8 +566,6 @@ class ResponderModerator(BaseAdminPageHandler):
       new_data: The dict of new data
       existing_version: A SoftwareVersion Entity or None
     """
-    logging.info('Diff %d' % version_id)
-
     current_version_dict = {
       'personalities': self.BuildPersonalityList(current_version),
       'sensors': self.BuildSensorList(current_version),
@@ -561,7 +581,6 @@ class ResponderModerator(BaseAdminPageHandler):
         ('Personalities', 'personalities'),
         ('Sensors', 'sensors'),
     ]
-    logging.info(new_data)
 
     changed_fields, unchanged_fields = self.DiffProperties(fields,
         new_data, current_version_dict)
