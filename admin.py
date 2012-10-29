@@ -395,7 +395,7 @@ class ResponderModerator(BaseAdminPageHandler):
   def ApplyChanges(self, key, fields):
     responder_info = UploadedResponderInfo.get(key)
     if not responder_info:
-      return
+      return 'Invalid key'
     logging.info(responder_info)
 
     fields_to_update = set(fields.split(','))
@@ -429,15 +429,27 @@ class ResponderModerator(BaseAdminPageHandler):
 
     logging.info(model_data)
 
-    existing_responder = common.LookupModel(responder_info.manufacturer_id,
-                                            responder_info.device_model_id)
+    manufacturer = common.GetManufacturer(responder_info.manufacturer_id)
+    if manufacturer is None:
+      return 'Invalid manufacturer_id %d' % responder_info.manufacturer_id
 
+    updater = model_loader.ModelUpdater()
+    was_added, was_changed = updater.UpdateResponder(manufacturer, model_data)
+    logging.info('Was added %s' % was_added)
+    logging.info('Was changed %s' % was_changed)
 
     # finally mark this one as done
-    #responder_info.processed = True
-    #responder_info.put()
+    responder_info.processed = True
+    responder_info.put()
+    return ''
+
   def BuildVersionDict(self, version_id, version_data, fields_to_update):
     version_dict = {}
+
+    # sort supported params just in case
+    if 'supported_parameters' in version_data:
+      version_data['supported_parameters'].sort()
+    logging.info(version_data)
 
     fields = ['label', 'personalities', 'sensors', 'supported_parameters']
     for field in fields:
@@ -453,8 +465,10 @@ class ResponderModerator(BaseAdminPageHandler):
 
     key = self.request.get('key')
     fields = self.request.get('fields')
-    if key and fields:
-      self.ApplyChanges(key, fields)
+    if key and fields is not None:
+      error = self.ApplyChanges(key, fields)
+      if error:
+        template_data.setdefault('errors', []).append(error)
 
     query = UploadedResponderInfo.all()
     query.filter('processed = ', False)
@@ -530,7 +544,7 @@ class ResponderModerator(BaseAdminPageHandler):
       existing_responder_dict = {
           'model_description': existing_model.model_description,
           'image_url': existing_model.image_url,
-          'url': existing_model.link_url,
+          'url': existing_model.link,
           'product_category': existing_model.product_category.name
       }
 
@@ -566,7 +580,7 @@ class ResponderModerator(BaseAdminPageHandler):
       versions = self.DiffVersions(new_software_versions, existing_model)
       template_data['versions'] = versions
 
-    template_data['errors'] = errors
+    template_data.setdefault('errors', []).extend(errors)
 
   def DiffVersions(self, new_software_versions, existing_responder):
     """
@@ -584,8 +598,8 @@ class ResponderModerator(BaseAdminPageHandler):
     """
     known_versions = {}  # version_id : SoftwareVersion mapping
     if existing_responder:
-      for known_version in existing_responder.software_version_set():
-        known_versions[known_version.version_id()] = known_version
+      for known_version in existing_responder.software_version_set:
+        known_versions[known_version.version_id] = known_version
 
     output = []
 
@@ -593,10 +607,11 @@ class ResponderModerator(BaseAdminPageHandler):
       if type(version_id) == int:
         fields = self.DiffVersion(version_id, data,
                                   known_versions.get(version_id))
-        output.append({
-          'version': version_id,
-          'fields': fields,
-        })
+        if fields:
+          output.append({
+            'version': version_id,
+            'fields': fields,
+          })
       else:
         logging.error('Invalid version id %s' % version_id)
     return output
@@ -615,8 +630,13 @@ class ResponderModerator(BaseAdminPageHandler):
     }
     if current_version:
       current_version_dict['label'] = current_version.label
-      current_version_dict['supported_parameters'] = (
-          current_version.supported_parameters)
+      # we need to convert to int
+      current_version_dict['supported_parameters'] = sorted(
+          int(i) for i in current_version.supported_parameters)
+
+    # sort supported params just in case
+    if 'supported_parameters' in new_data:
+      new_data['supported_parameters'].sort()
 
     fields = [
         ('Software Label', 'label'),
@@ -634,11 +654,11 @@ class ResponderModerator(BaseAdminPageHandler):
       return None
 
     personalities = []
-    for personality in software_version.personality_set():
+    for personality in software_version.personality_set:
       personalities.append({
-        'index': personality.index,
+        'index': int(personality.index),
         'description': personality.description,
-        'slot_count': personality.slot_count,
+        'slot_count': int(personality.slot_count),
     })
     return personalities
 
@@ -647,12 +667,12 @@ class ResponderModerator(BaseAdminPageHandler):
       return None
 
     sensors = []
-    for sensor in software_version.sensor_set():
+    for sensor in software_version.sensor_set:
       sensors.append({
         'description': sensor.description,
-        'index': sensor.index,
+        'index': int(sensor.index),
         'supports_recording': sensor.supports_recording,
-        'type': sensor.type,
+        'type': int(sensor.type),
     })
     return sensors
 

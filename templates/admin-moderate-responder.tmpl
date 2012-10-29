@@ -79,6 +79,7 @@
 
 
 <form id="moderator_form" action="/admin/moderate_responder_data" method="post">
+{% if changed_fields %}
 <table id="responder_diff">
  <tr>
   <th width="40%">Uploaded Data</th>
@@ -101,9 +102,10 @@
    </tr>
  {% endfor %}
 </table>
-
 <br/>
+{% endif %}
 
+{% if versions %}
 {% for version in versions %}
 <table id="responder_diff">
  <tr>
@@ -128,6 +130,7 @@
  {% endfor %}
 </table>
 {% endfor %}
+{% endif %}
 
 <div class="button-container">
   <button id='all-left'>Select All Left</button>
