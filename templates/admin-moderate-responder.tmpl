@@ -45,9 +45,9 @@
       padding: 4px;
     }
 
-    .selected {
-      background-color: #ccffcc
-    }
+    .selected { background-color: #cccccc; }
+    .left { background-color: #99ff99; }
+    .right { background-color: #ff9999; }
  </style>
 </head>
 <body>
@@ -72,7 +72,8 @@
  <tr>
   <td>Device Model ID:</td>
   <td>
-    {{ device_id }} (0x{{ device_id|stringformat:"04x" }})
+    {{ device_id }} (0x{{ device_id|stringformat:"04x" }})  -
+    "{{ model_description }}"
   </td>
  </tr>
 </table>
@@ -89,7 +90,7 @@
  {% for field in changed_fields %}
    <tr>
     <td id="{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
-      <label for="{{ field.key }}_left_b">{{ field.left|default_if_none:"" }}</label>
+      <label for="{{ field.key }}_left_b">{{ field.left|default_if_none:""|safe }}</label>
     </td>
     <td class="diff_select">
      <input type="radio" name="{{ field.key }}" id="{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
@@ -97,7 +98,7 @@
      <input type="radio" name="{{ field.key }}" id="{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
     </td>
     <td id="{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
-      <label for="{{ field.key }}_right_b">{{ field.right|default_if_none:"" }}&nbsp;</label>
+      <label for="{{ field.key }}_right_b">{{ field.right|default_if_none:""|safe }}&nbsp;</label>
       </td>
    </tr>
  {% endfor %}
@@ -116,7 +117,7 @@
  {% for field in version.fields %}
    <tr>
     <td id="{{ version.version }}_{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
-      <label for="{{ version.version }}_{{ field.key }}_left_b">{{ field.left|default_if_none:"" }}</label>
+      <label for="{{ version.version }}_{{ field.key }}_left_b">{{ field.left|default_if_none:""|safe }}</label>
     </td>
     <td class="diff_select">
      <input type="radio" name="{{ version.version }}_{{ field.key }}" id="{{ version.version }}_{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
@@ -124,7 +125,7 @@
      <input type="radio" name="{{ version.version }}_{{ field.key }}" id="{{ version.version }}_{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
     </td>
     <td id="{{ version.version }}_{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
-      <label for="{{ version.version }}_{{ field.key }}_right_b">{{ field.right|default_if_none:"" }}&nbsp;</label>
+      <label for="{{ version.version }}_{{ field.key }}_right_b">{{ field.right|default_if_none:""|safe }}&nbsp;</label>
       </td>
    </tr>
  {% endfor %}

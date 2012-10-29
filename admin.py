@@ -23,6 +23,7 @@ from data.model_data import DEVICE_MODEL_DATA
 from data.product_categories import PRODUCT_CATEGORIES
 import controller_loader
 import datetime
+import html_differ
 import logging
 import memcache_keys
 import model_loader
@@ -463,6 +464,9 @@ class ResponderModerator(BaseAdminPageHandler):
       'logout_url': users.create_logout_url("/"),
     }
 
+    # this is a bit of a hack
+    self._differ = html_differ.HTMLDiffer('left', 'right')
+
     key = self.request.get('key')
     fields = self.request.get('fields')
     if key and fields is not None:
@@ -497,14 +501,19 @@ class ResponderModerator(BaseAdminPageHandler):
     """
     left = left_dict.get(key)
     right = right_dict.get(key)
+    if left and right:
+      left_formated, right_formatted = self._differ.Diff(str(left), str(right))
+    else:
+      left_formated = left
+      right_formatted = right
     return  {
       'name': name,
       'key': key,
-      'left': left,
+      'left': left_formated,
       'different': left != right,
       'prefer_left': left is not None and right is None,
       'prefer_right': right is not None and left is None,
-      'right': right,
+      'right': right_formatted,
     }
 
   def DiffProperties(self, fields, left_dict, right_dict):
@@ -545,8 +554,10 @@ class ResponderModerator(BaseAdminPageHandler):
           'model_description': existing_model.model_description,
           'image_url': existing_model.image_url,
           'url': existing_model.link,
-          'product_category': existing_model.product_category.name
       }
+      category = existing_model.product_category
+      if category:
+        existing_responder_dict['product_category'] = category.name
 
     # Build a dict for the new responder
     new_responder_dict = self.EvalData(responder.info)
@@ -573,6 +584,12 @@ class ResponderModerator(BaseAdminPageHandler):
 
     template_data['changed_fields'] = changed_fields
     template_data['unchanged_fields'] = unchanged_fields
+
+    # populate the model_description
+    template_data['model_description'] = new_responder_dict.get(
+        'model_description')
+    if existing_model:
+      template_data['model_description'] = existing_model.model_description
 
     # now work on the software versions
     new_software_versions = new_responder_dict.get('software_versions', {})
@@ -657,7 +674,7 @@ class ResponderModerator(BaseAdminPageHandler):
     for personality in software_version.personality_set:
       personalities.append({
         'index': int(personality.index),
-        'description': personality.description,
+        'description': str(personality.description),
         'slot_count': int(personality.slot_count),
     })
     return personalities
