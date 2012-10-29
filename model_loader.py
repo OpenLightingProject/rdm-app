@@ -17,35 +17,66 @@
 # Loads model data
 
 import logging
+import common
 from model import *
-
 
 class ModelLoader(object):
   """Load Model definition into the datastore."""
   def __init__(self, model_data):
     self._model_data = model_data
+    self._updater = ModelUpdater()
     # manufacturer_id to Manufacturer object
     self._manufacturers = {}
-    # category_id to ProductCategory object
-    self._product_categories = {}
-    # string to ResponderTag object
-    self._tags = {}
 
   def _LookupManufacturer(self, manufacturer_id):
-    """Lookup a Manufacturer entity by id.
+    """Lookup a Manufacturer entity by id and cache the results.
 
     Returns:
       The entity object, or None if not found.
     """
     if manufacturer_id not in self._manufacturers:
-      query = Manufacturer.all()
-      query.filter('esta_id =', manufacturer_id)
-      manufacturers = query.fetch(1)
-      if manufacturers:
-        self._manufacturers[manufacturer_id] = manufacturers[0]
-      else:
-        self._manufacturers[manufacturer_id] = None
+      self._manufacturers[manufacturer_id] = common.GetManufacturer(
+          manufacturer_id)
     return self._manufacturers[manufacturer_id]
+
+  def Update(self):
+    """Update the datastore with the new data.
+
+    This doesn't remove old models since why would we want to do that?
+
+    Returns:
+      A tuple in the form (added, updated), with the number of entities added
+      or updated.
+    """
+    added = []
+    updated = []
+
+    for manufacturer_id, models in self._model_data.iteritems():
+      manufacturer = self._LookupManufacturer(manufacturer_id)
+      if not manufacturer:
+        logging.error('No manufacturer found for %hx' % manufacturer_id)
+        continue
+
+      for model_info in models:
+        was_added, was_modified = self._updater.UpdateResponder(
+            manufacturer, model_info)
+
+        if was_added:
+          added.append(model_info['model_description'])
+        elif was_modified:
+          updated.append(model_info['model_description'])
+
+    return added, updated
+
+
+class ModelUpdater(object):
+  """Load Model definition into the datastore."""
+  def __init__(self):
+    # category_id to ProductCategory object
+    self._product_categories = {}
+    # string to ResponderTag object
+    self._tags = {}
+
 
   def _LookupProductCategory(self, category_id):
     """Lookup a ProductCategory entity by id.
@@ -101,7 +132,7 @@ class ModelLoader(object):
       True if this entity was updated, false otherwise.
     """
     modified = False
-    model_description = model_info['model_description']
+    model_description = model_info.get('model_description')
     if model_description != responder.model_description and model_description:
       responder.model_description = model_description
       modified = True
@@ -308,9 +339,10 @@ class ModelLoader(object):
         new_version_info = versions[version_id]
 
         # update supported_parameters if required
-        new_supported_parameters = new_version_info['supported_parameters']
+        new_supported_parameters = new_version_info.get('supported_parameters')
         supported_parameters = [int(i) for i in version.supported_parameters]
-        if sorted(new_supported_parameters) != sorted(supported_parameters):
+        if (new_supported_parameters and
+            sorted(new_supported_parameters) != sorted(supported_parameters)):
           version.supported_parameters = sorted(new_supported_parameters)
           version.put()
           modified = True
@@ -371,58 +403,40 @@ class ModelLoader(object):
 
     return modified
 
-  def Update(self):
-    """Update the datastore with the new data.
-
-    This doesn't remove old models since why would we want to do that?
+  def UpdateResponder(self, manufacturer, model_info):
+    """Add or Update a Responder.
 
     Returns:
-      A tuple in the form (added, updated), with the number of entities added
-      or updated.
+      was_added, was_modifed
     """
-    added = []
-    updated = []
+    was_added = False
+    was_modified = False
 
-    for manufacturer_id, models in self._model_data.iteritems():
-      manufacturer = self._LookupManufacturer(manufacturer_id)
-      if not manufacturer:
-        logging.error('No manufacturer found for %hx' % manufacturer_id)
-        continue
+    model_id = model_info['device_model']
+    responder = self._LookupResponder(manufacturer.key(), model_id)
+    if responder:
+      # update
+      if self._UpdateResponder(responder, model_info):
+        logging.info(' responder changed')
+        was_modified = True
+    else:
+      # add a new one
+      responder = self._AddResponder(manufacturer, model_id, model_info)
+      was_added = True
 
-      for model_info in models:
-        was_added = False
-        was_modified = False
-        model_id = model_info['device_model']
-        responder = self._LookupResponder(manufacturer.key(), model_id)
-        if responder:
-          # update
-          if self._UpdateResponder(responder, model_info):
-            logging.info(' responder changed')
-            was_modified = True
-        else:
-          # add a new one
-          responder = self._AddResponder(manufacturer, model_id, model_info)
-          was_added = True
+    # add software version information
+    software_versions = model_info.get('software_versions')
+    if software_versions:
+      if self._UpdateSoftwareVersions(responder, software_versions):
+        logging.info('updated versions for %s' %
+            responder.model_description)
+        was_modified = True
 
-        # add software version information
-        software_versions = model_info.get('software_versions')
-        if software_versions:
-          if self._UpdateSoftwareVersions(responder, software_versions):
-            logging.info('updated versions for %s' %
-                responder.model_description)
-            was_modified = True
-
-        # add / update any tags
-        # we act conservatively here and don't delete unless we get an empty
-        # list
-        if 'tags' in model_info:
-          if self._UpdateTags(responder, model_info['tags']):
-            logging.info(' tag changed')
-            was_modified = True
-
-        if was_added:
-          added.append(model_info['model_description'])
-        elif was_modified:
-          updated.append(model_info['model_description'])
-
-    return added, updated
+    # add / update any tags
+    # we act conservatively here and don't delete unless we get an empty
+    # list
+    if 'tags' in model_info:
+      if self._UpdateTags(responder, model_info['tags']):
+        logging.info(' tag changed')
+        was_modified = True
+    return was_added, was_modified
