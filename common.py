@@ -47,7 +47,7 @@ def LookupModelFromRequest(request):
 
 def LookupModel(manufacturer, model_id):
   """Lookup a model based on the URL params."""
-  if type(model_id) != int:
+  if type(model_id) not in (int, long):
     model_id = StringToInt(model_id)
   manufacturer = GetManufacturer(manufacturer)
   if manufacturer is None or model_id is None:
