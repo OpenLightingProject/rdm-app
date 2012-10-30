@@ -538,6 +538,9 @@ class ResponderModerator(BaseAdminPageHandler):
     template_data['device_id'] = responder.device_model_id
     template_data['manufacturer_id'] = responder.manufacturer_id
 
+    if responder.email_or_name:
+      template_data['contact'] = responder.email_or_name
+
     manufacturer = common.GetManufacturer(responder.manufacturer_id)
     template_data['manufacturer'] = manufacturer
     if not manufacturer:

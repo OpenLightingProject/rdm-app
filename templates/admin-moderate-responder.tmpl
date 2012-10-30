@@ -76,6 +76,12 @@
     "{{ model_description }}"
   </td>
  </tr>
+ {% if contact %}
+ <tr>
+  <td>Added by</td>
+  <td>{{ contact }}</td>
+ </tr>
+ {% endif %}
 </table>
 
 
@@ -165,13 +171,23 @@ function selectRight(key) {
 };
 
 function submit() {
-  var field_data = [];
+  var field_data = new Array();
+  var errors = new Array();
   $.each(keys, function(i, key) {
     if (key == '') return;
-    if ($('#' + key + '_left_b').attr('checked')) {
+    var left_checked = $('#' + key + '_left_b').attr('checked');
+    var right_checked = $('#' + key + '_right_b').attr('checked')
+    if (!(left_checked || right_checked)) {
+      errors.push(key)
+    }
+    if (left_checked) {
       field_data.push(key);
     }
   });
+  if (errors.length) {
+    alert('Not all fields have been selected: ' + errors.join(' '));
+    return false;
+  }
   $('#fields').val(field_data.join(','));
   $('moderator_form').submit();
 };
@@ -204,7 +220,7 @@ $(document).ready(function() {
     return false;
   });
   $('#save-button').click(function() {
-    submit();
+    return submit();
   });
 });
 
@@ -241,7 +257,8 @@ $(document).ready(function() {
 {% if device_id %}
 
 Unknown manufacturer {{ manufacturer_id }}
-(0x{{ manufacturer_id|stringformat:"04x" }})
+(0x{{ manufacturer_id|stringformat:"04x" }}). Check the
+<a href="http://tsp.plasa.org/tsp/working_groups/CP/mfctrIDs.php">TSP</a> page.
 {% else %}
 No responders in the queue. <a href="/admin">Back</a> to the admin console.
 {% endif %}
