@@ -680,6 +680,7 @@ class ResponderModerator(BaseAdminPageHandler):
         'description': str(personality.description),
         'slot_count': int(personality.slot_count),
     })
+    personalities.sort(key=lambda i: i['index'])
     return personalities
 
   def BuildSensorList(self, software_version):
@@ -688,12 +689,19 @@ class ResponderModerator(BaseAdminPageHandler):
 
     sensors = []
     for sensor in software_version.sensor_set:
+      recording = 0
+      if sensor.supports_recording:
+        recording |= 1
+      if sensor.supports_min_max_recording:
+        recording |= 2
+
       sensors.append({
         'description': str(sensor.description),
         'index': int(sensor.index),
-        'supports_recording': sensor.supports_recording,
+        'supports_recording': recording,
         'type': int(sensor.type),
     })
+    sensors.sort(key=lambda i: i['index'])
     return sensors
 
 

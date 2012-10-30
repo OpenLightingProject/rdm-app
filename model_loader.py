@@ -297,7 +297,6 @@ class ModelUpdater(object):
         if new_supports_recording is not None:
           min_max = bool(new_supports_recording & 2)
           recording = bool(new_supports_recording & 1)
-          logging.info('%s %s' % (min_max, sensor.supports_min_max_recording))
           if sensor.supports_min_max_recording != min_max:
             sensor.supports_min_max_recording = min_max
             save = True
@@ -316,7 +315,9 @@ class ModelUpdater(object):
           description = sensor_info['description'],
           index = offset,
           type = sensor_info['type'],
-          supports_recording = bool(sensor_info['supports_recording']),
+          supports_recording = bool(sensor_info['supports_recording'] & 1),
+          supports_min_max_recording = bool(
+            sensor_info['supports_recording'] & 2),
           sw_version = software_version)
       sensor.put()
       modified = True
