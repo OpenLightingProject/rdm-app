@@ -245,9 +245,7 @@ class DisplayModel(common.BasePageHandler):
       if supported_parameters is not None:
         param_output = []
         for param in supported_parameters:
-          param_dict = {
-              'id': param,
-          }
+          param_dict = { 'id': param, }
 
           query = Pid.all()
           query.filter('pid_id =' , param)
