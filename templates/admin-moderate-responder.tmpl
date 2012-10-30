@@ -260,7 +260,8 @@ Unknown manufacturer {{ manufacturer_id }}
 (0x{{ manufacturer_id|stringformat:"04x" }}). Check the
 <a href="http://tsp.plasa.org/tsp/working_groups/CP/mfctrIDs.php" target="_blank">TSP</a> page.
 {% else %}
-No responders in the queue. <a href="/admin">Back</a> to the admin console.
+No responders in the queue. <a href="/admin">Back</a> to the admin console or
+<a href="/admin?action=flush_cache">Flush the cache</a>.
 {% endif %}
 {% endif %}
 

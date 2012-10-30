@@ -147,6 +147,18 @@ class AdminPageHandler(BaseAdminPageHandler):
       item.delete()
     return ''
 
+  def FlushCache(self):
+    keys = [
+        memcache_keys.MODEL_COUNT_KEY,
+        memcache_keys.MANUFACTURER_MODEL_COUNTS,
+        memcache_keys.CATEGORY_MODEL_COUNTS,
+        memcache_keys.TAG_MODEL_COUNTS,
+        memcache_keys.INDEX_INFO
+    ]
+    for key in keys:
+      memcache.delete(key)
+    return ''
+
   def LoadPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     loader = PidLoader()
@@ -351,6 +363,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'clear_controllers': self.ClearControllers,
         'clear_models': self.ClearModels,
         'clear_p': self.ClearPids,
+        'flush_cache': self.FlushCache,
         'gc_blobs': self.GarbageCollectBlobs,
         'gc_tags': self.GarbageCollectTags,
         'initiate_image_fetch': self.InitiateImageFetch,
