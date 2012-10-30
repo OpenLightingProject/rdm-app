@@ -176,6 +176,7 @@ app.changeSoftwareVersion = function(element) {
       }
       goog.dom.appendChild(tr, app.newTD(sensor_type));
       goog.dom.appendChild(tr, app.newTD(sensor['supports_recording']));
+      goog.dom.appendChild(tr, app.newTD(sensor['supports_min_max']));
       goog.dom.appendChild(tbody, tr);
     }
     app.showBlock(sensor_fieldset);

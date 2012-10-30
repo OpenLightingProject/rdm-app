@@ -412,7 +412,7 @@ class ResponderModerator(BaseAdminPageHandler):
         'model_description' in data_dict):
       model_data['model_description'] = data_dict['model_description']
     if 'image_url' in fields_to_update and responder_info.image_url:
-      model_datal['image_url'] = responder_info.image_url
+      model_data['image_url'] = responder_info.image_url
     if 'url' in fields_to_update and responder_info.link_url:
       model_data['link'] = responder_info.link_url
     if ('product_category' in fields_to_update and
@@ -421,7 +421,7 @@ class ResponderModerator(BaseAdminPageHandler):
 
     if 'software_versions' in data_dict:
       for version_id, version_data in data_dict['software_versions'].iteritems():
-        if type(version_id) == int:
+        if type(version_id) in (int, long):
           version_dict = self.BuildVersionDict(version_id, version_data,
                                                fields_to_update)
           if version_dict:
@@ -624,7 +624,7 @@ class ResponderModerator(BaseAdminPageHandler):
     output = []
 
     for version_id, data in new_software_versions.iteritems():
-      if type(version_id) == int:
+      if type(version_id) in (int, long):
         fields = self.DiffVersion(version_id, data,
                                   known_versions.get(version_id))
         if fields:
@@ -689,7 +689,7 @@ class ResponderModerator(BaseAdminPageHandler):
     sensors = []
     for sensor in software_version.sensor_set:
       sensors.append({
-        'description': sensor.description,
+        'description': str(sensor.description),
         'index': int(sensor.index),
         'supports_recording': sensor.supports_recording,
         'type': int(sensor.type),

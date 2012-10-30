@@ -288,6 +288,7 @@ class DisplayModel(common.BasePageHandler):
             'index': sensor.index,
             'type': sensor.type,
             'supports_recording': sensor.supports_recording,
+            'supports_min_max': sensor.supports_min_max_recording,
         }
         type_str = SENSOR_TYPES.get(sensor.type)
         if type_str is not None:
