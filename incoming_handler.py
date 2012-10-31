@@ -16,12 +16,11 @@
 # Copyright (C) 2011 Simon Newton
 # PID search / display handlers.
 
+import common
 import datetime
 import json
 import logging
-import textwrap
 from model import *
-from google.appengine.api import mail
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
@@ -43,7 +42,7 @@ class HandleModelData(webapp.RequestHandler):
     responders = self.VerifyAndStoreData(model_data)
     logging.info('Responders is %s' % responders)
     if responders:
-      self.MaybeSendEmail(len(responders))
+      common.MaybeSendEmail(len(responders))
 
     self.response.headers['Content-Type'] = 'text/html'
     self.response.out.write(
@@ -115,20 +114,6 @@ class HandleModelData(webapp.RequestHandler):
 
     return responder_obj_ids
 
-  def MaybeSendEmail(self, new_responder_count):
-    query = UploadedResponderInfo.all()
-    query.filter('processed = ', False)
-    if query.count() == new_responder_count:
-      message = mail.EmailMessage(
-          sender='RDM Site <support@rdmprotocol-hrd.appspotmail.com>',
-          subject='Pending Moderation Requests',
-          to = '<nomis52@gmail.com>',
-      )
-      message.body = textwrap.dedent("""\
-        There are new responders in the moderation queue.
-        Please visit http://rdm.openlighting.org/admin/moderate_responder_data
-      """)
-      message.send()
 
 
 class UpdateModelData(webapp.RequestHandler):

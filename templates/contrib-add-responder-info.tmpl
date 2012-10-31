@@ -1,0 +1,67 @@
+<html>
+ <head>
+  <style type='text/css'>
+    body {
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    table {
+      font-family: sans-serif;
+      font-size: 13px;
+      width: 100%;
+      padding: 0px;
+      margin: 0px;
+      border-spacing: 0px;
+      border-collapse: collapse;
+    }
+
+    table td { border: 1px solid #000000; }
+    table td input { width: 100%; }
+
+    .button-container {
+      padding-top: 10px;
+      text-align: center;
+    }
+ </style>
+</head>
+<body>
+
+<a href="{{ logout_url }}">Logout</a> <br/>
+<br/>
+
+<h3>Add Images</h3>
+
+{% if responders %}
+
+<p>Add as many images &amp; URLs as you can find, you don't need to do all of
+them.</p>
+
+<form method="post" action="/contrib/add_responder_info">
+<table>
+ <tr>
+  <th>Manufacturer</th>
+  <th>Model</th>
+  <th>URL</th>
+  <th>Image</th>
+ </tr>
+ {% for responder in responders %}
+  <tr>
+   <td>{{ responder.manufacturer }}</td>
+   <td>{{ responder.model }}</td>
+   <td><input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_url"></td>
+   <td><input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_image"></td>
+  </tr>
+ {% endfor %}
+</table>
+
+<div class="button-container">
+ <input type="submit" name="update" value="Save Changes">
+</div>
+{% else %}
+
+<p>We have images &amp; URLs for everything! Try again later.</p>
+{% endif %}
+
+</body>
+</html>
