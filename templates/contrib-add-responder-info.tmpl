@@ -49,8 +49,18 @@ them.</p>
   <tr>
    <td>{{ responder.manufacturer }}</td>
    <td>{{ responder.model }}</td>
-   <td><input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_url"></td>
-   <td><input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_image"></td>
+   <td>
+     {% if not responder.url %}
+      <input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_url"></td>
+     {% else %}
+       &nbsp;
+     {% endif %}
+   <td>
+     {% if not responder.image %}
+      <input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_image"></td>
+     {% else %}
+       &nbsp;
+     {% endif %}
   </tr>
  {% endfor %}
 </table>
