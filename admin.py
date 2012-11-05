@@ -21,13 +21,13 @@ from data.controller_data import CONTROLLER_DATA
 from data.manufacturer_data import MANUFACTURER_DATA
 from data.model_data import DEVICE_MODEL_DATA
 from data.product_categories import PRODUCT_CATEGORIES
+from data.pid_data import ESTA_PIDS, MANUFACTURER_PIDS
 import controller_loader
 import datetime
 import html_differ
 import logging
 import memcache_keys
 import model_loader
-import pid_data
 import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
@@ -163,7 +163,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     loader = PidLoader()
     added = 0
-    for pid in pid_data.ESTA_PIDS:
+    for pid in ESTA_PIDS:
       loader.AddPid(pid)
       added += 1
     UpdateModificationTime(timestamp_keys.PIDS)
@@ -178,7 +178,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     added = 0
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
-    for manufacturer in pid_data.MANUFACTURER_PIDS:
+    for manufacturer in MANUFACTURER_PIDS:
       for pid in manufacturer['pids']:
         loader.AddPid(pid, manufacturer['id'])
         added += 1
