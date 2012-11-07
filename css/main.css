@@ -346,6 +346,7 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
 .ipv4_field { width: 80%; }
 .uid_field { width: 80%; }
 .string_field { width: 80%; }
+.float_field { width: 80%; }
 
 /* tooltip CSS */
 .goog-tooltip {
