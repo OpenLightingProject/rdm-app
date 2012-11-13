@@ -18,10 +18,16 @@
 # Data for RDM software.
 
 SOFTWARE_DATA = {
+  0x4c55: [
+    {'name': 'SuperNova',
+     'link': 'http://www.lumenradio.com/supernova',
+     'image_url': 'http://www.lumenradio.com/images/products/screenshots/geographicaln.png',
+     'tags': ['Windows', 'Mac']},
+  ],
   0x6864: [
     {'name': 'GetSet',
      'link': 'http://www.jese.co.uk/product/202/',
      'image_url': 'http://www.jese.co.uk/product/202/image/manager.gif',
-     'tags': []},
+     'tags': ['Windows']},
   ],
 }
