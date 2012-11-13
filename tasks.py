@@ -19,7 +19,7 @@
 import logging
 from google.appengine.api import images
 from google.appengine.ext import webapp
-from model import Controller, Responder
+from model import Controller, Product, Responder
 from image_fetcher import ImageFetcher
 
 
@@ -61,6 +61,25 @@ class FetchControllerImage(webapp.RequestHandler):
     return
 
 
+class FetchProductImage(webapp.RequestHandler):
+  """Fetch the image for a product entity."""
+  def get(self):
+    key = self.request.get('key')
+    product = Product.get(key)
+    if not product:
+      return
+
+    if product.image_url and not product.image_data:
+      fetcher = ImageFetcher()
+      blob_key = fetcher.FetchAndSaveImage(product.image_url)
+
+      if blob_key:
+        product.image_data = blob_key
+        product.image_serving_url = images.get_serving_url(blob_key)
+        product.put()
+    return
+
+
 class RankDevices(webapp.RequestHandler):
   """Rank the devices according to a simple scoring algorithm."""
   def get(self):
@@ -90,8 +109,9 @@ class RankDevices(webapp.RequestHandler):
 
 tasks_application = webapp.WSGIApplication(
   [
-    ('/tasks/fetch_image', FetchResponderImage),
     ('/tasks/fetch_controller_image', FetchControllerImage),
+    ('/tasks/fetch_image', FetchResponderImage),
+    ('/tasks/fetch_product_image', FetchProductImage),
     ('/tasks/rank_devices', RankDevices),
   ],
   debug=True)

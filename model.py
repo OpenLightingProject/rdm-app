@@ -18,6 +18,7 @@
 
 from google.appengine.ext import blobstore
 from google.appengine.ext import db
+from google.appengine.ext.db import polymodel
 
 SUBDEVICE_RANGE_DICT = {
   0: 'Root device only (0x0)',
@@ -123,6 +124,46 @@ class ResponderSensor(db.Model):
   sw_version = db.ReferenceProperty(SoftwareVersion,
                                     required=True,
                                     collection_name='sensor_set')
+
+
+class Product(polymodel.PolyModel):
+  """A RDM Product."""
+  manufacturer = db.ReferenceProperty(Manufacturer, required=True)
+  name = db.StringProperty(required=True)
+  # link to the product page
+  link = db.LinkProperty();
+  # image url
+  image_url = db.LinkProperty();
+  # the blob for the image data
+  image_data = blobstore.BlobReferenceProperty()
+  # the url we're serving the image on
+  image_serving_url = db.LinkProperty()
+
+
+class ProductTag(db.Model):
+  """Tags that can be applied to a product."""
+  # the tag label
+  label = db.StringProperty(required=True)
+  exclude_from_search = db.BooleanProperty(default=False)
+
+
+class ProductTagRelationship(db.Model):
+  """The glue that maps tags to products."""
+  tag = db.ReferenceProperty(ProductTag,
+                             required=True,
+                             collection_name='product_set')
+  product = db.ReferenceProperty(Product,
+                                 required=True,
+                                 collection_name='tag_set')
+
+class Splitter(Product):
+  """Extra splitter properties can go here."""
+  pass
+
+
+class Software(Product):
+  """Extra software properties can go here."""
+  pass
 
 
 class Controller(db.Model):

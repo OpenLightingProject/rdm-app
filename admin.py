@@ -20,14 +20,17 @@ import common
 from data.controller_data import CONTROLLER_DATA
 from data.manufacturer_data import MANUFACTURER_DATA
 from data.model_data import DEVICE_MODEL_DATA
-from data.product_categories import PRODUCT_CATEGORIES
 from data.pid_data import ESTA_PIDS, MANUFACTURER_PIDS
+from data.product_categories import PRODUCT_CATEGORIES
+from data.software_data import SOFTWARE_DATA
+from data.splitter_data import SPLITTER_DATA
 import controller_loader
 import datetime
 import html_differ
 import logging
 import memcache_keys
 import model_loader
+import product_loader
 import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
@@ -273,6 +276,13 @@ class AdminPageHandler(BaseAdminPageHandler):
         deleted_controller_tags.append(tag.label)
         tag.delete()
 
+    deleted_product_tags = []
+    for tag in ProductTag.all():
+      products = tag.product_set.fetch(1)
+      if products == []:
+        deleted_product_tags.append(tag.label)
+        tag.delete()
+
     output = ''
     if deleted_responder_tags:
       output += ('Deleted Responder tags: \n%s\n' %
@@ -280,6 +290,9 @@ class AdminPageHandler(BaseAdminPageHandler):
     if deleted_controller_tags:
       output += ('Deleted Controller tags: \n%s\n' %
           '\n'.join(deleted_controller_tags))
+    if deleted_product_tags:
+      output += ('Deleted Product tags: \n%s\n' %
+          '\n'.join(deleted_product_tags))
 
     if output == '':
       output = 'No tags to delete'
@@ -330,6 +343,13 @@ class AdminPageHandler(BaseAdminPageHandler):
         task.add()
         urls.append(controller.image_url)
 
+    for product in Product.all():
+      if product.image_url and not product.image_data:
+        url = '/tasks/fetch_product_image?key=%s' % product.key()
+        task = taskqueue.Task(method='GET', url=url)
+        task.add()
+        urls.append(product.image_url)
+
     if urls:
       return 'Fetching urls: \n%s' % '\n'.join(urls)
     else:
@@ -352,17 +372,66 @@ class AdminPageHandler(BaseAdminPageHandler):
     if added or updated:
       memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
       memcache.delete(memcache_keys.TAG_CONTROLLER_COUNTS)
-      pass
 
     UpdateModificationTime(timestamp_keys.CONTROLLERS)
     return ('Controllers:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))
+
+
+  def ClearProductType(self, product_class):
+    """Delete all instances of a product class."""
+    for splitter in product_class.all():
+      for tag in splitter.tag_set:
+        tag.delete()
+      splitter.delete()
+    return ''
+
+  def LoadProductType(self, data, product_type, memcache_keys, timestamp_key):
+    """Load products from data.
+
+    Args:
+      data: The data to load
+      product_type: the subclass to use
+      memcache_keys: a list of keys to invalidate after loading
+      timestamp_key: a timestamp key to update.
+    """
+    loader = product_loader.ProductLoader(data, product_type)
+    added, updated = loader.Update()
+    if added or updated:
+       for key in memcache_keys:
+         memcache.delete(key)
+
+    UpdateModificationTime(timestamp_key)
+    return ('Products:\nAdded: %s\nUpdated: %s' %
+            (', '.join(added), ', '.join(updated)))
+
+  def ClearSplitters(self):
+    return self.ClearProductType(Splitter)
+
+  def UpdateSplitters(self):
+    return self.LoadProductType(
+        SPLITTER_DATA,
+        Splitter,
+        [],
+        timestamp_keys.SPLITTERS)
+
+  def ClearSoftware(self):
+    return self.ClearProductType(Software)
+
+  def UpdateSoftware(self):
+    return self.LoadProductType(
+        SOFTWARE_DATA,
+        Software,
+        [],
+        timestamp_keys.SOFTWARE)
 
   def HandleRequest(self):
     ACTIONS = {
         'clear_controllers': self.ClearControllers,
         'clear_models': self.ClearModels,
         'clear_p': self.ClearPids,
+        'clear_software': self.ClearSoftware,
+        'clear_splitters': self.ClearSplitters,
         'flush_cache': self.FlushCache,
         'gc_blobs': self.GarbageCollectBlobs,
         'gc_tags': self.GarbageCollectTags,
@@ -371,9 +440,11 @@ class AdminPageHandler(BaseAdminPageHandler):
         'load_p': self.LoadPids,
         'rank_devices': self.RankDevices,
         'update_categories': self.UpdateProductCategories,
+        'update_controllers': self.UpdateControllers,
         'update_m': self.UpdateManufacturers,
         'update_models': self.UpdateModels,
-        'update_controllers': self.UpdateControllers,
+        'update_software': self.UpdateSoftware,
+        'update_splitters': self.UpdateSplitters,
     }
 
     action = self.request.get('action')

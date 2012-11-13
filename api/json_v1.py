@@ -22,6 +22,7 @@ import json
 import logging
 import memcache_keys
 import timestamp_keys
+import utils
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 
@@ -140,22 +141,22 @@ class UpdateTimeHandler(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
-    output = {}
-    # update timestamps for pids & devices
-    for update_timestamp in LastUpdateTime.all():
-      if update_timestamp.name == timestamp_keys.CONTROLLERS:
-        output['controller_update_time'] = common.TimestampToInt(
-            update_timestamp.update_time)
-      elif update_timestamp.name == timestamp_keys.DEVICES:
-        output['device_update_time'] = common.TimestampToInt(
-            update_timestamp.update_time)
-      elif update_timestamp.name == timestamp_keys.PIDS:
-        output['pid_update_time'] = common.TimestampToInt(
-            update_timestamp.update_time)
-      elif update_timestamp.name == timestamp_keys.MANUFACTURERS:
-        output['manufacturer_update_time'] = common.TimestampToInt(
-            update_timestamp.update_time)
+    # timestamp name : json key
+    timestamp_pairs = {
+        timestamp_keys.CONTROLLERS: 'controller_update_time',
+        timestamp_keys.DEVICES: 'device_update_time',
+        timestamp_keys.MANUFACTURERS: 'manufacturer_update_time',
+        timestamp_keys.PIDS: 'pid_update_time',
+        timestamp_keys.SOFTWARE: 'software_update_time',
+        timestamp_keys.SPLITTERS: 'splitter_update_time',
+    }
 
+    output = {}
+    for update_timestamp in LastUpdateTime.all():
+      name = update_timestamp.name
+      if name in timestamp_pairs:
+        output[timestamp_pairs[name]] = utils.TimestampToInt(
+            update_timestamp.update_time)
     self.response.out.write(json.dumps(output))
 
 
