@@ -18,10 +18,26 @@
 # Data for the splitters & distribution units.
 
 SPLITTER_DATA = {
+  0x1AFA: [
+    {'name': 'ProPlex Opto-Splitter',
+     'link': 'http://tmb.com/products/Proplex/DDD/optosplitter/',
+     'image_url': 'http://pub.tmb.com/ProPlex/Devices/opto-splitter/2x8/pics/PPDDS285-700x294.png',
+     'tags': ['splitter']},
+    {'name': 'ProPlex Opto-Splitter Mini',
+     'link': 'http://tmb.com/products/Proplex/DDD/optosplitter/',
+     'image_url': 'http://pub.tmb.com/ProPlex/Devices/opto-splitter/pics/OptoMini-Right-300x174.png',
+     'tags': ['splitter']},
+  ],
   0x2635: [
     {'name': 'adhoc DMX Splitter DIN',
      'link': 'http://www.ljusdesign.se/produkt/styrning/adhoc-dmx-splitter-din/',
      'image_url': 'http://www.ljusdesign.se/assets/images/products/adhoc-dmx-splitter-din.jpg',
+     'tags': ['splitter']},
+  ],
+  0x4D50: [
+    {'name': 'Martin RDM 5.5 Splitter',
+     'link': 'http://www.martin.com/product/product.asp?product=martinrdm5.5splitter',
+     'image_url': 'http://www.martin.com/product/images/martinrdm5.5splitter.jpg',
      'tags': ['splitter']},
   ],
 }
