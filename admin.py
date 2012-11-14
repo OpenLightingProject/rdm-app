@@ -412,7 +412,8 @@ class AdminPageHandler(BaseAdminPageHandler):
     return self.LoadProductType(
         SPLITTER_DATA,
         Splitter,
-        [],
+        [memcache_keys.MANUFACTURER_SPLITTER_COUNTS,
+         memcache_keys.TAG_SPLITTER_COUNTS],
         timestamp_keys.SPLITTERS)
 
   def ClearSoftware(self):
@@ -422,7 +423,8 @@ class AdminPageHandler(BaseAdminPageHandler):
     return self.LoadProductType(
         SOFTWARE_DATA,
         Software,
-        [],
+        [memcache_keys.MANUFACTURER_SOFTWARE_COUNTS,
+         memcache_keys.TAG_SOFTWARE_COUNTS],
         timestamp_keys.SOFTWARE)
 
   def HandleRequest(self):

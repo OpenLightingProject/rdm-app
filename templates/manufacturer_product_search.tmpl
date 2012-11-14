@@ -1,0 +1,18 @@
+{% extends "base_product_search.tmpl" %}
+
+{% block title %}Search {{ product_type|capfirst }}s by Manufacturer{% endblock %}
+
+{% block search_widget %}
+<form action="/{{ product_type }}/manufacturer" method="get">
+Manufacturer:
+<select name="manufacturer">
+  {% for manufacturer in manufacturers %}
+  <option
+    value="{{ manufacturer.id }}"
+    {% if manufacturer.id == current_id %} selected {% endif %}>
+    {{ manufacturer.name }} ({{manufacturer.product_count }})</option>
+  {% endfor %}
+</select>
+<input type="submit" value="Search">
+</form>
+{% endblock %}

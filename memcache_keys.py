@@ -34,6 +34,12 @@ MANUFACTURER_MODEL_COUNTS = 'manufacturer_models'
 # Manufacturer controller counts
 MANUFACTURER_CONTROLLER_COUNTS = 'manufacturer_controllers'
 
+# Manufacturer software counts
+MANUFACTURER_SOFTWARE_COUNTS = 'manufacturer_software'
+
+# Manufacturer splitter counts
+MANUFACTURER_SPLITTER_COUNTS = 'manufacturer_splitters'
+
 # Category model counts
 CATEGORY_MODEL_COUNTS = 'category_models'
 
@@ -42,6 +48,12 @@ TAG_MODEL_COUNTS = 'tag_models'
 
 # Tag controller counts
 TAG_CONTROLLER_COUNTS = 'tag_controllers'
+
+# Tag software counts
+TAG_SOFTWARE_COUNTS = 'tag_software'
+
+# Tag splitter counts
+TAG_SPLITTER_COUNTS = 'tag_splitters'
 
 # Index info data
 INDEX_INFO = 'index_info'

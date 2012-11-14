@@ -51,6 +51,10 @@ SPLITTER_DATA = {
      'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&category_id=7&product_id=306&project_id=&policies_id=&cart_id=&order_id=',
      'image_url': 'http://www.artisticlicence.com/829.large.img',
      'tags': ['splitter']},
+    {'name': 'Rack-Split RDM RJ45',
+     'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&category_id=7&product_id=404&project_id=&policies_id=&cart_id=&order_id=',
+     'image_url': 'http://www.artisticlicence.com/1898.large.img',
+     'tags': ['splitter']},
     {'name': 'Iso-Split RDM',
      'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&category_id=7&product_id=284&project_id=&policies_id=&cart_id=&order_id=',
      'image_url': 'http://www.artisticlicence.com/582.large.img',
@@ -61,6 +65,9 @@ SPLITTER_DATA = {
      'link': 'http://www.dfd.com/bidi.html',
      'image_url': 'http://www.dfd.com/images/bidi-f1.jpg',
      'tags': ['splitter']},
+  ],
+  0x4744: [
+
   ],
   0x4c4c: [
     {'name': 'DMX512-A 2.10 Hub',

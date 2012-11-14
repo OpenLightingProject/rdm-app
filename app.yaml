@@ -42,6 +42,10 @@ handlers:
 - url: /controller/.*
   script: controller_handler.controller_application
 
+# product handlers
+- url: /(software|splitter)/.*
+  script: product_handler.app
+
 # splitter handlers
 - url: /splitter/.*
   script: product_handler.app

@@ -1,0 +1,59 @@
+
+{% extends "base.tmpl" %}
+
+{% block title %}{{ manufacturer }} - {{ name }}{% endblock %}
+
+{% block content %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div style="float: right;">
+  {% if image_key %}
+  <img id="model_image" src="{{ image_key }}=s200"></img>
+  {% endif %}
+</div>
+ <table id="model_info_table">
+  <tr>
+   <td>Manufacturer</td>
+   <td>{{ manufacturer }}</td>
+  </tr>
+  <tr>
+   <td>Name</td>
+   <td>{{ name }}</span></td>
+  </tr>
+  {% if link %}
+  <tr id="model_link_row">
+   <td>Link</td>
+   <td><a href="{{ link }}">{{ link }}</a></td>
+  </tr>
+  {% endif %}
+  {% if tags %}
+  <tr id="model_tags_row">
+   <td>Tags</td>
+   <td>
+     {% for tag in tags %}
+     <div class="model_tag">{{ tag }}</div>
+     {% endfor %}
+   </td>
+  </tr>
+  {% endif %}
+ </table>
+  <div style="clear: both; padding: 15px">
+    <div class="fb-like" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-action="recommend"></div>
+    <g:plusone size="small"></g:plusone>
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+  </div>
+{% endblock %}

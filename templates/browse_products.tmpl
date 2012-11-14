@@ -1,0 +1,66 @@
+
+{% extends "base.tmpl" %}
+
+{% block title %}Browse {{ product_type|capfirst }}s, Page {{ page_number }}{% endblock %}
+{% block content %}
+
+<div class="browse_nav">
+<div style="float: left; text-align: left">
+{% if previous %}
+<a href="/{{ product_type }}/browse?page={{ previous }}">Previous Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+
+Displaying {{ start }} to {{ end }} of {{ total }}
+
+<div style="float: right; text-align: right">
+{% if next %}
+<a href="/{{ product_type }}/browse?page={{ next }}">Next Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+</div>
+
+<table class="browse_table">
+  {% for row in product_rows %}
+    <tr>
+    {% for product in row %}
+     <td>
+       <a href="/{{ product_type }}/display?key={{ product.key }}">
+       {% if product.image_key %}
+        <img src="{{ product.image_key }}=s100"></img><br>
+       {% else %}
+         <div class="missing_image">No Image Available</div>
+       {% endif %}
+       {{ product.name }}</a>
+     </td>
+    {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+
+<div class="browse_nav">
+<div style="float: left; text-align: left">
+{% if previous %}
+<a href="/{{ product_type }}/browse?page={{ previous }}">Previous Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+
+Displaying {{ start }} to {{ end }} of {{ total }}
+
+<div style="float: right; text-align: right">
+{% if next %}
+<a href="/{{ product_type }}/browse?page={{ next }}">Next Page</a>
+{% else %}
+&nbsp;
+{% endif %}
+</div>
+</div>
+
+</div>
+{% endblock %}
