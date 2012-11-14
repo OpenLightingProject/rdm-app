@@ -24,7 +24,6 @@ from data.pid_data import ESTA_PIDS, MANUFACTURER_PIDS
 from data.product_categories import PRODUCT_CATEGORIES
 from data.software_data import SOFTWARE_DATA
 from data.splitter_data import SPLITTER_DATA
-import controller_loader
 import datetime
 import html_differ
 import logging
@@ -269,13 +268,6 @@ class AdminPageHandler(BaseAdminPageHandler):
         deleted_responder_tags.append(tag.label)
         tag.delete()
 
-    deleted_controller_tags = []
-    for tag in ControllerTag.all():
-      controllers = tag.controller_set.fetch(1)
-      if controllers == []:
-        deleted_controller_tags.append(tag.label)
-        tag.delete()
-
     deleted_product_tags = []
     for tag in ProductTag.all():
       products = tag.product_set.fetch(1)
@@ -287,9 +279,6 @@ class AdminPageHandler(BaseAdminPageHandler):
     if deleted_responder_tags:
       output += ('Deleted Responder tags: \n%s\n' %
           '\n'.join(deleted_responder_tags))
-    if deleted_controller_tags:
-      output += ('Deleted Controller tags: \n%s\n' %
-          '\n'.join(deleted_controller_tags))
     if deleted_product_tags:
       output += ('Deleted Product tags: \n%s\n' %
           '\n'.join(deleted_product_tags))
@@ -310,8 +299,8 @@ class AdminPageHandler(BaseAdminPageHandler):
         if key in keys_to_blobs:
           del keys_to_blobs[key]
 
-    for controller in Controller.all():
-      image_blob = controller.image_data
+    for product in Product.all():
+      image_blob = product.image_data
       if image_blob:
         key = image_blob.key()
         if key in keys_to_blobs:
@@ -336,13 +325,6 @@ class AdminPageHandler(BaseAdminPageHandler):
         task.add()
         urls.append(responder.image_url)
 
-    for controller in Controller.all():
-      if controller.image_url and not controller.image_data:
-        url = '/tasks/fetch_controller_image?key=%s' % controller.key()
-        task = taskqueue.Task(method='GET', url=url)
-        task.add()
-        urls.append(controller.image_url)
-
     for product in Product.all():
       if product.image_url and not product.image_data:
         url = '/tasks/fetch_product_image?key=%s' % product.key()
@@ -354,29 +336,6 @@ class AdminPageHandler(BaseAdminPageHandler):
       return 'Fetching urls: \n%s' % '\n'.join(urls)
     else:
       return 'No images to fetch'
-
-  def ClearControllers(self):
-    for item in Controller.all():
-      item.delete()
-
-    for item in ControllerTag.all():
-      item.delete()
-
-    for item in ControllerTagRelationship.all():
-      item.delete()
-    return ''
-
-  def UpdateControllers(self):
-    loader = controller_loader.ControllerLoader(CONTROLLER_DATA)
-    added, updated = loader.Update()
-    if added or updated:
-      memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
-      memcache.delete(memcache_keys.TAG_CONTROLLER_COUNTS)
-
-    UpdateModificationTime(timestamp_keys.CONTROLLERS)
-    return ('Controllers:\nAdded: %s\nUpdated: %s' %
-            (', '.join(added), ', '.join(updated)))
-
 
   def ClearProductType(self, product_class):
     """Delete all instances of a product class."""
@@ -404,6 +363,17 @@ class AdminPageHandler(BaseAdminPageHandler):
     UpdateModificationTime(timestamp_key)
     return ('Products:\nAdded: %s\nUpdated: %s' %
             (', '.join(added), ', '.join(updated)))
+
+  def ClearControllers(self):
+    return self.ClearProductType(Controller)
+
+  def UpdateControllers(self):
+    return self.LoadProductType(
+        CONTROLLER_DATA,
+        Controller,
+        [memcache_keys.MANUFACTURER_CONTROLLER_COUNTS,
+         memcache_keys.TAG_CONTROLLER_COUNTS],
+        timestamp_keys.CONTROLLERS)
 
   def ClearSplitters(self):
     return self.ClearProductType(Splitter)

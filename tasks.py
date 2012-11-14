@@ -42,25 +42,6 @@ class FetchResponderImage(webapp.RequestHandler):
     return
 
 
-class FetchControllerImage(webapp.RequestHandler):
-  """Fetch the image for a controller entity."""
-  def get(self):
-    key = self.request.get('key')
-    controller = Controller.get(key)
-    if not controller:
-      return
-
-    if controller.image_url and not controller.image_data:
-      fetcher = ImageFetcher()
-      blob_key = fetcher.FetchAndSaveImage(controller.image_url)
-
-      if blob_key:
-        controller.image_data = blob_key
-        controller.image_serving_url = images.get_serving_url(blob_key)
-        controller.put()
-    return
-
-
 class FetchProductImage(webapp.RequestHandler):
   """Fetch the image for a product entity."""
   def get(self):
@@ -109,7 +90,6 @@ class RankDevices(webapp.RequestHandler):
 
 tasks_application = webapp.WSGIApplication(
   [
-    ('/tasks/fetch_controller_image', FetchControllerImage),
     ('/tasks/fetch_image', FetchResponderImage),
     ('/tasks/fetch_product_image', FetchProductImage),
     ('/tasks/rank_devices', RankDevices),

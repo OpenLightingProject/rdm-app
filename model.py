@@ -159,45 +159,17 @@ class ProductTagRelationship(db.Model):
                                  required=True,
                                  collection_name='tag_set')
 
-class Splitter(Product):
-  """Extra splitter properties can go here."""
-  pass
-
+class Controller(Product):
+  """Represents an RDM Controller."""
 
 class Software(Product):
   """Extra software properties can go here."""
   pass
 
+class Splitter(Product):
+  """Extra splitter properties can go here."""
+  pass
 
-class Controller(db.Model):
-  """Represents an RDM Controller."""
-  manufacturer = db.ReferenceProperty(Manufacturer, required=True)
-  name = db.StringProperty(required=True)
-  # link to the product page
-  link = db.LinkProperty();
-  # image url
-  image_url = db.LinkProperty();
-  # the blob for the image data
-  image_data = blobstore.BlobReferenceProperty()
-  # the url we're serving the image on
-  image_serving_url = db.LinkProperty()
-
-
-class ControllerTag(db.Model):
-  """Tags that can be applied to controller."""
-  # the tag label
-  label = db.StringProperty(required=True)
-  exclude_from_search = db.BooleanProperty(default=False)
-
-
-class ControllerTagRelationship(db.Model):
-  """The glue that maps tags to controllers."""
-  tag = db.ReferenceProperty(ControllerTag,
-                             required=True,
-                             collection_name='controller_set')
-  controller = db.ReferenceProperty(Controller,
-                                    required=True,
-                                    collection_name='tag_set')
 
 # About Enums & Ranges:
 # If neither enums nor ranges are specified, the valid values is the range of

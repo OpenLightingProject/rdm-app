@@ -38,12 +38,8 @@ handlers:
 - url: /model/.*
   script: model_handler.model_application
 
-# controller handlers
-- url: /controller/.*
-  script: controller_handler.controller_application
-
 # product handlers
-- url: /(software|splitter)/.*
+- url: /(controller|software|splitter)/.*
   script: product_handler.app
 
 # splitter handlers

@@ -221,6 +221,32 @@ class DisplayProduct(common.BasePageHandler):
 
 
 # The classes for each Product type.
+# Controllers
+class BrowseController(BrowseProducts):
+  def ProductType(self):
+    return Controller
+
+class ControllerByManufacturer(SearchByManufacturer):
+  def ProductType(self):
+    logging.info(Controller)
+    return Controller
+
+  def MemcacheKey(self):
+    return memcache_keys.MANUFACTURER_CONTROLLER_COUNTS
+
+class ControllerByTag(SearchByTag):
+  def ProductType(self):
+    return Controller
+
+  def MemcacheKey(self):
+    return memcache_keys.TAG_CONTROLLER_COUNTS
+
+class DisplayController(DisplayProduct):
+  def ProductType(self):
+    return Controller
+
+
+# Software
 class BrowseSoftware(BrowseProducts):
   def ProductType(self):
     return Software
@@ -244,6 +270,7 @@ class DisplaySoftware(DisplayProduct):
   def ProductType(self):
     return Software
 
+# Splitters
 class BrowseSplitters(BrowseProducts):
   def ProductType(self):
     return Splitter
@@ -269,6 +296,10 @@ class DisplaySplitters(DisplayProduct):
 
 app = webapp.WSGIApplication(
   [
+    ('/controller/browse', BrowseController),
+    ('/controller/display', DisplayController),
+    ('/controller/manufacturer', ControllerByManufacturer),
+    ('/controller/tag', ControllerByTag),
     ('/software/browse', BrowseSoftware),
     ('/software/display', DisplaySoftware),
     ('/software/manufacturer', SoftwareByManufacturer),
