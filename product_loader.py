@@ -51,11 +51,13 @@ class ProductLoader(object):
     if tag_label not in self._tags:
       query = ProductTag.all()
       query.filter('label = ', tag_label)
+      query.filter('product_type = ', self._product_type.class_name())
       tags = query.fetch(1)
       if tags:
         self._tags[tag_label] = tags[0]
       else:
-        tag_entity = ProductTag(label=tag_label)
+        tag_entity = ProductTag(label=tag_label,
+                                product_type=self._product_type.class_name())
         tag_entity.put()
         self._tags[tag_label] = tag_entity
         logging.info('added %s -> %s' % (tag_label, tag_entity))

@@ -145,6 +145,9 @@ class ProductTag(db.Model):
   # the tag label
   label = db.StringProperty(required=True)
   exclude_from_search = db.BooleanProperty(default=False)
+  # the sub-class of Product that this tag is associated with
+  # we need to store this since we can't do joins in the data store
+  product_type = db.StringProperty(required=True)
 
 
 class ProductTagRelationship(db.Model):

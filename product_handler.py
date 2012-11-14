@@ -147,10 +147,11 @@ class SearchByTag(BaseSearchHandler):
     self._tag = self.request.get('tag')
 
   def GetSearchData(self):
-    tag_list = memcache.get(memcache_keys.TAG_CONTROLLER_COUNTS)
+    tag_list = memcache.get(self.MemcacheKey())
     if not tag_list:
       tag_list = []
       query = ProductTag.all()
+      query.filter('product_type = ', self.ProductType().class_name())
       query.order('label')
       for tag in query:
         products = tag.product_set.count()
@@ -159,8 +160,7 @@ class SearchByTag(BaseSearchHandler):
               'label': tag.label,
               'product_count': products,
           })
-      memcache.set(memcache_keys.TAG_CONTROLLER_COUNTS, tag_list)
-
+      memcache.set(self.MemcacheKey(), tag_list)
     return {
         'tags': tag_list,
         'current_tag': self._tag,
@@ -170,6 +170,7 @@ class SearchByTag(BaseSearchHandler):
     if self._tag is not None:
       query = ProductTag.all()
       query.filter('label = ', self._tag)
+      query.filter('product_type = ', self.ProductType().class_name())
       tags = query.fetch(1)
 
       if tags:
