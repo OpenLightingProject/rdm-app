@@ -18,6 +18,12 @@
 # Data for RDM software.
 
 SOFTWARE_DATA = {
+  0x4c4c: [
+    {'name': 'LumiNet Monitor V2',
+     'link': 'http://www.luminex.be/products_details.php?cat=3&prod=0100035&display=description',
+     'image_url': 'http://www.luminex.be/products/0100035/logo_035.png',
+     'tags': ['Windows', 'Mac']},
+  ],
   0x4c55: [
     {'name': 'SuperNova',
      'link': 'http://www.lumenradio.com/supernova',
