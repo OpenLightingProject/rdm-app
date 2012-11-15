@@ -30,6 +30,7 @@ class ListManufacturersHandler(common.BasePageHandler):
   def GetTemplateData(self):
     manufacturers = []
     query = Manufacturer.all()
+    query.order('name')
     for manufacturer in query:
       if manufacturer.esta_id in [0, 0xffff]:
         continue
