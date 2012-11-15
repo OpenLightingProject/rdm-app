@@ -135,15 +135,14 @@ class BasePageHandler(webapp.RequestHandler):
         logging.error("Memcache set failed.")
     return manufacturer_pids
 
-  def DeviceModelCount(self):
-    """Return the number of models."""
-    model_count = memcache.get(memcache_keys.MODEL_COUNT_KEY)
-    if model_count is None:
-      model_count = Responder.all().count()
-      if not memcache.add(memcache_keys.MODEL_COUNT_KEY,
-                          model_count):
+  def ProductCount(self):
+    """Return the number of product."""
+    product_count = memcache.get(memcache_keys.PRODUCT_COUNT_KEY)
+    if product_count is None:
+      product_count = Responder.all().count() + Product.all().count()
+      if not memcache.add(memcache_keys.PRODUCT_COUNT_KEY, product_count):
         logging.error("Memcache set failed.")
-    return model_count
+    return product_count
 
   def IndexInfo(self):
     """Get the information about the index.
@@ -164,6 +163,6 @@ class BasePageHandler(webapp.RequestHandler):
         output['last_updated'] = datetime.datetime(
             *update_timestamp[0].update_time.timetuple()[0:6])
       output['manufacturer_pid_count'] = self.ManufacturerPidCount()
-      output['model_count'] = self.DeviceModelCount()
+      output['product_count'] = self.ProductCount()
       memcache.set(memcache_keys.INDEX_INFO, output)
     return output

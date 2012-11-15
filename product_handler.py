@@ -229,7 +229,6 @@ class BrowseController(BrowseProducts):
 
 class ControllerByManufacturer(SearchByManufacturer):
   def ProductType(self):
-    logging.info(Controller)
     return Controller
 
   def MemcacheKey(self):
@@ -254,7 +253,6 @@ class BrowseSoftware(BrowseProducts):
 
 class SoftwareByManufacturer(SearchByManufacturer):
   def ProductType(self):
-    logging.info(Software)
     return Software
 
   def MemcacheKey(self):

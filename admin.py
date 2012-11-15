@@ -151,7 +151,7 @@ class AdminPageHandler(BaseAdminPageHandler):
 
   def FlushCache(self):
     keys = [
-        memcache_keys.MODEL_COUNT_KEY,
+        memcache_keys.PRODUCT_COUNT_KEY,
         memcache_keys.MANUFACTURER_MODEL_COUNTS,
         memcache_keys.CATEGORY_MODEL_COUNTS,
         memcache_keys.TAG_MODEL_COUNTS,
