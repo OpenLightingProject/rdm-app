@@ -1,0 +1,64 @@
+
+{% extends "base.tmpl" %}
+
+{% block title %}{{ manufacturer }}{% endblock %}
+
+{% block content %}
+<div style="float: right;">
+  {% if image_serving_url %}
+  <img id="model_image" src="{{ image_serving_url }}=s200"></img>
+  {% endif %}
+</div>
+<div id="manufacturer_info">
+ <h3>{{ manufacturer }} </h3>
+ <br/>
+  {% if url %}
+   <a href="{{ url }}">{{ url }}</a>
+  {% endif %}
+
+  {% if devices %}
+    Devices
+    <ul>
+    {% for device in devices %}
+     <li><a href="/model/display?manufacturer={{ id }}&model={{ device.device_model_id }}">{{ device.model_description }}</a></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if splitter %}
+    Splitters
+    <ul>
+    {% for product in splitter %}
+     <li><a href="/splitter/display?key={{ product.key }}">{{ product.name }}</a></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if software %}
+    Software
+    <ul>
+    {% for product in software %}
+     <li><a href="/software/display?key={{ product.key }}">{{ product.name }}</a></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if controller %}
+   Controllers
+   <ul>
+    {% for product in controller %}
+     <li><a href="/controller/display?key={{ product.key }}">{{ product.name }}</a></li>
+    {% endfor %}
+   </ul>
+  {% endif %}
+
+  {% if pids %}
+   PIDs
+   <ul>
+    {% for pid in pids %}
+     <li><a href="/pid/display?manufacturer={{ id }} &pid={{ pid.pid_id }}">{{ pid.name }}</a></li>
+    {% endfor %}
+   </ul>
+  {% endif %}
+</div>
+{% endblock %}

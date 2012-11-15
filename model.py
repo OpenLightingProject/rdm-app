@@ -38,6 +38,14 @@ class Manufacturer(db.Model):
   """Represents a Manufacturer."""
   esta_id = db.IntegerProperty(required=True)
   name = db.StringProperty(required=True)
+  # link to the product page
+  link = db.LinkProperty();
+  # url of the source image
+  image_url = db.LinkProperty();
+  # the blob for the image data
+  image_data = blobstore.BlobReferenceProperty()
+  # the url we're serving the image on
+  image_serving_url = db.LinkProperty()
 
 
 class ProductCategory(db.Model):

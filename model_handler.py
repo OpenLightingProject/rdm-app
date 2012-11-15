@@ -300,6 +300,7 @@ class DisplayModel(common.BasePageHandler):
     output = {
       'description': model.model_description,
       'manufacturer': model.manufacturer.name,
+      'manufacturer_id': model.manufacturer.esta_id,
       'model_id': model.device_model_id,
       'software_versions': software_versions,
       'software_versions_json': json.dumps(software_versions),

@@ -213,6 +213,7 @@ class DisplayPid(common.BasePageHandler):
     output = {
       'link': pid.link,
       'manufacturer_name': pid.manufacturer.name,
+      'manufacturer_id': pid.manufacturer.esta_id,
       'notes': pid.notes,
       'pid_id': pid.pid_id,
       'pid_name': pid.name,

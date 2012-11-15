@@ -42,13 +42,13 @@ handlers:
 - url: /(controller|software|splitter)/.*
   script: product_handler.app
 
-# splitter handlers
-- url: /splitter/.*
-  script: product_handler.app
-
 # pid handlers
 - url: /pid/.*
   script: pid_handler.pid_application
+
+# pid handlers
+- url: /manufacturer/(list|display)
+  script: manufacturer_handler.app
 
 # incoming data
 - url: /incoming/.*

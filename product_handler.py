@@ -199,6 +199,7 @@ class DisplayProduct(common.BasePageHandler):
     output = {
       'name': product.name,
       'manufacturer': product.manufacturer.name,
+      'manufacturer_id': product.manufacturer.esta_id,
     }
     # link is optional
     if product.link:

@@ -53,6 +53,7 @@ fieldset {
 }
 legend { font-weight: bold; }
 h2 { margin: 5px; }
+h3 { margin: 2px; }
 
 /* login bar in the top right */
 #login {
@@ -140,6 +141,12 @@ h2 { margin: 5px; }
 #nav_bar li:hover ul { display: block; }
 #nav_bar li:hover > a { background-color: #fff; }
 /* End tabs & menus */
+
+/* manufacturer page */
+
+#manufacturer_info {
+  padding: 5px;
+}
 
 /* browse page */
 .browse_nav {
