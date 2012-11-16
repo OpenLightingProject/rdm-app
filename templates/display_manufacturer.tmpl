@@ -43,6 +43,15 @@
     </ul>
   {% endif %}
 
+  {% if node %}
+   Ethernet Nodes
+   <ul>
+    {% for product in node %}
+     <li><a href="/node/display?key={{ product.key }}">{{ product.name }}</a></li>
+    {% endfor %}
+   </ul>
+  {% endif %}
+
   {% if controller %}
    Controllers
    <ul>

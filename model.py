@@ -169,6 +169,11 @@ class ProductTagRelationship(db.Model):
 
 class Controller(Product):
   """Represents an RDM Controller."""
+  pass
+
+class Node(Product):
+  """Extra node properties can go here."""
+  pass
 
 class Software(Product):
   """Extra software properties can go here."""

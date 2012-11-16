@@ -19,6 +19,7 @@
 CONTROLLERS = 'controllers'
 DEVICES = 'devices'
 MANUFACTURERS = 'manufacturers'
+NODES = 'nodes'
 PIDS = 'pids'
-SPLITTERS = 'splitters'
 SOFTWARE = 'software'
+SPLITTERS = 'splitters'

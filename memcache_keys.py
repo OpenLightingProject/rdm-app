@@ -34,6 +34,9 @@ MANUFACTURER_MODEL_COUNTS = 'manufacturer_models'
 # Manufacturer controller counts
 MANUFACTURER_CONTROLLER_COUNTS = 'manufacturer_controllers'
 
+# Manufacturer node counts
+MANUFACTURER_NODE_COUNTS = 'manufacturer_nodes'
+
 # Manufacturer software counts
 MANUFACTURER_SOFTWARE_COUNTS = 'manufacturer_software'
 
@@ -48,6 +51,9 @@ TAG_MODEL_COUNTS = 'tag_models'
 
 # Tag controller counts
 TAG_CONTROLLER_COUNTS = 'tag_controllers'
+
+# Tag node counts
+TAG_NODE_COUNTS = 'tag_nodes'
 
 # Tag software counts
 TAG_SOFTWARE_COUNTS = 'tag_software'

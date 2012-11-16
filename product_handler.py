@@ -245,6 +245,28 @@ class DisplayController(DisplayProduct):
   def ProductType(self):
     return Controller
 
+# Nodes
+class BrowseNodes(BrowseProducts):
+  def ProductType(self):
+    return Node
+
+class NodeByManufacturer(SearchByManufacturer):
+  def ProductType(self):
+    return Node
+
+  def MemcacheKey(self):
+    return memcache_keys.MANUFACTURER_NODE_COUNTS
+
+class NodeByTag(SearchByTag):
+  def ProductType(self):
+    return Node
+
+  def MemcacheKey(self):
+    return memcache_keys.TAG_NODE_COUNTS
+
+class DisplayNode(DisplayProduct):
+  def ProductType(self):
+    return Node
 
 # Software
 class BrowseSoftware(BrowseProducts):
@@ -299,6 +321,10 @@ app = webapp.WSGIApplication(
     ('/controller/display', DisplayController),
     ('/controller/manufacturer', ControllerByManufacturer),
     ('/controller/tag', ControllerByTag),
+    ('/node/browse', BrowseNodes),
+    ('/node/display', DisplayNode),
+    ('/node/manufacturer', NodeByManufacturer),
+    ('/node/tag', NodeByTag),
     ('/software/browse', BrowseSoftware),
     ('/software/display', DisplaySoftware),
     ('/software/manufacturer', SoftwareByManufacturer),

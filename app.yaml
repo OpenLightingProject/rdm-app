@@ -39,7 +39,7 @@ handlers:
   script: model_handler.model_application
 
 # product handlers
-- url: /(controller|software|splitter)/.*
+- url: /(controller|node|software|splitter)/.*
   script: product_handler.app
 
 # pid handlers

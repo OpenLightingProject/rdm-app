@@ -20,6 +20,7 @@ import common
 from data.controller_data import CONTROLLER_DATA
 from data.manufacturer_data import MANUFACTURER_DATA
 from data.model_data import DEVICE_MODEL_DATA
+from data.node_data import NODE_DATA
 from data.pid_data import ESTA_PIDS, MANUFACTURER_PIDS
 from data.product_categories import PRODUCT_CATEGORIES
 from data.software_data import SOFTWARE_DATA
@@ -375,6 +376,17 @@ class AdminPageHandler(BaseAdminPageHandler):
          memcache_keys.TAG_CONTROLLER_COUNTS],
         timestamp_keys.CONTROLLERS)
 
+  def ClearNodes(self):
+    return self.ClearProductType(Node)
+
+  def UpdateNodes(self):
+    return self.LoadProductType(
+        NODE_DATA,
+        Node,
+        [memcache_keys.MANUFACTURER_NODE_COUNTS,
+         memcache_keys.TAG_NODE_COUNTS],
+        timestamp_keys.NODES)
+
   def ClearSplitters(self):
     return self.ClearProductType(Splitter)
 
@@ -402,6 +414,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'clear_controllers': self.ClearControllers,
         'clear_models': self.ClearModels,
         'clear_p': self.ClearPids,
+        'clear_nodes': self.ClearNodes,
         'clear_software': self.ClearSoftware,
         'clear_splitters': self.ClearSplitters,
         'flush_cache': self.FlushCache,
@@ -415,6 +428,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'update_controllers': self.UpdateControllers,
         'update_m': self.UpdateManufacturers,
         'update_models': self.UpdateModels,
+        'update_nodes': self.UpdateNodes,
         'update_software': self.UpdateSoftware,
         'update_splitters': self.UpdateSplitters,
     }
