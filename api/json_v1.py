@@ -160,6 +160,112 @@ class UpdateTimeHandler(webapp.RequestHandler):
     self.response.out.write(json.dumps(output))
 
 
+class ProductTags(webapp.RequestHandler):
+  """Return the tags and number of products for each."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    tag_list = memcache.get(self.MemcacheKey())
+    if not tag_list:
+      tag_list = []
+      query = ProductTag.all()
+      query.filter('product_type = ', self.ProductType().class_name())
+      query.order('label')
+      for tag in query:
+        products = tag.product_set.count()
+        if products and not tag.exclude_from_search:
+          tag_list.append({
+              'label': tag.label,
+              'count': products,
+          })
+      memcache.set(self.MemcacheKey(), tag_list)
+    self.response.out.write(json.dumps(tag_list))
+
+class ProductManufacturers(webapp.RequestHandler):
+  """Return the manufactures and number of products for each."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    manufacturer_list = memcache.get(self.MemcacheKey())
+    if not manufacturer_list:
+      query = self.ProductType().all()
+      manufacturer_by_id = {}
+      for product in query:
+        manufacturer = product.manufacturer
+        if manufacturer.esta_id not in manufacturer_by_id:
+          manufacturer_by_id[manufacturer.esta_id] = {
+            'id': manufacturer.esta_id,
+            'name': manufacturer.name,
+            'count': 0,
+          }
+        manufacturer_by_id[manufacturer.esta_id]['count'] += 1
+      manufacturer_list = manufacturer_by_id.values()
+      manufacturer_list.sort(key=lambda x: x['name'])
+      memcache.set(self.MemcacheKey(), manufacturer_list)
+    self.response.out.write(json.dumps(manufacturer_list))
+
+
+# The classes for each Product type.
+# Controllers
+class ControllerManufacturers(ProductManufacturers):
+  def ProductType(self):
+    return Controller
+
+  def MemcacheKey(self):
+    return memcache_keys.MANUFACTURER_CONTROLLER_COUNTS
+
+
+class ControllerTags(ProductTags):
+  def ProductType(self):
+    return Controller
+
+  def MemcacheKey(self):
+    return memcache_keys.TAG_CONTROLLER_COUNTS
+
+# Nodes
+class NodeManufacturers(ProductManufacturers):
+  def ProductType(self):
+    return Node
+
+  def MemcacheKey(self):
+    return memcache_keys.MANUFACTURER_NODE_COUNTS
+
+class NodeTags(ProductTags):
+  def ProductType(self):
+    return Node
+
+  def MemcacheKey(self):
+    return memcache_keys.TAG_NODE_COUNTS
+
+# Software
+class SoftwareManufacturers(ProductManufacturers):
+  def ProductType(self):
+    return Software
+
+  def MemcacheKey(self):
+    return memcache_keys.MANUFACTURER_SOFTWARE_COUNTS
+
+class SoftwareTags(ProductTags):
+  def ProductType(self):
+    return Software
+
+  def MemcacheKey(self):
+    return memcache_keys.TAG_SOFTWARE_COUNTS
+
+# Splitters
+class SplitterManufacturers(ProductManufacturers):
+  def ProductType(self):
+    return Splitter
+
+  def MemcacheKey(self):
+    return memcache_keys.MANUFACTURER_SPLITTER_COUNTS
+
+class SplitterTags(ProductTags):
+  def ProductType(self):
+    return Splitter
+
+  def MemcacheKey(self):
+    return memcache_keys.TAG_SPLITTER_COUNTS
+
+
 app = webapp.WSGIApplication(
   [
     ('/api/json/1/manufacturers', ManufacturerList),
@@ -167,5 +273,13 @@ app = webapp.WSGIApplication(
     ('/api/json/1/latest_responder_firmware', ResponderFirmware),
     ('/api/json/1/responder_personalities', ResponderPersonalities),
     ('/api/json/1/update_times', UpdateTimeHandler),
+    ('/api/json/1/controller_tags', ControllerTags),
+    ('/api/json/1/controller_manufacturers', ControllerManufacturers),
+    ('/api/json/1/node_tags', NodeTags),
+    ('/api/json/1/node_manufacturers', NodeManufacturers),
+    ('/api/json/1/software_tags', SoftwareTags),
+    ('/api/json/1/software_manufacturers', SoftwareManufacturers),
+    ('/api/json/1/splitter_tags', SplitterTags),
+    ('/api/json/1/splitter_manufacturers', SplitterManufacturers),
   ],
   debug=True)
