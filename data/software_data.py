@@ -18,6 +18,12 @@
 # Data for RDM software.
 
 SOFTWARE_DATA = {
+  0x454E: [
+    {'name': 'ENTTEC RDM Controller',
+     'link': 'http://www.enttec.com/index.php?main_menu=Products&pn=70531&show=description&name=rdmcontroller',
+     'image_url': 'http://www.enttec.com/img/rdm/cr_sum_small.png',
+     'tags': ['Windows']},
+  ],
   0x4c4c: [
     {'name': 'LumiNet Monitor V2',
      'link': 'http://www.luminex.be/products_details.php?cat=3&prod=0100035&display=description',
