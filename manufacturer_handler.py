@@ -56,13 +56,18 @@ class DisplayManufacturersHandler(common.BasePageHandler):
       self.error(404)
       return
 
+    device_query = manufacturer.responder_set
+    device_query.order('model_description')
+    pid_query = manufacturer.pid_set
+    pid_query.order('name')
+
     data = {
         'manufacturer': manufacturer.name,
         'id': manufacturer.esta_id,
         'url': manufacturer.link,
         'image_url': manufacturer.image_serving_url,
-        'devices': manufacturer.responder_set.fetch(None),
-        'pids': manufacturer.pid_set.fetch(None),
+        'devices': device_query.fetch(None),
+        'pids': pid_query.fetch(None),
     }
     for product in manufacturer.product_set:
       data.setdefault(product.class_name().lower(), []).append(product)
