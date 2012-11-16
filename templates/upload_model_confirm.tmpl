@@ -101,7 +101,9 @@
         dataType: 'json',
         error: function(jqXHR, textStatus, errorThrown) {
           dialog.dialog('option', 'title', 'Server Error');
-          dialog.html('Bad');
+          dialog.html(
+            'Server Error. Please email rdm-testing@googlegroups.com ' +
+            ' to inform us of the error.');
           dialog.dialog('open');
         },
         success: function(data) {
