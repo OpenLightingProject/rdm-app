@@ -38,7 +38,7 @@
   {% if product_category %}
   <tr>
    <td>Product Category</td>
-   <td>{{ product_category }}</td>
+   <td><a href="/model/category?category={{ product_category_id }}">{{ product_category }}</a></td>
   </tr>
   {% endif %}
   {% if link %}

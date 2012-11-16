@@ -311,6 +311,7 @@ class DisplayModel(common.BasePageHandler):
     category = model.product_category
     if category:
       output['product_category'] = category.name
+      output['product_category_id'] = category.id
 
     # tags
     for tag in model.tag_set:
