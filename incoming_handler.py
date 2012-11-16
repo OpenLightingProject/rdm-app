@@ -149,6 +149,7 @@ class UpdateModelData(webapp.RequestHandler):
       logging.info(data)
       logging.error(e)
       return ['Bad Data']
+    logging.info(evaled_data)
 
     for responder_data in evaled_data:
       key = responder_data.get('key')

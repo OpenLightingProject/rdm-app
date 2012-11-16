@@ -62,7 +62,7 @@
   </style>
   <script>
     var responder_keys = [
-      '{% for responder in responders %}{{ responder.key }}{% if not forloop.last %},{% endif %}{% endfor %}'
+      {% for responder in responders %}'{{ responder.key }}'{% if not forloop.last %},{% endif %}{% endfor %}
     ];
 
     function submit_form() {
