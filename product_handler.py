@@ -39,6 +39,45 @@ class BrowseProducts(common.BasePageHandler):
   COLUMNS = 4
   RESULTS_PER_PAGE = ROWS * COLUMNS
 
+  def GetAll(self, page):
+    """
+    Returns:
+      count, products
+    """
+    query = self.ProductType().all()
+    query.order('-image_url')
+    total = query.count()
+    products = query.fetch(limit=self.RESULTS_PER_PAGE,
+                           offset=page * self.RESULTS_PER_PAGE)
+    return total, products
+
+  def FilterByTag(self, page, tag):
+    query = ProductTag.all()
+    query.filter('label = ', tag)
+    query.filter('product_type = ', self.ProductType().class_name())
+    tags = query.fetch(1)
+
+    if not tags:
+      return 0, []
+
+    query = tags[0].product_set
+    total = query.count()
+    tag_relationships = query.fetch(limit=self.RESULTS_PER_PAGE,
+                                     offset=page * self.RESULTS_PER_PAGE)
+    return total, [r.product for r in tag_relationships]
+
+  def FilterByManufacturer(self, page, manufacturer):
+    manufacturer_id = StringToInt(manufacturer)
+    manufacturer = common.GetManufacturer(manufacturer_id)
+    if manufacturer is None:
+      return 0, []
+
+    query = self.ProductType().all()
+    query.filter('manufacturer = ', manufacturer.key())
+    query.order('name')
+    total = query.count()
+    return total, query.fetch(None)
+
   def GetTemplateData(self):
     page = StringToInt(self.request.get('page'), False)
     if page is None:
@@ -46,11 +85,25 @@ class BrowseProducts(common.BasePageHandler):
     # 0 offset
     page -= 1
 
-    query = self.ProductType().all()
-    query.order('-image_url')
-    total = query.count()
-    products = query.fetch(limit=self.RESULTS_PER_PAGE,
-                           offset=page * self.RESULTS_PER_PAGE)
+    data = {
+      'page_number': page + 1,  # back to 1 offset
+      'product_type': self.ProductType().class_name().lower(),
+    }
+
+    total = 0
+    products = []
+    tag = self.request.get('tag')
+    manufacturer = self.request.get('manufacturer');
+    if tag:
+      data['tag'] = tag
+      total, products = self.FilterByTag(page, tag)
+    elif manufacturer:
+      data['manufacturer'] = manufacturer
+      total, products = self.FilterByManufacturer(page, manufacturer)
+    else:
+      total, products = self.GetAll(page)
+
+    data['total'] = total
     rows = []
     for product, index in zip(products, range(len(products))):
       if index % self.COLUMNS == 0:
@@ -71,14 +124,10 @@ class BrowseProducts(common.BasePageHandler):
       rows[-1].append(output)
 
     start = page * self.RESULTS_PER_PAGE
-    data = {
-        'end': start + len(products),
-        'product_rows': rows,
-        'page_number': page + 1,  # back to 1 offset
-        'product_type': self.ProductType().class_name().lower(),
-        'start': start + 1,
-        'total' : total,
-    }
+    data['end'] = start + len(products)
+    data['product_rows'] =  rows
+    data['start'] = start + 1
+
     if page:
       data['previous'] = page
     if start + len(products) < total:
@@ -97,86 +146,6 @@ class BaseSearchHandler(common.BasePageHandler):
     data['products'] = self.GetResults()
     data['product_type'] = self.ProductType().class_name().lower()
     return data
-
-
-class SearchByManufacturer(BaseSearchHandler):
-  """Search by Manfacturer."""
-  TEMPLATE = 'templates/manufacturer_product_search.tmpl'
-
-  def Init(self):
-    self._manufacturer_id = StringToInt(self.request.get('manufacturer'))
-    self._manufacturer = common.GetManufacturer(self._manufacturer_id)
-
-  def GetSearchData(self):
-    manufacturer_list = memcache.get(self.MemcacheKey())
-    if not manufacturer_list:
-      query = self.ProductType().all()
-      manufacturer_by_id = {}
-      for product in query:
-        manufacturer = product.manufacturer
-        if manufacturer.esta_id not in manufacturer_by_id:
-          manufacturer_by_id[manufacturer.esta_id] = {
-            'id': manufacturer.esta_id,
-            'name': manufacturer.name,
-            'product_count': 0,
-          }
-        manufacturer_by_id[manufacturer.esta_id]['product_count'] += 1
-      manufacturer_list = manufacturer_by_id.values()
-      manufacturer_list.sort(key=lambda x: x['name'])
-      memcache.set(self.MemcacheKey(), manufacturer_list)
-
-    return {
-        'manufacturers': manufacturer_list,
-        'current_id': self._manufacturer_id,
-    }
-
-  def GetResults(self):
-    if self._manufacturer is not None:
-      query = self.ProductType().all()
-      query.filter('manufacturer = ', self._manufacturer.key())
-      query.order('name')
-      return query
-    return []
-
-
-class SearchByTag(BaseSearchHandler):
-  """Search by Tag."""
-  TEMPLATE = 'templates/tag_product_search.tmpl'
-
-  def Init(self):
-    self._tag = self.request.get('tag')
-
-  def GetSearchData(self):
-    tag_list = memcache.get(self.MemcacheKey())
-    if not tag_list:
-      tag_list = []
-      query = ProductTag.all()
-      query.filter('product_type = ', self.ProductType().class_name())
-      query.order('label')
-      for tag in query:
-        products = tag.product_set.count()
-        if products and not tag.exclude_from_search:
-          tag_list.append({
-              'label': tag.label,
-              'product_count': products,
-          })
-      memcache.set(self.MemcacheKey(), tag_list)
-    return {
-        'tags': tag_list,
-        'current_tag': self._tag,
-    }
-
-  def GetResults(self):
-    if self._tag is not None:
-      query = ProductTag.all()
-      query.filter('label = ', self._tag)
-      query.filter('product_type = ', self.ProductType().class_name())
-      tags = query.fetch(1)
-
-      if tags:
-        tag_relationships = tags[0].product_set
-        return [r.product for r in tag_relationships]
-    return []
 
 
 class DisplayProduct(common.BasePageHandler):
@@ -227,20 +196,6 @@ class BrowseController(BrowseProducts):
   def ProductType(self):
     return Controller
 
-class ControllerByManufacturer(SearchByManufacturer):
-  def ProductType(self):
-    return Controller
-
-  def MemcacheKey(self):
-    return memcache_keys.MANUFACTURER_CONTROLLER_COUNTS
-
-class ControllerByTag(SearchByTag):
-  def ProductType(self):
-    return Controller
-
-  def MemcacheKey(self):
-    return memcache_keys.TAG_CONTROLLER_COUNTS
-
 class DisplayController(DisplayProduct):
   def ProductType(self):
     return Controller
@@ -249,20 +204,6 @@ class DisplayController(DisplayProduct):
 class BrowseNodes(BrowseProducts):
   def ProductType(self):
     return Node
-
-class NodeByManufacturer(SearchByManufacturer):
-  def ProductType(self):
-    return Node
-
-  def MemcacheKey(self):
-    return memcache_keys.MANUFACTURER_NODE_COUNTS
-
-class NodeByTag(SearchByTag):
-  def ProductType(self):
-    return Node
-
-  def MemcacheKey(self):
-    return memcache_keys.TAG_NODE_COUNTS
 
 class DisplayNode(DisplayProduct):
   def ProductType(self):
@@ -273,20 +214,6 @@ class BrowseSoftware(BrowseProducts):
   def ProductType(self):
     return Software
 
-class SoftwareByManufacturer(SearchByManufacturer):
-  def ProductType(self):
-    return Software
-
-  def MemcacheKey(self):
-    return memcache_keys.MANUFACTURER_SOFTWARE_COUNTS
-
-class SoftwareByTag(SearchByTag):
-  def ProductType(self):
-    return Software
-
-  def MemcacheKey(self):
-    return memcache_keys.TAG_SOFTWARE_COUNTS
-
 class DisplaySoftware(DisplayProduct):
   def ProductType(self):
     return Software
@@ -295,20 +222,6 @@ class DisplaySoftware(DisplayProduct):
 class BrowseSplitters(BrowseProducts):
   def ProductType(self):
     return Splitter
-
-class SplitterByManufacturer(SearchByManufacturer):
-  def ProductType(self):
-    return Splitter
-
-  def MemcacheKey(self):
-    return memcache_keys.MANUFACTURER_SPLITTER_COUNTS
-
-class SplitterByTag(SearchByTag):
-  def ProductType(self):
-    return Splitter
-
-  def MemcacheKey(self):
-    return memcache_keys.TAG_SPLITTER_COUNTS
 
 class DisplaySplitters(DisplayProduct):
   def ProductType(self):
@@ -319,19 +232,11 @@ app = webapp.WSGIApplication(
   [
     ('/controller/browse', BrowseController),
     ('/controller/display', DisplayController),
-    ('/controller/manufacturer', ControllerByManufacturer),
-    ('/controller/tag', ControllerByTag),
     ('/node/browse', BrowseNodes),
     ('/node/display', DisplayNode),
-    ('/node/manufacturer', NodeByManufacturer),
-    ('/node/tag', NodeByTag),
     ('/software/browse', BrowseSoftware),
     ('/software/display', DisplaySoftware),
-    ('/software/manufacturer', SoftwareByManufacturer),
-    ('/software/tag', SoftwareByTag),
     ('/splitter/browse', BrowseSplitters),
     ('/splitter/display', DisplaySplitters),
-    ('/splitter/manufacturer', SplitterByManufacturer),
-    ('/splitter/tag', SplitterByTag),
   ],
   debug=True)

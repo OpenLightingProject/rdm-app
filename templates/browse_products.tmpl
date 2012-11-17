@@ -1,13 +1,30 @@
 
 {% extends "base.tmpl" %}
 
+{% block extra_headers %}
+  <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+{% endblock %}
+
 {% block title %}Browse {{ product_type|capfirst }}s, Page {{ page_number }}{% endblock %}
 {% block content %}
+
+<div class="search_options">
+<form action="/{{ product_type }}/browse" method="get">
+Search by Manufacturer
+<select id="manufacturer_select" name="manufacturer"></select>
+<input type="submit" value="Search">
+</form>
+<form action="/{{ product_type }}/browse" method="get">
+Search by Tag
+<select id="tag_select" name="tag"></select>
+<input type="submit" value="Search">
+</form>
+</div>
 
 <div class="browse_nav">
 <div style="float: left; text-align: left">
 {% if previous %}
-<a href="/{{ product_type }}/browse?page={{ previous }}">Previous Page</a>
+<a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Previous Page</a>
 {% else %}
 &nbsp;
 {% endif %}
@@ -17,7 +34,7 @@ Displaying {{ start }} to {{ end }} of {{ total }}
 
 <div style="float: right; text-align: right">
 {% if next %}
-<a href="/{{ product_type }}/browse?page={{ next }}">Next Page</a>
+<a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Next Page</a>
 {% else %}
 &nbsp;
 {% endif %}
@@ -45,7 +62,7 @@ Displaying {{ start }} to {{ end }} of {{ total }}
 <div class="browse_nav">
 <div style="float: left; text-align: left">
 {% if previous %}
-<a href="/{{ product_type }}/browse?page={{ previous }}">Previous Page</a>
+<a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Previous Page</a>
 {% else %}
 &nbsp;
 {% endif %}
@@ -55,7 +72,7 @@ Displaying {{ start }} to {{ end }} of {{ total }}
 
 <div style="float: right; text-align: right">
 {% if next %}
-<a href="/{{ product_type }}/browse?page={{ next }}">Next Page</a>
+<a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Next Page</a>
 {% else %}
 &nbsp;
 {% endif %}
@@ -63,4 +80,69 @@ Displaying {{ start }} to {{ end }} of {{ total }}
 </div>
 
 </div>
+
+
+<script>
+var MANUFACTURER = '{{ manufacturer }}'
+var PRODUCT_TYPE = '{{ product_type }}';
+var TAG = '{{ tag }}';
+
+function generic_fetch(url, callback) {
+  $.ajax({
+    url: url,
+    type: 'GET',
+    dataType: 'json',
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert('bad');
+    },
+    success: callback,
+    cache: false
+  });
+
+
+}
+
+function fetch_tags() {
+  generic_fetch(
+      '/api/json/1/' + PRODUCT_TYPE + '_tags',
+      function(tags) {
+        var select = $('#tag_select');
+        $.each(tags, function(i, tag) {
+          var value = tag['label']
+          var label = value + ' (' + tag['count'] + ')';
+          var item = $('<option />').val(value).html(label);
+          select.append(item);
+          if (value == TAG) {
+            item.attr("selected", true);
+          }
+        });
+      }
+  );
+}
+
+function fetch_manufacturers() {
+  generic_fetch(
+      '/api/json/1/' + PRODUCT_TYPE + '_manufacturers',
+      function(manufacturers) {
+        var select = $('#manufacturer_select');
+        $.each(manufacturers, function(i, manufacturer) {
+          var value = manufacturer['id']
+          var label = manufacturer['name'] + ' (' + manufacturer['count'] + ')';
+          var item = $('<option />').val(value).html(label);
+          select.append(item);
+          if (value == MANUFACTURER) {
+            item.attr("selected", true);
+          }
+        });
+      }
+  );
+}
+
+
+$(document).ready(function() {
+  fetch_tags();
+  fetch_manufacturers();
+});
+
+</script>
 {% endblock %}

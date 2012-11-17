@@ -209,6 +209,12 @@ a:hover .missing_image {
 }
 
 /* search results table */
+.search_options {
+  padding: 5px;
+  background-color: #e4e9fe;
+
+}
+
 .search_div {
   padding: 5px;
   border-bottom: 1px solid #e4e9fe;
