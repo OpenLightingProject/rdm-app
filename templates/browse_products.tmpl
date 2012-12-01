@@ -93,7 +93,6 @@ function generic_fetch(url, callback) {
     type: 'GET',
     dataType: 'json',
     error: function(jqXHR, textStatus, errorThrown) {
-      alert('bad');
     },
     success: callback,
     cache: false
