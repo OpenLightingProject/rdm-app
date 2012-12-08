@@ -171,6 +171,7 @@ class ExportModelsHandler(webapp.RequestHandler):
     for model in results:
       model_output = {
         'manufacturer_name': model.manufacturer.name,
+        'manufacturer_id': model.manufacturer.esta_id,
         'device_model_id': model.device_model_id,
         'model_description': model.model_description,
       }
@@ -203,6 +204,7 @@ class ExportControllersHandler(webapp.RequestHandler):
     for controller in Controller.all():
       controller_output = {
         'manufacturer_name': controller.manufacturer.name,
+        'key': str(controller.key()),
         'name': controller.name,
       }
       if controller.link:
