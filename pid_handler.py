@@ -210,6 +210,16 @@ class DisplayPid(common.BasePageHandler):
       self.error(404)
       return
 
+    supported_by = []
+    for responder_relationship in pid.pid_set:
+      responder = responder_relationship.responder
+      supported_by.append({
+        'name': responder.model_description,
+        'manufacturer': responder.manufacturer.esta_id,
+        'model': responder.device_model_id,
+      })
+    supported_by.sort(key=lambda x: x['name'])
+
     output = {
       'link': pid.link,
       'manufacturer_name': pid.manufacturer.name,
@@ -217,6 +227,7 @@ class DisplayPid(common.BasePageHandler):
       'notes': pid.notes,
       'pid_id': pid.pid_id,
       'pid_name': pid.name,
+      'supported_by': supported_by,
     }
 
     if pid.get_command:

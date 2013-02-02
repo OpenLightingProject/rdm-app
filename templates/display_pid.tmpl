@@ -138,4 +138,16 @@
  <div>{{ notes }}</div>
 </fieldset>
 {% endif %}
+
+
+{% if supported_by %}
+<fieldset>
+ <legend>Supported By</legend>
+ <ul>
+  {% for responder in supported_by %}
+   <li><a href="/model/display?manufacturer={{ responder.manufacturer }}&model={{ responder.model }}">{{ responder.name }}</a></li>
+  {% endfor %}
+ </ul>
+</fieldset>
+{% endif %}
 {% endblock %}

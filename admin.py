@@ -172,6 +172,10 @@ class AdminPageHandler(BaseAdminPageHandler):
     UpdateModificationTime(timestamp_keys.PIDS)
     return 'Added %d PIDs' % added
 
+  def BuildResponderPidIndex(self):
+    task = taskqueue.Task(method='GET', url='/tasks/build_pid_responder_index')
+    task.add()
+
   def RankDevices(self):
     task = taskqueue.Task(method='GET', url='/tasks/rank_devices')
     task.add()
@@ -413,8 +417,8 @@ class AdminPageHandler(BaseAdminPageHandler):
     ACTIONS = {
         'clear_controllers': self.ClearControllers,
         'clear_models': self.ClearModels,
-        'clear_p': self.ClearPids,
         'clear_nodes': self.ClearNodes,
+        'clear_p': self.ClearPids,
         'clear_software': self.ClearSoftware,
         'clear_splitters': self.ClearSplitters,
         'flush_cache': self.FlushCache,
@@ -424,6 +428,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'load_mp': self.LoadManufacturerPids,
         'load_p': self.LoadPids,
         'rank_devices': self.RankDevices,
+        'responder_pid_index': self.BuildResponderPidIndex,
         'update_categories': self.UpdateProductCategories,
         'update_controllers': self.UpdateControllers,
         'update_m': self.UpdateManufacturers,

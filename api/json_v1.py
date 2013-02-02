@@ -78,19 +78,13 @@ class ResponderFirmware(webapp.RequestHandler):
       self.error(404)
       return
 
-    max_version = None
-    max_label = None
-    for version in responder.software_version_set:
-      if max_version is None or version.version_id > max_version:
-        max_version = version.version_id
-        max_label = version.label
-
-    if max_version is None:
+    version = common.GetLatestSoftware(responder);
+    if version is None:
       self.error(404)
 
     output = {
-      'version': max_version,
-      'label' : max_label,
+      'version': version.version_id,
+      'label' : version.label,
       'URL': '',
     }
     self.response.headers['Content-Type'] = 'text/json'
@@ -281,11 +275,10 @@ class PidCounts(webapp.RequestHandler):
     max_pids = 0
     max_pids_responder = ''
     for responder in Responder.all():
-      max_version = None
       params = []
-      for version in responder.software_version_set:
-        if max_version is None or version.version_id > max_version:
-          params = version.supported_parameters
+      version = common.GetLatestSoftware(responder)
+      if version:
+        params = version.supported_parameters
 
       manufacturer_pids = 0
       for param in params:

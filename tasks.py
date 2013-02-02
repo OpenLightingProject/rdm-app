@@ -19,8 +19,9 @@
 import logging
 from google.appengine.api import images
 from google.appengine.ext import webapp
-from model import Controller, Product, Responder
 from image_fetcher import ImageFetcher
+from model import Controller, Product, Responder
+from pid_index_builder import PidIndexBuilder
 
 
 class FetchResponderImage(webapp.RequestHandler):
@@ -87,11 +88,21 @@ class RankDevices(webapp.RequestHandler):
       device.put()
     return
 
+class BuildPidResponderIndex(webapp.RequestHandler):
+  """Build the mappings between PIDs and the responders which support the
+     PID.
+  """
+  def get(self):
+    builder = PidIndexBuilder()
+    builder.BuildIndex()
+    return
+
 
 tasks_application = webapp.WSGIApplication(
   [
     ('/tasks/fetch_image', FetchResponderImage),
     ('/tasks/fetch_product_image', FetchProductImage),
     ('/tasks/rank_devices', RankDevices),
+    ('/tasks/build_pid_responder_index', BuildPidResponderIndex),
   ],
   debug=True)

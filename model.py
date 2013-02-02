@@ -217,6 +217,14 @@ class Pid(db.Model):
   set_command = db.ReferenceProperty(Command,
                                      collection_name='pid_set_command_set')
 
+class PIDResponderRelationship(db.Model):
+  """The glue that maps pids to responders which support the pid."""
+  pid = db.ReferenceProperty(Pid,
+                             required=True,
+                             collection_name='pid_set')
+  responder = db.ReferenceProperty(Responder,
+                             required=True,
+                             collection_name='responder_set')
 
 class UploadedResponderInfo(db.Model):
   # This doesn't link to a Manufacturer, since we may not know about all

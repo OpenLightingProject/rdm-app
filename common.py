@@ -65,6 +65,20 @@ def LookupModel(manufacturer, model_id):
     return None
   return model_data[0]
 
+def GetLatestSoftware(responder):
+  """Find the latest software version for a responder.
+
+  Returns:
+    A SoftwareVersion object or None.
+  """
+  max_version = None
+  version = None
+  for version in responder.software_version_set:
+    if max_version is None or version.version_id > max_version:
+      max_version = version.version_id
+      version = version
+  return version
+
 def LookupProductCategory(category_id):
   """Lookup a ProductCategory entity by id.
 
