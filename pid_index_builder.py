@@ -29,20 +29,19 @@ class PidIndexBuilder():
     self._esta = common.GetManufacturer(0)
 
   def LookupPid(self, manufacturer, pid_id):
+    if pid_id < 0x8000:
+      manufacturer = self._esta
     key = (manufacturer.esta_id, pid_id)
     if key not in self._pid_cache:
       query = Pid.all()
-      if pid_id < 0x8000:
-        query.filter('manufacturer = ', self._esta.key())
-      else:
-        query.filter('manufacturer = ', manufacturer.key())
+      query.filter('manufacturer = ', manufacturer.key())
       query.filter('pid_id = ', pid_id)
       pids = query.fetch(1)
       pid = None
       if pids:
         pid = pids[0]
-      self._manufacturer_cache[key] = pid
-    return self._manufacturer_cache[key]
+      self._pid_cache[key] = pid
+    return self._pid_cache[key]
 
   def BuildIndex(self):
     for item in PIDResponderRelationship.all():
@@ -60,4 +59,3 @@ class PidIndexBuilder():
             pid = pid,
             responder = responder)
           mapping.put()
-    return 'ok'
