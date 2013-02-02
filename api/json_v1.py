@@ -266,6 +266,65 @@ class SplitterTags(ProductTags):
     return memcache_keys.TAG_SPLITTER_COUNTS
 
 
+class PidCounts(webapp.RequestHandler):
+  """Return the count of PID usage."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.headers['Cache-Control'] = 'public; max-age=300;'
+    self.response.out.write(self.BuildResponse())
+
+  def BuildResponse(self):
+    param_counts = {}
+    responders = 0
+    max_manufacturer_pids = 0
+    max_manufacturer_responder = ''
+    max_pids = 0
+    max_pids_responder = ''
+    for responder in Responder.all():
+      max_version = None
+      params = []
+      for version in responder.software_version_set:
+        if max_version is None or version.version_id > max_version:
+          params = version.supported_parameters
+
+      manufacturer_pids = 0
+      for param in params:
+        param_counts.setdefault(param, 0)
+        param_counts[param] += 1
+        if param >= 0x8000:
+          manufacturer_pids += 1
+      if params:
+        responders += 1
+      if manufacturer_pids > max_manufacturer_pids:
+        max_manufacturer_responder = responder.model_description
+        max_manufacturer_pids = manufacturer_pids
+      if len(params) > max_pids:
+        max_pids_responder = responder.model_description
+        max_pids = len(params)
+
+    pids = []
+    for param, count in param_counts.iteritems():
+      param_info = {
+        'id': param,
+        'count': count,
+      }
+      if param < 0x8000:
+        query = Pid.all()
+        query.filter('pid_id = ', param)
+        pid = query.fetch(1)
+        if pid:
+          param_info['name'] = pid[0].name
+      pids.append(param_info)
+
+    output = {
+        'count': responders,
+        'max_manufacturer_pids': (max_manufacturer_responder,
+                                  max_manufacturer_pids),
+        'max_pids': (max_pids_responder, max_pids),
+        'pids': pids,
+    }
+    return json.dumps(output)
+
 app = webapp.WSGIApplication(
   [
     ('/api/json/1/manufacturers', ManufacturerList),
@@ -281,5 +340,6 @@ app = webapp.WSGIApplication(
     ('/api/json/1/software_manufacturers', SoftwareManufacturers),
     ('/api/json/1/splitter_tags', SplitterTags),
     ('/api/json/1/splitter_manufacturers', SplitterManufacturers),
+    ('/api/json/1/pid_counts', PidCounts),
   ],
   debug=True)
