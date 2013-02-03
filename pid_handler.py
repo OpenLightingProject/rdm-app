@@ -211,13 +211,14 @@ class DisplayPid(common.BasePageHandler):
       return
 
     supported_by = []
-    for responder_relationship in pid.pid_set:
-      responder = responder_relationship.responder
-      supported_by.append({
-        'name': responder.model_description,
-        'manufacturer': responder.manufacturer.esta_id,
-        'model': responder.device_model_id,
-      })
+    for responder_key in pid.responders:
+      responder = Responder.get(responder_key)
+      if responder:
+        supported_by.append({
+          'name': responder.model_description,
+          'manufacturer': responder.manufacturer.esta_id,
+          'model': responder.device_model_id,
+        })
     supported_by.sort(key=lambda x: x['name'])
 
     output = {

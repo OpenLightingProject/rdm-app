@@ -216,7 +216,10 @@ class Pid(db.Model):
                                      collection_name='pid_get_command_set')
   set_command = db.ReferenceProperty(Command,
                                      collection_name='pid_set_command_set')
+  # A list of responder keys that support this PID.
+  responders = db.ListProperty(db.Key)
 
+# DEPRECATED
 class PIDResponderRelationship(db.Model):
   """The glue that maps pids to responders which support the pid."""
   pid = db.ReferenceProperty(Pid,

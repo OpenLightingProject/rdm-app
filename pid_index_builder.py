@@ -23,29 +23,45 @@ from model import *
 
 
 class PidIndexBuilder():
+  """We need to be smart about this, my first attempt blew through my write
+     budget when I built the index.
+  """
   def __init__(self):
-    self._manufacturer_cache = {}
     self._pid_cache = {}
     self._esta = common.GetManufacturer(0)
 
-  def LookupPid(self, manufacturer, pid_id):
+  def LoadCurrentIndex(self):
+    """Load the current PID to responder map. Also populates the pid_cache.
+
+    Returns:
+      A dict in the form {
+        (manufacturer_id, pid_id) : set(responder_keys),
+      }
+    """
+    index = {}
+    for pid in Pid.all():
+      key = (pid.manufacturer.esta_id, pid.pid_id)
+      responders = set()
+      for responder in pid.responders:
+        responders.add(responder)
+      index[key] = responders
+      self._pid_cache[key] = pid
+    return index
+
+  def KeyFromPID(self, manufacturer, pid_id):
+    """Determine the key from a manufacturer and pid_id."""
     if pid_id < 0x8000:
       manufacturer = self._esta
-    key = (manufacturer.esta_id, pid_id)
-    if key not in self._pid_cache:
-      query = Pid.all()
-      query.filter('manufacturer = ', manufacturer.key())
-      query.filter('pid_id = ', pid_id)
-      pids = query.fetch(1)
-      pid = None
-      if pids:
-        pid = pids[0]
-      self._pid_cache[key] = pid
-    return self._pid_cache[key]
+    return (manufacturer.esta_id, pid_id)
 
   def BuildIndex(self):
+    current_index = self.LoadCurrentIndex()
+
+    # delete for now
     for item in PIDResponderRelationship.all():
       item.delete()
+
+    new_index = {}
 
     for responder in Responder.all():
       params = []
@@ -53,9 +69,29 @@ class PidIndexBuilder():
       if not version:
         continue
       for param in version.supported_parameters:
-        pid = self.LookupPid(responder.manufacturer, param)
-        if pid:
-          mapping = PIDResponderRelationship(
-            pid = pid,
-            responder = responder)
-          mapping.put()
+        key = self.KeyFromPID(responder.manufacturer, param)
+        pid = self._pid_cache.get(key, None)
+        if not pid:
+          continue
+
+        new_index.setdefault(key, set()).add(responder.key())
+
+    # now diff the old and new
+    for key, responders in new_index.iteritems():
+      if key in current_index:
+        if current_index[key] != responders:
+          logging.info('Responder set changed for %s' % str(key))
+          pid = self._pid_cache[key]
+          pid.responders = list(responders)
+          pid.put()
+        del current_index[key]
+      else:
+        # this should never happen
+        logging.warn('Missing key for %s' % str(key))
+
+    for key, responders in current_index.iteritems():
+      if responders:
+        logging.info('Removed %s' % responders)
+        pid = self._pid_cache[key]
+        pid.responders = []
+        pid.put()
