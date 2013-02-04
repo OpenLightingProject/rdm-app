@@ -56,11 +56,6 @@ class PidIndexBuilder():
 
   def BuildIndex(self):
     current_index = self.LoadCurrentIndex()
-
-    # delete for now
-    for item in PIDResponderRelationship.all():
-      item.delete()
-
     new_index = {}
 
     for responder in Responder.all():

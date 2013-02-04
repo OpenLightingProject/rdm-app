@@ -219,16 +219,6 @@ class Pid(db.Model):
   # A list of responder keys that support this PID.
   responders = db.ListProperty(db.Key)
 
-# DEPRECATED
-class PIDResponderRelationship(db.Model):
-  """The glue that maps pids to responders which support the pid."""
-  pid = db.ReferenceProperty(Pid,
-                             required=True,
-                             collection_name='pid_set')
-  responder = db.ReferenceProperty(Responder,
-                             required=True,
-                             collection_name='responder_set')
-
 class UploadedResponderInfo(db.Model):
   # This doesn't link to a Manufacturer, since we may not know about all
   # manufacturers.
