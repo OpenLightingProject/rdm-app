@@ -284,6 +284,39 @@ class InfoHandler(webapp.RequestHandler):
 
     self.response.out.write(json.dumps(output))
 
+class ModelInfoHandler(webapp.RequestHandler):
+  """Return responder model info."""
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    results = Responder.all()
+
+    models = []
+    for model in results:
+      model_output = {
+        'manufacturer_name': model.manufacturer.name,
+        'manufacturer_id': model.manufacturer.esta_id,
+        'device_model_id': model.device_model_id,
+        'model_description': model.model_description,
+        'software_versions': [],
+      }
+      models.append(model_output)
+      for software in model.software_version_set:
+        software_output = {
+          'id': software.version_id,
+          'label': software.label,
+          'personalities': [],
+        }
+        for personality in software.personality_set:
+          personality_output = {
+            'description': personality.description,
+            'index': personality.index,
+            'slot_count': personality.slot_count,
+          }
+          software_output['personalities'].append(personality_output)
+        model_output['software_versions'].append(software_output)
+
+    self.response.out.write(json.dumps({'models': models}))
+
 
 export_application = webapp.WSGIApplication(
   [
@@ -292,5 +325,6 @@ export_application = webapp.WSGIApplication(
     ('/export_models', ExportModelsHandler),
     ('/export_controllers', ExportControllersHandler),
     ('/missing_models', MissingModelsHandler),
+    ('/model_info', ModelInfoHandler),
   ],
   debug=True)
