@@ -3872,7 +3872,7 @@ ESTA_PIDS = [
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_LIST_CHANGE',
   'draft': True,
-  'value': 0x7fe1},
+  'value': 0x7fee},
   
   #ENDPOINT_TO_UNIVERSE
  {'get_request': {'items': [
@@ -4045,7 +4045,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe8},
   
- #IDENTIFY_ENDPOINT
+ #ENDPOINT_IDENTIFY
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
   ]},
@@ -4054,7 +4054,7 @@ ESTA_PIDS = [
     {'name': 'identify_state', 'type': 'bool'}
   ]},
   'get_sub_device_range': 0,
-  'name': 'IDENTIFY_ENDPOINT',
+  'name': 'ENDPOINT_IDENTIFY',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
     {'name': 'identify_state', 'type': 'bool'}
@@ -4100,5 +4100,109 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'draft': True,
-  'value': 0x7feb},
+  'value': 0x7fed},
+  
+ #ENDPOINT_DEVICE_LIST_CHANGE
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]}
+  ]},
+  'get_response': {'items': [
+    {{'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'list_change_number', 'type': 'uint32'},
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'ENDPOINT_DEVICE_LIST_CHANGE',
+  'draft': True,
+  'value': 0x7feb}, 
+  
+ #ENDPOINT_DEVICES
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]}
+  ]},
+  'get_response': {'items': [
+    {{'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'list_change_number', 'type': 'uint32'},
+    {'type': 'group', 'name': 'uids', 'items': [{'name': 'uid', 'type': 'uid'}],
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'ENDPOINT_DEVICES',
+  'draft': True,
+  'value': 0x7fec},
+ 
+ #BACKGROUND_QUEUED_STATUS_POLICY
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]}
+  ]},
+  'get_response': {'items': [
+    {{'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'current_policy_setting', 'type': 'uint8'},
+    {'name':'num_policy_settings', 'type':'uint8'}
+  ]},
+  'set_request': {'items':[
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'policy', 'type':'uint8'}
+  ]},
+  'set_response' : {'items': []},
+  'get_sub_device_range': 0,
+  'set_sub_device_range': 0,
+  'name': 'BACKGROUND_QUEUED_STATUS_POLICY',
+  'draft': True,
+  'value': 0x7fd0}, 
+  
+ #BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
+ {'get_request': {'items': [
+    {'name': 'policy_setting', 'type': 'uint8'},
+  ]},
+  'get_response': {'items': [
+    {{'name': 'policy_setting', 'type': 'uint8'},
+    {'name':'description', 'type':'string', 'max_size':32}
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION',
+  'draft': True,
+  'value': 0x7fd1},
+  
+ #BACKGROUND_STATUS_TYPE
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(1, 0xfffe)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(1, 0xfffe)]},
+    {'name': 'status_type', 'type': 'uint8'}
+  ]},
+  'get_sub_device_range': 0,
+  'set_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(1, 0xffff)],
+    'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'status_type', 'type': 'uint8'}
+  ]},
+  'set_response': {'items':[]}
+  'set_sub_device_range' : 0,
+  'name': 'BACKGROUND_STATUS_TYPE',
+  'draft': True,
+  'value': 0x7fd2}, #CHANGE
+
+  #QUEUED_STATUS_ENDPOINT_COLLECTION
+ {'set_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(1, 0xfffe)],
+    'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'status_type', 'type': 'uint8'}
+  ]},
+  'set_response': {'items':[]}
+  'set_sub_device_range' : 0,
+  'name': 'QUEUED_STATUS_UID_COLLECTION',
+  'draft': True,
+  'value': 0x7fd3},
+  
+ #QUEUED_STATUS_UID_COLLECTION
+ {'set_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(1, 0xfffe)]},
+    {'name': 'target_uid', 'type': 'uid'},
+    {'name': 'status_type', 'type': 'uint8'}
+  ]},
+  'set_response': {'items':[]}
+  'set_sub_device_range' : 0,
+  'name': 'QUEUED_STATUS_UID_COLLECTION',
+  'draft': True,
+  'value': 0x7fd4},
 ]
