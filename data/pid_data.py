@@ -4107,7 +4107,7 @@ ESTA_PIDS = [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]}
   ]},
   'get_response': {'items': [
-    {{'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
     {'name': 'list_change_number', 'type': 'uint32'},
   ]},
   'get_sub_device_range': 0,
@@ -4120,9 +4120,9 @@ ESTA_PIDS = [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]}
   ]},
   'get_response': {'items': [
-    {{'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
     {'name': 'list_change_number', 'type': 'uint32'},
-    {'type': 'group', 'name': 'uids', 'items': [{'name': 'uid', 'type': 'uid'}],
+    {'type': 'group', 'name': 'uids', 'items': [{'name': 'uid', 'type': 'uid'}]},
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_DEVICES',
@@ -4134,7 +4134,7 @@ ESTA_PIDS = [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]}
   ]},
   'get_response': {'items': [
-    {{'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(1, 0xfffe)]},
     {'name': 'current_policy_setting', 'type': 'uint8'},
     {'name':'num_policy_settings', 'type':'uint8'}
   ]},
@@ -4154,7 +4154,7 @@ ESTA_PIDS = [
     {'name': 'policy_setting', 'type': 'uint8'},
   ]},
   'get_response': {'items': [
-    {{'name': 'policy_setting', 'type': 'uint8'},
+    {'name': 'policy_setting', 'type': 'uint8'},
     {'name':'description', 'type':'string', 'max_size':32}
   ]},
   'get_sub_device_range': 0,
@@ -4176,7 +4176,7 @@ ESTA_PIDS = [
     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'status_type', 'type': 'uint8'}
   ]},
-  'set_response': {'items':[]}
+  'set_response': {'items':[]},
   'set_sub_device_range' : 0,
   'name': 'BACKGROUND_STATUS_TYPE',
   'draft': True,
@@ -4188,7 +4188,7 @@ ESTA_PIDS = [
     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'status_type', 'type': 'uint8'}
   ]},
-  'set_response': {'items':[]}
+  'set_response': {'items':[]},
   'set_sub_device_range' : 0,
   'name': 'QUEUED_STATUS_UID_COLLECTION',
   'draft': True,
@@ -4200,9 +4200,10 @@ ESTA_PIDS = [
     {'name': 'target_uid', 'type': 'uid'},
     {'name': 'status_type', 'type': 'uint8'}
   ]},
-  'set_response': {'items':[]}
+  'set_response': {'items':[]},
   'set_sub_device_range' : 0,
   'name': 'QUEUED_STATUS_UID_COLLECTION',
   'draft': True,
   'value': 0x7fd4},
 ]
+
