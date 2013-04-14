@@ -3868,7 +3868,7 @@ ESTA_PIDS = [
  #ENDPOINT_LIST_CHANGE
  {'get_request': {'items': []},
   'get_response': {'items': [
-    {'name': 'list_change_number', 'type': 'uint_32',
+    {'name': 'list_change_number', 'type': 'uint32',
      }
   ]},
   'get_sub_device_range': 0,
@@ -4185,7 +4185,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items':[]},
   'set_sub_device_range' : 0,
-  'name': 'QUEUED_STATUS_UID_COLLECTION',
+  'name': 'QUEUED_STATUS_ENDPOINT_COLLECTION',
   'draft': True,
   'value': 0x7fd3},
 
