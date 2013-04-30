@@ -77,6 +77,14 @@ class ModelUpdater(object):
     # string to ResponderTag object
     self._tags = {}
 
+  def _Encode(self, s):
+    """Encode a string that may contain binary data."""
+    if type(s) == str:
+      return s.encode('string-escape')
+    elif type(data) == unicode:
+      return s.encode('unicode-escape')
+    else:
+      return s
 
   def _LookupProductCategory(self, category_id):
     """Lookup a ProductCategory entity by id.
@@ -285,7 +293,7 @@ class ModelUpdater(object):
         save = False
         new_description = sensor_info.get('description')
         if new_description and sensor.description != new_description:
-          sensor.description = new_description
+          sensor.description = self._Encode(new_description)
           save = True
 
         new_type = sensor_info.get('type')
@@ -312,7 +320,7 @@ class ModelUpdater(object):
     # add new sensors
     for offset, sensor_info in new_sensors.iteritems():
       sensor = ResponderSensor(
-          description = sensor_info['description'],
+          description = self._Encode(sensor_info['description']),
           index = offset,
           type = sensor_info['type'],
           supports_recording = bool(sensor_info['supports_recording'] & 1),
