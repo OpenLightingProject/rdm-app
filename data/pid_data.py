@@ -3521,7 +3521,7 @@ ESTA_PIDS = [
       {'name': 'up_fade_time', 'type': 'uint16', 'multiplier': -1},
       {'name': 'down_fade_time', 'type': 'uint16', 'multiplier': -1},
       {'name': 'wait_time', 'type': 'uint16', 'multiplier': -1},
-      {'name': 'programmed', 'type': 'uint16',
+      {'name': 'programmed', 'type': 'uint8',
        'labels': [(0, 'Not Programmed'), (1, 'Programmed'), (2, 'Read Only')],
       },
   ]},
