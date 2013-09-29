@@ -142,6 +142,12 @@ CONTROLLER_DATA = {
      'image_url': 'http://www.robe.cz/typo3temp/pics/f9107213d2.png',
      'tags': ['tool', 'RDM Responder Tests', 'USB']},
   ],
+  0x5377: [
+    {'name': 'Swisson RDM Controller',
+      'link': 'http://swisson.com/rdm-measurement-tool-tester',
+      'image_url': 'http://swisson.com/assets/images/gallery/_thumbnails/xmt350/xmt350_1_id79_sid1_275x183.jpg',
+     'tags': ['tool']},
+  ],
   0x6574: [
     {'name': 'Congo',
      'link': 'http://www.etcconnect.com/product.overview.aspx?ID=20015',
