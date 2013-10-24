@@ -2846,7 +2846,7 @@ ESTA_PIDS = [
   'name': 'DISC_MUTE',
   'value': 2},
 
- #DISC_UNMUTE
+ #DISC_UN_MUTE
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
@@ -2855,7 +2855,7 @@ ESTA_PIDS = [
     ]},
   ]},
   'discovery_sub_device_range': 0,
-  'name': 'DISC_UNMUTE',
+  'name': 'DISC_UN_MUTE',
   'value': 3},
 
  #DEVICE_MODEL_DESCRIPTION
@@ -2944,11 +2944,11 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4096},
 
- #BOOT_SOFTWARE_VERSION
+ #BOOT_SOFTWARE_VERSION_ID
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'version', 'type': 'uint32'}]},
   'get_sub_device_range': 2,
-  'name': 'BOOT_SOFTWARE_VERSION',
+  'name': 'BOOT_SOFTWARE_VERSION_ID',
   'value': 193},
 
  #RECORD_SENSORS
@@ -3134,7 +3134,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1280},
 
- #STATUS_MESSAGE
+ #STATUS_MESSAGES
  {'get_request': {'items': [{'name': 'status_type', 'type': 'uint8', 'labels': [
                     (0, 'None'), (1, 'Last Message'), (2, 'Advisory'),
                     (3, 'Warning'), (4, 'Error')]
@@ -3148,7 +3148,7 @@ ESTA_PIDS = [
                                         {'name': 'value2', 'type': 'int16'}],
                   }]},
   'get_sub_device_range': 0,
-  'name': 'STATUS_MESSAGE',
+  'name': 'STATUS_MESSAGES',
   'value': 48},
 
  #STATUS_ID_DESCRIPTION
@@ -3235,13 +3235,13 @@ ESTA_PIDS = [
   'name': 'LANGUAGE_CAPABILITIES',
   'value': 160},
 
- #BOOT_SOFTWARE_LABEL
+ #BOOT_SOFTWARE_VERSION_LABEL
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'label',
                               'max_size': 32,
                               'type': 'string'}]},
   'get_sub_device_range': 2,
-  'name': 'BOOT_SOFTWARE_LABEL',
+  'name': 'BOOT_SOFTWARE_VERSION_LABEL',
   'value': 194},
 
  #LAMP_HOURS
@@ -3431,7 +3431,7 @@ ESTA_PIDS = [
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'tests_active', 'type': 'bool'}]},
   'get_sub_device_range': 2,
-  'name': 'PERFORM_SELF_TEST',
+  'name': 'PERFORM_SELFTEST',
   'set_request': {'items': [{'name': 'test_number', 'type': 'uint8',
                   'range': [(0, 0xff)],
                   'labels': [(0, 'Off'), (0xff, 'All')],
@@ -3538,7 +3538,7 @@ ESTA_PIDS = [
   'name': 'PRESET_STATUS',
   'value': 0x1042},
 
- #PRESET_MERGE_MODE
+ #PRESET_MERGEMODE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'merge_mode', 'type': 'uint8',
@@ -3555,7 +3555,7 @@ ESTA_PIDS = [
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'name': 'PRESET_MERGE_MODE',
+  'name': 'PRESET_MERGEMODE',
   'value': 0x1043},
 
  #POWER_ON_SELF_TEST
