@@ -2209,6 +2209,17 @@ MANUFACTURER_PIDS = [
        'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
        'notes': 'Sets the serial number (UID) of the device.',
        'value': 0x8000},
+
+      #CODE_VERSION
+      {'name': 'CODE_VERSION',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'code_version',
+                                   'max_size': 32,
+                                   'type': 'string'}]},
+       'get_sub_device_range': 2,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'Gets the current version of the OLA code that is running.',
+       'value': 0x8001},
     ],
   },
   {'id': 21324,
