@@ -3502,9 +3502,9 @@ ESTA_PIDS = [
     {'name': 'level_field_supported', 'type': 'bool'},
     {'name': 'preset_sequence_supported', 'type': 'bool'},
     {'name': 'split_times_supported', 'type': 'bool'},
-    {'name': 'fail_infitite_delay_supported', 'type': 'bool'},
-    {'name': 'fail_infitite_hold_supported', 'type': 'bool'},
-    {'name': 'startup_infitite_hold_supported', 'type': 'bool'},
+    {'name': 'fail_infinite_delay_supported', 'type': 'bool'},
+    {'name': 'fail_infinite_hold_supported', 'type': 'bool'},
+    {'name': 'startup_infinite_hold_supported', 'type': 'bool'},
     {'name': 'max_scene_number', 'type': 'uint16'},
     {'name': 'min_preset_fade_time', 'type': 'uint16', 'multiplier': -1},
     {'name': 'max_preset_fade_time', 'type': 'uint16', 'multiplier': -1},
@@ -3765,8 +3765,8 @@ ESTA_PIDS = [
  #MODULATION_FREQUENCY
  {'get_request': {'items': []},
   'get_response': {'items': [
-    {'name': 'current_moduluation_frequency', 'type': 'uint8'},
-    {'name': 'number_modluation_frequencies', 'type': 'uint8'},
+    {'name': 'current_modulation_frequency', 'type': 'uint8'},
+    {'name': 'number_modulation_frequencies', 'type': 'uint8'},
   ]},
   'get_sub_device_range': 2,
   'name': 'MODULATION_FREQUENCY',
