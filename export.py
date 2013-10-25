@@ -126,6 +126,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
 
+    pid_selection = self.request.get('pids')
     esta_pids = []
     manufacturers = {}
     pids = Pid.all()
@@ -137,17 +138,23 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
         pid_list = manufacturers.setdefault(pid.manufacturer.esta_id, [])
         pid_list.append(pid)
 
-    esta_pids.sort(key=lambda p: p.pid_id)
-    for pid in esta_pids:
-      self.WritePid(pid)
+    if ((pid_selection == '') or
+        (pid_selection == 'esta') or
+        (pid_selection == 'esta-draft')):
+      esta_pids.sort(key=lambda p: p.pid_id)
+      for pid in esta_pids:
+        if ((pid_selection == '') or
+            ((pid_selection == 'esta') and not(pid.draft)) or
+            ((pid_selection == 'esta-draft') and (pid.draft))):
+          self.WritePid(pid)
 
-    manufacturer_ids = sorted(manufacturers)
-    for manufacturer_id in manufacturer_ids:
-      manufacturer_pids = manufacturers[manufacturer_id]
-      manufacturer_pids.sort(key=lambda p: p.pid_id)
-      self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
-                            manufacturer_pids)
-
+    if ((pid_selection == '') or (pid_selection == 'manufacturers')):
+      manufacturer_ids = sorted(manufacturers)
+      for manufacturer_id in manufacturer_ids:
+        manufacturer_pids = manufacturers[manufacturer_id]
+        manufacturer_pids.sort(key=lambda p: p.pid_id)
+        self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
+                              manufacturer_pids)
 
     query = LastUpdateTime.all()
     query.filter('name = ', timestamp_keys.PIDS)
