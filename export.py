@@ -114,7 +114,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
 
     self.Write('}', indent)
 
-  def WriteManfacturer(self, manufacturer, pids):
+  def WriteManufacturer(self, manufacturer, pids):
     self.Write('manufacturer {')
     self.Write('  manufacturer_id: %d' % manufacturer.esta_id)
     self.Write('  manufacturer_name: "%s"' % manufacturer.name)
@@ -127,33 +127,32 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/plain'
 
     pid_selection = self.request.get('pids')
-    esta_pids = []
     manufacturers = {}
     pids = Pid.all()
 
+    if pid_selection == 'esta':
+      pids.filter('draft =', False)
+    elif pid_selection == 'esta-draft':
+      pids.filter('draft =', True)
+    if pid_selection in ['', 'esta', 'esta-draft']:
+      pids.order('pid_id')
+
     for pid in pids:
       if pid.manufacturer.esta_id == self.ESTA_ID:
-        esta_pids.append(pid)
+        if pid_selection in ['', 'esta', 'esta-draft']:
+          #Got an ESTA one, and we're interested in them, print it
+          self.WritePid(pid)
       else:
+        #Build the hash of manufacturer pids by manufacturer
         pid_list = manufacturers.setdefault(pid.manufacturer.esta_id, [])
         pid_list.append(pid)
 
-    if ((pid_selection == '') or
-        (pid_selection == 'esta') or
-        (pid_selection == 'esta-draft')):
-      esta_pids.sort(key=lambda p: p.pid_id)
-      for pid in esta_pids:
-        if ((pid_selection == '') or
-            ((pid_selection == 'esta') and not(pid.draft)) or
-            ((pid_selection == 'esta-draft') and (pid.draft))):
-          self.WritePid(pid)
-
-    if ((pid_selection == '') or (pid_selection == 'manufacturers')):
+    if pid_selection in ['', 'manufacturers']:
       manufacturer_ids = sorted(manufacturers)
       for manufacturer_id in manufacturer_ids:
         manufacturer_pids = manufacturers[manufacturer_id]
         manufacturer_pids.sort(key=lambda p: p.pid_id)
-        self.WriteManfacturer(manufacturers[manufacturer_id][0].manufacturer,
+        self.WriteManufacturer(manufacturers[manufacturer_id][0].manufacturer,
                               manufacturer_pids)
 
     query = LastUpdateTime.all()
