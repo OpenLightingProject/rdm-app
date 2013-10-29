@@ -1,5 +1,3 @@
-
-
 MANUFACTURER_PIDS = [
   #Creative Lighting DEVICE_MODE
   {'id': 0x00a1,
@@ -4090,7 +4088,7 @@ ESTA_PIDS = [
   'name': 'LOCK_STATE_DESCRIPTION',
   'value': 0x0642},
 
- # This are ordered to match how the appear in E1.33
+# These are ordered to match how they appear in E1.33
 # The pid values will change in the final document.
  #ENDPOINT_LIST
  {'get_request': {'items': []},
@@ -4438,5 +4436,191 @@ ESTA_PIDS = [
   'name': 'QUEUED_STATUS_UID_COLLECTION',
   'draft': True,
   'value': 0x7fd4},
-]
+  
+# These are ordered to match how they appear in E1.37-2
+# The pid values will change in the final document.
+ #LIST_INTERFACES
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'interfaces',
+     'type': 'group',
+     'items': [{'name': 'interface_identifier', 'type': 'uint16', 'range':[(0, 0xff00)]},
+               {'name': 'interface_hardware_type', 'type': 'uint16'}],
+    }]},
+  'get_sub_device_range': 2,
+  'name': 'LIST_INTERFACES',
+  'draft': True,
+  'value': 0xffe0},
 
+ #INTERFACE_LABEL
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                             'range': [(0, 0xff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'interface_label', 'max_size': 32, 'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'INTERFACE_LABEL',
+  'draft': True,
+  'value': 0xffe1},
+
+ #INTERFACE_HARDWARE_ADDRESS
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                             'range': [(0, 0xff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'hardware_address', 'type': 'mac'}]},
+  'get_sub_device_range': 2,
+  'name': 'INTERFACE_HARDWARE_ADDRESS',
+  'draft': True,
+  'value': 0xffe2},
+  
+ #IPV4_DHCP_MODE
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                             'range': [(0, 0xff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'dhcp', 'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'dhcp', 'type': 'bool'}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'IPV4_DHCP_MODE',
+  'draft': True,
+  'value': 0xffe3},
+
+ #IPV4_ZEROCONF_MODE
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                             'range': [(0, 0xff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'zeroconf', 'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'zeroconf', 'type': 'bool'}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'IPV4_ZEROCONF_MODE',
+  'draft': True,
+  'value': 0xffe4},
+
+ #IPV4_CURRENT_ADDRESS
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                             'range': [(0, 0xff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'ipv4_address', 'type': 'ipv4',
+                              'labels': [(0, 'No Connection')]},
+                             {'name': 'netmask', 'type': 'uint8', 'range': [
+                                (0, 32)]},
+                             {'name': 'dhcp_address', 'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'name': 'IPV4_CURRENT_ADDRESS',
+  'draft': True,
+  'value': 0xffe5},  
+
+ #IPV4_STATIC_ADDRESS
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                             'range': [(0, 0xff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+                             {'name': 'ipv4_address', 'type': 'ipv4',
+                              'labels': [(0, 'No Connection')]},
+                             {'name': 'netmask', 'type': 'uint8', 'range': [
+                                (0, 32)]}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                              'range': [(0, 0xff00)]},
+                            {'name': 'ipv4_address', 'type': 'ipv4',
+                             'labels': [(0, 'No Connection')]},
+                            {'name': 'netmask', 'type': 'uint8', 'range': [
+                               (0, 32)]}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'IPV4_STATIC_ADDRESS',
+  'draft': True,
+  'value': 0xffe6},
+
+ #INTERFACE_APPLY_CONFIGURATION
+ {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                              'range': [(0, 0xff00)]}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'INTERFACE_APPLY_CONFIGURATION',
+  'draft': True,
+  'value': 0xffe9},
+
+ #INTERFACE_RENEW_DHCP
+ {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                              'range': [(0, 0xff00)]}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'INTERFACE_RENEW_DHCP',
+  'draft': True,
+  'value': 0xffe7},
+
+ #INTERFACE_RELEASE_DHCP
+ {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
+                              'range': [(0, 0xff00)]}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'INTERFACE_RELEASE_DHCP',
+  'draft': True,
+  'value': 0xffe8},
+  
+ #IPV4_DEFAULT_ROUTE
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'ipv4_address', 'type': 'ipv4',
+                              'labels': [(0, 'No Default Route')]}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'ipv4_address', 'type': 'ipv4',
+                              'labels': [(0, 'No Default Route')]}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'IPV4_DEFAULT_ROUTE',
+  'draft': True,
+  'value': 0xffea},
+
+ #DNS_NAME_SERVER
+ {'get_request': {'items': [{'name': 'name_server_index', 'type': 'uint8',
+                             'range': [(0, 2)]}]},
+  'get_response': {'items': [{'name': 'name_server_index', 'type': 'uint8'},
+                             {'name': 'name_server_address', 'type': 'ipv4',
+                              'labels': [(0, 'No Connection')]}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'name_server_index', 'type': 'uint8',
+                              'range': [(0, 2)]},
+                            {'name': 'name_server_address', 'type': 'ipv4',
+                             'labels': [(0, 'No Connection')]}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'DNS_NAME_SERVER',
+  'draft': True,
+  'value': 0xffeb},
+  
+ #DNS_HOSTNAME
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'dns_hostname',
+                              'min_size': 1,
+                              'max_size': 63,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'dns_hostname',
+                              'min_size': 1,
+                              'max_size': 63,
+                              'type': 'string'}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'DNS_HOSTNAME',
+  'draft': True,
+  'value': 0xffec},
+  
+ #DNS_DOMAIN_NAME
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'dns_domain_name',
+                              'max_size': 231,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'dns_domain_name',
+                              'max_size': 231,
+                              'type': 'string'}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'DNS_DOMAIN_NAME',
+  'draft': True,
+  'value': 0xffed},
+]
