@@ -4463,13 +4463,13 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0xffe1},
 
- #INTERFACE_HARDWARE_ADDRESS
+ #INTERFACE_HARDWARE_ADDRESS_TYPE1
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
                              'range': [(0, 0xff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
                              {'name': 'hardware_address', 'type': 'mac'}]},
   'get_sub_device_range': 2,
-  'name': 'INTERFACE_HARDWARE_ADDRESS',
+  'name': 'INTERFACE_HARDWARE_ADDRESS_TYPE1',
   'draft': True,
   'value': 0xffe2},
   
