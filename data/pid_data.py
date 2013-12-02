@@ -3773,7 +3773,7 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'modulation_frequency', 'type': 'uint8', 'range': [(1, 0xff)]},
     {'name': 'frequency', 'type': 'uint32'},
-    {'name': 'modulation_frequence_description', 'type': 'string', 'max_size': 32},
+    {'name': 'modulation_frequency_description', 'type': 'string', 'max_size': 32},
   ]},
   'get_sub_device_range': 2,
   'name': 'MODULATION_FREQUENCY_DESCRIPTION',
