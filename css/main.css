@@ -357,6 +357,7 @@ th.goog-tablesorter-sorted-reverse .sorter_icon {
 .uint32_field { width: 80%; }
 .int32_field { width: 80%; }
 .ipv4_field { width: 80%; }
+.mac_field { width: 80%; }
 .uid_field { width: 80%; }
 .string_field { width: 80%; }
 .float_field { width: 80%; }
