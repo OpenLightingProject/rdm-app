@@ -32,12 +32,21 @@ class HandleModelData(webapp.RequestHandler):
     model_data=<model data as a python dict>
   """
   TEMPLATE = 'templates/upload_model_confirm.tmpl'
+  UPLOAD_TEMPLATE = 'templates/upload_model.tmpl'
 
   def get(self):
-    self.post()
+    self.response.headers['Content-Type'] = 'text/html'
+    self.response.out.write(template.render(self.UPLOAD_TEMPLATE, {}))
+
+  def get_model_data(self):
+    file_data = self.request.get("model_file")
+    if file_data:
+      return file_data
+    return self.request.get('model_data')
 
   def post(self):
-    model_data = self.request.get('model_data')
+    # try a file upload first
+    model_data = self.get_model_data()
     logging.info(model_data)
     responders = self.VerifyAndStoreData(model_data)
     logging.info('Responders is %s' % responders)
