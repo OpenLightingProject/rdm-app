@@ -59,7 +59,6 @@ class DisplayManufacturersHandler(common.BasePageHandler):
     device_query = manufacturer.responder_set
     device_query.order('model_description')
     pid_query = manufacturer.pid_set
-    pid_query.filter('draft = ', False)
     pid_query.order('name')
 
     data = {
