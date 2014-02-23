@@ -4436,7 +4436,7 @@ ESTA_PIDS = [
   'name': 'QUEUED_STATUS_UID_COLLECTION',
   'draft': True,
   'value': 0x7fd4},
-  
+
 # These are ordered to match how they appear in E1.37-2
 # The pid values will change in the final document.
  #LIST_INTERFACES
@@ -4444,7 +4444,7 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'interfaces',
      'type': 'group',
-     'items': [{'name': 'interface_identifier', 'type': 'uint16', 'range':[(0, 0xff00)]},
+     'items': [{'name': 'interface_identifier', 'type': 'uint32', 'range':[(0, 0xffffff00)]},
                {'name': 'interface_hardware_type', 'type': 'uint16',
                 'labels': [(1, 'Ethernet')], 'range': [(0, 0xffff)]}],
     }]},
@@ -4454,9 +4454,9 @@ ESTA_PIDS = [
   'value': 0xffe0},
 
  #INTERFACE_LABEL
- {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                             'range': [(0, 0xff00)]}]},
-  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                             'range': [(0, 0xffffff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'interface_label', 'max_size': 32, 'type': 'string'}]},
   'get_sub_device_range': 2,
   'name': 'INTERFACE_LABEL',
@@ -4464,22 +4464,22 @@ ESTA_PIDS = [
   'value': 0xffe1},
 
  #INTERFACE_HARDWARE_ADDRESS_TYPE1
- {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                             'range': [(0, 0xff00)]}]},
-  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                             'range': [(0, 0xffffff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'hardware_address', 'type': 'mac'}]},
   'get_sub_device_range': 2,
   'name': 'INTERFACE_HARDWARE_ADDRESS_TYPE1',
   'draft': True,
   'value': 0xffe2},
-  
+
  #IPV4_DHCP_MODE
- {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                             'range': [(0, 0xff00)]}]},
-  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                             'range': [(0, 0xffffff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'dhcp', 'type': 'bool'}]},
   'get_sub_device_range': 2,
-  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'dhcp', 'type': 'bool'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
@@ -4488,12 +4488,12 @@ ESTA_PIDS = [
   'value': 0xffe3},
 
  #IPV4_ZEROCONF_MODE
- {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                             'range': [(0, 0xff00)]}]},
-  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                             'range': [(0, 0xffffff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'zeroconf', 'type': 'bool'}]},
   'get_sub_device_range': 2,
-  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'zeroconf', 'type': 'bool'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
@@ -4502,30 +4502,32 @@ ESTA_PIDS = [
   'value': 0xffe4},
 
  #IPV4_CURRENT_ADDRESS
- {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                             'range': [(0, 0xff00)]}]},
-  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                             'range': [(0, 0xffffff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'ipv4_address', 'type': 'ipv4',
                               'labels': [(0, 'IPv4 Unconfigured')]},
                              {'name': 'netmask', 'type': 'uint8', 'range': [
                                 (0, 32)]},
-                             {'name': 'dhcp_address', 'type': 'bool'}]},
+                             {'name': 'dhcp_mode', 'type': 'uint8',
+                              'labels': [(0, 'Inactive'), (1, 'Active'), (2, 'Unknown')]
+                              }]},
   'get_sub_device_range': 2,
   'name': 'IPV4_CURRENT_ADDRESS',
   'draft': True,
-  'value': 0xffe5},  
+  'value': 0xffe5},
 
  #IPV4_STATIC_ADDRESS
- {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                             'range': [(0, 0xff00)]}]},
-  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint16'},
+ {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                             'range': [(0, 0xffffff00)]}]},
+  'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'ipv4_address', 'type': 'ipv4',
                               'labels': [(0, 'IPv4 Unconfigured')]},
                              {'name': 'netmask', 'type': 'uint8', 'range': [
                                 (0, 32)]}]},
   'get_sub_device_range': 2,
-  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                              'range': [(0, 0xff00)]},
+  'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                              'range': [(0, 0xffffff00)]},
                             {'name': 'ipv4_address', 'type': 'ipv4',
                              'labels': [(0, 'IPv4 Unconfigured')]},
                             {'name': 'netmask', 'type': 'uint8', 'range': [
@@ -4537,8 +4539,8 @@ ESTA_PIDS = [
   'value': 0xffe6},
 
  #INTERFACE_APPLY_CONFIGURATION
- {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                              'range': [(0, 0xff00)]}]},
+ {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                              'range': [(0, 0xffffff00)]}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'INTERFACE_APPLY_CONFIGURATION',
@@ -4546,8 +4548,8 @@ ESTA_PIDS = [
   'value': 0xffe9},
 
  #INTERFACE_RENEW_DHCP
- {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                              'range': [(0, 0xff00)]}]},
+ {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                              'range': [(0, 0xffffff00)]}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'INTERFACE_RENEW_DHCP',
@@ -4555,14 +4557,14 @@ ESTA_PIDS = [
   'value': 0xffe7},
 
  #INTERFACE_RELEASE_DHCP
- {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint16',
-                              'range': [(0, 0xff00)]}]},
+ {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
+                              'range': [(0, 0xffffff00)]}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'INTERFACE_RELEASE_DHCP',
   'draft': True,
   'value': 0xffe8},
-  
+
  #IPV4_DEFAULT_ROUTE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'ipv4_address', 'type': 'ipv4',
@@ -4576,7 +4578,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0xffea},
 
- #DNS_NAME_SERVER
+ #DNS_IPV4_NAME_SERVER
  {'get_request': {'items': [{'name': 'name_server_index', 'type': 'uint8',
                              'range': [(0, 2)]}]},
   'get_response': {'items': [{'name': 'name_server_index', 'type': 'uint8'},
@@ -4589,10 +4591,10 @@ ESTA_PIDS = [
                              'labels': [(0, 'IPv4 Unconfigured')]}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
-  'name': 'DNS_NAME_SERVER',
+  'name': 'DNS_IPV4_NAME_SERVER',
   'draft': True,
   'value': 0xffeb},
-  
+
  #DNS_HOSTNAME
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'dns_hostname',
@@ -4609,7 +4611,7 @@ ESTA_PIDS = [
   'name': 'DNS_HOSTNAME',
   'draft': True,
   'value': 0xffec},
-  
+
  #DNS_DOMAIN_NAME
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'dns_domain_name',
