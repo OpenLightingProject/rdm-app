@@ -46,7 +46,10 @@ class ImageFetcher(object):
       The new blob key, or None if the fetch failed.
     """
     logging.info('fetching %s' % url)
-    image_response = urlfetch.fetch(url)
+    try:
+      image_response = urlfetch.fetch(url)
+    except urlfetch.Error:
+      return None
 
     if image_response.status_code != 200:
       logging.info('image fetch failed. %s -> %d' %
