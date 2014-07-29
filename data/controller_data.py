@@ -144,7 +144,7 @@ CONTROLLER_DATA = {
   ],
   0x5377: [
     {'name': 'Swisson RDM Controller',
-      'link': 'http://swisson.com/rdm-measurement-tool-tester',
+      'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
       'image_url': 'http://swisson.com/assets/images/gallery/_thumbnails/xmt350/xmt350_1_id79_sid1_275x183.jpg',
      'tags': ['tool']},
   ],
