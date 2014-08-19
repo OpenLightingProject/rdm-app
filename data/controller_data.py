@@ -145,7 +145,7 @@ CONTROLLER_DATA = {
   0x5377: [
     {'name': 'XMT-350 DMX/RDM Tester & Controller',
       'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
-      'image_url': 'http://swisson.com/assets/images/gallery/_thumbnails/xmt350/xmt350_1_id79_sid1_275x183.jpg',
+      'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xmt-350/xmt-350_1_resize_275x183_86_255x255x255.jpg',
      'tags': ['tool']},
   ],
   0x6574: [
