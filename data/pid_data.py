@@ -4706,7 +4706,6 @@ ESTA_PIDS = [
   'value': 0x7fd4},
 
 # These are ordered to match how they appear in E1.37-2
-# The pid values will change in the final document.
  #LIST_INTERFACES
  {'get_request': {'items': []},
   'get_response': {'items': [
@@ -4718,8 +4717,7 @@ ESTA_PIDS = [
     }]},
   'get_sub_device_range': 2,
   'name': 'LIST_INTERFACES',
-  'draft': True,
-  'value': 0xffe0},
+  'value': 0x0700},
 
  #INTERFACE_LABEL
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4728,8 +4726,7 @@ ESTA_PIDS = [
                              {'name': 'interface_label', 'max_size': 32, 'type': 'string'}]},
   'get_sub_device_range': 2,
   'name': 'INTERFACE_LABEL',
-  'draft': True,
-  'value': 0xffe1},
+  'value': 0x0701},
 
  #INTERFACE_HARDWARE_ADDRESS_TYPE1
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4738,8 +4735,7 @@ ESTA_PIDS = [
                              {'name': 'hardware_address', 'type': 'mac'}]},
   'get_sub_device_range': 2,
   'name': 'INTERFACE_HARDWARE_ADDRESS_TYPE1',
-  'draft': True,
-  'value': 0xffe2},
+  'value': 0x0702},
 
  #IPV4_DHCP_MODE
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4752,8 +4748,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'IPV4_DHCP_MODE',
-  'draft': True,
-  'value': 0xffe3},
+  'value': 0x0703},
 
  #IPV4_ZEROCONF_MODE
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4766,8 +4761,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'IPV4_ZEROCONF_MODE',
-  'draft': True,
-  'value': 0xffe4},
+  'value': 0x0704},
 
  #IPV4_CURRENT_ADDRESS
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4782,8 +4776,7 @@ ESTA_PIDS = [
                               }]},
   'get_sub_device_range': 2,
   'name': 'IPV4_CURRENT_ADDRESS',
-  'draft': True,
-  'value': 0xffe5},
+  'value': 0x0705},
 
  #IPV4_STATIC_ADDRESS
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4803,8 +4796,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'IPV4_STATIC_ADDRESS',
-  'draft': True,
-  'value': 0xffe6},
+  'value': 0x0706},
 
  #INTERFACE_APPLY_CONFIGURATION
  {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4812,8 +4804,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'INTERFACE_APPLY_CONFIGURATION',
-  'draft': True,
-  'value': 0xffe9},
+  'value': 0x0709},
 
  #INTERFACE_RENEW_DHCP
  {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4821,8 +4812,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'INTERFACE_RENEW_DHCP',
-  'draft': True,
-  'value': 0xffe7},
+  'value': 0x0707},
 
  #INTERFACE_RELEASE_DHCP
  {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
@@ -4830,8 +4820,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'INTERFACE_RELEASE_DHCP',
-  'draft': True,
-  'value': 0xffe8},
+  'value': 0x0708},
 
  #IPV4_DEFAULT_ROUTE
  {'get_request': {'items': []},
@@ -4843,8 +4832,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'IPV4_DEFAULT_ROUTE',
-  'draft': True,
-  'value': 0xffea},
+  'value': 0x070a},
 
  #DNS_IPV4_NAME_SERVER
  {'get_request': {'items': [{'name': 'name_server_index', 'type': 'uint8',
@@ -4860,8 +4848,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'DNS_IPV4_NAME_SERVER',
-  'draft': True,
-  'value': 0xffeb},
+  'value': 0x070b},
 
  #DNS_HOSTNAME
  {'get_request': {'items': []},
@@ -4877,8 +4864,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'DNS_HOSTNAME',
-  'draft': True,
-  'value': 0xffec},
+  'value': 0x070c},
 
  #DNS_DOMAIN_NAME
  {'get_request': {'items': []},
@@ -4892,6 +4878,5 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'DNS_DOMAIN_NAME',
-  'draft': True,
-  'value': 0xffed},
+  'value': 0x070d},
 ]
