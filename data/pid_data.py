@@ -4771,7 +4771,7 @@ ESTA_PIDS = [
                               'labels': [(0, 'IPv4 Unconfigured')]},
                              {'name': 'netmask', 'type': 'uint8', 'range': [
                                 (0, 32)]},
-                             {'name': 'dhcp_mode', 'type': 'uint8',
+                             {'name': 'dhcp_status', 'type': 'uint8',
                               'labels': [(0, 'Inactive'), (1, 'Active'), (2, 'Unknown')]
                               }]},
   'get_sub_device_range': 2,
