@@ -64,6 +64,7 @@ class BaseAdminPageHandler(webapp.RequestHandler):
   ALLOWED_USERS = [
       'nomis52@gmail.com',
       'simon@nomis52.net',
+      'peterjnewman@gmail.com',
   ]
 
   def get(self):
