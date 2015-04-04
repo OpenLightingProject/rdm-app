@@ -1,2 +1,4 @@
 *.pyc
 *.swp
+node_modules
+index.yaml

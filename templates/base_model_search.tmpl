@@ -2,34 +2,40 @@
 
 {% block title %}Device Search{% endblock %}
 
-{% block extra_headers %}
-<script src="/js/app.js"></script>
+{% block content %}
+    <div class="search_div">
+        {% block search_widget %}{% endblock %}
+    </div>
+    <table id="model_table" class="results_table">
+        <thead>
+        <tr>
+            <th>Manufacturer Name
+                <div class="sorter_icon">&nbsp;</div>
+            </th>
+            <th>Model ID
+                <div class="sorter_icon">&nbsp;</div>
+            </th>
+            <th>Name
+                <div class="sorter_icon">&nbsp;</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for model in models %}
+            <tr class="results_row"
+                onclick="window.location='/model/display?manufacturer={{ model.manufacturer.esta_id }}&model={{ model.device_model_id }}'">
+                <td>{{ model.manufacturer.name }}</td>
+                <td>{{ model.device_model_id }} ( 0x{{ model.device_model_id|stringformat:"04x" }} )</td>
+                <td>{{ model.model_description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
-{% block content %}
-<div class="search_div">
-  {% block search_widget %}{% endblock %}
-</div>
-<table id="model_table" class="results_table">
- <thead>
-  <tr>
-   <th>Manufacturer Name<div class="sorter_icon">&nbsp;</div></th>
-   <th>Model ID<div class="sorter_icon">&nbsp;</div></th>
-   <th>Name<div class="sorter_icon">&nbsp;</div></th>
-  </tr>
- </thead>
- <tbody>
-  {% for model in models %}
-  <tr class="results_row" onclick="window.location='/model/display?manufacturer={{ model.manufacturer.esta_id }}&model={{model.device_model_id }}'">
-   <td>{{ model.manufacturer.name }}</td>
-   <td>{{ model.device_model_id }} ( 0x{{ model.device_model_id|stringformat:"04x" }} )</td>
-   <td>{{ model.model_description }}</td>
-  </tr>
-  {% endfor %}
- </tbody>
-</table>
-
-<script type="text/javascript">
-  app.makeModelTable("model_table");
-</script>
+{% block extra_headers %}
+    <script src="/js/app.js"></script>
+    <script type="text/javascript">
+        app.makeModelTable("model_table");
+    </script>
 {% endblock %}

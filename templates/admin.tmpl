@@ -1,72 +1,111 @@
-<html>
+{% extends "base.tmpl" %}
+{% block extra_headers %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .admin-tile {
+            text-align: center;
+            list-style: none;
+        }
 
-<body>
+        .btn-group-vertical {
+            width: 100%;
+        }
 
-<a href="{{ logout_url }}">Logout</a> <br/>
-<br/>
+        @media (max-width: 500px) {
+            .admin-tile {
+                width: 100%;
+            }
+        }
+    </style>
+{% endblock %}
 
-{% if output %}
-<pre style="border: 1px solid #ff0000; padding: 3px">{{ output }}</pre>
-{% endif %}
+{% block title %}Browse Devices, Page {{ page_number }}{% endblock %}
 
-{% if responders_to_moderate %}
-<div style="border: 1px solid #0000ff; padding: 3px">
-{{ responders_to_moderate }} Responders in the
-<a href="/admin/moderate_responder_data">moderation queue</a>
-</div>
-{% endif %}
+{% block content %}
+    <div style="padding-left: 15px; padding-bottom: 15px">
+        <a class="btn btn-default" href="{{ logout_url }}">Logout</a>
+    </div>
+    {% if output %}
+        <div id="output" class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ output }}
+        </div>
+        <script>
+            document.getElementById("output").innerHTML = document.getElementById("output").innerHTML.replace(/([^>])\n/g, '$1<br />');
+        </script>
+    {% endif %}
 
-<h4>Actions</h4>
-<ul>
-  <li><a href="/admin?action=update_m">Update Manufacturers</a></li>
-  <li><a href="/admin?action=update_categories">Update Categories</a></li>
-  <li><a href="/admin?action=gc_tags">Garbage Collect Tags</a></li>
-  <li><a href="/admin?action=gc_blobs">Garbage Collect Blobs</a></li>
-  <li><a href="/admin?action=initiate_image_fetch">Fetch Image Data</a></li>
-  <li><a href="/admin?action=rank_devices">Rank Devices</a></li>
-</ul>
+    {% if responders_to_moderate %}
+        <div style="border: 1px solid #0000ff; padding: 3px">
+            {{ responders_to_moderate }} Responders in the <a href="/admin/moderate_responder_data">moderation queue</a>
+        </div>
+    {% endif %}
 
-<h4>PIDs</h4>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>Actions</h4>
 
-<ul>
-  <li>/admin?action=clear_p - Clear PIDs</li><!-- This deliberately isn't a link, so people don't click it accidentally -->
-  <li><a href="/admin?action=load_p">Load ESTA PIDs</a></li>
-  <li><a href="/admin?action=load_mp">Load Manufacturer PIDs</a></li>
-  <li><a href="/admin?action=responder_pid_index">Build PID Index</a></li>
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/admin?action=update_m">Update Manufacturers</a>
+            <a class="btn btn-default" href="/admin?action=update_categories">Update Categories</a>
+            <a class="btn btn-default" href="/admin?action=gc_tags">Garbage Collect Tags</a>
+            <a class="btn btn-default" href="/admin?action=gc_blobs">Garbage Collect Blobs</a>
+            <a class="btn btn-default" href="/admin?action=initiate_image_fetch">Fetch Image Data</a>
+            <a class="btn btn-default" href="/admin?action=rank_devices">Rank Devices</a>
+        </div>
+    </div>
 
-</ul>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>PIDs</h4>
 
-<h4>RDM Devices</h4>
+        <div class="btn-group-vertical" role="group">
+            <div>/admin?action=clear_p - Clear PIDs</div>
+            <!-- This deliberately isn't a link, so people don't click it accidentally -->
+            <a class="btn btn-default" href="/admin?action=load_p">Load ESTA PIDs</a>
+            <a class="btn btn-default" href="/admin?action=load_mp">Load Manufacturer PIDs</a>
+            <a class="btn btn-default" href="/admin?action=responder_pid_index">Build PID Index</a>
+        </div>
+    </div>
 
-<ul>
-  <li><a href="/admin?action=update_models">Update Devices</a></li>
-  <li><a href="/admin/adjust_test_score">RDM Responder Test Scores</a></li>
-</ul>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>RDM Devices</h4>
 
-<h4>RDM Splitters</h4>
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/admin?action=update_models">Update Devices</a>
+            <a class="btn btn-default" href="/admin/adjust_test_score">RDM Responder Test Scores</a>
+        </div>
+    </div>
 
-<ul>
-  <li><a href="/admin?action=update_splitters">Update Splitters</a></li>
-</ul>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>RDM Splitters</h4>
 
-<h4>RDM Software</h4>
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/admin?action=update_splitters">Update Splitters</a>
+        </div>
+    </div>
 
-<ul>
-  <li><a href="/admin?action=update_software">Update Software</a></li>
-</ul>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>RDM Software</h4>
 
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/admin?action=update_software">Update Software</a>
+        </div>
+    </div>
 
-<h4>RDM Controllers</h4>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>RDM Controllers</h4>
 
-<ul>
-  <li><a href="/admin?action=update_controllers">Update Controllers</a></li>
-</ul>
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/admin?action=update_controllers">Update Controllers</a>
+        </div>
+    </div>
 
-<h4>Ethernet Nodes</h4>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>Ethernet Nodes</h4>
 
-<ul>
-  <li><a href="/admin?action=update_nodes">Update Nodes</a></li>
-</ul>
-
-</body>
-</html>
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/admin?action=update_nodes">Update Nodes</a>
+        </div>
+    </div>
+{% endblock %}

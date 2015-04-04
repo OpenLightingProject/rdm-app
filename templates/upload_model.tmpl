@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>RDM Responder Publisher</title>
-  <style type='text/css'>
-    body {
-      font-family: sans-serif;
-      font-size: 13px;
-    }
+{% extends "base.tmpl" %}
 
-    #container {
-      padding: 5px;
-    }
+{% block title %}RDM Responder Publisher{% endblock %}
 
-  </style>
-</head>
-<body>
-
-<div id='container'>
-<form method="post" enctype="multipart/form-data" action="/incoming/model_data">
-
-<p>Please select the file containing the Responder data you wish to
-publish.</p>
-
-<input name="model_file" type="file" />
-
-<input type="submit" value="Upload" />
-</html>
+{% block content %}
+    <form method="post" enctype="multipart/form-data" action="/incoming/model_data">
+        <p>
+            Please select the file containing the Responder data you wish to publish.
+        </p>
+        <span class="btn btn-default btn-file">
+            Browse <input name="model_file" type="file">
+        </span>
+        <br>
+        <input class="btn btn-default" type="submit" value="Upload"/>
+    </form>
+{% endblock %}

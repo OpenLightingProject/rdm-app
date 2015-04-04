@@ -3,8 +3,17 @@
 {% block title %}Search PIDs by Name{% endblock %}
 
 {% block search_widget %}
-<form action="/pid/name" method="get">
-PID Name: <input type="text" name="name">
-<input type="submit" value="Search">
-</form>
+    <form class="form-inline" action="/pid/name" method="get">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon" id="pid-search">
+                    PID Name:
+                </span>
+                <input class="form-control" aria-describedby="pid-search" type="text" name="name">
+                <span class="input-group-btn">
+                    <input class="btn btn-default" type="submit" value="Search">
+                </span>
+            </div>
+        </div>
+    </form>
 {% endblock %}

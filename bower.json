@@ -1,0 +1,17 @@
+{
+  "name": "rdm-app",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.3.1"
+  },
+  "exportsOverride": {
+    "jquery": {
+      "js": "dist/*.min.js"
+    },
+    "bootstrap": {
+      "js": "dist/js/bootstrap.min.js",
+      "css": "dist/css/bootstrap.min.css",
+      "fonts": "dist/fonts/"
+    }
+  }
+}

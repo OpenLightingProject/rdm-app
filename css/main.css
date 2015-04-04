@@ -1,374 +1,279 @@
-html { height: 100%; }
-body {
-  height: 100%;
-  font-family: sans-serif;
-  font-size: 13px;
-  margin: 0px;
-  padding: 0px;
-}
-
-#main {
-  overflow: auto;
-  padding-bottom: 50px;
-}
-
-#wrap {
-  min-height: 100%;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
 #footer {
-  position: relative;
-  margin-top: -47px;
-  height: 42px;
-  clear: both;
-  text-align: center;
-  font-size: 11px;
+    position: relative;
+    margin-top: 10px;
+    height: 42px;
+    clear: both;
+    text-align: center;
+    font-size: 11px;
 }
 
-#outer_content {
-  border: #67a7e3 1px solid;
-  background-color: #e4e9fe;
-}
-
-#inner_content {
-  background-color: #ffffff;
-  margin: 5px;
-}
-
-/*Opera Fix*/
-body:before {
-  content: "";
-  height: 100%;
-  float: left;
-  width: 0;
-  margin-top: -32767px;/
-}
-
-/* base sryles */
 fieldset {
-  border: #67a7e3 1px solid;
-  margin-bottom: 5px;
-}
-legend { font-weight: bold; }
-h2 { margin: 5px; }
-h3 { margin: 2px; }
-
-/* login bar in the top right */
-#login {
-  text-align: right;
-  padding: 4px;
-  padding-bottom: 6px;
+    border: #67a7e3 1px solid;
+    margin-bottom: 5px;
 }
 
-#login ul { margin: 0px; }
-#login li {
-  display: inline;
-  list-style-type: none;
+legend {
+    font-weight: bold;
 }
 
-/* navigation bar */
-#nav_bar {
-  padding-left: 10px;
-  margin-top: 2px;
-  color: #333;
+h2 {
+    margin: 5px;
 }
 
-/* All links */
-#nav_bar a {
-  text-decoration: none;
-  color: #333;
+h3 {
+    margin: 2px;
 }
-
-/* Both the tabs and the drop down menus */
-#nav_bar ul {
-  z-index: 5; /* We need to be above the other layers on the page */
-  list-style: none; /* Turn off bullets */
-}
-
-/* The first ul, this is the horizontal tabs */
-#nav_bar > ul {
-  margin: 0px;
-  height: 23px;
-  padding: 0px;
-  text-align: left;
-  cursor: default;
-}
-
-/* The first set of li, these are the tabs */
-#nav_bar ul > li {
-  font: bold 12px verdana, arial, sans-serif;
-  float: left;
-  position: relative;
-  margin-top: 0px;
-  padding: 0px;
-
-  padding: 3px 10px;
-  border-width: 1px 1px 1px 0px;
-  background-color: #e4e9fe;
-  border-color: #67a7e3;
-  height: 16px;
-  border-style: solid;
-  display: block;
-}
-
-#nav_bar > ul > li:first-child {
-  border-left: 1px solid #67a7e3;
-}
-
-/* The drop down menus */
-#nav_bar li ul {
-  display: none;
-  position: absolute;
-  padding: 5px;
-  top: 22px;
-}
-
-#nav_bar li ul {
-  border: 1px solid #67a7e3;
-  background-color: #e4e9fe;
-  margin-left: -11px;
-}
-
-#nav_bar li ul li {
-  width: 300px;
-  padding: 1px;
-  border: 0px;
-}
-
-/* Hover behaviour */
-#nav_bar li:hover ul { display: block; }
-#nav_bar li:hover > a { background-color: #fff; }
-/* End tabs & menus */
 
 /* manufacturer page */
 
 #manufacturer_info {
-  padding: 5px;
+    padding: 5px;
 }
 
-/* browse page */
 .browse_nav {
-  padding: 3px;
-  border-bottom: 1px solid #e4e9fe;
-  border-top: 1px solid #e4e9fe;
-  text-align: center;
+    padding: 3px;
+    border-bottom: 1px solid #e4e9fe;
+    border-top: 1px solid #e4e9fe;
+    text-align: center;
 }
 
 .browse_nav div {
-  width: 100px;
+    width: 100px;
 }
 
 .browse_table {
-  width: 100%;
+    width: 100%;
 }
 
 .browse_table tr {
-  height: 140px;
+    height: 140px;
 }
 
 .browse_table td {
-  padding: 10px;
-  height: 130px;
+    padding: 10px;
+    height: 130px;
 }
 
 .browse_table a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .browse_table a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .browse_table td {
-  height: 50px;
-  text-align: center;
-  vertical-align: bottom;
+    height: 50px;
+    text-align: center;
+    vertical-align: bottom;
 }
 
 .missing_image {
-  border: 1px solid #000000;
-  width: 100px;
-  height: 100px;
-  background-color: #cccccc;
-  margin-left: auto;
-  margin-right: auto;
-  color: #000000;
+    border: 1px solid #000000;
+    width: 100px;
+    height: 100px;
+    background-color: #cccccc;
+    margin-left: auto;
+    margin-right: auto;
+    color: #000000;
 }
 
 a:hover .missing_image {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .rdm_rating {
-  background-image: url(/images/stars.png);
-  display: block;
-  margin: auto;
-  height: 12px;
+    background-image: url(/images/stars.png);
+    display: block;
+    margin: auto;
+    height: 12px;
 }
 
-/* search results table */
 .search_options {
-  padding: 5px;
-  background-color: #e4e9fe;
+    padding: 5px;
+    background-color: #e4e9fe;
 
 }
 
 .search_div {
-  padding: 5px;
-  border-bottom: 1px solid #e4e9fe;
+    padding: 5px;
+    border-bottom: 1px solid #e4e9fe;
 }
 
-.results_table {
-  width: 100%;
-  border-spacing: 0px;
+.sorter_icon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.results_table th {
-  border-bottom: 1px solid #e4e9fe;
-  cursor: pointer;
+th .sorter_icon:after {
+    cursor: pointer;
+    content: "\e150";
 }
 
-.results_table td {
-  cursor: pointer;
-  padding: 2px;
+th.goog-tablesorter-sorted .sorter_icon:after {
+    content: "\e155";
 }
 
-.results_row:hover {
-  background: #cccccc;
+th.goog-tablesorter-sorted-reverse .sorter_icon:after {
+    content: "\e156";
 }
-
-th .sorter_icon {
-  background-image: url(/images/up-down.png);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: -0px -0px;
-  width: 16px;
-  display: -moz-inline-box; /* Ignored by FF3 and later. */
-  display: inline-block;
-}
-
-th.goog-tablesorter-sorted .sorter_icon{
-  background-position: -32px 0px;
-}
-
-th.goog-tablesorter-sorted-reverse .sorter_icon {
-  background-position: -16px 0px;
-}
-
 
 /* CSS for device display */
 #model_info_table {
-  margin-top: 10px;
-  margin-left: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 #model_info_table td {
-  padding: 5px;
+    padding: 5px;
 }
 
 #model_display img {
-  margin-top: 17px;
+    margin-top: 17px;
 }
 
 #model_display fieldset {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 #software_fieldset {
-  border-width: 1px 0px 0px 0px;
+    border-width: 1px 0px 0px 0px;
 }
 
 #model_display table {
-  border-spacing: 5px;
-}
-
-.model_tag {
-  color: #ffffff;
-  background: #64992c;
-  display: inline;
-  padding: 2px 5px 2px 5px;
-  margin: 0px 5px 0px 0px;
-  font-size: 11px;
+    border-spacing: 5px;
 }
 
 #model_image {
-  padding-left: 5px;
-  padding-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #model_params_list {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
-#software_fieldset table {
-  border-spacing: 0px;
-  border-collapse:collapse;
+.subdevice_range_help {
+    cursor: pointer;
 }
 
-#software_fieldset table th {
-  border: 1px solid #cccccc;
-  padding: 4px;
+.bool_field {
+    width: 20%;
 }
 
-#software_fieldset table td {
-  border: 1px solid #cccccc;
-  padding: 4px;
+.uint8_field {
+    width: 20%;
 }
 
-
-/* CSS for PID display */
-.message_table { border-spacing: 5px; }
-
-.message_structure {
-  border: 1px solid #000;
-  text-align: center;
-  height: 100%;
-  margin: 10px;
+.int8_field {
+    width: 20%;
 }
 
-.message_group {
-  border: 1px solid #0f0;
-  text-align: center;
-  height: 100%;
-  margin: 10px;
+.uint16_field {
+    width: 40%;
 }
 
-.message_field {
-  border: 1px solid #00c;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-  padding: 4px;
+.int16_field {
+    width: 40%;
 }
 
-.subdevice_range_help { cursor: pointer; }
-
-.bool_field { width: 20%; }
-.uint8_field { width: 20%; }
-.int8_field { width: 20%; }
-.uint16_field { width: 40%; }
-.int16_field { width: 40%; }
-.uint32_field { width: 80%; }
-.int32_field { width: 80%; }
-.ipv4_field { width: 80%; }
-.mac_field { width: 80%; }
-.uid_field { width: 80%; }
-.string_field { width: 80%; }
-.float_field { width: 80%; }
-
-/* tooltip CSS */
-.goog-tooltip {
-  background: infobackground;
-  color: infotext;
-  border: 1px solid infotext;
-  padding: 1px;
-  font: menu;
+.uint32_field {
+    width: 80%;
 }
 
-.goog-tooltip ul { margin: 0px; }
+.int32_field {
+    width: 80%;
+}
+
+.ipv4_field {
+    width: 80%;
+}
+
+.mac_field {
+    width: 80%;
+}
+
+.uid_field {
+    width: 80%;
+}
+
+.string_field {
+    width: 80%;
+}
+
+.float_field {
+    width: 80%;
+}
+
+#responder_diff {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+#responder_diff td {
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+
+#responder_diff label {
+    display: block;
+    cursor: pointer;
+}
+
+.diff_select {
+    text-align: center;
+}
+
+.button-container {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.error {
+    border: 1px solid #ff0000;
+    background-color: #ffcccc;
+    padding: 4px;
+}
+
+.selected {
+    background-color: #cccccc;
+}
+
+.left {
+    background-color: #99ff99;
+}
+
+.right {
+    background-color: #ff9999;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
