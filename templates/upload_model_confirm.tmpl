@@ -114,14 +114,11 @@
     {% endif %}
 {% endblock %}
 
-{% block jquery %}
-    <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
-{% endblock %} {# Lengancy support #}
-
 {% block extra_headers %}
-    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js'></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.js"></script> {# TODO(Dave): update jqueryui #}
+    <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js'></script>
     <script src='/js/jquery.json-2.3.min.js'></script>
-    <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/redmond/jquery-ui.css'
+    <link rel='stylesheet' href='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/redmond/jquery-ui.css'
           type='text/css'>
     <script>
         var responder_keys = [

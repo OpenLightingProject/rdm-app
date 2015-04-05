@@ -2,7 +2,8 @@
   "name": "rdm-app",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "~3.3.1"
+    "bootstrap": "~3.3.1",
+    "bootstrap-fileinput": "~4.1.8"
   },
   "exportsOverride": {
     "jquery": {
@@ -12,6 +13,11 @@
       "js": "dist/js/bootstrap.min.js",
       "css": "dist/css/bootstrap.min.css",
       "fonts": "dist/fonts/"
+    },
+    "bootstrap-fileinput": {
+      "js": "js/fileinput.min.js",
+      "img": "img/*.gif",
+      "css": "css/fileinput.min.css"
     }
   }
 }

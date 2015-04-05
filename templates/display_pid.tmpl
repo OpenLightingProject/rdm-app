@@ -4,6 +4,28 @@
 
 {% block extra_headers %}
     <script src="/js/app.js"></script>
+    <script type="text/javascript">
+        {% if discovery_command %}
+            app.displayCommand({{ discovery_command.request_json|safe }},
+                    'discovery_request');
+            app.displayCommand({{ discovery_command.response_json|safe }},
+                    'discovery_response');
+        {% endif %}
+        {% if set_command %}
+            app.displayCommand({{ set_command.request_json|safe }},
+                    'set_request');
+            app.displayCommand({{ set_command.response_json|safe }},
+                    'set_response');
+        {% endif %}
+        {% if get_command %}
+            app.displayCommand(
+                    {{ get_command.request_json|safe }},
+                    'get_request');
+            app.displayCommand(
+                    {{ get_command.response_json|safe }},
+                    'get_response');
+        {% endif %}
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -52,14 +74,6 @@
                     </tr>
                 </table>
             </div>
-            <script type="text/javascript">
-                app.displayCommand(
-                        {{ discovery_command.request_json|safe }},
-                        'discovery_request');
-                app.displayCommand(
-                        {{ discovery_command.response_json|safe }},
-                        'discovery_response');
-            </script>
         </fieldset>
     {% endif %}
 
@@ -85,14 +99,6 @@
                     </tr>
                 </table>
             </div>
-            <script type="text/javascript">
-                app.displayCommand(
-                        {{ get_command.request_json|safe }},
-                        'get_request');
-                app.displayCommand(
-                        {{ get_command.response_json|safe }},
-                        'get_response');
-            </script>
         {% else %}
             <div>Not Supported</div>
         {% endif %}
@@ -119,14 +125,6 @@
                     </tr>
                 </table>
             </div>
-            <script type="text/javascript">
-                app.displayCommand(
-                        {{ set_command.request_json|safe }},
-                        'set_request');
-                app.displayCommand(
-                        {{ set_command.response_json|safe }},
-                        'set_response');
-            </script>
         {% else %}
             <div>Not Supported</div>
         {% endif %}

@@ -1,8 +1,9 @@
 {% extends "base.tmpl" %}
 
 {% block content %}
-    <a href="{{ logout_url }}">Logout</a> <br/>
-    <br/>
+    <div style="padding-left: 15px; padding-bottom: 15px">
+        <a class="btn btn-default" href="{{ logout_url }}">Logout</a>
+    </div>
 
     {% if manufacturer %}
 
@@ -13,7 +14,7 @@
             </div>
         {% endfor %}
 
-        <table>
+        <table class="table">
             <tr>
                 <td>Manufacturer:</td>
                 <td>{{ manufacturer.name }}</td>
@@ -36,7 +37,7 @@
 
         <form id="moderator_form" action="/admin/moderate_responder_data" method="post">
             {% if changed_fields %}
-                <table id="responder_diff">
+                <table class="table" id="responder_diff">
                     <tr>
                         <th width="40%">Uploaded Data</th>
                         <th>&nbsp;</th>
@@ -66,7 +67,7 @@
 
             {% if versions %}
                 {% for version in versions %}
-                    <table id="responder_diff">
+                    <table class="table" id="responder_diff">
                         <tr>
                             <th width="40%">Uploaded Data</th>
                             <th>Version 0x{{ version.version|stringformat:"08x" }}</th>
@@ -115,7 +116,7 @@
 
         <h3>Unused fields</h3>
 
-        <table id="responder_diff">
+        <table class="table" id="responder_diff">
             <tr>
                 <th width="40%">Uploaded Data</th>
                 <th>&nbsp;</th>
@@ -153,9 +154,9 @@
 {% endblock %}
 
 
-{% block jquery %}
-    <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
-{% endblock %} {# Lengancy support #}
+{#{% block jquery %}#}
+{#    <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>#}
+{#{% endblock %} {# Lengancy support #}
 
 {% block extra_headers %}
     <script>
@@ -183,10 +184,10 @@
             var errors = new Array();
             $.each(keys, function (i, key) {
                 if (key == '') return;
-                var left_checked = $('#' + key + '_left_b').attr('checked');
-                var right_checked = $('#' + key + '_right_b').attr('checked')
+                var left_checked = $('#' + key + '_left_b').is(':checked');
+                var right_checked = $('#' + key + '_right_b').is(':checked');
                 if (!(left_checked || right_checked)) {
-                    errors.push(key)
+                    errors.push(key);
                 }
                 if (left_checked) {
                     field_data.push(key);
@@ -197,7 +198,7 @@
                 return false;
             }
             $('#fields').val(field_data.join(','));
-            $('moderator_form').submit();
+            $('#moderator_form').submit();
         }
 
         $(document).ready(function () {

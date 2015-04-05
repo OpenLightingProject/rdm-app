@@ -7,15 +7,6 @@
     font-size: 11px;
 }
 
-fieldset {
-    border: #67a7e3 1px solid;
-    margin-bottom: 5px;
-}
-
-legend {
-    font-weight: bold;
-}
-
 h2 {
     margin: 5px;
 }
@@ -276,4 +267,19 @@ th.goog-tablesorter-sorted-reverse .sorter_icon:after {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.admin-tile {
+    text-align: center;
+    list-style: none;
+}
+
+.btn-group-vertical {
+    width: 100%;
+}
+
+@media (max-width: 500px) {
+    .admin-tile {
+        width: 100%;
+    }
 }
