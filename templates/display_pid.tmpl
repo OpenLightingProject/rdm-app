@@ -29,9 +29,10 @@
 {% endblock %}
 
 {% block content %}
-    <fieldset>
-        <legend>General Information</legend>
-        <table>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">General Information</div>
+        <table class="table">
             <tr>
                 <td style="padding-right: 15px">Manufacturer</td>
                 <td><a href="/manufacturer/display?manufacturer={{ manufacturer_id }}">{{ manufacturer_name }}</a></td>
@@ -51,84 +52,84 @@
                 </tr>
             {% endif %}
         </table>
-    </fieldset>
+    </div>
 
     {% if discovery_command %}
-        <fieldset>
-            <legend>Discovery Command</legend>
-            <div>
-                Sub Device Range:
-                <span>{{ discovery_command.subdevice_range }}</span>
-                <table width="100%" class="message_table">
-                    <tr>
-                        <th>Discovery Request</th>
-                        <th>Discovery Response</th>
-                    </tr>
-                    <tr>
-                        <td width="50%" class="message_structure">
-                            <div id="discovery_request"></div>
-                        </td>
-                        <td width="50%" class="message_structure">
-                            <div id="discovery_response"></div>
-                        </td>
-                    </tr>
-                </table>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Discovery Command</div>
+            <div class="panel-body">
+                Sub Device Range:<span>{{ discovery_command.subdevice_range }}</span>
             </div>
-        </fieldset>
+            <table width="100%" class="table message_table">
+                <tr>
+                    <th>Discovery Request</th>
+                    <th>Discovery Response</th>
+                </tr>
+                <tr>
+                    <td width="50%" class="message_structure">
+                        <div id="discovery_request"></div>
+                    </td>
+                    <td width="50%" class="message_structure">
+                        <div id="discovery_response"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     {% endif %}
 
 
-    <fieldset>
-        <legend>Get Command</legend>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Get Command</div>
         {% if get_command %}
-            <div>
-                Sub Device Range:
-                <span>{{ get_command.subdevice_range }}</span>
-                <table width="100%" class="message_table">
-                    <tr>
-                        <th>Get Request</th>
-                        <th>Get Response</th>
-                    </tr>
-                    <tr>
-                        <td width="50%" class="message_structure">
-                            <div id="get_request"></div>
-                        </td>
-                        <td width="50%" class="message_structure">
-                            <div id="get_response"></div>
-                        </td>
-                    </tr>
-                </table>
+            <div class="panel-body">
+                Sub Device Range: <span>{{ get_command.subdevice_range }}</span>
             </div>
+            <table width="100%" class="table message_table">
+                <tr>
+                    <th>Get Request</th>
+                    <th>Get Response</th>
+                </tr>
+                <tr>
+                    <td width="50%" class="message_structure">
+                        <div id="get_request"></div>
+                    </td>
+                    <td width="50%" class="message_structure">
+                        <div id="get_response"></div>
+                    </td>
+                </tr>
+            </table>
         {% else %}
-            <div>Not Supported</div>
+            <div class="panel-body">Not Supported</div>
         {% endif %}
-    </fieldset>
+    </div>
 
-    <fieldset>
-        <legend>Set Command</legend>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Set Command</div>
         {% if set_command %}
-            <div>
-                Sub Device Range:
-                <span>{{ set_command.subdevice_range }}</span>
-                <table width="100%" class="message_table">
-                    <tr>
-                        <th>Set Request</th>
-                        <th>Set Response</th>
-                    </tr>
-                    <tr>
-                        <td width="50%" class="message_structure">
-                            <div id="set_request"></div>
-                        </td>
-                        <td width="50%" class="message_structure">
-                            <div id="set_response"></div>
-                        </td>
-                    </tr>
-                </table>
+            <div class="panel-body">
+                Sub Device Range: <span>{{ set_command.subdevice_range }}</span>
             </div>
+            <table width="100%" class="table message_table">
+                <tr>
+                    <th>Set Request</th>
+                    <th>Set Response</th>
+                </tr>
+                <tr>
+                    <td width="50%" class="message_structure">
+                        <div id="set_request"></div>
+                    </td>
+                    <td width="50%" class="message_structure">
+                        <div id="set_response"></div>
+                    </td>
+                </tr>
+            </table>
         {% else %}
-            <div>Not Supported</div>
+            <div class="panel-body">Not Supported</div>
         {% endif %}
-    </fieldset>
+    </div>
 
     {% if notes %}
         <fieldset>
@@ -139,15 +140,16 @@
 
 
     {% if supported_by %}
-        <fieldset>
-            <legend>Supported By</legend>
-            <ul>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Supported By</div>
+            <ul class="list-group">
                 {% for responder in supported_by %}
-                    <li>
+                    <li class="list-group-item">
                         <a href="/model/display?manufacturer={{ responder.manufacturer }}&model={{ responder.model }}">{{ responder.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
-        </fieldset>
+        </div>
     {% endif %}
 {% endblock %}

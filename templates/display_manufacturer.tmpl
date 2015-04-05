@@ -5,7 +5,7 @@
 {% block content %}
     <div style="float: right;">
         {% if image_serving_url %}
-            <img id="model_image" src="{{ image_serving_url }}=s200"></img>
+            <img id="model_image" src="{{ image_serving_url }}=s200">
         {% endif %}
     </div>
     <div id="manufacturer_info">
@@ -16,59 +16,87 @@
         {% endif %}
 
         {% if devices %}
-            Devices
-            <ul>
-                {% for device in devices %}
-                    <li>
-                        <a href="/model/display?manufacturer={{ id }}&model={{ device.device_model_id }}">{{ device.model_description }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Devices</div>
+                <ul class="list-group">
+                    {% for device in devices %}
+                        <li class="list-group-item">
+                            <a href="/model/display?manufacturer={{ id }}&model={{ device.device_model_id }}">{{ device.model_description }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         {% if splitter %}
-            Splitters
-            <ul>
-                {% for product in splitter %}
-                    <li><a href="/splitter/display?key={{ product.key }}">{{ product.name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Splitters</div>
+                <ul class="list-group">
+                    {% for product in splitter %}
+                        <li class="list-group-item">
+                            <a href="/splitter/display?key={{ product.key }}">{{ product.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         {% if software %}
-            Software
-            <ul>
-                {% for product in software %}
-                    <li><a href="/software/display?key={{ product.key }}">{{ product.name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Software</div>
+                <ul class="list-group">
+                    {% for product in software %}
+                        <li class="list-group-item">
+                            <a href="/software/display?key={{ product.key }}">{{ product.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         {% if node %}
-            Ethernet Nodes
-            <ul>
-                {% for product in node %}
-                    <li><a href="/node/display?key={{ product.key }}">{{ product.name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Ethernet Nodes</div>
+                <ul class="list-group">
+                    {% for product in node %}
+                        <li class="list-group-item">
+                            <a href="/node/display?key={{ product.key }}">{{ product.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         {% if controller %}
-            Controllers
-            <ul>
-                {% for product in controller %}
-                    <li><a href="/controller/display?key={{ product.key }}">{{ product.name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Controllers</div>
+                <ul class="list-group">
+                    {% for product in controller %}
+                        <li class="list-group-item">
+                            <a href="/controller/display?key={{ product.key }}">{{ product.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         {% if pids %}
-            PIDs
-            <ul>
-                {% for pid in pids %}
-                    <li><a href="/pid/display?manufacturer={{ id }}&pid={{ pid.pid_id }}">{{ pid.name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">PIDs</div>
+                <ul class="list-group">
+                    {% for pid in pids %}
+                        <li class="list-group-item">
+                            <a href="/pid/display?manufacturer={{ id }}&pid={{ pid.pid_id }}">{{ pid.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

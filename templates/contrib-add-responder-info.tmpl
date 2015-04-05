@@ -24,13 +24,13 @@
                         <td>{{ responder.model }}</td>
                         <td>
                             {% if not responder.url %}
-                                <input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_url"></td>
+                                <input class="form-control" type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_url"></td>
                             {% else %}
                                 &nbsp;
                             {% endif %}
                         <td>
                             {% if not responder.image %}
-                                <input type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_image"></td>
+                                <input class="form-control" type="text" name="{{ responder.manufacturer_id }}_{{ responder.id }}_image"></td>
                             {% else %}
                                 &nbsp;
                             {% endif %}
@@ -39,7 +39,7 @@
             </table>
 
             <div class="button-container">
-                <input type="submit" name="update" value="Save Changes">
+                <input type="submit" name="update" value="Save Changes" class="btn btn-default">
             </div>
         </form>
     {% else %}

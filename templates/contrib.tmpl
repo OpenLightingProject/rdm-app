@@ -1,11 +1,14 @@
 {% extends "base.tmpl" %}
 
 {% block content %}
-    <a href="{{ logout_url }}">Logout</a> <br/>
-    <br/>
+    <div style="padding-left: 15px; padding-bottom: 15px">
+        <a class="btn btn-default" href="{{ logout_url }}">Logout</a>
+    </div>
 
-    <h4>Actions</h4>
-    <ul>
-        <li><a href="/contrib/add_responder_info">Add Responder Images &amp; URLs</a></li>
-    </ul>
+    <div class="col-md-3 col-sm-4 col-xs-6 admin-tile">
+        <h4>Actions</h4>
+        <div class="btn-group-vertical" role="group">
+            <a class="btn btn-default" href="/contrib/add_responder_info">Add Responder Images &amp; URLs</a>
+        </div>
+    </div>
 {% endblock %}

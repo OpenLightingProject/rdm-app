@@ -101,14 +101,14 @@
             {% endif %}
 
             <div class="button-container">
-                <button id='all-left'>Select All Left</button>
-                <button id='all-right'>Select All Right</button>
+                <button class="btn btn-default" id='all-left'>Select All Left</button>
+                <button class="btn btn-default" id='all-right'>Select All Right</button>
             </div>
             <input type="hidden" name="fields" id="fields">
             <input type="hidden" name="key" value="{{ key }}">
 
             <div class="button-container">
-                <button id='save-button'>Update</button>
+                <button class="btn btn-default" id='save-button'>Update</button>
             </div>
         </form>
 
@@ -152,11 +152,6 @@
         {% endif %}
     {% endif %}
 {% endblock %}
-
-
-{#{% block jquery %}#}
-{#    <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>#}
-{#{% endblock %} {# Lengancy support #}
 
 {% block extra_headers %}
     <script>

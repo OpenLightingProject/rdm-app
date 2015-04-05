@@ -4,29 +4,37 @@
 
 {% block content %}
 
-    <div class="browse_nav">
-        <div style="float: left; text-align: left">
-            {% if previous %}
-                <a href="/model/browse?page={{ previous }}">Previous Page</a>
-            {% else %}
-                &nbsp;
-            {% endif %}
-        </div>
-        Displaying {{ start }} to {{ end }} of {{ total }}
-        <div style="float: right; text-align: right">
-            {% if next %}
-                <a href="/model/browse?page={{ next }}">Next Page</a>
-            {% else %}
-                &nbsp;
-            {% endif %}
-        </div>
-    </div>
+    {% if previous or next %}
+        <nav>
+            <ul class="pager">
+                {% if previous %}
+                    <li>
+                        <a href="/model/browse?page={{ previous }}">
+                            <span aria-hidden="true">&larr;</span> Previous Page
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="previous disabled">
+                        <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                    </li>
+                {% endif %}
+                <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+                {% if next %}
+                    <li class="next"><a href="/model/browse?page={{ next }}">Next Page <span
+                            aria-hidden="true">&rarr;</span></a></li>
+                {% else %}
+                    <li class="next disabled">
+                        <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 
-    <table class="browse_table">
+    <div>
         {% for row in model_rows %}
-            <tr>
                 {% for model in row %}
-                    <td>
+                    <div class="col-md-3 col-s                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  m-4 col-xs-6">
                         <a href="/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}">
                             {% if model.image_key %}
                                 <img src="{{ model.image_key }}=s100"><br>
@@ -38,33 +46,43 @@
                         {% if model.star_width %}
                             <span id="rating_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}"
                                   class="rdm_rating" style="width: {{ model.star_width }}px">
-         </span>
+                            </span>
                         {% endif %}
-                    </td>
+                    </div>
                 {% endfor %}
-            </tr>
         {% endfor %}
-    </table>
-
-    <div class="browse_nav">
-        <div style="float: left; text-align: left">
-            {% if previous %}
-                <a href="/model/browse?page={{ previous }}">Previous Page</a>
-            {% else %}
-                &nbsp;
-            {% endif %}
-        </div>
-
-        Displaying {{ start }} to {{ end }} of {{ total }}
-
-        <div style="float: right; text-align: right">
-            {% if next %}
-                <a href="/model/browse?page={{ next }}">Next Page</a>
-            {% else %}
-                &nbsp;
-            {% endif %}
-        </div>
     </div>
+
+    {% if previous or next %}
+        <nav>
+            <ul class="pager">
+                {% if previous %}
+                    <li>
+                        <a href="/model/browse?page={{ previous }}">
+                            <span aria-hidden="true">&larr;</span> Previous Page
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="previous disabled">
+                        <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                    </li>
+                {% endif %}
+                <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+                {% if next %}
+                    <li class="next">
+                        <a href="/model/browse?page={{ next }}">
+                            Next Page <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="next disabled">
+                        <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+
 {% endblock %}
 
 {% block extra_headers %}

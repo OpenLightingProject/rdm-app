@@ -5,43 +5,51 @@
 {% block content %}
     <div id="fb-root"></div>
 
-    <div style="float: right;">
-        {% if image_key %}
-            <img id="model_image" src="{{ image_key }}=s200">
-        {% endif %}
-    </div>
-    <table id="model_info_table">
-        <tr>
-            <td>Manufacturer</td>
-            <td><a href="/manufacturer/display?manufacturer={{ manufacturer_id }}">{{ manufacturer }}</a></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>{{ name }}</td>
-        </tr>
-        {% if link %}
-            <tr id="model_link_row">
-                <td>Link</td>
-                <td><a href="{{ link }}">{{ link }}</a></td>
-            </tr>
-        {% endif %}
-        {% if tags %}
-            <tr id="model_tags_row">
-                <td>Tags</td>
-                <td>
-                    {% for tag in tags %}
-                        <div class="model_tag">{{ tag }}</div>
-                    {% endfor %}
-                </td>
-            </tr>
-        {% endif %}
-    </table>
-    <div style="clear: both; padding: 15px">
-        <div style="display: inline-flex!important;" class="fb-like" data-send="false" data-layout="button_count"
-             data-width="100" data-show-faces="false"
-             data-action="recommend"></div>
-        <g:plusone size="medium"></g:plusone>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+    <div class="row">
+        <div class="col-md-6 col-md-push-6 model_image_div" >
+            {% if image_key %}
+                <img id="model_image" src="{{ image_key }}=s200">
+            {% endif %}
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+            <table class="table" id="model_info_table">
+                <tr>
+                    <td>Manufacturer</td>
+                    <td><a href="/manufacturer/display?manufacturer={{ manufacturer_id }}">{{ manufacturer }}</a></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ name }}</td>
+                </tr>
+                {% if link %}
+                    <tr id="model_link_row">
+                        <td>Link</td>
+                        <td><a href="{{ link }}">{{ link }}</a></td>
+                    </tr>
+                {% endif %}
+                {% if tags %}
+                    <tr id="model_tags_row">
+                        <td>Tags</td>
+                        <td>
+                            {% for tag in tags %}
+                                <div class="model_tag">{{ tag }}</div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td colspan="2">
+                        <div style="display: inline-flex!important;" class="fb-like" data-send="false"
+                             data-layout="button_count"
+                             data-width="100" data-show-faces="false"
+                             data-action="recommend"></div>
+                        <g:plusone size="medium"></g:plusone>
+                        <a href="https://twitter.com/share" class="twitter-share-button"
+                           data-count="horizontal">Tweet</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 {% endblock %}
 

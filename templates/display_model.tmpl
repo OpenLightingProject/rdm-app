@@ -5,67 +5,75 @@
 {% block content %}
     <div id="fb-root"></div>
 
-    <div style="float: right;">
+    <div class="row">
+    <div class="col-md-6 model_image_div col-md-push-6">
         {% if image_key %}
-            <img id="model_image" src="{{ image_key }}=s200"></img>
+            <img id="model_image" src="{{ image_key }}=s200">
         {% endif %}
     </div>
-    <table id="model_info_table">
-        <tr>
-            <td>Manufacturer</td>
-            <td><a href="/manufacturer/display?manufacturer={{ manufacturer_id }}">{{ manufacturer }}</a></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>{{ description }}</td>
-        </tr>
-        <tr>
-            <td>Model Id</td>
-            <td>{{ model_id }} ( 0x{{ model_id|stringformat:"04x" }} )</td>
-        </tr>
-        {% if product_category %}
+    <div class="col-md-6 col-md-pull-6">
+        <table class="table" id="model_info_table">
             <tr>
-                <td>Product Category</td>
-                <td><a href="/model/category?category={{ product_category_id }}">{{ product_category }}</a></td>
+                <td>Manufacturer</td>
+                <td><a href="/manufacturer/display?manufacturer={{ manufacturer_id }}">{{ manufacturer }}</a></td>
             </tr>
-        {% endif %}
-        {% if link %}
-            <tr id="model_link_row">
-                <td>Link</td>
-                <td><a href="{{ link }}">{{ link }}</a></td>
+            <tr>
+                <td>Name</td>
+                <td>{{ description }}</td>
             </tr>
-        {% endif %}
-        {% if tags %}
-            <tr id="model_tags_row">
-                <td>Tags</td>
-                <td>
-                    {% for tag in tags %}
-                        <div class="model_tag">{{ tag }}</div>
-                    {% endfor %}
+            <tr>
+                <td>Model Id</td>
+                <td>{{ model_id }} ( 0x{{ model_id|stringformat:"04x" }} )</td>
+            </tr>
+            {% if product_category %}
+                <tr>
+                    <td>Product Category</td>
+                    <td><a href="/model/category?category={{ product_category_id }}">{{ product_category }}</a></td>
+                </tr>
+            {% endif %}
+            {% if link %}
+                <tr id="model_link_row">
+                    <td>Link</td>
+                    <td><a href="{{ link }}">{{ link }}</a></td>
+                </tr>
+            {% endif %}
+            {% if tags %}
+                <tr id="model_tags_row">
+                    <td>Tags</td>
+                    <td>
+                        {% for tag in tags %}
+                            <div class="model_tag">{{ tag }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td colspan="2">
+                        <div style="display: inline-flex!important;" class="fb-like" data-send="false"
+                             data-layout="button_count"
+                             data-width="100" data-show-faces="false"
+                             data-action="recommend"></div>
+                        <a href="https://twitter.com/share" class="twitter-share-button"
+                           data-count="horizontal">Tweet</a>
+                        <g:plusone size="medium"></g:plusone>
                 </td>
             </tr>
-        {% endif %}
-    </table>
-    <div style="clear: both; padding: 15px">
-        <div style="display: inline-flex!important;" class="fb-like" data-send="false" data-layout="button_count"
-             data-width="100" data-show-faces="false"
-             data-action="recommend"></div>
-        <g:plusone size="medium"></g:plusone>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+        </table>
+    </div>
     </div>
     {% if software_versions %}
         <fieldset id="software_fieldset">
             <legend>Software Version:
                 <select class="form-control" name="software_select" id="software_select"
-                        onChange="app.changeSoftwareVersion(this)">
+                        onChange="app.changeSoftwareVersion(this); dirty_fix()">
                     {% for version in software_versions %}
                         <option>{{ version.label }} ({{ version.version_id }})</option>
                     {% endfor %}
                 </select>
             </legend>
 
-            <fieldset id="model_personality_fieldset">
-                <legend>DMX Personalities</legend>
+            <div  class="panel panel-default" id="model_personality_fieldset">
+                <div class="panel-heading">DMX Personalities</div>
                 <table class="table">
                     <tr>
                         <th>Index</th>
@@ -74,10 +82,10 @@
                     </tr>
                     <tbody id="model_personality_tbody"></tbody>
                 </table>
-            </fieldset>
+            </div>
 
-            <fieldset id="model_sensor_fieldset">
-                <legend>Sensor Information</legend>
+            <div class="panel panel-default" id="model_sensor_fieldset">
+                <div class="panel-heading">Sensor Information</div>
                 <table class="table">
                     <tr>
                         <th>Sensor Number</th>
@@ -88,12 +96,12 @@
                     </tr>
                     <tbody id="model_sensor_tbody"></tbody>
                 </table>
-            </fieldset>
+            </div>
 
-            <fieldset id="model_params_fieldset">
-                <legend>Supported Parameters</legend>
-                <ul id="model_params_list"></ul>
-            </fieldset>
+            <div class="panel panel-default" id="model_params_fieldset">
+                <div class="panel-heading">Supported Parameters</div>
+                <ul class="list-group" id="model_params_list"></ul>
+            </div>
         </fieldset>
     {% endif %}
 {% endblock %}
@@ -126,5 +134,9 @@
     <script type="text/javascript">
         app.setSoftwareVersions({{ software_versions_json|safe }});
         app.setLatestVersion(document.getElementById('software_select'));
+        function dirty_fix(){
+            jQuery('#model_params_list').children().each(function(item){jQuery(this).addClass('list-group-item')});
+        }
+        dirty_fix()
     </script>
 {% endblock %}

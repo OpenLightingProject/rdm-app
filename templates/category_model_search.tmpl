@@ -3,17 +3,21 @@
 {% block title %}Search Models by Product Category{% endblock %}
 
 {% block search_widget %}
-    <form action="/model/category" method="get">
-        Product Category:
-        <select name="category">
-            {% for category in categories %}
-                <option
-                        value="{{ category.id }}"
-                        {% if category.id == current_id %} selected {% endif %}>
-                    {{ category.name }} ({{ category.responder_count }})
-                </option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Search">
+    <form class="form-inline" action="/model/category" method="get">
+        <div class="form-group">
+            <label for="category-search">
+                Product Category:
+            </label>
+            <select name="category" id="category-search" class="form-control">
+                {% for category in categories %}
+                    <option
+                            value="{{ category.id }}"
+                            {% if category.id == current_id %} selected {% endif %}>
+                        {{ category.name }} ({{ category.responder_count }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <input class="btn btn-default" type="submit" value="Search">
     </form>
 {% endblock %}

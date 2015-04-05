@@ -4,14 +4,12 @@
 
 {% block search_widget %}
     <form class="form-inline" action="/pid/id" method="get">
-        <div class="input-group">
-            <span class="input-group-addon" id="text-search">
+        <div class="form-group">
+            <label for="text-search">
                 PID ID:
-            </span>
-            <input class="form-control" type="text" name="id" aria-describedby="text-search">
-            <span class="input-group-btn">
-                <input class="btn btn-default" type="submit" value="Search">
-            </span>
+            </label>
+            <input class="form-control" type="text" name="id" id="text-search">
         </div>
+        <input class="btn btn-default" type="submit" value="Search">
     </form>
 {% endblock %}
