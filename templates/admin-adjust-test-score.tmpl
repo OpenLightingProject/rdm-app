@@ -1,40 +1,41 @@
 {% extends "base.tmpl" %}
+
 {% block content %}
-    <a href="{{ logout_url }}">Logout</a> <br/>
-    <br/>
+    <div style="padding-left: 15px; padding-bottom: 15px">
+        <a class="btn btn-default" href="{{ logout_url }}">Logout</a>
+    </div>
 
 
     {% if message %}
-        <div>
+        <div id="output" class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             {{ message }}
         </div>
     {% endif %}
 
 
     <form method="get" action="/admin/adjust_test_score">
-        <table>
-            <tr>
-                <td>Manufacturer ID:</td>
-                <td>
-                    <input type="text" name="manufacturer">
-                </td>
-            </tr>
-            <tr>
-                <td>Device ID:</td>
-                <td>
-                    <input type="text" name="model">
-                </td>
-            </tr>
-            <tr>
-                <td>New Rating:</td>
-                <td>
-                    <input type="text" name="rating">
-                </td>
-            </tr>
-        </table>
-
-        <div class="button-container">
-            <button id='save-button'>Update</button>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Manufacturer ID:</div>
+                <input class="form-control" type="text" name="manufacturer">
+            </div>
         </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Device ID:</div>
+                <input class="form-control" type="text" name="model">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">New Rating:</div>
+                <input class="form-control" type="text" name="rating">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-default" id='save-button'>Update</button>
     </form>
 {% endblock %}
