@@ -5,23 +5,19 @@
 {% block search_widget %}
     <form class="form-inline" action="/model/manufacturer" method="get">
         <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon" id="text-search-model">
-                    Manufacturer:
-                </span>
-                <select aria-describedby="text-search-model" class="form-control" name="manufacturer">
-                    {% for manufacturer in manufacturers %}
-                        <option
-                                value="{{ manufacturer.id }}"
-                                {% if manufacturer.id == current_id %} selected {% endif %}>
-                            {{ manufacturer.name }} ({{ manufacturer.responder_count }})
-                        </option>
-                    {% endfor %}
-                </select>
-                <span class="input-group-btn">
-                    <input class="btn btn-default" type="submit" value="Search">
-                </span>
-            </div>
+            <label for="text-search-model">
+                Manufacturer:
+            </label>
+            <select id="text-search-model" class="form-control" name="manufacturer">
+                {% for manufacturer in manufacturers %}
+                    <option
+                            value="{{ manufacturer.id }}"
+                            {% if manufacturer.id == current_id %} selected {% endif %}>
+                        {{ manufacturer.name }} ({{ manufacturer.responder_count }})
+                    </option>
+                {% endfor %}
+            </select>
         </div>
+        <input class="btn btn-default" type="submit" value="Search">
     </form>
 {% endblock %}
