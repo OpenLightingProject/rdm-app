@@ -5,23 +5,18 @@
 {% block search_widget %}
     <form class="form-inline" action="/model/tag" method="get">
         <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon" id="tag-search">
-                    Tag:
-                </span>
-                <select class="form-control" aria-describedby="tag-search" name="tag">
-                    {% for tag in tags %}
-                        <option
-                                value="{{ tag.label }}"
-                                {% if tag.label == current_tag %} selected {% endif %}>
-                            {{ tag.label }} ({{ tag.responder_count }})
-                        </option>
-                    {% endfor %}
-                </select>
-                <span class="input-group-btn">
-                    <input class="btn btn-default" type="submit" value="Search">
-                </span>
-            </div>
+            <label for="tag-search">
+                Tag:
+            </label>
+            <select class="form-control" id="tag-search" name="tag">
+                {% for tag in tags %}
+                    <option value="{{ tag.label }}"
+                            {% if tag.label == current_tag %} selected {% endif %}>
+                        {{ tag.label }} ({{ tag.responder_count }})
+                    </option>
+                {% endfor %}
+            </select>
         </div>
+        <input class="btn btn-default" type="submit" value="Search">
     </form>
 {% endblock %}

@@ -5,23 +5,18 @@
 {% block search_widget %}
     <form class="form-inline" action="/pid/manufacturer" method="get">
         <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon" id="text-search-pid">
-                    Manufacturer:
-                </span>
-                <select aria-describedby="text-search-pid" class="form-control" name="manufacturer">
-                    {% for manufacturer in manufacturers %}
-                        <option
-                                value="{{ manufacturer.id }}"
-                                {% if manufacturer.id == current_id %} selected {% endif %}>
-                            {{ manufacturer.name }} ({{ manufacturer.pid_count }})
-                        </option>
-                    {% endfor %}
-                </select>
-                <span class="input-group-btn">
-                    <input class="btn btn-default" type="submit" value="Search">
-                </span>
-            </div>
+            <label for="text-search-pid">
+                Manufacturer:
+            </label>
+            <select id="text-search-pid" class="form-control" name="manufacturer">
+                {% for manufacturer in manufacturers %}
+                    <option value="{{ manufacturer.id }}"
+                            {% if manufacturer.id == current_id %} selected {% endif %}>
+                        {{ manufacturer.name }} ({{ manufacturer.pid_count }})
+                    </option>
+                {% endfor %}
+            </select>
         </div>
+        <input class="btn btn-default" type="submit" value="Search">
     </form>
 {% endblock %}
