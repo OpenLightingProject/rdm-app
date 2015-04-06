@@ -304,4 +304,39 @@ th.goog-tablesorter-sorted-reverse .sorter_icon:after {
 
 .model_div {
     text-align: center;
+    height: 150px;
+    display: inline-block;
+    border: solid grey 1px;
+    padding: 10px;
+    width: 180px;
+    vertical-align: middle;
+}
+
+.model_panel {
+    display: inline-block;
+    vertical-align: middle;
+    /* text-align: -webkit-center; */
+    /* text-align: center; */
+    width: 170px;
+    cursor: pointer;
+}
+
+.models {
+    text-align: center;
+}
+
+.model_panel .panel-body {
+  height: 130px;
+}
+
+.search_products .form-inline {
+    padding-bottom: 5px;
+}
+
+.model_panel .panel-heading {
+  height: 60px;
+}
+
+.results_row {
+    cursor: pointer;
 }

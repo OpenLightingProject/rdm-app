@@ -3,108 +3,98 @@
 {% block title %}Browse {{ product_type|capfirst }}s, Page {{ page_number }}{% endblock %}
 
 {% block content %}
-    <div class="search_options">
-        <form action="/{{ product_type }}/browse" method="get">
-            Search by Manufacturer
-            <select id="manufacturer_select" name="manufacturer"></select>
-            <input type="submit" value="Search">
+    <div class="search_products">
+        <form class="form-inline" action="/{{ product_type }}/browse" method="get">
+            <div class="form-group">
+                <label for="manufacturer_select">Search by Manufacturer:</label>
+                <select class="form-control" id="manufacturer_select" name="manufacturer"></select>
+            </div>
+            <input class="btn btn-default" type="submit" value="Search">
         </form>
-        <form action="/{{ product_type }}/browse" method="get">
-            Search by Tag
-            <select id="tag_select" name="tag"></select>
-            <input type="submit" value="Search">
+        <form class="form-inline" action="/{{ product_type }}/browse" method="get">
+            <div class="form-group">
+                <label for="tag_select">Search by Tag:</label>
+                <select class="form-control" id="tag_select" name="tag"></select>
+            </div>
+            <input class="btn btn-default" type="submit" value="Search">
         </form>
     </div>
 
-    <div class="browse_nav">
-        <div style="float: left; text-align: left">
+    <nav>
+        <ul class="pager">
             {% if previous %}
-                <a href="/{{ product_type }}/browse?page=
-                        
-
-
-
-
-
-                        {{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Previous
-                    Page</a>
+                <li class="previous">
+                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        <span aria-hidden="true">&larr;</span> Previous Page
+                    </a>
+                </li>
             {% else %}
-                &nbsp;
+                <li class="previous disabled">
+                    <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                </li>
             {% endif %}
-        </div>
-
-        Displaying {{ start }} to {{ end }} of {{ total }}
-
-        <div style="float: right; text-align: right">
+            <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
             {% if next %}
-                <a href="/{{ product_type }}/browse?page=
-
-
-
-
-
-
-                        {{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Next
-                    Page</a>
+                <li class="next">
+                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        Next Page <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
             {% else %}
-                &nbsp;
+                <li class="next disabled">
+                    <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                </li>
             {% endif %}
-        </div>
-    </div>
+        </ul>
+    </nav>
 
-    <table class="browse_table">
+    <div class="models">
         {% for row in product_rows %}
-            <tr>
                 {% for product in row %}
-                    <td>
-                        <a href="/{{ product_type }}/display?key={{ product.key }}">
+                    <div class="panel panel-default model_panel"
+                         onclick="location.href=''/{{ product_type }}/display?key={{ product.key }}'">
+                        <div class="panel-heading">
+                            {{ product.name }}
+                        </div>
+                        <div class="panel-body">
                             {% if product.image_key %}
-                                <img src="{{ product.image_key }}=s100"></img><br>
+                                <img src="{{ product.image_key }}=s100"><br>
                             {% else %}
                                 <div class="missing_image">No Image Available</div>
                             {% endif %}
-                            {{ product.name }}</a>
-                    </td>
+                        </div>
+                    </div>
                 {% endfor %}
-            </tr>
         {% endfor %}
-    </table>
-
-    <div class="browse_nav">
-        <div style="float: left; text-align: left">
-            {% if previous %}
-                <a href="/{{ product_type }}/browse?page=
-
-
-
-
-
-
-                        {{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Previous
-                    Page</a>
-            {% else %}
-                &nbsp;
-            {% endif %}
-        </div>
-
-        Displaying {{ start }} to {{ end }} of {{ total }}
-
-        <div style="float: right; text-align: right">
-            {% if next %}
-                <a href="/{{ product_type }}/browse?page=
-
-
-
-
-
-
-                        {{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Next
-                    Page</a>
-            {% else %}
-                &nbsp;
-            {% endif %}
-        </div>
     </div>
+
+    <nav>
+        <ul class="pager">
+            {% if previous %}
+                <li class="previous">
+                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        <span aria-hidden="true">&larr;</span> Previous Page
+                    </a>
+                </li>
+            {% else %}
+                <li class="previous disabled">
+                    <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                </li>
+            {% endif %}
+            <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+            {% if next %}
+                <li class="next">
+                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        Next Page <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="next disabled">
+                    <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}
 
 {% block extra_headers %}

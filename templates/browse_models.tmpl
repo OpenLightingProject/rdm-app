@@ -4,84 +4,84 @@
 
 {% block content %}
 
-    {% if previous or next %}
-        <nav>
-            <ul class="pager">
-                {% if previous %}
-                    <li>
-                        <a href="/model/browse?page={{ previous }}">
-                            <span aria-hidden="true">&larr;</span> Previous Page
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="previous disabled">
-                        <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
-                    </li>
-                {% endif %}
-                <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
-                {% if next %}
-                    <li class="next"><a href="/model/browse?page={{ next }}">Next Page <span
-                            aria-hidden="true">&rarr;</span></a></li>
-                {% else %}
-                    <li class="next disabled">
-                        <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
-                    </li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
+    <nav>
+        <ul class="pager">
+            {% if previous %}
+                <li class="previous">
+                    <a href="/model/browse?page={{ previous }}">
+                        <span aria-hidden="true">&larr;</span> Previous Page
+                    </a>
+                </li>
+            {% else %}
+                <li class="previous disabled">
+                    <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                </li>
+            {% endif %}
+            <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+            {% if next %}
+                <li class="next"><a href="/model/browse?page={{ next }}">Next Page <span
+                        aria-hidden="true">&rarr;</span></a></li>
+            {% else %}
+                <li class="next disabled">
+                    <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 
-    <div>
+    <div class="models">
         {% for row in model_rows %}
-                {% for model in row %}
-                    <div class="col-md-3 col-sm-4 col-xs-6 model_div">
-                        <a href="/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}">
-                            {% if model.image_key %}
-                                <img src="{{ model.image_key }}=s100"><br>
-                            {% else %}
-                                <div class="missing_image">No Image Available</div>
-                            {% endif %}
-                            {{ model.name }}
-                        </a>
-                        {% if model.star_width %}
+            {% for model in row %}
+                <div class="panel panel-default model_panel"
+                     onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
+                    <div class="panel-heading">
+                        {{ model.name }}
+                    </div>
+                    <div class="panel-body">
+                        {% if model.image_key %}
+                            <img src="{{ model.image_key }}=s100">
+                        {% else %}
+                            <div class="missing_image">No Image Available</div>
+                        {% endif %}
+                    </div>
+                    {% if model.star_width %}
+                        <div class="panel-footer">
                             <span id="rating_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}"
                                   class="rdm_rating" style="width: {{ model.star_width }}px">
                             </span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
         {% endfor %}
     </div>
-
-    {% if previous or next %}
-        <nav>
-            <ul class="pager">
-                {% if previous %}
-                    <li>
-                        <a href="/model/browse?page={{ previous }}">
-                            <span aria-hidden="true">&larr;</span> Previous Page
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="previous disabled">
-                        <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
-                    </li>
-                {% endif %}
-                <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
-                {% if next %}
-                    <li class="next">
-                        <a href="/model/browse?page={{ next }}">
-                            Next Page <span aria-hidden="true">&rarr;</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="next disabled">
-                        <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
-                    </li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
+    <nav>
+        <ul class="pager">
+            {% if previous %}
+                <li class="previous">
+                    <a href="/model/browse?page={{ previous }}">
+                        <span aria-hidden="true">&larr;</span> Previous Page
+                    </a>
+                </li>
+            {% else %}
+                <li class="previous disabled">
+                    <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                </li>
+            {% endif %}
+            <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+            {% if next %}
+                <li class="next">
+                    <a href="/model/browse?page={{ next }}">
+                        Next Page <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="next disabled">
+                    <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 
 {% endblock %}
 

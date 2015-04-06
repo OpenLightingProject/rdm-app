@@ -6,7 +6,7 @@
     <div class="search_div">
         {% block search_widget %}{% endblock %}
     </div>
-    <table id="pid_table" class="results_table">
+    <table id="pid_table" class="results_table table table-hover">
         <thead>
         <tr>
             <th>Manufacturer Name
@@ -38,12 +38,16 @@
                 <td>0x{{ pid.pid_id|stringformat:"04hx" }}</td>
                 <td>
                     {% if pid.get_command %}
-                        <img src="/images/tick.png">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     {% endif %}
                 </td>
                 <td>
-                    {% if pid.set_command %}
-                        <img src="/images/tick.png">
+                    {% if pid.get_command %}
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     {% endif %}
                 </td>
                 <td>{{ pid.name }}</td>
