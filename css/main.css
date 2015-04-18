@@ -197,6 +197,13 @@ th.goog-tablesorter-sorted-reverse .sorter_icon:after {
     width: 80%;
 }
 
+.message_field {
+  border: solid 1px blue;
+  border-radius: 4px;
+  padding: 1px;
+  margin: 2px;
+}
+
 #responder_diff {
     width: 100%;
     padding: 0px;
