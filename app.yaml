@@ -34,7 +34,7 @@ handlers:
   script: model_handler.model_application
 
 # page handlers
-- url: /(about|contact|disclaimer)
+- url: /(about|contact|disclaimer|tools)
   script: pages.app
 
 # model handlers
