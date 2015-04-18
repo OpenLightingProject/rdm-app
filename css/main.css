@@ -197,6 +197,16 @@ th.goog-tablesorter-sorted-reverse .sorter_icon:after {
     width: 80%;
 }
 
+.message_group {
+  padding: 1px;
+  border: solid 1px rgb(17, 249, 17);
+  border-radius: 4px;
+}
+
+div#get_response {
+  text-align: center;
+}
+
 .message_field {
   border: solid 1px blue;
   border-radius: 4px;
