@@ -8,7 +8,7 @@ angular.module('rdmApp', [])
 
         convertor.euid = '';
         convertor.error = '';
-        convertor.uid = '7a70:00000001';
+        convertor.uid = '';
 
         convertor.convertToEUID = function () {
             convertor.euid = '';
