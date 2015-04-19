@@ -63,7 +63,8 @@
     </div>
     {% if software_versions %}
         <fieldset id="software_fieldset">
-            <legend>Software Version:
+            <legend class="form-inline">
+                <label for="software_select">Software Version:</label>
                 <select class="form-control" name="software_select" id="software_select"
                         onChange="app.changeSoftwareVersion(this); dirty_fix()">
                     {% for version in software_versions %}
@@ -135,7 +136,8 @@
         app.setSoftwareVersions({{ software_versions_json|safe }});
         app.setLatestVersion(document.getElementById('software_select'));
         function dirty_fix(){
-            jQuery('#model_params_list').children().each(function(item){jQuery(this).addClass('list-group-item')});
+            jQuery('#model_params_list').children().each(function(){jQuery(this).addClass('list-group-item')});
+            jQuery('#model_sensor_tbody').find('td').each(function(){var a=jQuery(this);if(a.text() === 'true'){a.html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');}else if(a.text() === 'false'){a.html('')}});
         }
         dirty_fix()
     </script>
