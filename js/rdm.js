@@ -13,10 +13,15 @@ angular.module('rdmApp', [])
         convertor.convertToEUID = function () {
             convertor.euid = '';
             convertor.error = '';
-            var tokens = convertor.uid.split(':');
+
+            if (!uid.match(/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/)) {
+              convertor.error = 'Invalid UID';
+              return;
+            }
+            var tokens = uid.split(':');
             if (tokens.length != 2) {
-                convertor.error = 'Invalid UID';
-                return;
+              convertor.error = 'Invalid UID';
+              return;
             }
 
             var manufacturer_str = tokens[0];
@@ -95,6 +100,12 @@ angular.module('rdmApp', [])
                 if (isNaN(value)) {
                     convertor.error = 'Invalid EUID: ' + tokens[i];
                     return;
+                }
+                // parseInt may not use the entire string, so 0xfg comes back
+                // as 15.
+                if (value.toString(16) != tokens[i]) {
+                  convertor.error = 'Invalid EUID: ' + tokens[i];
+                  return;
                 }
                 data.push(value);
             }
