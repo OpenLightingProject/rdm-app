@@ -101,6 +101,12 @@ angular.module('rdmApp', [])
                     convertor.error = 'Invalid EUID: ' + tokens[i];
                     return;
                 }
+                // parseInt may not use the entire string, so 0xfg comes back
+                // as 15.
+                if (value.toString(16) != tokens[i]) {
+                  convertor.error = 'Invalid EUID: ' + tokens[i];
+                  return;
+                }
                 data.push(value);
             }
 
