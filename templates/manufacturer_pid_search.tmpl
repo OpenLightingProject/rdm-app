@@ -3,16 +3,20 @@
 {% block title %}Search PIDs by Manufacturer{% endblock %}
 
 {% block search_widget %}
-<form action="/pid/manufacturer" method="get">
-Manufacturer: 
-<select name="manufacturer">
-  {% for manufacturer in manufacturers %}
-  <option
-    value="{{ manufacturer.id }}"
-    {% if manufacturer.id == current_id %} selected {% endif %}>
-    {{ manufacturer.name }} ({{ manufacturer.pid_count }})</option>
-  {% endfor %}
-</select>
-<input type="submit" value="Search">
-</form>
+    <form class="form-inline" action="/pid/manufacturer" method="get">
+        <div class="form-group">
+            <label for="text-search-pid">
+                Manufacturer:
+            </label>
+            <select id="text-search-pid" class="form-control" name="manufacturer">
+                {% for manufacturer in manufacturers %}
+                    <option value="{{ manufacturer.id }}"
+                            {% if manufacturer.id == current_id %} selected {% endif %}>
+                        {{ manufacturer.name }} ({{ manufacturer.pid_count }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <input class="btn btn-default" type="submit" value="Search">
+    </form>
 {% endblock %}

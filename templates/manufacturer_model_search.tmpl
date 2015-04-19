@@ -3,16 +3,21 @@
 {% block title %}Search Device by Manufacturer{% endblock %}
 
 {% block search_widget %}
-<form action="/model/manufacturer" method="get">
-Manufacturer: 
-<select name="manufacturer">
-  {% for manufacturer in manufacturers %}
-  <option
-    value="{{ manufacturer.id }}"
-    {% if manufacturer.id == current_id %} selected {% endif %}>
-    {{ manufacturer.name }} ({{manufacturer.responder_count }})</option>
-  {% endfor %}
-</select>
-<input type="submit" value="Search">
-</form>
+    <form class="form-inline" action="/model/manufacturer" method="get">
+        <div class="form-group">
+            <label for="text-search-model">
+                Manufacturer:
+            </label>
+            <select id="text-search-model" class="form-control" name="manufacturer">
+                {% for manufacturer in manufacturers %}
+                    <option
+                            value="{{ manufacturer.id }}"
+                            {% if manufacturer.id == current_id %} selected {% endif %}>
+                        {{ manufacturer.name }} ({{ manufacturer.responder_count }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <input class="btn btn-default" type="submit" value="Search">
+    </form>
 {% endblock %}

@@ -1,269 +1,232 @@
-<html>
-<head>
-  <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
-  <style type='text/css'>
-    body {
-      font-family: sans-serif;
-      font-size: 13px;
-    }
+{% extends "base.tmpl" %}
 
-    table {
-      font-family: sans-serif;
-      font-size: 13px;
-    }
+{% block content %}
+    <div style="padding-left: 15px; padding-bottom: 15px">
+        <a class="btn btn-default" href="{{ logout_url }}">Logout</a>
+    </div>
 
-    #responder_diff {
-      width: 100%;
-      padding: 0px;
-      margin: 0px;
-      border-spacing: 0px;
-      border-collapse: collapse;
-    }
+    {% if manufacturer %}
 
-    #responder_diff td {
-      border: 1px solid #000000;
-      cursor: pointer;
-    }
+        {% for error in errors %}
+            <div class="error">
+                <img src="/images/warning.gif">
+                {{ error }} <br>
+            </div>
+        {% endfor %}
 
-    #responder_diff label {
-      display: block;
-      cursor: pointer;
-    }
-
-    .diff_select {
-      text-align: center;
-    }
-
-    .button-container {
-      padding-top: 10px;
-      text-align: center;
-    }
-
-    .error {
-      border: 1px solid #ff0000;
-      background-color: #ffcccc;
-      padding: 4px;
-    }
-
-    .selected { background-color: #cccccc; }
-    .left { background-color: #99ff99; }
-    .right { background-color: #ff9999; }
- </style>
-</head>
-<body>
-
-<a href="{{ logout_url }}">Logout</a> <br/>
-<br/>
-
-{% if manufacturer %}
-
-{% for error in errors %}
-<div class="error">
-<img src="/images/warning.gif">
-{{ error }} <br>
-</div>
-{% endfor %}
-
-<table>
- <tr>
-  <td>Manufacturer:</td>
-  <td>{{ manufacturer.name }}</td>
- </tr>
- <tr>
-  <td>Device Model ID:</td>
-  <td>
-    {{ device_id }} (0x{{ device_id|stringformat:"04x" }})  -
-    "{{ model_description }}"
-  </td>
- </tr>
- {% if contact %}
- <tr>
-  <td>Added by</td>
-  <td>{{ contact }}</td>
- </tr>
- {% endif %}
-</table>
+        <table class="table">
+            <tr>
+                <td>Manufacturer:</td>
+                <td>{{ manufacturer.name }}</td>
+            </tr>
+            <tr>
+                <td>Device Model ID:</td>
+                <td>
+                    {{ device_id }} (0x{{ device_id|stringformat:"04x" }}) -
+                    "{{ model_description }}"
+                </td>
+            </tr>
+            {% if contact %}
+                <tr>
+                    <td>Added by</td>
+                    <td>{{ contact }}</td>
+                </tr>
+            {% endif %}
+        </table>
 
 
-<form id="moderator_form" action="/admin/moderate_responder_data" method="post">
-{% if changed_fields %}
-<table id="responder_diff">
- <tr>
-  <th width="40%">Uploaded Data</th>
-  <th>&nbsp;</th>
-  <th width="40%">Existing Data</th>
- </tr>
- {% for field in changed_fields %}
-   <tr>
-    <td id="{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
-      <label for="{{ field.key }}_left_b">{{ field.left|default_if_none:""|safe }}</label>
-    </td>
-    <td class="diff_select">
-     <input type="radio" name="{{ field.key }}" id="{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
-     {{ field.name }}
-     <input type="radio" name="{{ field.key }}" id="{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
-    </td>
-    <td id="{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
-      <label for="{{ field.key }}_right_b">{{ field.right|default_if_none:""|safe }}&nbsp;</label>
-      </td>
-   </tr>
- {% endfor %}
-</table>
-<br/>
-{% endif %}
+        <form id="moderator_form" action="/admin/moderate_responder_data" method="post">
+            {% if changed_fields %}
+                <table class="table" id="responder_diff">
+                    <tr>
+                        <th width="40%">Uploaded Data</th>
+                        <th>&nbsp;</th>
+                        <th width="40%">Existing Data</th>
+                    </tr>
+                    {% for field in changed_fields %}
+                        <tr>
+                            <td id="{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
+                                <label for="{{ field.key }}_left_b">{{ field.left|default_if_none:""|safe }}</label>
+                            </td>
+                            <td class="diff_select">
+                                <input type="radio" name="{{ field.key }}" id="{{ field.key }}_left_b" value="left"
+                                       {% if field.prefer_left %}checked{% endif %}>
+                                {{ field.name }}
+                                <input type="radio" name="{{ field.key }}" id="{{ field.key }}_right_b" value="right"
+                                       {% if field.prefer_right %}checked{% endif %}>
+                            </td>
+                            <td id="{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
+                                <label for="{{ field.key }}_right_b">
+                                    {{ field.right|default_if_none:""|safe }}&nbsp;</label>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br/>
+            {% endif %}
 
-{% if versions %}
-{% for version in versions %}
-<table id="responder_diff">
- <tr>
-  <th width="40%">Uploaded Data</th>
-  <th>Version 0x{{ version.version|stringformat:"08x" }}</th>
-  <th width="40%">Existing Data</th>
- </tr>
- {% for field in version.fields %}
-   <tr>
-    <td id="{{ version.version }}_{{ field.key }}_left" {% if field.prefer_left %}class="selected"{% endif %}>
-      <label for="{{ version.version }}_{{ field.key }}_left_b">{{ field.left|default_if_none:""|safe }}</label>
-    </td>
-    <td class="diff_select">
-     <input type="radio" name="{{ version.version }}_{{ field.key }}" id="{{ version.version }}_{{ field.key }}_left_b" value="left" {% if field.prefer_left %}checked{% endif %}>
-     {{ field.name }}
-     <input type="radio" name="{{ version.version }}_{{ field.key }}" id="{{ version.version }}_{{ field.key }}_right_b" value="right" {% if field.prefer_right %}checked{% endif %}>
-    </td>
-    <td id="{{ version.version }}_{{ field.key }}_right" {% if field.prefer_right %}class="selected"{% endif %}>
-      <label for="{{ version.version }}_{{ field.key }}_right_b">{{ field.right|default_if_none:""|safe }}&nbsp;</label>
-      </td>
-   </tr>
- {% endfor %}
-</table>
-{% endfor %}
-{% endif %}
+            {% if versions %}
+                {% for version in versions %}
+                    <table class="table" id="responder_diff">
+                        <tr>
+                            <th width="40%">Uploaded Data</th>
+                            <th>Version 0x{{ version.version|stringformat:"08x" }}</th>
+                            <th width="40%">Existing Data</th>
+                        </tr>
+                        {% for field in version.fields %}
+                            <tr>
+                                <td id="{{ version.version }}_{{ field.key }}_left"
+                                    {% if field.prefer_left %}class="selected"{% endif %}>
+                                    <label for="{{ version.version }}_{{ field.key }}_left_b">
+                                        {{ field.left|default_if_none:""|safe }}</label>
+                                </td>
+                                <td class="diff_select">
+                                    <input type="radio" name="{{ version.version }}_{{ field.key }}"
+                                           id="{{ version.version }}_{{ field.key }}_left_b" value="left"
+                                           {% if field.prefer_left %}checked{% endif %}>
+                                    {{ field.name }}
+                                    <input type="radio" name="{{ version.version }}_{{ field.key }}"
+                                           id="{{ version.version }}_{{ field.key }}_right_b" value="right"
+                                           {% if field.prefer_right %}checked{% endif %}>
+                                </td>
+                                <td id="{{ version.version }}_{{ field.key }}_right"
+                                    {% if field.prefer_right %}class="selected"{% endif %}>
+                                    <label for="{{ version.version }}_{{ field.key }}_right_b">
+                                        {{ field.right|default_if_none:""|safe }}&nbsp;</label>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endfor %}
+            {% endif %}
 
-<div class="button-container">
-  <button id='all-left'>Select All Left</button>
-  <button id='all-right'>Select All Right</button>
-</div>
-<input type="hidden" name="fields" id="fields">
-<input type="hidden" name="key" value="{{ key }}">
+            <div class="button-container">
+                <button class="btn btn-default" id='all-left'>Select All Left</button>
+                <button class="btn btn-default" id='all-right'>Select All Right</button>
+            </div>
+            <input type="hidden" name="fields" id="fields">
+            <input type="hidden" name="key" value="{{ key }}">
 
-<div class="button-container">
-  <button id='save-button'>Update</button>
-</div>
+            <div class="button-container">
+                <button class="btn btn-default" id='save-button'>Update</button>
+            </div>
+        </form>
 
-<script>
-var keys = [
-{% for f in changed_fields %}'{{ f.key }}',{% endfor %}
-{% for version in versions %}
-{% for f in version.fields %}'{{ version.version }}_{{ f.key }}',{% endfor %}
-{% endfor %}
-''
-];
+        <hr>
 
+        <h3>Unused fields</h3>
 
-function selectLeft(key) {
-  $(key + '_left').addClass('selected');
-  $(key + '_right').removeClass('selected');
-};
-
-function selectRight(key) {
-  $(key + '_right').addClass('selected');
-  $(key + '_left').removeClass('selected');
-};
-
-function submit() {
-  var field_data = new Array();
-  var errors = new Array();
-  $.each(keys, function(i, key) {
-    if (key == '') return;
-    var left_checked = $('#' + key + '_left_b').attr('checked');
-    var right_checked = $('#' + key + '_right_b').attr('checked')
-    if (!(left_checked || right_checked)) {
-      errors.push(key)
-    }
-    if (left_checked) {
-      field_data.push(key);
-    }
-  });
-  if (errors.length) {
-    alert('Not all fields have been selected: ' + errors.join(' '));
-    return false;
-  }
-  $('#fields').val(field_data.join(','));
-  $('moderator_form').submit();
-};
-
-$(document).ready(function() {
-  $.each(keys, function(i, key) {
-    if (key == '') return;
-    var base_key = '#' + key;
-    $(base_key + '_left_b').change(function() {
-      selectLeft(base_key);
-    });
-    $(base_key + '_right_b').change(function() {
-      selectRight(base_key);
-    });
-  });
-  $('#all-left').click(function() {
-    $.each(keys, function(i, key) {
-      if (key == '') return;
-      $('#' + key + '_left_b').attr('checked', true);
-      selectLeft('#' + key);
-    });
-    return false;
-  });
-  $('#all-right').click(function() {
-    $.each(keys, function(i, key) {
-      if (key == '') return;
-      $('#' + key + '_right_b').attr('checked', true);
-      selectRight('#' + key);
-    });
-    return false;
-  });
-  $('#save-button').click(function() {
-    return submit();
-  });
-});
-
-</script>
-</form>
-
-<hr>
-
-<h3>Unused fields</h3>
-
-<table id="responder_diff">
- <tr>
-  <th width="40%">Uploaded Data</th>
-  <th>&nbsp;</th>
-  <th width="40%">Existing Data</th>
- </tr>
- {% for field in unchanged_fields %}
-   <tr>
-    <td {% if field.different %}class="diff"{% endif %}>
-      {{ field.left }}</td>
-    <td class="diff_select">
-     <input type="radio" name="{{ field.key }}" value="left" {% if field.prefer_left %}checked{% endif %}>
-     {{ field.name }}
-     <input type="radio" name="{{ field.key }}" value="right" {% if field.prefer_right %}checked{% endif %}>
-    </td>
-    <td {% if field.different %}class="diff"{% endif %}>
-      {{ field.right }}</td>
-   </tr>
- {% endfor %}
-</table>
+        <table class="table" id="responder_diff">
+            <tr>
+                <th width="40%">Uploaded Data</th>
+                <th>&nbsp;</th>
+                <th width="40%">Existing Data</th>
+            </tr>
+            {% for field in unchanged_fields %}
+                <tr>
+                    <td {% if field.different %}class="diff"{% endif %}>
+                        {{ field.left }}</td>
+                    <td class="diff_select">
+                        <input type="radio" name="{{ field.key }}" value="left"
+                               {% if field.prefer_left %}checked{% endif %}>
+                        {{ field.name }}
+                        <input type="radio" name="{{ field.key }}" value="right"
+                               {% if field.prefer_right %}checked{% endif %}>
+                    </td>
+                    <td {% if field.different %}class="diff"{% endif %}>
+                        {{ field.right }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
 
-{% else %}
-{% if device_id %}
+    {% else %}
+        {% if device_id %}
 
-Unknown manufacturer {{ manufacturer_id }}
-(0x{{ manufacturer_id|stringformat:"04x" }}). Check the
-<a href="http://tsp.plasa.org/tsp/working_groups/CP/mfctrIDs.php" target="_blank">TSP</a> page.
-{% else %}
-No responders in the queue. <a href="/admin">Back</a> to the admin console or
-<a href="/admin?action=flush_cache">Flush the cache</a>.
-{% endif %}
-{% endif %}
+            Unknown manufacturer {{ manufacturer_id }}
+            (0x{{ manufacturer_id|stringformat:"04x" }}). Check the
+            <a href="http://tsp.plasa.org/tsp/working_groups/CP/mfctrIDs.php" target="_blank">TSP</a> page.
+        {% else %}
+            No responders in the queue. <a href="/admin">Back</a> to the admin console or
+            <a href="/admin?action=flush_cache">Flush the cache</a>.
+        {% endif %}
+    {% endif %}
+{% endblock %}
 
-</body>
-</html>
+{% block extra_headers %}
+    <script>
+        var keys = [
+            {% for f in changed_fields %}'{{ f.key }}',{% endfor %}
+            {% for version in versions %}
+                {% for f in version.fields %}'{{ version.version }}_{{ f.key }}',{% endfor %}
+            {% endfor %}
+            ''
+        ];
+
+
+        function selectLeft(key) {
+            $(key + '_left').addClass('selected');
+            $(key + '_right').removeClass('selected');
+        }
+
+        function selectRight(key) {
+            $(key + '_right').addClass('selected');
+            $(key + '_left').removeClass('selected');
+        }
+
+        function submit() {
+            var field_data = new Array();
+            var errors = new Array();
+            $.each(keys, function (i, key) {
+                if (key == '') return;
+                var left_checked = $('#' + key + '_left_b').is(':checked');
+                var right_checked = $('#' + key + '_right_b').is(':checked');
+                if (!(left_checked || right_checked)) {
+                    errors.push(key);
+                }
+                if (left_checked) {
+                    field_data.push(key);
+                }
+            });
+            if (errors.length) {
+                alert('Not all fields have been selected: ' + errors.join(' '));
+                return false;
+            }
+            $('#fields').val(field_data.join(','));
+            $('#moderator_form').submit();
+        }
+
+        $(document).ready(function () {
+            $.each(keys, function (i, key) {
+                if (key == '') return;
+                var base_key = '#' + key;
+                $(base_key + '_left_b').change(function () {
+                    selectLeft(base_key);
+                });
+                $(base_key + '_right_b').change(function () {
+                    selectRight(base_key);
+                });
+            });
+            $('#all-left').click(function () {
+                $.each(keys, function (i, key) {
+                    if (key == '') return;
+                    $('#' + key + '_left_b').attr('checked', true);
+                    selectLeft('#' + key);
+                });
+                return false;
+            });
+            $('#all-right').click(function () {
+                $.each(keys, function (i, key) {
+                    if (key == '') return;
+                    $('#' + key + '_right_b').attr('checked', true);
+                    selectRight('#' + key);
+                });
+                return false;
+            });
+            $('#save-button').click(function () {
+                return submit();
+            });
+        });
+
+    </script>
+{% endblock %}
