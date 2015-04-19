@@ -13,10 +13,15 @@ angular.module('rdmApp', [])
         convertor.convertToEUID = function () {
             convertor.euid = '';
             convertor.error = '';
-            var tokens = convertor.uid.split(':');
+
+            if (!uid.match(/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/)) {
+              convertor.error = 'Invalid UID';
+              return;
+            }
+            var tokens = uid.split(':');
             if (tokens.length != 2) {
-                convertor.error = 'Invalid UID';
-                return;
+              convertor.error = 'Invalid UID';
+              return;
             }
 
             var manufacturer_str = tokens[0];
