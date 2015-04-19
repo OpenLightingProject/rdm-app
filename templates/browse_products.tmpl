@@ -52,11 +52,13 @@
         {% for row in product_rows %}
                 {% for product in row %}
                     <div class="panel panel-default model_panel"
-                         onclick="location.href=''/{{ product_type }}/display?key={{ product.key }}'">
-                        <div class="panel-heading">
+                         onclick="location.href='/{{ product_type }}/display?key={{ product.key }}'">
+                        <div class="panel-heading"
+                                onclick="location.href='/{{ product_type }}/display?key={{ product.key }}'">
                             {{ product.name }}
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body"
+                                onclick="location.href='/{{ product_type }}/display?key={{ product.key }}'">
                             {% if product.image_key %}
                                 <img src="{{ product.image_key }}=s100"><br>
                             {% else %}

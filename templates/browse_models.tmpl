@@ -34,10 +34,10 @@
             {% for model in row %}
                 <div class="panel panel-default model_panel"
                      onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
-                    <div class="panel-heading">
+                    <div class="panel-heading" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
                         {{ model.name }}
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
                         {% if model.image_key %}
                             <img src="{{ model.image_key }}=s100">
                         {% else %}
