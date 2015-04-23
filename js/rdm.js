@@ -127,7 +127,7 @@ angular.module('rdmApp', [])
             var recovered_checksum = ((data[12] & data[13]) << 8) +
                 (data[14] & data[15]);
 
-            var calculated_checksum = data.reduce(
+            var calculated_checksum = data.slice(0, 12).reduce(
                 function(previousValue, currentValue, index, array) {
                   return previousValue + currentValue;
                 }
