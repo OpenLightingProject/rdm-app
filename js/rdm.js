@@ -14,11 +14,11 @@ angular.module('rdmApp', [])
             convertor.euid = '';
             convertor.error = '';
 
-            if (!uid.match(/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/)) {
+            if (!convertor.uid.match(/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/)) {
               convertor.error = 'Invalid UID';
               return;
             }
-            var tokens = uid.split(':');
+            var tokens = convertor.uid.split(':');
             if (tokens.length != 2) {
               convertor.error = 'Invalid UID';
               return;
