@@ -61,8 +61,11 @@ angular.module('rdmApp', [])
             euid_bytes.push(device3 | 0xaa);
             euid_bytes.push(device3 | 0x55);
 
-            var checksum = (manufacturer0 + manufacturer1 + device0 + device1 +
-            device2 + device3)
+            var checksum = euid_bytes.reduce(
+                function(previousValue, currentValue, index, array) {
+                  return previousValue + currentValue;
+                }
+            );
             var checksum0 = (checksum >> 8) & 0xff;
             var checksum1 = checksum & 0xff;
 
@@ -124,8 +127,11 @@ angular.module('rdmApp', [])
             var recovered_checksum = ((data[12] & data[13]) << 8) +
                 (data[14] & data[15]);
 
-            var calculated_checksum = manufacturer0 + manufacturer1 + device0 +
-                device1 + device2 + device3;
+            var calculated_checksum = data.slice(0, 12).reduce(
+                function(previousValue, currentValue, index, array) {
+                  return previousValue + currentValue;
+                }
+            );
 
             if (recovered_checksum != calculated_checksum) {
                 convertor.error = 'Checksum mismatch, was ' + recovered_checksum +
