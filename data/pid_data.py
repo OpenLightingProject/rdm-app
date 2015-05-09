@@ -1214,7 +1214,7 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'link': '',
-       'notes': 'Controls if the fixture will treat key seven on the MCX as a lamp power-off button.',
+       'notes': 'Sets the Fixure ID',
        'value': 0x8003},
 
       {'get_request': {'items': []},
