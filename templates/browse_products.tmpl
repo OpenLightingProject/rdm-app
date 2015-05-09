@@ -1,147 +1,166 @@
-
 {% extends "base.tmpl" %}
 
-{% block extra_headers %}
-  <script src='http:////ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
-{% endblock %}
-
 {% block title %}Browse {{ product_type|capfirst }}s, Page {{ page_number }}{% endblock %}
+
 {% block content %}
+    <div class="search_products">
+        <form class="form-inline" action="/{{ product_type }}/browse" method="get">
+            <div class="form-group">
+                <label for="manufacturer_select">Search by Manufacturer:</label>
+                <select class="form-control" id="manufacturer_select" name="manufacturer"></select>
+            </div>
+            <input class="btn btn-default" type="submit" value="Search">
+        </form>
+        <form class="form-inline" action="/{{ product_type }}/browse" method="get">
+            <div class="form-group">
+                <label for="tag_select">Search by Tag:</label>
+                <select class="form-control" id="tag_select" name="tag"></select>
+            </div>
+            <input class="btn btn-default" type="submit" value="Search">
+        </form>
+    </div>
 
-<div class="search_options">
-<form action="/{{ product_type }}/browse" method="get">
-Search by Manufacturer
-<select id="manufacturer_select" name="manufacturer"></select>
-<input type="submit" value="Search">
-</form>
-<form action="/{{ product_type }}/browse" method="get">
-Search by Tag
-<select id="tag_select" name="tag"></select>
-<input type="submit" value="Search">
-</form>
-</div>
+    <nav>
+        <ul class="pager">
+            {% if previous %}
+                <li class="previous">
+                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        <span aria-hidden="true">&larr;</span> Previous Page
+                    </a>
+                </li>
+            {% else %}
+                <li class="previous disabled">
+                    <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                </li>
+            {% endif %}
+            <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+            {% if next %}
+                <li class="next">
+                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        Next Page <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="next disabled">
+                    <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 
-<div class="browse_nav">
-<div style="float: left; text-align: left">
-{% if previous %}
-<a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Previous Page</a>
-{% else %}
-&nbsp;
-{% endif %}
-</div>
+    <div class="models">
+        {% for row in product_rows %}
+                {% for product in row %}
+                    <div class="panel panel-default model_panel"
+                         onclick="location.href='/{{ product_type }}/display?key={{ product.key }}'">
+                        <div class="panel-heading"
+                                onclick="location.href='/{{ product_type }}/display?key={{ product.key }}'">
+                            {{ product.name }}
+                        </div>
+                        <div class="panel-body"
+                                onclick="location.href='/{{ product_type }}/display?key={{ product.key }}'">
+                            {% if product.image_key %}
+                                <img src="{{ product.image_key }}=s100"><br>
+                            {% else %}
+                                <div class="missing_image">No Image Available</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+        {% endfor %}
+    </div>
 
-Displaying {{ start }} to {{ end }} of {{ total }}
-
-<div style="float: right; text-align: right">
-{% if next %}
-<a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Next Page</a>
-{% else %}
-&nbsp;
-{% endif %}
-</div>
-</div>
-
-<table class="browse_table">
-  {% for row in product_rows %}
-    <tr>
-    {% for product in row %}
-     <td>
-       <a href="/{{ product_type }}/display?key={{ product.key }}">
-       {% if product.image_key %}
-        <img src="{{ product.image_key }}=s100"></img><br>
-       {% else %}
-         <div class="missing_image">No Image Available</div>
-       {% endif %}
-       {{ product.name }}</a>
-     </td>
-    {% endfor %}
-    </tr>
-  {% endfor %}
-</table>
-
-<div class="browse_nav">
-<div style="float: left; text-align: left">
-{% if previous %}
-<a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Previous Page</a>
-{% else %}
-&nbsp;
-{% endif %}
-</div>
-
-Displaying {{ start }} to {{ end }} of {{ total }}
-
-<div style="float: right; text-align: right">
-{% if next %}
-<a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">Next Page</a>
-{% else %}
-&nbsp;
-{% endif %}
-</div>
-</div>
-
-</div>
-
-
-<script>
-var MANUFACTURER = '{{ manufacturer }}'
-var PRODUCT_TYPE = '{{ product_type }}';
-var TAG = '{{ tag }}';
-
-function generic_fetch(url, callback) {
-  $.ajax({
-    url: url,
-    type: 'GET',
-    dataType: 'json',
-    error: function(jqXHR, textStatus, errorThrown) {
-    },
-    success: callback,
-    cache: false
-  });
-
-
-}
-
-function fetch_tags() {
-  generic_fetch(
-      '/api/json/1/' + PRODUCT_TYPE + '_tags',
-      function(tags) {
-        var select = $('#tag_select');
-        $.each(tags, function(i, tag) {
-          var value = tag['label']
-          var label = value + ' (' + tag['count'] + ')';
-          var item = $('<option />').val(value).html(label);
-          select.append(item);
-          if (value == TAG) {
-            item.attr("selected", true);
-          }
-        });
-      }
-  );
-}
-
-function fetch_manufacturers() {
-  generic_fetch(
-      '/api/json/1/' + PRODUCT_TYPE + '_manufacturers',
-      function(manufacturers) {
-        var select = $('#manufacturer_select');
-        $.each(manufacturers, function(i, manufacturer) {
-          var value = manufacturer['id']
-          var label = manufacturer['name'] + ' (' + manufacturer['count'] + ')';
-          var item = $('<option />').val(value).html(label);
-          select.append(item);
-          if (value == MANUFACTURER) {
-            item.attr("selected", true);
-          }
-        });
-      }
-  );
-}
-
-
-$(document).ready(function() {
-  fetch_tags();
-  fetch_manufacturers();
-});
-
-</script>
+    <nav>
+        <ul class="pager">
+            {% if previous %}
+                <li class="previous">
+                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        <span aria-hidden="true">&larr;</span> Previous Page
+                    </a>
+                </li>
+            {% else %}
+                <li class="previous disabled">
+                    <a href="#"><span aria-hidden="true">&larr;</span> Previous Page</a>
+                </li>
+            {% endif %}
+            <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
+            {% if next %}
+                <li class="next">
+                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                        Next Page <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="next disabled">
+                    <a href="#">Next Page <span aria-hidden="true">&rarr;</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}
+
+{% block extra_headers %}
+    <script>
+        var MANUFACTURER = '{{ manufacturer }}';
+        var PRODUCT_TYPE = '{{ product_type }}';
+        var TAG = '{{ tag }}';
+
+        function generic_fetch(url, callback) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                error: function (jqXHR, textStatus, errorThrown) {
+                },
+                success: callback,
+                cache: false
+            });
+
+
+        }
+
+        function fetch_tags() {
+            generic_fetch(
+                    '/api/json/1/' + PRODUCT_TYPE + '_tags',
+                    function (tags) {
+                        var select = $('#tag_select');
+                        $.each(tags, function (i, tag) {
+                            var value = tag['label']
+                            var label = value + ' (' + tag['count'] + ')';
+                            var item = $('<option />').val(value).html(label);
+                            select.append(item);
+                            if (value == TAG) {
+                                item.attr("selected", true);
+                            }
+                        });
+                    }
+            );
+        }
+
+        function fetch_manufacturers() {
+            generic_fetch(
+                    '/api/json/1/' + PRODUCT_TYPE + '_manufacturers',
+                    function (manufacturers) {
+                        var select = $('#manufacturer_select');
+                        $.each(manufacturers, function (i, manufacturer) {
+                            var value = manufacturer['id']
+                            var label = manufacturer['name'] + ' (' + manufacturer['count'] + ')';
+                            var item = $('<option />').val(value).html(label);
+                            select.append(item);
+                            if (value == MANUFACTURER) {
+                                item.attr("selected", true);
+                            }
+                        });
+                    }
+            );
+        }
+
+
+        $(document).ready(function () {
+            fetch_tags();
+            fetch_manufacturers();
+        });
+
+    </script>
+{% endblock %}
+

@@ -1,84 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>{% block title %}RDM Manufacturer Index{% endblock %}</title>
-  <meta name="description" content="A searchable index of RDM controllers, devices and parameter IDs">
-  <meta name="keywords" content="RDM, Remote Device Management, DMX512, Lighting Control, Open Lighting Project, RDM Controllers, RDM Software">
-  <link href="https://plus.google.com/u/0/b/106460627923808853381/" rel="publisher" />
-  <link rel='stylesheet' href='/css/main.css'>
-  {% block extra_headers %} {% endblock %}
-
-  <!--[if !IE 7]>
+    <title>{% block title %}RDM Manufacturer Index{% endblock %}</title>
+    <meta name="description" content="A searchable index of RDM controllers, devices and parameter IDs">
+    <meta name="keywords" content="RDM, Remote Device Management, DMX512, Lighting Control, Open Lighting Project, RDM Controllers, RDM Software">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://plus.google.com/u/0/b/106460627923808853381/" rel="publisher"/>
+    <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/libs/bootstrap-fileinput/css/fileinput.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <!--[if !IE 7]>
     <style type="text/css">
-      #wrap { display: table; height: 100%}
+        #wrap {
+            display: table;
+            height: 100%
+        }
     </style>
-  <![endif]-->
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-2744693-3']);
-    _gaq.push(['_trackPageview']);
+    <![endif]-->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2744693-3']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </head>
 <body>
-
-<div id="wrap">
-<div id="login">
-  <ul>
-    <li><a href="/admin">Admin Page</a></li>
-  </ul>
-</div>
-
-<h2>RDM Manufacturer Library</h2>
-
-<div id="main">
-  <div id="nav_bar">
-  <ul>
-   <li><a href="/manufacturer/list">Manufacturers</a></li>
-   <li><a href="/model/browse">Devices</a>
-    <ul>
-     <li><a href="/model/browse">Browse</a></li>
-     <li><a href="/model/manufacturer">Search By Manufacturer</a></li>
-     <li><a href="/model/category">Search By Product Category</a></li>
-     <li><a href="/model/tag">Search By Tag</a></li>
-    </ul>
-   </li>
-   <li><a href="/splitter/browse">Splitters</a></li>
-   <li><a href="/node/browse">Ethernet Nodes</a></li>
-   <li><a href="/software/browse">Software</a></li>
-   <li><a href="/controller/browse">Controllers</a></li>
-   <li>Parameters
-     <ul>
-      <li><a href="/pid/manufacturer">Search By Manufacturer</a></li>
-      <li><a href="/pid/name">Search By Name</a></li>
-      <li><a href="/pid/id">Search By Parameter ID</a></li>
-     </ul>
-   </li>
-  </ul>
-  </div>
-
-  <div id="outer_content">
-    <div id="inner_content">
-      {% block content %}{% endblock %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/about"><img src="/images/logo.png" height="25" width="25" style="opacity: 0.5; filter: alpha(opacity=50);"/> </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/manufacturer/list">Manufacturers</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">Devices <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/model/browse">Browse</a></li>
+                        <li><a href="/model/manufacturer">Search By Manufacturer</a></li>
+                        <li><a href="/model/category">Search By Product Category</a></li>
+                        <li><a href="/model/tag">Search By Tag</a></li>
+                    </ul>
+                </li>
+                <li><a href="/splitter/browse">Splitters</a></li>
+                <li><a href="/node/browse">Ethernet Nodes</a></li>
+                <li><a href="/software/browse">Software</a></li>
+                <li><a href="/controller/browse">Controllers</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">Parameters <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/pid/manufacturer">Search By Manufacturer</a></li>
+                        <li><a href="/pid/name">Search By Name</a></li>
+                        <li><a href="/pid/id">Search By Parameter ID</a></li>
+                    </ul>
+                </li>
+                <li><a href="/tools">Tools</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/admin">Admin Page</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
+</nav>
+<div class="container-fluid">
+    {% block content %}{% endblock %}
 </div>
-</div>
-
+<hr>
 <div id="footer">
-  <a href="/about">About</a> |
-  <a href="/disclaimer">Disclaimer</a> |
-  <a href="http://www.openlighting.org">Open Lighting Project</a>
-  <div>
-    Last Updated: {{ last_updated|date:"D d M Y" }} <br>
-    {{ manufacturer_pid_count }} Manufacturer PIDs,
-    {{ product_count }} Products.
-  </div>
+    <a href="/about">About</a> |
+    <a href="/disclaimer">Disclaimer</a> |
+    <a href="https://www.openlighting.org">Open Lighting Project</a>
+
+    <div>
+        Last Updated: {{ last_updated|date:"D d M Y" }} <br>
+        {{ manufacturer_pid_count }} Manufacturer PIDs,
+        {{ product_count }} Products.
+    </div>
 </div>
+<script src="/libs/jquery/js/jquery.min.js"></script>
+<script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="/libs/bootstrap-fileinput/js/fileinput.min.js"></script>
+{% block extra_headers %} {% endblock %}
 </body>
 </html>

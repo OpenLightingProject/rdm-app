@@ -3,8 +3,13 @@
 {% block title %}Search PIDs by Name{% endblock %}
 
 {% block search_widget %}
-<form action="/pid/name" method="get">
-PID Name: <input type="text" name="name">
-<input type="submit" value="Search">
-</form>
+    <form class="form-inline" action="/pid/name" method="get">
+        <div class="form-group">
+            <label for="pid-search">
+                PID Name:
+            </label>
+            <input class="form-control" id="pid-search" type="text" name="name">
+        </div>
+        <input class="btn btn-default" type="submit" value="Search">
+    </form>
 {% endblock %}

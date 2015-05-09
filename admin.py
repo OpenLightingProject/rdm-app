@@ -226,7 +226,7 @@ class AdminPageHandler(BaseAdminPageHandler):
     """Update the list of Product Categories."""
     added = removed = updated = 0
     new_data = {}
-    for name, id in PRODUCT_CATEGORIES.iteritems():
+    for name, id in PRODUCT_CATEGORIES:
       new_data[id] = name
 
     existing_categories = set()
