@@ -98,3 +98,8 @@ skip_files:
 - ^BUILD*$
 - ^DEBUG*$
 - ^compiler.jar*$
+- ^(node_modules/.*)
+- ^(js_src/.*)
+- ^bower.json*$
+- ^package.json*$
+- ^Gruntfile.js*$
