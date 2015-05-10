@@ -2,6 +2,14 @@
   "name": "rdm-app",
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-bower-task": "^0.4.0"
+    "grunt-bower-task": "^0.4.0",
+    "protractor": "^1.1.1",
+    "http-server": "^0.6.1"
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server ./unit-test-js/www-root -a localhost -p 8000 -c-1",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update"
   }
 }
