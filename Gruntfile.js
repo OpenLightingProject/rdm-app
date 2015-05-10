@@ -11,8 +11,23 @@ module.exports = function (grunt) {
                     layout: 'byComponent'
                 }
             }
+        },
+        uglify: {
+            build: {
+                files: [{
+                    dest: './js/rdm.js',
+                    src: './js_src/rdm.js'
+                }],
+                options: {
+                    mangle: true,
+                    sourceMap: true,
+                    sourceMapName: './js/rdm.js.map'
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-bower-task');
-    grunt.registerTask('default', ['bower'])
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.registerTask('default', ['bower']);
+    grunt.registerTask('compress', ['uglify']);
 };
