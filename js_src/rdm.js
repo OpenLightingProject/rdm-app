@@ -1,11 +1,9 @@
 angular.module('rdmApp', [])
-    .config(function ($interpolateProvider) {
+    .config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
-    })
-    .controller('UIDController', function () {
-        var convertor = this;
-
+    }])
+    .controller('UIDController',['$scope', function (convertor) {
         convertor.euid = '';
         convertor.error = '';
         convertor.uid = '';
@@ -78,10 +76,8 @@ angular.module('rdmApp', [])
                 return i.toString(16);
             }).join(' ');
         };
-    })
-    .controller('EUIDController', function () {
-        var convertor = this;
-
+    }])
+    .controller('EUIDController',['$scope', function (convertor) {
         convertor.euid = '';
         convertor.error = '';
         convertor.uid = '';
@@ -97,8 +93,8 @@ angular.module('rdmApp', [])
                 return;
             }
 
-            var data = Array();
-            for (i = 0; i < tokens.length; i++) {
+            var data = [];
+            for (var i = 0; i < tokens.length; i++) {
                 var value = parseInt(tokens[i], 16);
                 if (isNaN(value)) {
                     convertor.error = 'Invalid EUID: ' + tokens[i];
@@ -147,4 +143,4 @@ angular.module('rdmApp', [])
 
             convertor.uid = zeroPad(manufacturer) + ':' + zeroPad(device, 8);
         };
-    });
+    }]);
