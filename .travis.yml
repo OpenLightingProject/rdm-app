@@ -14,4 +14,3 @@ notifications:
      - "chat.freenode.net#openlighting"
     on_success: change
     on_failure: change
-

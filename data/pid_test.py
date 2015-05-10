@@ -20,7 +20,7 @@ import unittest
 import json
 import jsonspec.validators
 
-# This is from an early versin of E1.37-5.
+# This is from an early version of E1.37-5.
 PID_VALIDATOR = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'definitions': {
@@ -153,6 +153,10 @@ PID_VALIDATOR = {
       'minimum': 0,
       'type': 'integer'
     },
+    'link': {
+      'type': 'string',
+      'format': 'uri',
+    },
     'name': {
       'minLength': 1,
       'type': 'string'
@@ -233,11 +237,15 @@ class TestPiddata(unittest.TestCase):
       self.assertNotIn(manufacturer_data['id'], seen_manufacturer_ids)
       seen_manufacturer_ids.add(manufacturer_data['id'])
 
+      seen_pids = set()
       for pid in pids:
         try:
           self.pid_validator.validate(pid)
         except jsonspec.validators.ValidationError as e:
           self.fail(e)
+
+        self.assertNotIn(pid['value'], seen_pids)
+        seen_pids.add(pid['value'])
 
 
 if __name__ == '__main__':
