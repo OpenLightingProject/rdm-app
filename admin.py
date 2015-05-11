@@ -164,14 +164,17 @@ class AdminPageHandler(BaseAdminPageHandler):
     return ''
 
   def LoadPids(self):
-    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     loader = PidLoader()
-    added = 0
+    modified = 0
     for pid in ESTA_PIDS:
-      loader.AddPid(pid)
-      added += 1
-    UpdateModificationTime(timestamp_keys.PIDS)
-    return 'Added %d PIDs' % added
+      if loader.UpdateIfRequired(pid):
+        modified += 1
+
+    if modified > 0:
+      UpdateModificationTime(timestamp_keys.PIDS)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+
+    return 'Added / Updated %d PIDs' % modified
 
   def BuildResponderPidIndex(self):
     task = taskqueue.Task(method='GET', url='/tasks/build_pid_responder_index')
@@ -183,15 +186,18 @@ class AdminPageHandler(BaseAdminPageHandler):
 
   def LoadManufacturerPids(self):
     loader = PidLoader()
-    added = 0
-    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
-    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+    modified = 0
     for manufacturer in MANUFACTURER_PIDS:
       for pid in manufacturer['pids']:
-        loader.AddPid(pid, manufacturer['id'])
-        added += 1
-    UpdateModificationTime(timestamp_keys.PIDS)
-    return 'Added %d PIDs' % added
+        if loader.UpdateIfRequired(pid, manufacturer['id']):
+          modified += 1
+
+    if modified > 0:
+      UpdateModificationTime(timestamp_keys.PIDS)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+
+    return 'Modified %d PIDs' % modified
 
   def ClearModels(self):
     memcache.delete(memcache_keys.MODEL_COUNT_KEY)
