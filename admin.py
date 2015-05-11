@@ -169,8 +169,6 @@ class AdminPageHandler(BaseAdminPageHandler):
     for pid in ESTA_PIDS:
       if loader.UpdateIfRequired(pid):
         modified += 1
-      if modified > 4:
-        break
 
     if modified > 0:
       UpdateModificationTime(timestamp_keys.PIDS)
