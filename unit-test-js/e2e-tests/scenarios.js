@@ -36,6 +36,15 @@ describe('rdmApp', function () {
            convertor.convertToUID();
            expect(convertor.error).toEqual('Invalid EUID, only found 1 bytes');
            expect(convertor.uid).toEqual('');
-       })
+       });
+
+        it('displays uid if euid is valid', function(){
+            var convertor = {};
+            var controller = $controller('EUIDController', {$scope: convertor});
+            convertor.euid = 'fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5';
+            convertor.convertToUID();
+            expect(convertor.error).toEqual('');
+            expect(convertor.uid).toEqual('7a70:00000001');
+        });
     });
 });
