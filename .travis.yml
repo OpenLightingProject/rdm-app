@@ -6,7 +6,14 @@ python:
 install:
   - pip install json-spec
 
-script: nosetests
+script:
+  - "bash -ex .travis-ci.sh"
+
+matrix:
+  fast_finish: true
+  include:
+    - env: TASK="nosetests"
+    - env: TASK="karma"
 
 notifications:
   irc:
