@@ -5,5 +5,5 @@ if [[ $TASK = 'nosetests' ]]; then
 elif [[ $TASK = 'karma' ]]; then
     export DISPLAY=:99.0
     sh -e /etc/init.d/xvfb start
-    npm start
+    npm start -- --browsers=Firefox
 fi
