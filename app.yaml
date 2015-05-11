@@ -103,3 +103,5 @@ skip_files:
 - ^bower.json*$
 - ^package.json*$
 - ^Gruntfile.js*$
+- ^(libs/angular-mocks/.*)
+- ^(unit-test-js/.*)

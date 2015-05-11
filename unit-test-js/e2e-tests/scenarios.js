@@ -1,7 +1,9 @@
 describe('rdmApp', function () {
-    beforeEach(browser.get('/index.html'));
-
     var $controller;
+
+    beforeEach(function(){
+        module('rdmApp');
+    });
 
     beforeEach(inject(function (_$controller_) {
         $controller = _$controller_;
@@ -32,7 +34,7 @@ describe('rdmApp', function () {
            var controller = $controller('EUIDController', {$scope: convertor});
            convertor.euid = 'invalidteststring';
            convertor.convertToUID();
-           expect(convertor.error).toEqual('invalid EUID, only found 1 bytes');
+           expect(convertor.error).toEqual('Invalid EUID, only found 1 bytes');
            expect(convertor.uid).toEqual('');
        })
     });
