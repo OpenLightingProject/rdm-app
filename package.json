@@ -7,7 +7,8 @@
     "karma": "~0.10"
   },
   "scripts": {
-    "prestart": "npm install",
-    "start": "karma start ./unit-test-js/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox"
+    "dependencies": "npm install; grunt bower",
+    "prestart": "npm run dependencies",
+    "start": "karma start ./unit-test-js/karma.conf.js --no-auto-watch --single-run --reporters=dots"
   }
 }

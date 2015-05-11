@@ -1,27 +1,29 @@
-module.exports = function(config){
-  config.set({
+module.exports = function (config) {
+    config.set({
 
-    basePath : './',
+        basePath: '../',
 
-    files : [
-      'libs/angular/js/angular.min.js',
-      'libs/angular-mocks/js/angular-mocks.js',
-      'js/rdm.js',
-      'e2e-tests/scenarios.js'
-    ],
+        files: [
+            'libs/angular/js/angular.min.js',
+            'libs/angular-mocks/js/angular-mocks.js',
+            'js/rdm.js',
+            'unit-test-js/e2e-tests/scenarios.js'
+        ],
 
-    autoWatch : true,
+        autoWatch: true,
 
-    frameworks: ['jasmine'],
+        frameworks: ['jasmine'],
 
-    browsers : ['Chrome'],
+        browsers: [
+            'Chrome',
+            'Firefox'
+        ],
 
-    plugins : [
+        plugins: [
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-            ]
+            'karma-jasmine'
+        ]
 
-  });
+    });
 };
