@@ -4,7 +4,7 @@ module.exports = function (grunt) {
         bower: {
             libs: {
                 options: {
-                    targetDir: 'libs',
+                    targetDir: 'static/libs',
                     install: true,
                     copy: true,
                     cleanup: true,
@@ -15,13 +15,13 @@ module.exports = function (grunt) {
         uglify: {
             build: {
                 files: [{
-                    dest: './js/rdm.js',
+                    dest: './static/js/rdm.js',
                     src: './js_src/rdm.js'
                 }],
                 options: {
                     mangle: true,
                     sourceMap: true,
-                    sourceMapName: './js/rdm.js.map'
+                    sourceMapName: './static/js/rdm.js.map'
                 }
             }
         }
