@@ -139,8 +139,8 @@ class PidLoader():
       pid.notes = new_pid_data.get('notes')
       save = True
 
-    if pid.draft != new_pid_data.get('draft'):
-      pid.draft = new_pid_data.get('draft')
+    if pid.draft != new_pid_data.get('draft', False):
+      pid.draft = new_pid_data.get('draft', False)
       save = True
 
     save |= self.UpdateCommand(pid, new_pid_data, 'discovery')
