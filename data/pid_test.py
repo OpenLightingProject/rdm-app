@@ -223,6 +223,8 @@ class TestPiddata(unittest.TestCase):
       except jsonspec.validators.ValidationError as e:
         self.fail(e)
 
+      self.assertFalse(0x8000 <= pid['value'] <= 0xFFDF)
+
   def test_ManufacturerPids(self):
     self.assertEqual(list, type(self.manufacturer_pids))
 
@@ -237,6 +239,7 @@ class TestPiddata(unittest.TestCase):
       self.assertNotIn(manufacturer_data['id'], seen_manufacturer_ids)
       seen_manufacturer_ids.add(manufacturer_data['id'])
 
+
       seen_pids = set()
       for pid in pids:
         try:
@@ -244,6 +247,7 @@ class TestPiddata(unittest.TestCase):
         except jsonspec.validators.ValidationError as e:
           self.fail(e)
 
+        self.assertTrue(0x8000 <= pid['value'] <= 0xFFDF)
         self.assertNotIn(pid['value'], seen_pids)
         seen_pids.add(pid['value'])
 
