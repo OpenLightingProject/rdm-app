@@ -16,14 +16,12 @@ module.exports = function (config) {
 
         browsers: [
             'Chrome',
-            'Firefox',
-            'PhantomJS'
+            'Firefox'
         ],
 
         plugins: [
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-phantomjs-launcher',
             'karma-jasmine'
         ]
 

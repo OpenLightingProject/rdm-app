@@ -4,8 +4,7 @@ matrix:
   include:
     - python: "2.7"
       env: TASK="nosetests"
-    - env: TASK="karma-firefox"
-    - env: TASK="karma-phantomjs"
+    - env: TASK="karma"
 
 script: "bash -ex .travis-ci.sh"
 
