@@ -14,7 +14,9 @@ these get installed through npm by running
 npm run dependencies
 ```
 Which first installs the node.js dependencies (grunt, bower, karma) and then runs the grunt task for installing the bower packages
-Important! only install bower packages through grunt, because grunt moves them to static/libs and appengine and karma both expect
+
+### Important! 
+only install bower packages through grunt, because grunt moves them to static/libs and appengine and karma both expect
 them to be there and not in bower_components also static/libs has a different structure then bower_components.
 
 ## Run unit-tests for rdm.js
