@@ -4,9 +4,9 @@ module.exports = function (config) {
         basePath: '../',
 
         files: [
-            'libs/angular/js/angular.min.js',
-            'libs/angular-mocks/js/angular-mocks.js',
-            'js/rdm.js',
+            'static/libs/angular/js/angular.min.js',
+            'static/libs/angular-mocks/js/angular-mocks.js',
+            'static/js/rdm.js',
             'unit-test-js/e2e-tests/scenarios.js'
         ],
 
