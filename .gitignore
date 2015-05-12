@@ -3,4 +3,4 @@
 node_modules
 index.yaml
 .idea
-libs
+static/libs
