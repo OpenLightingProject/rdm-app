@@ -14,7 +14,7 @@
   "eqeqeq": true,
   "strict": true,
   "undef": true,
-  "bitwise": true,
+  "bitwise": false,
   "newcap": true,
   "immed": true,
   "browser": true,

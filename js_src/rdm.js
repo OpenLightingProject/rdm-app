@@ -62,7 +62,7 @@ angular.module('rdmApp', [])
    euid_bytes.push(device3 | 0x55);
 
    var checksum = euid_bytes.reduce(
-    function (previousValue, currentValue, index, array) {
+    function (previousValue, currentValue) {
      return previousValue + currentValue;
     }
    );
@@ -123,10 +123,11 @@ angular.module('rdmApp', [])
 
    var device = (device0 << 24) + (device1 << 16) + (device2 << 8) + device3;
 
-   var recovered_checksum = ((data[12] & data[13]) << 8) + (data[14] & data[15]);
+   var recovered_checksum = ((data[12] & data[13]) << 8) +
+    (data[14] & data[15]);
 
    var calculated_checksum = data.slice(0, 12).reduce(
-    function (previousValue, currentValue, index, array) {
+    function (previousValue, currentValue) {
      return previousValue + currentValue;
     }
    );
