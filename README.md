@@ -20,6 +20,7 @@ sudo npm install -g grunt-cli
 and to install all the other dependencies of the project, run in the root directory of the project
 ```bash
 npm install
+grunt bower
 ```
 Which first installs the node.js dependencies (grunt, bower, karma) and then runs the grunt task for installing the bower packages
 
