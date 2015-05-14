@@ -1,12 +1,12 @@
 language: python
 
-python:
-  - "2.7"
+matrix:
+  include:
+    - python: "2.7"
+      env: TASK="nosetests"
+    - env: TASK="karma"
 
-install:
-  - pip install json-spec
-
-script: nosetests
+script: "bash -ex .travis-ci.sh"
 
 notifications:
   irc:
