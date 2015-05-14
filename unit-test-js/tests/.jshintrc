@@ -27,6 +27,7 @@
     "it": true,
     "beforeEach": true,
     "expect": true,
+    "inject": true,
     "node": true,
     "module": true
   }

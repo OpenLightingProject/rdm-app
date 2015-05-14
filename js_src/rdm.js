@@ -38,7 +38,7 @@ angular.module('rdmApp', [])
     return;
    }
 
-   var euid_bytes = Array();
+   var euid_bytes = [];
 
    var manufacturer0 = (manufacturer >> 8) & 0xff;
    var manufacturer1 = manufacturer & 0xff;
@@ -140,7 +140,7 @@ angular.module('rdmApp', [])
    function zeroPad(num, places) {
     var str = num.toString(16);
     var zero = places - str.length + 1;
-    return Array(+(zero > 0 && zero)).join("0") + str;
+    return new Array(+(zero > 0 && zero)).join('0') + str;
    }
 
    convertor.uid = zeroPad(manufacturer) + ':' + zeroPad(device, 8);

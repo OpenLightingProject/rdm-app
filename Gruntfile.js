@@ -38,7 +38,12 @@ module.exports = function (grunt) {
    }
   },
   jshint: {
-   dev: ['Gruntfile.js', 'js_src/rdm.js', 'unit-test-js/karma.conf.js'],
+   dev: [
+    'Gruntfile.js',
+    'js_src/rdm.js',
+    'unit-test-js/karma.conf.js',
+    'unit-test-js/tests/*js'
+   ],
    options: {
     jshintrc: true
    }
