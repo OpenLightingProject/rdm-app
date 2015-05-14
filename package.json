@@ -9,10 +9,5 @@
     "karma-jasmine": "~0.2.0",
     "karma-firefox-launcher": "~0.1",
     "karma-chrome-launcher": "~0.1"
-  },
-  "scripts": {
-    "dependencies": "npm install; grunt bower",
-    "prestart": "npm run dependencies",
-    "start": "grunt travis-unit"
   }
 }

@@ -8,10 +8,18 @@ If you're intested in how PID definitions work, see https://wiki.openlighting.or
 
 Before you upload to appengine or start developing you'll have to download some javascript dependencies.
 These can be downloaded using [nodejs](https://github.com/joyent/node)'s package manager [npm](https://github.com/npm/npm).
-The packages get downloaded using [bower](https://github.com/bower/bower) and [grunt](https://github.com/gruntjs/grunt) but 
-these get installed through npm by running
+The packages get downloaded using [bower](https://github.com/bower/bower) and [grunt](https://github.com/gruntjs/grunt)
+You have to install grunt-cli globally yourself by running either
 ```bash
-npm run dependencies
+npm install -g grunt-cli
+```
+or
+```bash
+sudo npm install -g grunt-cli
+```
+and to install all the other dependencies of the project, run in the root directory of the project
+```bash
+npm install
 ```
 Which first installs the node.js dependencies (grunt, bower, karma) and then runs the grunt task for installing the bower packages
 
@@ -24,6 +32,6 @@ them to be there and not in bower_components also static/libs has a different st
 Currently only rdm.js in static/js has a javascript unit-test using [karma](https://github.com/karma-runner/karma) the unit-test is
 located in unit-test-js/tests/rdm.js and the karma configuration in unit-test-js/karma.conf.js the test can be run by running
 ```bash
-npm start
+grunt travis-unit
 ```
-It does require firefox to be installed to be able to run the test
+It does require firefox and the dependencies to be installed to be able to run the test
