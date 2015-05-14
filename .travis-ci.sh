@@ -8,4 +8,8 @@ elif [[ $TASK = 'karma' ]]; then
     npm install -g grunt-cli
     npm install
     grunt travis-unit
+elif [[ $TASK = 'jshint' ]]; then
+    npm install -g grunt-cli
+    npm install
+    grunt travis-jshint
 fi
