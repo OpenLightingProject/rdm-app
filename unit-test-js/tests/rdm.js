@@ -1,17 +1,17 @@
-describe('rdmApp', function () {
+describe('rdmApp', function() {
  'use strict';
  var $controller;
 
- beforeEach(function () {
+ beforeEach(function() {
   module('rdmApp');
  });
 
- beforeEach(inject(function (_$controller_) {
+ beforeEach(inject(function(_$controller_) {
   $controller = _$controller_;
  }));
 
- describe('convertToEUID', function () {
-  it('displays error when invalid uid', function () {
+ describe('convertToEUID', function() {
+  it('displays error when invalid uid', function() {
    var convertor = {};
    $controller('UIDController', {$scope: convertor});
    convertor.uid = 'invalidteststring';
@@ -20,7 +20,7 @@ describe('rdmApp', function () {
    expect(convertor.euid).toEqual('');
   });
 
-  it('displays euid if uid is valid', function () {
+  it('displays euid if uid is valid', function() {
    var convertor = {};
    $controller('UIDController', {$scope: convertor});
    convertor.uid = '7a70:00000001';
@@ -30,8 +30,8 @@ describe('rdmApp', function () {
     .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
   });
  });
- describe('convertToUID', function () {
-  it('displays error when invalid euid', function () {
+ describe('convertToUID', function() {
+  it('displays error when invalid euid', function() {
    var convertor = {};
    $controller('EUIDController', {$scope: convertor});
    convertor.euid = 'invalidteststring';
@@ -40,7 +40,7 @@ describe('rdmApp', function () {
    expect(convertor.uid).toEqual('');
   });
 
-  it('displays uid if euid is valid', function () {
+  it('displays uid if euid is valid', function() {
    var convertor = {};
    $controller('EUIDController', {$scope: convertor});
    convertor.euid = 'fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5';

@@ -1,16 +1,16 @@
 angular.module('rdmApp', [])
- .config(['$interpolateProvider', function ($interpolateProvider) {
+ .config(['$interpolateProvider', function($interpolateProvider) {
   'use strict';
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
  }])
- .controller('UIDController', ['$scope', function (convertor) {
+ .controller('UIDController', ['$scope', function(convertor) {
   'use strict';
   convertor.euid = '';
   convertor.error = '';
   convertor.uid = '';
 
-  convertor.convertToEUID = function () {
+  convertor.convertToEUID = function() {
    convertor.euid = '';
    convertor.error = '';
 
@@ -62,7 +62,7 @@ angular.module('rdmApp', [])
    euid_bytes.push(device3 | 0x55);
 
    var checksum = euid_bytes.reduce(
-    function (previousValue, currentValue) {
+    function(previousValue, currentValue) {
      return previousValue + currentValue;
     }
    );
@@ -74,18 +74,18 @@ angular.module('rdmApp', [])
    euid_bytes.push(checksum1 | 0xaa);
    euid_bytes.push(checksum1 | 0x55);
 
-   convertor.euid = euid_bytes.map(function (i) {
+   convertor.euid = euid_bytes.map(function(i) {
     return i.toString(16);
    }).join(' ');
   };
  }])
- .controller('EUIDController', ['$scope', function (convertor) {
+ .controller('EUIDController', ['$scope', function(convertor) {
   'use strict';
   convertor.euid = '';
   convertor.error = '';
   convertor.uid = '';
 
-  convertor.convertToUID = function () {
+  convertor.convertToUID = function() {
    convertor.error = '';
    convertor.uid = '';
 
@@ -127,7 +127,7 @@ angular.module('rdmApp', [])
     (data[14] & data[15]);
 
    var calculated_checksum = data.slice(0, 12).reduce(
-    function (previousValue, currentValue) {
+    function(previousValue, currentValue) {
      return previousValue + currentValue;
     }
    );

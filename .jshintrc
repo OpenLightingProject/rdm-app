@@ -3,7 +3,7 @@
   "jquery": false,
   "curly": true,
   "latedef": true,
-  "unused": true,
+  "unused": "vars",
   "noarg": true,
   "indent": 1,
   "trailing": true,
@@ -22,9 +22,8 @@
   "maxlen": 80,
   "nonbsp": true,
   "freeze": true,
+  "node": true,
   "globals": {
-    "grunt": true,
-    "node": true,
     "module": true
   }
 }

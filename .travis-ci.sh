@@ -7,9 +7,9 @@ elif [[ $TASK = 'karma' ]]; then
     sh -e /etc/init.d/xvfb start
     npm install -g grunt-cli
     npm install
-    grunt travis-unit
+    grunt unit-test
 elif [[ $TASK = 'jshint' ]]; then
     npm install -g grunt-cli
     npm install
-    grunt travis-jshint
+    grunt jshint
 fi

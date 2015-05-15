@@ -26,13 +26,23 @@ module.exports = function (grunt) {
    }
   },
   karma: {
-   travis: {
+   firefox: {
     configFile: './unit-test-js/karma.conf.js',
     singleRun: true,
     browsers: ['Firefox'],
     reporters: 'dots',
     plugins: [
      'karma-firefox-launcher',
+     'karma-jasmine'
+    ]
+   },
+   chrome: {
+    configFile: './unit-test-js/karma.conf.js',
+    singleRun: true,
+    browsers: ['Chrome'],
+    reporters: 'dots',
+    plugins: [
+     'karma-chrome-launcher',
      'karma-jasmine'
     ]
    }
@@ -54,7 +64,6 @@ module.exports = function (grunt) {
  grunt.loadNpmTasks('grunt-contrib-uglify');
  grunt.loadNpmTasks('grunt-contrib-jshint');
  grunt.registerTask('default', ['bower']);
- grunt.registerTask('travis-unit', ['bower', 'karma:travis']);
- grunt.registerTask('travis-jshint', ['jshint']);
+ grunt.registerTask('unit-test', ['bower', 'karma:firefox']);
  grunt.registerTask('compress', ['uglify']);
 };
