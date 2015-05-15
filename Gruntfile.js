@@ -16,7 +16,7 @@ module.exports = function (grunt) {
    build: {
     files: [{
      dest: './static/js/rdm.js',
-     src: './js_src/rdm.js'
+     src: './js_src/rdm.js'//TODO(dave): change this to ./js_scr/*js
     }],
     options: {
      mangle: true,
