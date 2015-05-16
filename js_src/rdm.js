@@ -4,8 +4,11 @@ angular.module('rdmApp', [])
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
  }])
+
  .controller('UIDController', ['$scope', function(convertor) {
   'use strict';
+  convertor.invalid_input_message = 'Invalid UID, please enter a UID in the ' +
+   'form MMMM:NNNNNNNN';
   convertor.euid = '';
   convertor.error = '';
   convertor.uid = '';
@@ -14,27 +17,24 @@ angular.module('rdmApp', [])
    convertor.euid = '';
    convertor.error = '';
 
-   if (!convertor.uid.match(/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/)) {
-    convertor.error = 'Invalid UID';
-    return;
-   }
-   var tokens = convertor.uid.split(':');
-   if (tokens.length !== 2) {
-    convertor.error = 'Invalid UID';
+   var clean_uid = convertor.uid.replace(/[\.:\-\s]/g, '');
+   if (!clean_uid.match(/^[0-9a-fA-F]{12}$/)) {
+    convertor.error = convertor.invalid_input_message;
     return;
    }
 
-   var manufacturer_str = tokens[0];
-   var device_str = tokens[1];
+   var manufacturer_str = clean_uid.slice(0, 4);
+   var device_str = clean_uid.slice(4, 12);
+
    if (manufacturer_str.length !== 4 || device_str.length !== 8) {
-    convertor.error = 'Invalid UID';
+    convertor.error = convertor.invalid_input_message;
     return;
    }
 
    var manufacturer = parseInt(manufacturer_str, 16);
    var device = parseInt(device_str, 16);
    if (isNaN(manufacturer) || isNaN(device)) {
-    convertor.error = 'Invalid UID';
+    convertor.error = convertor.invalid_input_message;
     return;
    }
 
@@ -79,6 +79,7 @@ angular.module('rdmApp', [])
    }).join(' ');
   };
  }])
+
  .controller('EUIDController', ['$scope', function(convertor) {
   'use strict';
   convertor.euid = '';
@@ -89,24 +90,24 @@ angular.module('rdmApp', [])
    convertor.error = '';
    convertor.uid = '';
 
-   var tokens = convertor.euid.trim().split(' ');
-   if (tokens.length !== 16) {
-    convertor.error = 'Invalid EUID, only found ' + tokens.length +
-    ' bytes';
+   var clean_euid = convertor.euid.replace(/[,\s]/g, '').trim();
+   if (!clean_euid.match(/^[0-9a-fA-F]*$/)) {
+    convertor.error = 'Invalid EUID: non hex characters';
+    return;
+   }
+
+   if (clean_euid.length !== 32) {
+    convertor.error =
+     'Invalid EUID: insufficent data, should be 32 hex characters';
     return;
    }
 
    var data = [];
-   for (var i = 0; i < tokens.length; i++) {
-    var value = parseInt(tokens[i], 16);
+   for (var i = 0; i < 16; i++) {
+    var octet = clean_euid.slice(i * 2, (i + 1) * 2);
+    var value = parseInt(octet, 16);
     if (isNaN(value)) {
-     convertor.error = 'Invalid EUID: ' + tokens[i];
-     return;
-    }
-    // parseInt may not use the entire string, so 0xfg comes back
-    // as 15.
-    if (value.toString(16) !== tokens[i]) {
-     convertor.error = 'Invalid EUID: ' + tokens[i];
+     convertor.error = 'Invalid EUID: bad value' + octet;
      return;
     }
     data.push(value);

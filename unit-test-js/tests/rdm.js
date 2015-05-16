@@ -16,14 +16,39 @@ describe('rdmApp', function() {
    $controller('UIDController', {$scope: convertor});
    convertor.uid = 'invalidteststring';
    convertor.convertToEUID();
-   expect(convertor.error).toEqual('Invalid UID');
+   expect(convertor.error).toEqual(
+     'Invalid UID, please enter a UID in the form MMMM:NNNNNNNN');
    expect(convertor.euid).toEqual('');
   });
 
-  it('displays euid if uid is valid', function() {
+  it('displays EUID if UID is valid', function() {
    var convertor = {};
    $controller('UIDController', {$scope: convertor});
    convertor.uid = '7a70:00000001';
+   convertor.convertToEUID();
+   expect(convertor.error).toEqual('');
+   expect(convertor.euid)
+    .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
+
+   convertor.uid = '7a7000000001';
+   convertor.convertToEUID();
+   expect(convertor.error).toEqual('');
+   expect(convertor.euid)
+    .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
+
+   convertor.uid = '7a 70 00 00 00 01';
+   convertor.convertToEUID();
+   expect(convertor.error).toEqual('');
+   expect(convertor.euid)
+    .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
+
+   convertor.uid = '7a.70.00.00.00.01';
+   convertor.convertToEUID();
+   expect(convertor.error).toEqual('');
+   expect(convertor.euid)
+    .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
+
+   convertor.uid = '7a-70-00-00-00-01';
    convertor.convertToEUID();
    expect(convertor.error).toEqual('');
    expect(convertor.euid)
@@ -36,7 +61,13 @@ describe('rdmApp', function() {
    $controller('EUIDController', {$scope: convertor});
    convertor.euid = 'invalidteststring';
    convertor.convertToUID();
-   expect(convertor.error).toEqual('Invalid EUID, only found 1 bytes');
+   expect(convertor.error).toEqual('Invalid EUID: non hex characters');
+   expect(convertor.uid).toEqual('');
+
+   convertor.euid = '';
+   convertor.convertToUID();
+   expect(convertor.error).toEqual(
+     'Invalid EUID: insufficent data, should be 32 hex characters');
    expect(convertor.uid).toEqual('');
   });
 
@@ -44,6 +75,17 @@ describe('rdmApp', function() {
    var convertor = {};
    $controller('EUIDController', {$scope: convertor});
    convertor.euid = 'fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5';
+   convertor.convertToUID();
+   expect(convertor.error).toEqual('');
+   expect(convertor.uid).toEqual('7a70:00000001');
+
+   convertor.euid =
+    'fa, 7f, fa, 75, aa, 55, aa, 55, aa, 55, ab, 55, ae, 57, ef, f5';
+   convertor.convertToUID();
+   expect(convertor.error).toEqual('');
+   expect(convertor.uid).toEqual('7a70:00000001');
+
+   convertor.euid = 'fa,7f,fa,75,aa,55,aa,55,aa,55,ab,55,ae,57,ef,f5';
    convertor.convertToUID();
    expect(convertor.error).toEqual('');
    expect(convertor.uid).toEqual('7a70:00000001');
