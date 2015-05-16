@@ -57,6 +57,15 @@ module.exports = function (grunt) {
    options: {
     jshintrc: true
    }
+  },
+  watch: {
+   build: {
+    files: ['Gruntfile.js', 'js_src/rdm.js'],
+    tasks: ['jshint:dev', 'uglify:build'],
+    options: {
+     atBegin: true
+    }
+   }
   }
  });
  grunt.loadNpmTasks('grunt-karma');
@@ -64,6 +73,6 @@ module.exports = function (grunt) {
  grunt.loadNpmTasks('grunt-contrib-uglify');
  grunt.loadNpmTasks('grunt-contrib-jshint');
  grunt.registerTask('default', ['bower']);
- grunt.registerTask('unit-test', ['bower', 'karma:firefox']);
- grunt.registerTask('compress', ['uglify']);
+ grunt.registerTask('unit-test', ['bower', 'compress', 'karma:firefox']);
+ grunt.registerTask('compress', ['jshint:dev', 'uglify:build']);
 };
