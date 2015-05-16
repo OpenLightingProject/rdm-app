@@ -50,7 +50,7 @@ module.exports = function (grunt) {
   jshint: {
    dev: [
     'Gruntfile.js',
-    'js_src/rdm.js',
+    'js_src/rdm.js',//TODO(dave): change this to ./js_scr/*js
     'unit-test-js/karma.conf.js',
     'unit-test-js/tests/*js'
    ],
