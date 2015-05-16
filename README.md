@@ -33,6 +33,19 @@ them to be there and not in bower_components also static/libs has a different st
 Currently only rdm.js in static/js has a javascript unit-test using [karma](https://github.com/karma-runner/karma) the unit-test is
 located in unit-test-js/tests/rdm.js and the karma configuration in unit-test-js/karma.conf.js the test can be run by running
 ```bash
-grunt travis-unit
+grunt unit-test
 ```
 It does require firefox and the dependencies to be installed to be able to run the test
+
+## Compress rdm.js
+
+The source for static/js/rdm.js is in js_src/rdm.js. however when you adjust rdm.js you have to compress it
+you can do this by running 
+```bash
+grunt compress
+```
+or if you are continuously adjusting the source and testing it,
+and you just want to automate the compressing of rdm.js run
+```bash
+grunt compress-watch
+```
