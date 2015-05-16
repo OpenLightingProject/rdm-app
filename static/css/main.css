@@ -357,3 +357,23 @@ div#get_response {
 .results_row {
     cursor: pointer;
 }
+
+input.ng-valid {
+    border-color: green;
+}
+
+input.ng-invalid {
+    border-color: red;
+}
+
+.form-control.ng-valid:focus {
+    border-color: green;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(105, 233, 102, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(105, 233, 102, 0.6);
+}
+
+.form-control.ng-invalid:focus {
+    border-color: red;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(232, 101, 116, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(233, 102, 117, 0.6);
+}

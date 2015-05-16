@@ -11,7 +11,8 @@
                 <div class="form-group">
                     <label for="covertor-input-uid">UID:</label>
                     <input id="covertor-input-uid" type="text" class="form-control" ng-model="uid"
-                           placeholder="Enter a UID">
+                           placeholder="Enter a UID"
+                           pattern="^([0-9a-fA-F]{4}:?[0-9a-fA-F]{8}|(?:[0-9a-fA-F]{2}[-. ]){6})$">//TODO(simon): regex
                 </div>
                 <input class="btn btn-primary" type="submit" value="Convert">
             </form>
@@ -25,7 +26,7 @@
                 <div class="form-group">
                     <label for="convertor-input-euid">EUID:</label>
                     <input id="convertor-input-euid" class="form-control" type="text" size=48 ng-model="euid"
-                           placeholder="Enter a EUID">
+                           placeholder="Enter a EUID" pattern="">//TODO(simon):regex pattern
                 </div>
                 <input class="btn btn-primary" type="submit" value="Convert">
             </form>
