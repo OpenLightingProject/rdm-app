@@ -757,11 +757,14 @@ class ResponderModerator(BaseAdminPageHandler):
 
     personalities = []
     for personality in software_version.personality_set:
-      personalities.append({
+      data = {
         'index': int(personality.index),
-        'description': str(personality.description),
-        'slot_count': int(personality.slot_count),
-    })
+      }
+      if personality.slot_count is not None:
+        data['slot_count'] = int(personality.slot_count)
+      if personality.description is not None:
+        data['description'] = str(personality.description)
+      personalities.append(data)
     personalities.sort(key=lambda i: i['index'])
     return personalities
 

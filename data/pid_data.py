@@ -121,6 +121,19 @@ MANUFACTURER_PIDS = [
        'value': 0x8005},
       ]
   },
+  # ImageCue
+  {'id': 0x0308,
+   'name': 'Image Cue',
+   'pids': [
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': 'serial_number', 'type': 'uint32'}
+                        ]},
+       'get_sub_device_range': 2,
+       'name': 'SERIAL_NUMBER',
+       'value': 0x80d0},
+   ]
+  },
   # Ayrton
   {'id': 16761,
    'name': 'Ayrton',
