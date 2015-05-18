@@ -29,6 +29,7 @@ MANUFACTURER_DATA = [
 (0x02D0, "Winona Lighting"),
 (0x0303, "Shanghai Moons' Automation Control Co., Ltd"),
 (0x0306, "feno GmbH"),
+(0x0308, "ImageCue LLC"),
 (0x032C, "Carallon Ltd."),
 (0x033A, "Lux Lumen"),
 (0x034B, "Rosstech Signals Inc."),

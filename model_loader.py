@@ -269,10 +269,12 @@ class ModelUpdater(object):
     # add any new personalities
     for index, personality_info in new_personalities.iteritems():
       personality = ResponderPersonality(
-          description = personality_info['description'],
+          description = personality_info.get('description', ''),
           index = index,
-          slot_count = personality_info['slot_count'],
           sw_version = software_version)
+      if 'slot_count' in personality_info:
+        personality.slot_count = personality_info['slot_count']
+
       personality.put()
       modified = True
 
