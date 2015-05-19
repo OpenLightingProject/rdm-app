@@ -217,6 +217,8 @@ class TestPiddata(unittest.TestCase):
 
   def test_PlasaPids(self):
     self.assertEqual(list, type(self.plasa_pids))
+    seen_pid_names = set()
+
     for pid in self.plasa_pids:
       try:
         self.pid_validator.validate(pid)
@@ -224,6 +226,8 @@ class TestPiddata(unittest.TestCase):
         self.fail(e)
 
       self.assertFalse(0x8000 <= pid['value'] <= 0xFFDF)
+      self.assertNotIn(pid['name'], seen_pid_names)
+      seen_pid_names.add(pid['name'])
 
   def test_ManufacturerPids(self):
     self.assertEqual(list, type(self.manufacturer_pids))
@@ -241,6 +245,7 @@ class TestPiddata(unittest.TestCase):
 
 
       seen_pids = set()
+      seen_pid_names = set()
       for pid in pids:
         try:
           self.pid_validator.validate(pid)
@@ -250,6 +255,9 @@ class TestPiddata(unittest.TestCase):
         self.assertTrue(0x8000 <= pid['value'] <= 0xFFDF)
         self.assertNotIn(pid['value'], seen_pids)
         seen_pids.add(pid['value'])
+
+        self.assertNotIn(pid['name'], seen_pid_names)
+        seen_pid_names.add(pid['name'])
 
 
 if __name__ == '__main__':
