@@ -127,7 +127,8 @@ MANUFACTURER_PIDS = [
    'pids': [
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'serial_number', 'type': 'uint32'}
+                          {'name': 'serial_number', 'type': 'uint32',
+                           'max': 11999999}
                         ]},
        'get_sub_device_range': 2,
        'name': 'SERIAL_NUMBER',
