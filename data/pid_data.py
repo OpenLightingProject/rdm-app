@@ -2527,7 +2527,7 @@ MANUFACTURER_PIDS = [
                                              (5, '15ft Throw')],
                                   }]},
        'get_sub_device_range': 0,
-       'name': 'FOLLOW_SPOT_CONTROLLER_MODE',
+       'name': 'FOLLOW_SPOT_ZOOM',
        'set_request': {'items': [{'name': 'zoom_table', 'type': 'uint8',
                                   'labels': [(0, '30ft Throw'),
                                              (1, '50ft Throw'),

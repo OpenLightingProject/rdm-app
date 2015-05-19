@@ -151,6 +151,26 @@ class AdminPageHandler(BaseAdminPageHandler):
       item.delete()
     return ''
 
+  def ClearManufacturerPids(self):
+    manufacturer_id = StringToInt(self.request.get('manufacturer'))
+    manufacturer = common.GetManufacturer(manufacturer_id)
+
+    count = 0
+    if manufacturer is not None:
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+
+      for pid in manufacturer.pid_set:
+        if pid.discovery_command:
+          pid.discovery_command.delete()
+        if pid.get_command:
+          pid.get_command.delete()
+        if pid.set_command:
+          pid.set_command.delete()
+        pid.delete()
+        count += 1
+    return 'Deleted %d PIDs' % count
+
   def FlushCache(self):
     keys = [
         memcache_keys.PRODUCT_COUNT_KEY,
@@ -426,6 +446,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'clear_models': self.ClearModels,
         'clear_nodes': self.ClearNodes,
         'clear_p': self.ClearPids,
+        'clear_mp': self.ClearManufacturerPids,
         'clear_software': self.ClearSoftware,
         'clear_splitters': self.ClearSplitters,
         'flush_cache': self.FlushCache,
