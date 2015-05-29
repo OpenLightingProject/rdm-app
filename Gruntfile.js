@@ -72,6 +72,7 @@ module.exports = function (grunt) {
  grunt.loadNpmTasks('grunt-bower-task');
  grunt.loadNpmTasks('grunt-contrib-uglify');
  grunt.loadNpmTasks('grunt-contrib-jshint');
+ grunt.loadNpmTasks('grunt-contrib-watch');
  grunt.registerTask('default', ['bower']);
  grunt.registerTask('unit-test', ['bower', 'compress', 'karma:firefox']);
  grunt.registerTask('compress', ['jshint:dev', 'uglify:build']);
