@@ -52,17 +52,17 @@ grunt compress-watch
 
 ## Debug rdm.js
 
-if you are having troubles with debugging the minified source of rdm.js you can copy
+If you are having trouble with debugging the minified source of rdm.js you can copy
 the files to the static dir using
 ```bash
 grunt copy-once
 ```
-or if you want a automatic copy run
+or if you want an automatic copy run
 ```bash
 grunt copy-watch
 ```
 ### Important!
-when you are done debugging don't forget to run
+When you are done debugging don't forget to run
 ```bash
 grunt copy-cleanup
 ```
