@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
  'use strict';
  grunt.initConfig({
   bower: {
@@ -10,6 +10,15 @@ module.exports = function (grunt) {
      cleanup: true,
      layout: 'byComponent'
     }
+   }
+  },
+  clean: {
+   copy: './static/js/rdm.js'
+  },
+  copy: {
+   develop: {
+    src: './js_src/rdm.js',
+    dest: './static/js/rdm.js'
    }
   },
   uglify: {
@@ -65,6 +74,13 @@ module.exports = function (grunt) {
     options: {
      atBegin: true
     }
+   },
+   copy: {
+    files: ['Gruntfile.js', 'js_src/rdm.js'],
+    tasks: ['clean:copy', 'copy:develop'],
+    options: {
+     atBegin: true
+    }
    }
   }
  });
@@ -73,8 +89,13 @@ module.exports = function (grunt) {
  grunt.loadNpmTasks('grunt-contrib-uglify');
  grunt.loadNpmTasks('grunt-contrib-jshint');
  grunt.loadNpmTasks('grunt-contrib-watch');
+ grunt.loadNpmTasks('grunt-contrib-copy');
+ grunt.loadNpmTasks('grunt-contrib-clean');
  grunt.registerTask('default', ['bower']);
  grunt.registerTask('unit-test', ['bower', 'compress', 'karma:firefox']);
  grunt.registerTask('compress', ['jshint:dev', 'uglify:build']);
  grunt.registerTask('compress-watch', ['watch:build']);
+ grunt.registerTask('copy-once', ['jshint:dev', 'clean:copy', 'copy:develop']);
+ grunt.registerTask('copy-watch', ['watch:copy']);
+ grunt.registerTask('copy-cleanup', ['clean:copy', 'compress']);
 };
