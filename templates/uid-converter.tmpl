@@ -1,0 +1,63 @@
+{% extends "base.tmpl" %}
+
+{% block title %}RDM Manufacturer Index - Tools{% endblock %}
+
+{% block content %}
+<div ng-app="rdmApp">
+  <h3>Convert UID to EUID</h3>
+
+  <div ng-controller="UIDController">
+    <form class="form-inline" ng-submit="convertToEUID()">
+        <div class="form-group">
+          <label for="coverter-uid-input">UID:</label>
+          <input id="coverter-uid-input" type="text" class="form-control" ng-model="uid"
+                 placeholder="Enter a UID"
+                 pattern="^([0-9a-fA-F]{2}\s*[\.,:]?\s*){5}[0-9a-fA-F]{2}$">
+        </div>
+        </br>
+        <label for="coverter-uid-output-format">Output Format:</label>
+        <select id="converter-uid-output-format"
+         ng-model="format"
+         ng-options="value.value as value.label for (key, value) in OUTPUT_FORMATS">
+        </select>
+        </br>
+        <input class="btn btn-primary" type="submit" value="Convert">
+    </form>
+    <span style="color: red;margin-top: 5px;padding-top: 5px;display: flex;"
+     ng-bind="error"></span>
+    <div ng-show='euid'
+     style="margin-top: 5px;padding: 6px; border: 1px solid #cccccc; border-radius: 5px;"
+     ng-bind="euid"></div>
+  </div>
+  <hr>
+
+  <h3>Convert EUID to UID</h3>
+  <div ng-controller="EUIDController">
+    <form class="form-inline" ng-submit="convertToUID()">
+      <div class="form-group">
+        <label for="convertor-euid-input">EUID:</label>
+        <input id="convertor-euid-input" class="form-control" type="text" size=48 ng-model="euid"
+               placeholder="Enter EUID bytes. e.g. 0xfa 0x75 ...">
+      </div>
+      <br>
+      <label for="coverter-euid-input-format">Interpret data as:</label>
+      <select id="converter-euid-input-format"
+       ng-model="format"
+       ng-options="value.value as value.label for (key, value) in INPUT_FORMATS">
+      </select>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Convert">
+    </form>
+    <span style="color: red;margin-top: 5px;padding-top: 5px;display: flex;"
+     ng-bind="error"></span>
+    <div ng-show='uid'
+     style="margin-top: 5px;padding: 6px; border: 1px solid #cccccc; border-radius: 5px;"
+     ng-bind="uid"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_headers %}
+    <script src="/libs/angular/js/angular.min.js"></script>
+    <script src="/js/rdm.js"></script>
+{% endblock %}

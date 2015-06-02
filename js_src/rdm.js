@@ -7,12 +7,12 @@ angular.module('rdmApp', [])
 
  .constant('RDM', {
   'COMMAND_CLASS': {
-   'DISCOVERY_COMMAND': 16,
-   'DISCOVERY_COMMAND_RESPONSE': 17,
-   'GET_COMMAND': 32,
-   'GET_COMMAND_RESPONSE': 33,
-   'SET_COMMAND': 48,
-   'SET_COMMAND_RESPONSE': 49
+   'DISCOVERY_COMMAND': 0x10,
+   'DISCOVERY_COMMAND_RESPONSE': 0x11,
+   'GET_COMMAND': 0x20,
+   'GET_COMMAND_RESPONSE': 0x21,
+   'SET_COMMAND': 0x30,
+   'SET_COMMAND_RESPONSE': 0x31
   },
   'EUID_SIZE': 16,
   'NACK_REASON': {
@@ -49,14 +49,14 @@ angular.module('rdmApp', [])
    'MANUFACTURER_LABEL': 0x0081,
    'DEVICE_LABEL': 0x0082,
    'FACTORY_DEFAULTS': 0x0090,
-   'LANGUAGE_CAPABILITIES': 0x00A0,
-   'LANGUAGE': 0x00B0,
-   'SOFTWARE_VERSION_LABEL': 0x00C0,
-   'BOOT_SOFTWARE_VERSION_ID': 0x00C1,
-   'BOOT_SOFTWARE_VERSION_LABEL': 0x00C2,
+   'LANGUAGE_CAPABILITIES': 0x00a0,
+   'LANGUAGE': 0x00b0,
+   'SOFTWARE_VERSION_LABEL': 0x00c0,
+   'BOOT_SOFTWARE_VERSION_ID': 0x00c1,
+   'BOOT_SOFTWARE_VERSION_LABEL': 0x00c2,
    'DMX_PERSONALITY': 0x00E0,
-   'DMX_PERSONALITY_DESCRIPTION': 0x00E1,
-   'DMX_START_ADDRESS': 0x00F0,
+   'DMX_PERSONALITY_DESCRIPTION': 0x00e1,
+   'DMX_START_ADDRESS': 0x00f0,
    'SLOT_INFO': 0x0120,
    'SLOT_DESCRIPTION': 0x0121,
    'DEFAULT_SLOT_VALUE': 0x0122,
@@ -113,10 +113,10 @@ angular.module('rdmApp', [])
    'INTERFACE_RENEW_DHCP': 0x0707,
    'INTERFACE_RELEASE_DHCP': 0x0708,
    'INTERFACE_APPLY_CONFIGURATION': 0x0709,
-   'IPV4_DEFAULT_ROUTE': 0x070A,
-   'DNS_NAME_SERVER': 0x070B,
-   'DNS_HOSTNAME': 0x070C,
-   'DNS_DOMAIN_NAME': 0x070D
+   'IPV4_DEFAULT_ROUTE': 0x070a,
+   'DNS_NAME_SERVER': 0x070b,
+   'DNS_HOSTNAME': 0x070c,
+   'DNS_DOMAIN_NAME': 0x070d
   },
   'RESPONSE_TYPE': {
    'ACK': 0,
@@ -185,12 +185,12 @@ angular.module('rdmApp', [])
     return new Array(length + 1).join(' ');
    };
 
-   var toHex = function(num, places, prefix) {
+   var toHex = function(num, places, prefix, suffix) {
     var str = num.toString(16);
     var zero = places - str.length + 1;
     return ((prefix ? prefix : '') +
             new Array(+(zero > 0 && zero)).join('0') +
-            str);
+            str + (suffix ? suffix : ''));
    };
    this.toHex = toHex;
 
@@ -213,9 +213,9 @@ angular.module('rdmApp', [])
            toHex(data[4], 2) + toHex(data[5], 2);
    };
 
-   this.arrayToHex = function(input, prefix) {
+   this.arrayToHex = function(input, prefix, suffix) {
     return input.map(function(i) {
-     return toHex(i, 2, prefix);
+     return toHex(i, 2, prefix, suffix);
     });
    };
 
@@ -283,28 +283,102 @@ angular.module('rdmApp', [])
     };
   }])
 
- .service('parserService', ['RDM', function(RDM) {
+ .service('parserService', ['$log', 'RDM', function($log, RDM) {
    'use strict';
-   this.textToBytes = function(text) {
-     var clean_data = text.replace(/[,\s]/g, '').trim();
-     if (!clean_data.match(/^[0-9a-fA-F]*$/)) {
-      return ['Non hex characters', []];
+   var guessDataFormat = function(tokens) {
+    // Try to determine how to interpret digits like '10'. We do this by
+    // looking at the other data supplied.
+    // This works well for RDM packets, because the start code is either 0xCC
+    // or 204 so we only have to check the first token.
+    for (var j = 0; j < tokens.length; j++) {
+     // If any of the tokens contain hex characters, default to hex.
+     var token = tokens[j];
+     if (token.match(/^[a-fA-F]{1,2}$/)) {
+      return true;
      }
 
-     if (clean_data.length % 2) {
-      return ['Missing Bytes', []];
+     // If any tokens are 3 digits, default to decimal.
+     if (token.match(/^[\d]{3}$/)) {
+      return true;
      }
 
-     var data = [];
-     for (var i = 0; i < clean_data.length / 2; i++) {
-      var octet = clean_data.slice(i * 2, (i + 1) * 2);
-      var value = parseInt(octet, 16);
-      if (isNaN(value)) {
-       return ['Invalid EUID: bad value' + octet, []];
+     // If any tokens are in the form ##h or 0x##, assume tokens not in this
+     // format are decimal.
+     if (token.match(/^[\da-fA-F]{1,2}h$/) ||
+         token.match(/^0x[\da-fA-F]{1,2}h$/)) {
+      return false;
+     }
+    }
+    // default to decimal
+    return false;
+   };
+
+   var parseLines = function(lines, as_hex) {
+    // If as_hex isn't defined we try to be clever about what we accept.
+    // ##h and 0x## are obviously hex values, ## is ambiguous so we use
+    // heuristics to figure it out.
+    var error = '';
+    var binary_data = [];
+
+    var tokens = [];
+    for (var i = 0; i < lines.length; ++i) {
+     var line = lines[i].replace(/^(.*?)\s*\/\/.*$/, '$1');
+     line = line.replace(/[,:\-]/g, ' ');
+     line = line.replace(/\s{2,}/g, ' ').trim();
+     if (line) {
+      tokens = tokens.concat(line.split(' '));
+     }
+    }
+
+    if (as_hex === undefined) {
+     as_hex = guessDataFormat(tokens);
+    }
+
+    $log.info(tokens);
+    for (var j = 0; j < tokens.length; j++) {
+     var token = tokens[j];
+     var hex_suffix_match = token.match(/^([\da-fA-F]{1,2})h$/);
+     if (hex_suffix_match) {
+      binary_data.push(parseInt(hex_suffix_match[0], 16));
+      continue;
+     }
+
+     var hex_prefix_match = token.match(/^0x([\da-fA-F]{1,2})$/);
+     if (hex_prefix_match) {
+      binary_data.push(parseInt(hex_prefix_match[0], 16));
+      continue;
+     }
+
+     if (as_hex) {
+      var hex_match = token.match(/^([\da-fA-F]{1,2})$/);
+      if (hex_match) {
+       binary_data.push(parseInt(hex_match[0], 16));
+       continue;
+      } else {
+       error = 'Invalid byte: ' + token;
+       return [error, binary_data];
       }
-      data.push(value);
+     } else {
+      var decimal_match = token.match(/^(\d{1,3})$/);
+      if (decimal_match) {
+       if (decimal_match[0] <= 255) {
+        binary_data.push(parseInt(decimal_match[0], 10));
+        continue;
+       } else {
+        error = 'Invalid byte: ' + token;
+        return [error, binary_data];
+       }
+      }
      }
-     return ['', data];
+
+     error = 'Invalid binary data: ' + token;
+    }
+    return [error, binary_data];
+   };
+
+   this.textToBytes = function(text, as_hex) {
+     var lines = text.split('\n');
+     return parseLines(lines, as_hex);
     };
 
    this.uidToBytes = function(text) {
@@ -313,27 +387,44 @@ angular.module('rdmApp', [])
      return ['Contains non hex characters', []];
     }
 
-    var return_data = this.textToBytes(clean_uid);
-    if (return_data[0]) {
-     return return_data;
+    if (clean_uid.length !== RDM.UID_SIZE * 2) {
+     return ['UID should be ' + RDM.UID_SIZE + ' bytes', []];
     }
 
-    if (return_data[1].length !== RDM.UID_SIZE) {
-     return ['Incorrect size', []];
+    var uid_bytes = [];
+    for (var i = 0; i < clean_uid.length / 2; i++) {
+     var octet = clean_uid.slice(i * 2, (i + 1) * 2);
+     var value = parseInt(octet, 16);
+     if (isNaN(value)) {
+      return ['Invalid UID: bad value' + octet, []];
+     }
+     uid_bytes.push(value);
     }
-    return return_data;
+
+    return ['', uid_bytes];
    };
   }])
 
  .controller('UIDController',
-             ['$scope', 'checksumService', 'formatService', 'parserService',
-              function($scope, checksumService, formatService, parserService) {
+             ['$scope', '$log', 'checksumService', 'formatService',
+              'parserService',
+              function($scope, $log, checksumService, formatService,
+                       parserService) {
   'use strict';
+  var OUTPUT_FORMATS = {
+   'HEX_SUFFIX': {'label': '##h', 'value': 0},
+   'HEX_PREFIX': {'label': '0x##', 'value': 1},
+   'HEX_PAIRS': {'label': 'Hex Pairs (##)', 'value': 2},
+   'DECIMAL_PAIRS': {'label': 'Decimal Pairs (##)', 'value': 3}
+  };
+
   $scope.invalid_input_message = 'Invalid UID, please enter a UID in the ' +
    'form MMMM:NNNNNNNN';
   $scope.uid = '';
   $scope.euid = '';
   $scope.error = '';
+  $scope.OUTPUT_FORMATS = OUTPUT_FORMATS;
+  $scope.format = OUTPUT_FORMATS.HEX_PAIRS.value;
 
   $scope.convertToEUID = function() {
    $scope.euid = '';
@@ -359,16 +450,32 @@ angular.module('rdmApp', [])
     this.push(value | 0x55);
    }, euid_bytes);
 
-   $scope.euid = formatService.arrayToHex(euid_bytes).join(' ');
+   if ($scope.format === OUTPUT_FORMATS.HEX_SUFFIX.value) {
+    $scope.euid = formatService.arrayToHex(euid_bytes, '', 'h').join(' ');
+   } else if ($scope.format === OUTPUT_FORMATS.HEX_PREFIX.value) {
+    $scope.euid = formatService.arrayToHex(euid_bytes, '0x').join(' ');
+   } else if ($scope.format === OUTPUT_FORMATS.HEX_PAIRS.value) {
+    $scope.euid = formatService.arrayToHex(euid_bytes).join(' ');
+   } else {
+    $scope.euid = euid_bytes.join(' ');
+   }
   };
  }])
 
  .controller('EUIDController',
-             ['$scope', 'checksumService', 'formatService', 'parserService',
-              'RDM',
-              function($scope, checksumService, formatService, parserService,
-                       RDM) {
+             ['$scope', '$log', 'checksumService', 'formatService',
+              'parserService', 'RDM',
+              function($scope, $log, checksumService, formatService,
+                       parserService, RDM) {
   'use strict';
+  var INPUT_FORMATS = {
+   'DECIMAL': {'label': 'Decimal', 'value': 0},
+   'HEX': {'label': 'Hexadecimal', 'value': 1}
+  };
+
+  $scope.INPUT_FORMATS = INPUT_FORMATS;
+  $scope.format = INPUT_FORMATS.HEX.value;
+
   $scope.euid = '';
   $scope.error = '';
   $scope.uid = '';
@@ -377,7 +484,9 @@ angular.module('rdmApp', [])
    $scope.error = '';
    $scope.uid = '';
 
-   var return_data = parserService.textToBytes($scope.euid);
+   var return_data = parserService.textToBytes(
+       $scope.euid, $scope.format === INPUT_FORMATS.HEX.value);
+
    if (return_data[0]) {
     $scope.error = 'Invalid EUID: ' + return_data[0];
     return;
@@ -386,8 +495,7 @@ angular.module('rdmApp', [])
    var data = return_data[1];
 
    if (data.length !== RDM.EUID_SIZE) {
-    $scope.error =
-     'Invalid EUID: insufficent data, should be 32 hex characters';
+    $scope.error = 'Invalid EUID: insufficent data, should be 16 bytes';
     return;
    }
 
@@ -616,7 +724,11 @@ angular.module('rdmApp', [])
               function($scope, $log, checksumService, parserService,
                        formatService, rdmHelperService, OUTPUT_FORMAT, RDM) {
   'use strict';
-  $scope.packet = {
+  $scope.packet_data = '';
+  $scope.show_output = false;
+
+  var resetPacket = function() {
+   $scope.packet = {
     'start_code': '',
     'sub_start_code': '',
     'message_length': '',
@@ -635,43 +747,23 @@ angular.module('rdmApp', [])
     'param_data': '',
     'checksum': '',
     'actual_size': '',
-    'calculated_checksum': ''
+    'calculated_checksum': '',
+    'nack_reason_error': '',
+    'ack_timer_error': ''
    };
-  $scope.packet_data = '';
-  $scope.show_output = false;
+  };
 
-  var resetOutput = function() {
-    $scope.packet.start_code = '';
-    $scope.packet.sub_start_code = '';
-    $scope.packet.message_length = '';
-    $scope.packet.dest_uid = '';
-    $scope.packet.src_uid = '';
-    $scope.packet.transaction_number = '';
-    $scope.packet.port_id = '';
-    $scope.packet.message_count = '';
-    $scope.packet.sub_device = '';
-    $scope.packet.command_class = '';
-    $scope.packet.param_id = '';
-    $scope.packet.response_type = '';
-    $scope.packet.nack_reason = '';
-    $scope.packet.ack_timer = '';
-    $scope.packet.param_data_length = '';
-    $scope.packet.param_data = '';
-    $scope.packet.checksum = '';
-
-    $scope.packet.actual_size = '';
-    $scope.packet.calculated_checksum = '';
-   };
+  resetPacket();
 
   $scope.reset = function() {
-    resetOutput();
-    $scope.error = '';
-    $scope.packet_data = '';
-    $scope.show_output = false;
-   };
+   resetPacket();
+   $scope.error = '';
+   $scope.packet_data = '';
+   $scope.show_output = false;
+  };
 
   $scope.parsePacket = function() {
-   resetOutput();
+   resetPacket();
    $scope.error = '';
 
    var parse_return = parserService.textToBytes($scope.packet_data);
@@ -739,7 +831,6 @@ angular.module('rdmApp', [])
    var port_id;
    if (packet_data.length >= 1) {
     port_id = packet_data.shift();
-    $scope.packet.port_id = port_id;
    } else {
     $scope.error = 'Insufficient data for port ID / response type';
     return;
@@ -753,11 +844,17 @@ angular.module('rdmApp', [])
    }
 
    var output;  // work around javascript's poor scoping rules
+   var hex_value;
 
    if (packet_data.length >= 2) {
     var sub_device = (packet_data.shift() << 8) + packet_data.shift();
     output = formatService.reverseLookup(RDM.SUB_DEVICE, sub_device);
-    $scope.packet.sub_device = output ? output : sub_device;
+    if (output) {
+     $scope.packet.sub_device = output + ' (' + formatService.toHex(sub_device,
+           4, '0x') + ')';
+    } else {
+     $scope.packet.sub_device = sub_device;
+    }
    } else {
     $scope.error = 'Insufficient data for sub device';
     return;
@@ -767,7 +864,12 @@ angular.module('rdmApp', [])
    if (packet_data.length >= 1) {
     command_class = packet_data.shift();
     output = formatService.reverseLookup(RDM.COMMAND_CLASS, command_class);
-    $scope.packet.command_class = output ? output : command_class;
+    hex_value = formatService.toHex(command_class, 2, '0x');
+    if (output) {
+     $scope.packet.command_class = output + ' (' + hex_value + ')';
+    } else {
+     $scope.packet.command_class = hex_value;
+    }
    } else {
     $scope.error = 'Insufficient data for command class';
     return;
@@ -775,9 +877,13 @@ angular.module('rdmApp', [])
 
    // Now interpret the port id
    if (rdmHelperService.isResponse(command_class)) {
-    output = formatService.reverseLookup(RDM.NACK_REASON, port_id);
-    $scope.packet.nack_reason = output ? output :
-      formatService.toHex(command_class, 2, '0x');
+    output = formatService.reverseLookup(RDM.RESPONSE_TYPE, port_id);
+    hex_value = formatService.toHex(port_id, 4, '0x');
+    if (output) {
+     $scope.packet.response_type = output + ' (' + hex_value + ')';
+    } else {
+     $scope.packet.response_type = hex_value;
+    }
    } else {
     $scope.packet.port_id = port_id;
    }
@@ -785,8 +891,13 @@ angular.module('rdmApp', [])
    if (packet_data.length >= 2) {
     var param_id = (packet_data.shift() << 8) + packet_data.shift();
     output = formatService.reverseLookup(RDM.PIDS, param_id);
-    $scope.packet.param_id = output ? output :
-      formatService.toHex(param_id, 4, '0x');
+    hex_value = formatService.toHex(param_id, 4, '0x');
+
+    if (output) {
+     $scope.packet.param_id = output + ' (' + hex_value + ')';
+    } else {
+     $scope.packet.param_id = hex_value;
+    }
    } else {
     $scope.error = 'Insufficient data for parameter ID';
     return;
@@ -804,8 +915,33 @@ angular.module('rdmApp', [])
    if (packet_data.length >= param_data_length) {
     var param_data = packet_data.slice(0, param_data_length);
     packet_data = packet_data.slice(param_data_length);
-    $scope.packet.param_data = formatService.arrayToHex(
-        param_data, '0x');
+
+    if (rdmHelperService.isResponse(command_class) &&
+        port_id === RDM.RESPONSE_TYPE.NACK) {
+     if (param_data_length === 2) {
+      var nack_reason = (param_data[0] << 8) + param_data[1];
+      output = formatService.reverseLookup(RDM.NACK_REASON, nack_reason);
+      hex_value = formatService.toHex(nack_reason, 4, '0x');
+
+      if (output) {
+       $scope.packet.nack_reason = output + ' (' + hex_value + ')';
+      } else {
+       $scope.packet.nack_reason = 'Unknown: ' + hex_value;
+      }
+     } else {
+      $scope.packet.nack_reason_error = 'Parameter data length should be 2';
+     }
+    } else if (rdmHelperService.isResponse(command_class) &&
+               port_id === RDM.RESPONSE_TYPE.ACK_TIMER) {
+     if (param_data_length === 2) {
+      var ack_timer = (param_data[0] << 8) + param_data[1];
+      $scope.packet.ack_timer = ack_timer;
+     } else {
+      $scope.packet.ack_timer_error = 'Parameter data length should be 2';
+     }
+    } else {
+     $scope.packet.param_data = formatService.arrayToHex(param_data, '0x');
+    }
    } else {
     $scope.error = 'Insufficient data for parameter data';
     return;
@@ -823,7 +959,6 @@ angular.module('rdmApp', [])
      original_packet_data = original_packet_data.slice(0, -1);
     }
     // Checksum was missing
-    $log.info(original_packet_data);
     $scope.packet.calculated_checksum = formatService.toHex(
         checksumService.checksumAsValue(original_packet_data),
         4, '0x');
