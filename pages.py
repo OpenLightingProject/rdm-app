@@ -31,9 +31,17 @@ class DisclaimerPageHandler(common.BasePageHandler):
     TEMPLATE = 'templates/disclaimer.tmpl'
 
 
-class ToolsPageHandler(common.BasePageHandler):
+class UIDConverterHandler(common.BasePageHandler):
     """Display the tools page."""
-    TEMPLATE = 'templates/tools.tmpl'
+    TEMPLATE = 'templates/uid-converter.tmpl'
+
+class PacketBuilderHandler(common.BasePageHandler):
+    """Display the packet builder page."""
+    TEMPLATE = 'templates/packet-builder.tmpl'
+
+class PacketExtractorHandler(common.BasePageHandler):
+    """Display the packet builder page."""
+    TEMPLATE = 'templates/packet-extractor.tmpl'
 
 
 app = webapp.WSGIApplication(
@@ -41,6 +49,9 @@ app = webapp.WSGIApplication(
         ('/about', AboutPageHandler),
         ('/contact', AboutPageHandler),
         ('/disclaimer', DisclaimerPageHandler),
-        ('/tools', ToolsPageHandler)
+        ('/tools', UIDConverterHandler),  # legacy
+        ('/tools/uid-converter', UIDConverterHandler),
+        ('/tools/packet-builder', PacketBuilderHandler),
+        ('/tools/packet-extractor', PacketExtractorHandler)
     ],
     debug=True)

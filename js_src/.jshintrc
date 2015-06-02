@@ -1,4 +1,5 @@
 {
+  "devel": true,
   "nonew": true,
   "jquery": false,
   "curly": true,

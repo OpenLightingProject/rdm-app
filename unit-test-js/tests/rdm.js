@@ -61,7 +61,7 @@ describe('rdmApp', function() {
    $controller('EUIDController', {$scope: convertor});
    convertor.euid = 'invalidteststring';
    convertor.convertToUID();
-   expect(convertor.error).toEqual('Invalid EUID: non hex characters');
+   expect(convertor.error).toEqual('Invalid EUID: Non hex characters');
    expect(convertor.uid).toEqual('');
 
    convertor.euid = '';
