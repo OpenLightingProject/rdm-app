@@ -16,18 +16,18 @@ angular.module('rdmApp', [])
   },
   'EUID_SIZE': 16,
   'NACK_REASON': {
-   'NR_UNKNOWN_PID': 0,
-   'NR_FORMAT_ERROR': 1,
-   'NR_HARDWARE_FAULT': 2,
-   'NR_PROXY_REJECT': 3,
-   'NR_WRITE_PROTECT': 4,
-   'NR_UNSUPPORTED_COMMAND_CLASS': 5,
-   'NR_DATA_OUT_OF_RANGE': 6,
-   'NR_BUFFER_FULL': 7,
-   'NR_PACKET_SIZE_UNSUPPORTED': 8,
-   'NR_SUB_DEVICE_OUT_OF_RANGE': 9,
-   'NR_PROXY_BUFFER_FULL': 10,
-   'NR_ACTION_NOT_SUPPORTED': 11
+   'NR_UNKNOWN_PID': 0x0,
+   'NR_FORMAT_ERROR': 0x1,
+   'NR_HARDWARE_FAULT': 0x2,
+   'NR_PROXY_REJECT': 0x3,
+   'NR_WRITE_PROTECT': 0x4,
+   'NR_UNSUPPORTED_COMMAND_CLASS': 0x5,
+   'NR_DATA_OUT_OF_RANGE': 0x6,
+   'NR_BUFFER_FULL': 0x7,
+   'NR_PACKET_SIZE_UNSUPPORTED': 0x8,
+   'NR_SUB_DEVICE_OUT_OF_RANGE': 0x9,
+   'NR_PROXY_BUFFER_FULL': 0x10,
+   'NR_ACTION_NOT_SUPPORTED': 0x11
   },
   'PIDS': {
    'DISC_UNIQUE_BRANCH': 0x0001,
@@ -305,7 +305,7 @@ angular.module('rdmApp', [])
      // If any tokens are in the form ##h or 0x##, assume tokens not in this
      // format are decimal.
      if (token.match(/^[\da-fA-F]{1,2}h$/) ||
-         token.match(/^0x[\da-fA-F]{1,2}h$/)) {
+         token.match(/^0x[\da-fA-F]{1,2}$/)) {
       return false;
      }
     }
