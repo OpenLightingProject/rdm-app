@@ -47,7 +47,8 @@
         <tr>
          <td><label for="builder-command-class">Command Class:</label></td>
          <td>
-          <select id="builder-command-class" ng-model="packet.command_class"
+          <select class="form-control" id="builder-command-class"
+           ng-model="packet.command_class"
            ng-options="item.value as item.label for item in command_classes ">
            </select>
          </td>
@@ -55,7 +56,8 @@
         <tr>
          <td><label for="builder-param-id">Parameter ID:</label></td>
          <td>
-          <select id="builder-param-id" ng-model="packet.param_id"
+          <select class="form-control" id="builder-param-id"
+           ng-model="packet.param_id"
            ng-options="item.value as item.label for item in properties.pids">
            </select>
          </td>
@@ -78,7 +80,8 @@
                      packet.command_class === RDM.COMMAND_CLASS.SET_COMMAND_RESPONSE">
          <td><label for="builder-response-type">Response Type:</label></td>
          <td>
-          <select id="builder-response-type" ng-model="packet.response_type"
+          <select class="form-control" id="builder-response-type"
+           ng-model="packet.response_type"
            ng-options="key for (key, value) in RDM.RESPONSE_TYPE">
            </select>
          </td>
@@ -86,7 +89,8 @@
         <tr ng-show="packet.response_type == RDM.RESPONSE_TYPE.NACK">
          <td><label for="builder-nack-reason">NACK Reason:</label></td>
          <td>
-          <select id="builder-nack-reason" ng-model="packet.nack_reason"
+          <select class="form-control" id="builder-nack-reason"
+           ng-model="packet.nack_reason"
            ng-options="key for (key, value) in RDM.NACK_REASON">
            </select>
          </td>
@@ -133,7 +137,8 @@
       <input class="btn btn-primary" type="submit" value="Build Packet">
       <br/>
       <label for="builder-output-format">Output Format:</label></td>
-      <select id="builder-output-format" ng-model="settings.output_format"
+      <select class="form-control" id="builder-output-format"
+       ng-model="settings.output_format"
        ng-options="key for (key, value) in OUTPUT_FORMAT ">
        </select>
       <label for="builder-output-wrap">Line Wrap:</label></td>

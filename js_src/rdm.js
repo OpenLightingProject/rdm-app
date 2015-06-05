@@ -286,10 +286,12 @@ angular.module('rdmApp', [])
  .service('parserService', ['$log', 'RDM', function($log, RDM) {
    'use strict';
    var guessDataFormat = function(tokens) {
-    // Try to determine how to interpret digits like '10'. We do this by
-    // looking at the other data supplied.
-    // This works well for RDM packets, because the start code is either 0xCC
-    // or 204 so we only have to check the first token.
+    /*
+     * Try to determine how to interpret digits like '10'. We do this by
+     * looking at the other data supplied.
+     * This works well for RDM packets, because the start code is either 0xCC
+     * or 204 so we only have to check the first token.
+     */
     for (var j = 0; j < tokens.length; j++) {
      // If any of the tokens contain hex characters, default to hex.
      var token = tokens[j];
@@ -334,7 +336,6 @@ angular.module('rdmApp', [])
      as_hex = guessDataFormat(tokens);
     }
 
-    $log.info(tokens);
     for (var j = 0; j < tokens.length; j++) {
      var token = tokens[j];
      var hex_suffix_match = token.match(/^([\da-fA-F]{1,2})h$/);
@@ -499,13 +500,14 @@ angular.module('rdmApp', [])
     return;
    }
 
-   var uid_array = [];
-   uid_array.push(data[0] & data[1]);
-   uid_array.push(data[2] & data[3]);
-   uid_array.push(data[4] & data[5]);
-   uid_array.push(data[6] & data[7]);
-   uid_array.push(data[8] & data[9]);
-   uid_array.push(data[10] & data[11]);
+   var uid_array = [
+    data[0] & data[1],
+    data[2] & data[3],
+    data[4] & data[5],
+    data[6] & data[7],
+    data[8] & data[9],
+    data[10] & data[11]
+   ];
 
    var recovered_checksum = ((data[12] & data[13]) << 8) +
     (data[14] & data[15]);
@@ -595,7 +597,7 @@ angular.module('rdmApp', [])
         $scope.packet.response_type === RDM.RESPONSE_TYPE.ACK_OVERFLOW));
   };
 
-  function commandClassChanged(new_value, old_value, scope) {
+  var commandClassChanged = function(new_value, old_value, scope) {
     $scope.packet.command_class = new_value;
     $scope.properties.is_request = rdmHelperService.isRequest(new_value);
     showHideParamData();
@@ -630,12 +632,12 @@ angular.module('rdmApp', [])
      $scope.packet.param_id = pids[0].value;
     }
     $scope.properties.pids = pids;
-   }
+   };
 
-  function responseTypeChanged(newValue, oldValue, scope) {
+  var responseTypeChanged = function(newValue, oldValue, scope) {
     $scope.packet.response_type = newValue;
     showHideParamData();
-   }
+   };
 
   $scope.$watch('packet.response_type', responseTypeChanged);
   $scope.$watch('packet.command_class', commandClassChanged);
@@ -683,10 +685,12 @@ angular.module('rdmApp', [])
      }
     }
 
-    var data = [];
-    data.push($scope.packet.start_code);
-    data.push($scope.packet.sub_start_code);
-    data.push(param_data.length + 24);
+    var data = [
+     $scope.packet.start_code,
+     $scope.packet.sub_start_code,
+     param_data.length + 24
+    ];
+
     data = data.concat(dest_uid);
     data = data.concat(src_uid);
     data.push($scope.packet.transaction_number);
@@ -720,9 +724,9 @@ angular.module('rdmApp', [])
 
  .controller('RDMPacketParser',
              ['$scope', '$log', 'checksumService', 'parserService',
-              'formatService', 'rdmHelperService', 'OUTPUT_FORMAT', 'RDM',
+              'formatService', 'rdmHelperService', 'RDM',
               function($scope, $log, checksumService, parserService,
-                       formatService, rdmHelperService, OUTPUT_FORMAT, RDM) {
+                       formatService, rdmHelperService, RDM) {
   'use strict';
   $scope.packet_data = '';
   $scope.show_output = false;

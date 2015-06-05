@@ -16,7 +16,7 @@
         </div>
         </br>
         <label for="coverter-uid-output-format">Output Format:</label>
-        <select id="converter-uid-output-format"
+        <select class="form-control" id="converter-uid-output-format"
          ng-model="format"
          ng-options="value.value as value.label for (key, value) in OUTPUT_FORMATS">
         </select>
@@ -41,7 +41,7 @@
       </div>
       <br>
       <label for="coverter-euid-input-format">Interpret data as:</label>
-      <select id="converter-euid-input-format"
+      <select class="form-control" id="converter-euid-input-format"
        ng-model="format"
        ng-options="value.value as value.label for (key, value) in INPUT_FORMATS">
       </select>
