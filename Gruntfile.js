@@ -77,7 +77,7 @@ module.exports = function (grunt) {
    },
    copy: {
     files: ['Gruntfile.js', 'js_src/rdm.js'],
-    tasks: ['clean:copy', 'copy:develop'],
+    tasks: ['jshint:dev', 'clean:copy', 'copy:develop'],
     options: {
      atBegin: true
     }

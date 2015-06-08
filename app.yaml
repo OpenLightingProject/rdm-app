@@ -1,4 +1,5 @@
-application: "rdmprotocol-hrd"
+application: "olp-rdm-staging"
+#application: "rdmprotocol-hrd"
 version: 1
 runtime: python27
 api_version: 1
@@ -35,6 +36,9 @@ handlers:
 
 # page handlers
 - url: /(about|contact|disclaimer|tools)
+  script: pages.app
+
+- url: /tools/.*
   script: pages.app
 
 # model handlers
