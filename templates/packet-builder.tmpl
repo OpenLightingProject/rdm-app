@@ -146,9 +146,12 @@
              ng-model="settings.wrap" min="0" max="120" size="2">
 
        <br/>
-     </form>
      <br/>
-      <pre style="border: 1px solid #cccccc" ng-bind="output"></pre>
+      <textarea ng-show="output" rows=10 cols=100
+       style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; border: 1px solid #cccccc"
+       ng-bind="output">
+      </textarea>
+     </form>
     <span style="color: red;margin-top: 5px;padding-top: 5px;display: flex;">{[{error }]} </span>
   </div>
 </div>

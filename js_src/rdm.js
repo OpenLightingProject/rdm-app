@@ -126,7 +126,7 @@ angular.module('rdmApp', [])
   },
   'START_CODE': 0xcc,
   'SUB_DEVICE': {
-   'ROOT_DEVICE': 0,
+   'ROOT_DEVICE': 0x0000,
    'ALL_SUB_DEVICES': 0xffff
   },
   'UID_SIZE': 6
@@ -141,18 +141,18 @@ angular.module('rdmApp', [])
  .service('checksumService', function() {
    'use strict';
    var checksum = function(input) {
-    var sum = input.reduce(
-     function(previousValue, currentValue, index, array) {
-      return previousValue + currentValue;
-     }
-    );
-    return sum;
-   };
+     var sum = input.reduce(
+       function(previousValue, currentValue, index, array) {
+         return previousValue + currentValue;
+        }
+     );
+     return sum;
+    };
 
    this.checksumAsArray = function(input) {
-    var sum = checksum(input);
-    return [sum >> 8, sum & 0xff];
-   };
+     var sum = checksum(input);
+     return [sum >> 8, sum & 0xff];
+    };
 
    this.checksumAsValue = checksum;
   })
@@ -601,14 +601,14 @@ angular.module('rdmApp', [])
     $scope.packet.command_class = new_value;
     $scope.properties.is_request = rdmHelperService.isRequest(new_value);
     showHideParamData();
+    var discovery_pids = ['DISC_UNIQUE_BRANCH', 'DISC_MUTE', 'DISC_UN_MUTE'];
 
     var pid_names = [];
     if (new_value === RDM.COMMAND_CLASS.DISCOVERY_COMMAND) {
-     pid_names = ['DISC_UNIQUE_BRANCH', 'DISC_MUTE', 'DISC_UN_MUTE'];
+     pid_names = discovery_pids;
     } else if (new_value === RDM.COMMAND_CLASS.DISCOVERY_COMMAND_RESPONSE) {
      pid_names = ['DISC_MUTE', 'DISC_UN_MUTE'];
     } else {
-     var discovery_pids = ['DISC_UNIQUE_BRANCH', 'DISC_MUTE', 'DISC_UN_MUTE'];
      angular.forEach(RDM.PIDS, function(value, key) {
        if (discovery_pids.indexOf(key) === -1) {
         this.push(key);
@@ -672,7 +672,7 @@ angular.module('rdmApp', [])
         $scope.packet.response_type === RDM.RESPONSE_TYPE.ACK_OVERFLOW) {
       var parse_return = parserService.textToBytes($scope.packet.param_data);
       if (parse_return[0]) {
-       $scope.error = 'Invalid parameter data:' + parse_return[0];
+       $scope.error = 'Invalid parameter data: ' + parse_return[0];
        return;
       }
       param_data = parse_return[1];
@@ -772,7 +772,7 @@ angular.module('rdmApp', [])
 
    var parse_return = parserService.textToBytes($scope.packet_data);
    if (parse_return[0]) {
-    $scope.error = 'Invalid packet data:' + parse_return[0];
+    $scope.error = 'Invalid packet data: ' + parse_return[0];
     return;
    }
    var packet_data = parse_return[1];
