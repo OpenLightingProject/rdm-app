@@ -5,7 +5,7 @@
   "latedef": true,
   "unused": "vars",
   "noarg": true,
-  "indent": 1,
+  "indent": 2,
   "trailing": true,
   "white": false,
   "forin": true,
