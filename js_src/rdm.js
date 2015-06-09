@@ -340,20 +340,26 @@ angular.module('rdmApp', [])
      var token = tokens[j];
      var hex_suffix_match = token.match(/^([\da-fA-F]{1,2})h$/);
      if (hex_suffix_match) {
-      binary_data.push(parseInt(hex_suffix_match[0], 16));
+      binary_data.push(parseInt(hex_suffix_match[1], 16));
       continue;
      }
 
      var hex_prefix_match = token.match(/^0x([\da-fA-F]{1,2})$/);
      if (hex_prefix_match) {
-      binary_data.push(parseInt(hex_prefix_match[0], 16));
+      binary_data.push(parseInt(hex_prefix_match[1], 16));
+      continue;
+     }
+
+     var char_match = token.match(/^'(.)'$/);
+     if (char_match) {
+      binary_data.push(char_match[1].charCodeAt());
       continue;
      }
 
      if (as_hex) {
       var hex_match = token.match(/^([\da-fA-F]{1,2})$/);
       if (hex_match) {
-       binary_data.push(parseInt(hex_match[0], 16));
+       binary_data.push(parseInt(hex_match[1], 16));
        continue;
       } else {
        error = 'Invalid byte: ' + token;
@@ -362,8 +368,8 @@ angular.module('rdmApp', [])
      } else {
       var decimal_match = token.match(/^(\d{1,3})$/);
       if (decimal_match) {
-       if (decimal_match[0] <= 255) {
-        binary_data.push(parseInt(decimal_match[0], 10));
+       if (decimal_match[1] <= 255) {
+        binary_data.push(parseInt(decimal_match[1], 10));
         continue;
        } else {
         error = 'Invalid byte: ' + token;
