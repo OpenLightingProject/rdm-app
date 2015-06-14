@@ -129,6 +129,7 @@ angular.module('rdmApp', [])
    'ROOT_DEVICE': 0x0000,
    'ALL_SUB_DEVICES': 0xffff
   },
+  'SUB_START_CODE': 0x01,
   'UID_SIZE': 6
  })
 
@@ -403,6 +404,13 @@ angular.module('rdmApp', [])
     }
 
     return ['', uid_bytes];
+   };
+  }])
+
+ .filter('byteToHex', ['formatService', function(formatService) {
+   'use strict';
+   return function(input) {
+    return formatService.toHex(input, 2, '0x');
    };
   }])
 
@@ -731,6 +739,8 @@ angular.module('rdmApp', [])
   $scope.packet_data = '';
   $scope.show_output = false;
 
+  $scope.RDM = RDM;
+
   var resetPacket = function() {
    $scope.packet = {
     'start_code': '',
@@ -781,8 +791,7 @@ angular.module('rdmApp', [])
    $scope.packet.actual_size = packet_data.length;
 
    if (packet_data.length >= 1) {
-    $scope.packet.start_code = formatService.toHex(
-        packet_data.shift(), 2, '0x');
+    $scope.packet.start_code = packet_data.shift();
    } else {
     $scope.error = 'Insufficient data for start code';
     return;
@@ -791,8 +800,7 @@ angular.module('rdmApp', [])
    $scope.show_output = true;
 
    if (packet_data.length >= 1) {
-    $scope.packet.sub_start_code = formatService.toHex(
-        packet_data.shift(), 2, '0x');
+    $scope.packet.sub_start_code = packet_data.shift();
    } else {
     $scope.error = 'Insufficient data for sub start code';
     return;
