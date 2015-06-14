@@ -151,6 +151,26 @@ class AdminPageHandler(BaseAdminPageHandler):
       item.delete()
     return ''
 
+  def ClearManufacturerPids(self):
+    manufacturer_id = StringToInt(self.request.get('manufacturer'))
+    manufacturer = common.GetManufacturer(manufacturer_id)
+
+    count = 0
+    if manufacturer is not None:
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+
+      for pid in manufacturer.pid_set:
+        if pid.discovery_command:
+          pid.discovery_command.delete()
+        if pid.get_command:
+          pid.get_command.delete()
+        if pid.set_command:
+          pid.set_command.delete()
+        pid.delete()
+        count += 1
+    return 'Deleted %d PIDs' % count
+
   def FlushCache(self):
     keys = [
         memcache_keys.PRODUCT_COUNT_KEY,
@@ -164,14 +184,17 @@ class AdminPageHandler(BaseAdminPageHandler):
     return ''
 
   def LoadPids(self):
-    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
     loader = PidLoader()
-    added = 0
+    modified = 0
     for pid in ESTA_PIDS:
-      loader.AddPid(pid)
-      added += 1
-    UpdateModificationTime(timestamp_keys.PIDS)
-    return 'Added %d PIDs' % added
+      if loader.UpdateIfRequired(pid):
+        modified += 1
+
+    if modified > 0:
+      UpdateModificationTime(timestamp_keys.PIDS)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+
+    return 'Added / Updated %d PIDs' % modified
 
   def BuildResponderPidIndex(self):
     task = taskqueue.Task(method='GET', url='/tasks/build_pid_responder_index')
@@ -183,15 +206,18 @@ class AdminPageHandler(BaseAdminPageHandler):
 
   def LoadManufacturerPids(self):
     loader = PidLoader()
-    added = 0
-    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
-    memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+    modified = 0
     for manufacturer in MANUFACTURER_PIDS:
       for pid in manufacturer['pids']:
-        loader.AddPid(pid, manufacturer['id'])
-        added += 1
-    UpdateModificationTime(timestamp_keys.PIDS)
-    return 'Added %d PIDs' % added
+        if loader.UpdateIfRequired(pid, manufacturer['id']):
+          modified += 1
+
+    if modified > 0:
+      UpdateModificationTime(timestamp_keys.PIDS)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+      memcache.delete(memcache_keys.MANUFACTURER_PID_COUNTS)
+
+    return 'Modified %d PIDs' % modified
 
   def ClearModels(self):
     memcache.delete(memcache_keys.MODEL_COUNT_KEY)
@@ -420,6 +446,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'clear_models': self.ClearModels,
         'clear_nodes': self.ClearNodes,
         'clear_p': self.ClearPids,
+        'clear_mp': self.ClearManufacturerPids,
         'clear_software': self.ClearSoftware,
         'clear_splitters': self.ClearSplitters,
         'flush_cache': self.FlushCache,
@@ -751,11 +778,14 @@ class ResponderModerator(BaseAdminPageHandler):
 
     personalities = []
     for personality in software_version.personality_set:
-      personalities.append({
+      data = {
         'index': int(personality.index),
-        'description': str(personality.description),
-        'slot_count': int(personality.slot_count),
-    })
+      }
+      if personality.slot_count is not None:
+        data['slot_count'] = int(personality.slot_count)
+      if personality.description is not None:
+        data['description'] = str(personality.description)
+      personalities.append(data)
     personalities.sort(key=lambda i: i['index'])
     return personalities
 

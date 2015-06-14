@@ -17,72 +17,137 @@
 # Copyright (C) 2011 Simon Newton
 # Load PID data.
 
+import common
 import logging
 from model import *
 
 
-class OutOfRangeException(Exception):
-  """Raised when an enum valid isn't within the allowed ranges."""
-
-class MissingItemsException(Exception):
-  """Raised when an item is defined as a group, but no child items exist."""
-
-class InvalidDataException(Exception):
-  """Raised when the input data is invalid."""
+class UnknownManufacturerException(Exception):
+  """Raised when the manufacturer ID doesn't exist."""
 
 
 class PidLoader():
   """Load pids."""
-  def AddPid(self, pid, manufacturer_id = 0):
-    manufacturer_q = Manufacturer.all()
-    manufacturer_q.filter('esta_id =', manufacturer_id)
-    manufacturer = manufacturer_q.fetch(1)[0]
 
-    pid_data = Pid(manufacturer = manufacturer,
-                   pid_id = pid['value'],
-                   name = pid['name'])
+  def LookupPid(self, pid_id, manufacturer_id):
+    """
+    Lookup a PID
 
-    if pid.get('link'):
-      pid_data.link = pid['link']
-    elif manufacturer_id == 0:
-      pid_data.link = 'http://tsp.plasa.org/tsp/documents/published_docs.php'
+    Returns:
+      A tuple of (manufacturer, pid) data objects.
+    """
+    manufacturer = common.GetManufacturer(manufacturer_id)
+    if manufacturer is None:
+      raise UnknownManufacturerException(manufacturer_id)
 
-    if pid.get('notes'):
-      pid_data.notes = pid['notes']
+    pid_query = Pid.all()
+    pid_query.filter('pid_id = ', pid_id)
+    pid_query.filter('manufacturer = ', manufacturer.key())
 
-    pid_data.draft = pid.get('draft', False)
+    result_set = pid_query.fetch(1)
+    if result_set:
+      return manufacturer, result_set[0]
+    else:
+      return manufacturer, None
 
-    logging.info(pid['name'])
+  def UpdateCommand(self, pid, new_pid_data, command_type):
+    """Update a command if required.
 
-    if pid.get('discovery_request'):
-      discovery_request = str(pid.get('discovery_request', {}))
-      discovery_response = str(pid.get('discovery_response', {}))
+    Returns:
+     True if the command was updated, False otherwise.
+    """
+    command_attr = '%s_command' % command_type
+    request_attr = '%s_request' % command_type
+    response_attr = '%s_response' % command_type
+    sub_device_attr = '%s_sub_device_range' % command_type
 
-      command = Command(sub_device_range = pid['discovery_sub_device_range'],
-                        request = discovery_request,
-                        response = discovery_response)
+    # We assume the pull request validator has run and checked the consistency
+    # of the PID data.
+    has_command = (request_attr in new_pid_data and
+                   response_attr in new_pid_data and
+                   sub_device_attr in new_pid_data)
+
+    existing_command = getattr(pid, command_attr)
+    if existing_command and has_command:
+      save = False
+
+      if existing_command.sub_device_range != new_pid_data[sub_device_attr]:
+        existing_command.sub_device_range = new_pid_data[sub_device_attr]
+        save = True
+
+      request = new_pid_data.get(request_attr)
+      if eval(existing_command.request) != request:
+        existing_command.request = str(request)
+        save = True
+
+      response = new_pid_data.get(response_attr)
+      if eval(existing_command.response) != response:
+        existing_command.response = str(response)
+        save = True
+
+      if save:
+        existing_command.put()
+        logging.info('Updated existing %s:%s' %
+                     (new_pid_data['name'], command_type))
+      return save
+
+    elif existing_command and not has_command:
+      # remove the existing command
+      existing_command.delete()
+      setattr(pid, command_attr, None)
+      logging.info('Removed existing %s:%s' %
+                   (command_type, new_pid_data['name']))
+      return True
+
+    elif has_command:
+      command = Command(sub_device_range = new_pid_data[sub_device_attr],
+                        request = str(new_pid_data.get(request_attr)),
+                        response = str(new_pid_data.get(response_attr)))
       command.put()
-      pid_data.discovery_command = command
-
-    if pid.get('get_request'):
-      get_request = str(pid.get('get_request', {}))
-      get_response = str(pid.get('get_response', {}))
-
-      command = Command(sub_device_range = pid['get_sub_device_range'],
-                        request = get_request,
-                        response = get_response)
-      command.put()
-      pid_data.get_command = command
+      setattr(pid, command_attr, command)
+      logging.info('Set %s:%s' % 
+                   (command_type, new_pid_data['name']))
+      return True
+    else:
+      return False
 
 
-    if pid.get('set_request'):
-      set_request = str(pid.get('set_request', {}))
-      set_response = str(pid.get('set_response', {}))
+  def UpdateIfRequired(self, new_pid_data, manufacturer_id = 0):
+    """
+    Check if we need to update the data for this PID.
 
-      command = Command(sub_device_range = pid['set_sub_device_range'],
-                        request = set_request,
-                        response = set_response)
-      command.put()
-      pid_data.set_command = command
+    Args:
+      pid: The PID data
+      manufacturer_id: The manufacturer_id for the PID data.
 
-    pid_data.put()
+    Returns:
+      True if the PID was updated, false otherwise.
+    """
+    manufacturer, pid = self.LookupPid(new_pid_data['value'], manufacturer_id)
+    save = False
+
+    if not pid:
+      pid = Pid(manufacturer = manufacturer,
+                pid_id = new_pid_data['value'],
+                name = new_pid_data['name'])
+
+    if pid.link != new_pid_data.get('link'):
+      pid.link = new_pid_data.get('link')
+      save = True
+
+    if pid.notes != new_pid_data.get('notes'):
+      pid.notes = new_pid_data.get('notes')
+      save = True
+
+    if pid.draft != new_pid_data.get('draft', False):
+      pid.draft = new_pid_data.get('draft', False)
+      save = True
+
+    save |= self.UpdateCommand(pid, new_pid_data, 'discovery')
+    save |= self.UpdateCommand(pid, new_pid_data, 'get')
+    save |= self.UpdateCommand(pid, new_pid_data, 'set')
+
+    if save:
+      logging.info('Updated %s' % new_pid_data['name'])
+      pid.put()
+    return save

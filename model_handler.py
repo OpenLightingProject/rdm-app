@@ -271,8 +271,10 @@ class DisplayModel(common.BasePageHandler):
         personality_info = {
           'description': personality.description,
           'index': personality.index,
-          'slot_count': personality.slot_count,
         }
+        if personality.slot_count is not None:
+          personality_info['slot_count'] = personality.slot_count
+
         personalities.append(personality_info)
 
       if personalities:

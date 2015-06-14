@@ -1,0 +1,166 @@
+{% extends "base.tmpl" %}
+
+{% block title %}RDM Manufacturer Index - RDM Packet Dissector{% endblock %}
+
+{% block content %}
+<div ng-app="rdmApp">
+  <h3>RDM Packet Dissector (Beta)</h3>
+  <div ng-controller="RDMPacketParser">
+    <form class="form-inline">
+    <br/>
+    <textarea id="parser-data" type="text" class="form-control"
+     ng-model="packet_data" style="width: 400px; height: 100px"
+     placeholder="Enter packet data, e.g. CC 01 ..">
+    </textarea>
+    <br/>
+    <br/>
+
+    <input class="btn btn-primary" type="submit" value="Parse Packet"
+     ng-click="parsePacket()">
+    <input class="btn btn-primary" type="submit" value="Reset"
+     ng-click="reset()">
+    </form>
+    <br/>
+    <span style="color: red;margin-top: 5px;padding-top: 5px;display: flex;"
+     ng-bind="error"></span>
+    <div class="ng-cloak" ng-show='show_output'>
+     <table border="0" cellpadding="1" cellspacing="0">
+      <tr>
+       <td><label for="parser-start-code">Start Code</label></td>
+       <td><span id="parser-start-code" ng-bind="packet.start_code | byteToHex">
+           </span>
+          <span style="color: red"
+                ng-show="packet.start_code !== RDM.START_CODE">
+           <span class="glyphicon glyphicon-warning-sign"></span>
+           Start Code should be  {[{ RDM.START_CODE | byteToHex }]}</span>
+       </td>
+      </tr>
+      <tr>
+       <td><label for="parser-sub-start-code">Sub Start Code</label></td>
+       <td><span id="parser-sub-start-code"
+            ng-bind="packet.sub_start_code | byteToHex">
+           </span>
+          <span style="color: red"
+                ng-show="packet.sub_start_code !== RDM.SUB_START_CODE">
+           <span class="glyphicon glyphicon-warning-sign"></span>
+           Sub Start Code should be  {[{ RDM.SUB_START_CODE | byteToHex }]}
+           </span>
+       </td>
+      </tr>
+      <tr>
+       <td><label for="parser-message-length">Message Length</label></td>
+       <td><span id="parser-message-length" ng-bind="packet.message_length">
+           </span>
+        <span style="color: orange"
+              ng-show="packet.actual_size !== packet.message_length + 2">
+         <span class="glyphicon glyphicon-warning-sign"></span>
+         Based on the frame length of {[{ packet.actual_size }]}, this should
+         be {[{ packet.actual_size - 2 }]}</span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-dest-uid">Destination UID:</label></td>
+       <td><span id="parser-dest-uid" ng-bind="packet.dest_uid"></span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-src-uid">Source UID:</label></td>
+       <td><span id="parser-src-uid" ng-bind="packet.src_uid"></span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-transaction-number">Transaction Number:</label>
+       </td>
+       <td><span id="parser-transaction-number"
+            ng-bind="packet.transaction_number"></span></td>
+      </tr>
+      <tr ng-show="packet.port_id !== ''">
+       <td><label for="parser-port-id">Port ID:</label></td>
+       <td><span id="parser-port-id" ng-bind="packet.port_id"></span></td>
+      </tr>
+      <tr ng-show="packet.response_type !== ''">
+       <td><label for="parser-response-type">Response Type:</label></td>
+       <td><span id="parser-response-type" ng-bind="packet.response_type">
+           </span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-message-count">Message Count:</label></td>
+       <td><span id="parser-message-count" ng-bind="packet.message_count">
+           </span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-sub-device">Sub Device:</label></td>
+       <td><span id="parser-sub-device" ng-bind="packet.sub_device">
+           </span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-command-class">Command Class:</label></td>
+       <td><span id="parser-command-class" ng-bind="packet.command_class">
+           </span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-param-id">Parameter ID:</label></td>
+       <td><span id="parser-param-id" ng-bind="packet.param_id"></span></td>
+      </tr>
+      <tr>
+       <td><label for="parser-param-data-length">Parameter Data Length:</label>
+       </td>
+       <td><span id="parser-param-data-length"
+            ng-bind="packet.param_data_length"></span>
+        <span style="color: orange"
+              ng-show="packet.actual_size !== packet.param_data_length + 26">
+         <span class="glyphicon glyphicon-warning-sign"></span>
+         Based on the frame length of {[{ packet.actual_size }]}, this should
+         be {[{ packet.actual_size - 26 }]}</span>
+       </td>
+      </tr>
+      <tr ng-show="packet.param_data !== ''">
+       <td><label for="parser-param-data">Parameter Data:</label>
+       </td>
+       <td><span id="parser-param-data" ng-bind="packet.param_data"></span></td>
+      </tr>
+      <tr ng-show="packet.nack_reason !== '' || packet.nack_reason_error">
+       <td><label for="parser-nack-reason">NACK Reason:</label></td>
+       <td>
+        <span id="parser-nack-reason" ng-bind="packet.nack_reason"></span>
+        <span style="color: orange" ng-show="packet.nack_reason_error">
+         <span class="glyphicon glyphicon-warning-sign"></span>
+          {[{ packet.nack_reason_error }]}</span>
+       </td>
+      </tr>
+      <tr ng-show="packet.ack_timer !== '' || packet.ack_timer_error">
+       <td><label for="parser-ack-timer">Ack Timer:</label></td>
+       <td>
+         <span ng-show="packet.ack_timer" id="parser-ack-timer">
+          <span ng-bind="packet.ack_timer / 10"></span> seconds</span>
+         <span style="color: orange"
+              ng-show="packet.ack_timer_error">
+         <span class="glyphicon glyphicon-warning-sign"></span>
+         {[{ packet.ack_timer_error }]}</span>
+       </td>
+      </tr>
+      <tr>
+       <td><label for="parser-checksum">Checksum:</label>
+       </td>
+       <td><span id="parser-checksum" ng-bind="packet.checksum"></span>
+        <span class="glyphicon glyphicon-ok" style="color: green"
+         ng-show="packet.calculated_checksum === packet.checksum"></span>
+        <span ng-show="packet.checksum === ''" style="color: orange">
+         <span class="glyphicon glyphicon-warning-sign"></span>
+         Missing, this should have been {[{ packet.calculated_checksum }]}
+        </span>
+        <span style="color: red"
+         ng-show="packet.checksum !== '' &&
+                  packet.calculated_checksum !== packet.checksum">
+         <span class="glyphicon glyphicon-remove"></span>
+         Calculated checksum was
+         {[{ packet.calculated_checksum }]}</span>
+       </td>
+      </tr>
+     </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_headers %}
+    <script src="/libs/angular/js/angular.min.js"></script>
+    <script src="/js/rdm.js"></script>
+{% endblock %}
