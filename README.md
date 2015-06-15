@@ -7,19 +7,19 @@ If you're intested in how PID definitions work, see https://wiki.openlighting.or
 ## Development Setup
 
 On the production instance, the javascript is minified using
-[UglifyJS](http://lisperator.net/uglifyjs/).  Before you start changing on the
+[UglifyJS](http://lisperator.net/uglifyjs/). Before you start changing the
 code, or deploy to appengine you'll need to download the javascript tools that
 are used for this process.
 
 The tools are managed using [nodejs](https://github.com/joyent/node)'s package
 manager [npm](https://github.com/npm/npm).  The packages are downloaded using
-NPM & [bower](https://github.com/bower/bower) and bower is called using
+npm and [bower](https://github.com/bower/bower). Bower is called using
 [grunt](https://github.com/gruntjs/grunt)
 
-If all of this seems rather complex don't despair, one everything is installed
+If all of this seems rather complex don't despair, once everything is installed
 it's very easy to use.
 
-1, Install NPM.
+1, Install npm.
 
 2, Install grunt-cli globally yourself by running either
 ```bash
@@ -30,7 +30,7 @@ or
 sudo npm install -g grunt-cli
 ```
 
-3, Use NPM to install the remaining dependencies. In the root directory of the
+3, Use npm to install the remaining dependencies. In the root directory of the
 project run:
 ```bash
 npm install
@@ -62,7 +62,7 @@ unit-test-js/karma.conf.js. The test can be run with:
 ```bash
 grunt unit-test
 ```
-It does require firefox and the dependencies to be installed to be able to run
+It does require Firefox and the dependencies to be installed to be able to run
 the test.
 
 ### Compress / Uglify
@@ -99,7 +99,7 @@ grunt copy-watch
 ```
 
 #### Important!
-When you are finished debugging to run
+When you are finished debugging, remember to run
 ```bash
 grunt copy-cleanup
 ```
