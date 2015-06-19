@@ -4,24 +4,12 @@ This is the codebase for the rdm.openlighting.org website.
 
 If you're intested in how PID definitions work, see https://wiki.openlighting.org/index.php/RDM_PID_Definitions
 
-## Development Setup
+## Get dependencies
 
-On the production instance, the javascript is minified using
-[UglifyJS](http://lisperator.net/uglifyjs/). Before you start changing the
-code, or deploy to appengine you'll need to download the javascript tools that
-are used for this process.
-
-The tools are managed using [nodejs](https://github.com/joyent/node)'s package
-manager [npm](https://github.com/npm/npm).  The packages are downloaded using
-npm and [bower](https://github.com/bower/bower). Bower is called using
-[grunt](https://github.com/gruntjs/grunt)
-
-If all of this seems rather complex don't despair, once everything is installed
-it's very easy to use.
-
-1, Install npm.
-
-2, Install grunt-cli globally yourself by running either
+Before you upload to appengine or start developing you'll have to download some javascript dependencies.
+These can be downloaded using [nodejs](https://github.com/joyent/node)'s package manager [npm](https://github.com/npm/npm).
+The packages get downloaded using [bower](https://github.com/bower/bower) and [grunt](https://github.com/gruntjs/grunt)
+You have to install grunt-cli globally yourself by running either
 ```bash
 npm install -g grunt-cli
 ```
@@ -29,89 +17,53 @@ or
 ```bash
 sudo npm install -g grunt-cli
 ```
-
-3, Use npm to install the remaining dependencies. In the root directory of the
-project run:
+and to install all the other dependencies of the project, run in the root directory of the project
 ```bash
 npm install
 grunt bower
 ```
+Which first installs the node.js dependencies (grunt, bower, karma) and then runs the grunt task for installing the bower packages
 
-This will install the node.js dependencies (grunt, bower, karma) and then run
-the grunt task for installing the bower packages.
+### Important! 
+only install bower packages through grunt, because grunt moves them to static/libs and appengine and karma both expect
+them to be there and not in bower_components also static/libs has a different structure then bower_components.
 
-### Important!
-The bower packages should only be installed using grunt, since grunt will place
-them in static/libs, where both appengine & karma expect them. Calling bower
-directly will install them in bower_components.
+## Run unit-tests for rdm.js
 
-## Common Tasks
-
-Tasks are managed using Grunt. To see a list of tasks run:
-
-```bash
-grunt --help
-```
-
-### Run the Unit Tests
-
-The newer Angular code is unit-tested using
-[karma](https://github.com/karma-runner/karma). The tests are in
-unit-test-js/tests/rdm.js and the karma configuration in
-unit-test-js/karma.conf.js. The test can be run with:
+Currently only rdm.js in static/js has a javascript unit-test using [karma](https://github.com/karma-runner/karma) the unit-test is
+located in unit-test-js/tests/rdm.js and the karma configuration in unit-test-js/karma.conf.js the test can be run by running
 ```bash
 grunt unit-test
 ```
-It does require Firefox and the dependencies to be installed to be able to run
-the test.
+It does require firefox and the dependencies to be installed to be able to run the test
 
-### Compress / Uglify
+## Compress rdm.js
 
-To minifiy the Javascript code, run
+The source for static/js/rdm.js is in js_src/rdm.js. however when you adjust rdm.js you have to compress it
+you can do this by running 
 ```bash
 grunt compress
 ```
-
-This will run [jshint](http://jshint.com/) which enforces style guidelines and
-then if jshint passes, runs uglifyjs to compress the javascript code.
-
-If you are continuously editing the source and testing it,
-you can have grunt automatically perform the compression when the source files
-change by running
+or if you are continuously adjusting the source and testing it,
+and you just want to automate the compressing of rdm.js run
 ```bash
 grunt compress-watch
 ```
 
-### Debugging
+## Debug rdm.js
 
-If you are having trouble with debugging the minified sources you can copy
-the files to the static dir (without compression) by using:
+If you are having trouble with debugging the minified source of rdm.js you can copy
+the files to the static dir using
 ```bash
 grunt copy-once
 ```
-
-Again, this will run [jshint](http://jshint.com/) and the copy the sources over
-to static/js/
-
-If you want an automatic copy when the files change, use:
+or if you want an automatic copy run
 ```bash
 grunt copy-watch
 ```
-
-#### Important!
-When you are finished debugging, remember to run
+### Important!
+When you are done debugging don't forget to run
 ```bash
 grunt copy-cleanup
 ```
 otherwise the files won't be compressed
-
-### Deploying to App Engine
-
-Before deploying to App Engine run:
-```bash
-grunt compress
-```
-
-You can then run appcfg.py to deploy.
-
-TODO(someone): Automate this using Grunt.
