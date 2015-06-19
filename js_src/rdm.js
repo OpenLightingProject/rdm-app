@@ -5,132 +5,133 @@ angular.module('rdmApp', [])
     $interpolateProvider.endSymbol('}]}');
   }])
 
-  .constant('RDM', {
-    'COMMAND_CLASS': {
-      'DISCOVERY_COMMAND': 0x10,
-      'DISCOVERY_COMMAND_RESPONSE': 0x11,
-      'GET_COMMAND': 0x20,
-      'GET_COMMAND_RESPONSE': 0x21,
-      'SET_COMMAND': 0x30,
-      'SET_COMMAND_RESPONSE': 0x31
-    },
-    'EUID_SIZE': 16,
-    'NACK_REASON': {
-      'NR_UNKNOWN_PID': 0x0,
-      'NR_FORMAT_ERROR': 0x1,
-      'NR_HARDWARE_FAULT': 0x2,
-      'NR_PROXY_REJECT': 0x3,
-      'NR_WRITE_PROTECT': 0x4,
-      'NR_UNSUPPORTED_COMMAND_CLASS': 0x5,
-      'NR_DATA_OUT_OF_RANGE': 0x6,
-      'NR_BUFFER_FULL': 0x7,
-      'NR_PACKET_SIZE_UNSUPPORTED': 0x8,
-      'NR_SUB_DEVICE_OUT_OF_RANGE': 0x9,
-      'NR_PROXY_BUFFER_FULL': 0x10,
-      'NR_ACTION_NOT_SUPPORTED': 0x11
-    },
-    'PIDS': {
-      'DISC_UNIQUE_BRANCH': 0x0001,
-      'DISC_MUTE': 0x0002,
-      'DISC_UN_MUTE': 0x0003,
-      'PROXIED_DEVICES': 0x0010,
-      'PROXIED_DEVICE_COUNT': 0x0011,
-      'COMMS_STATUS': 0x0015,
-      'QUEUED_MESSAGE': 0x0020,
-      'STATUS_MESSAGES': 0x0030,
-      'STATUS_ID_DESCRIPTION': 0x0031,
-      'CLEAR_STATUS_ID': 0x0032,
-      'SUB_DEVICE_STATUS_REPORT_THRESHOLD': 0x0033,
-      'SUPPORTED_PARAMETERS': 0x0050,
-      'PARAMETER_DESCRIPTION': 0x0051,
-      'DEVICE_INFO': 0x0060,
-      'PRODUCT_DETAIL_ID_LIST': 0x0070,
-      'DEVICE_MODEL_DESCRIPTION': 0x0080,
-      'MANUFACTURER_LABEL': 0x0081,
-      'DEVICE_LABEL': 0x0082,
-      'FACTORY_DEFAULTS': 0x0090,
-      'LANGUAGE_CAPABILITIES': 0x00a0,
-      'LANGUAGE': 0x00b0,
-      'SOFTWARE_VERSION_LABEL': 0x00c0,
-      'BOOT_SOFTWARE_VERSION_ID': 0x00c1,
-      'BOOT_SOFTWARE_VERSION_LABEL': 0x00c2,
-      'DMX_PERSONALITY': 0x00E0,
-      'DMX_PERSONALITY_DESCRIPTION': 0x00e1,
-      'DMX_START_ADDRESS': 0x00f0,
-      'SLOT_INFO': 0x0120,
-      'SLOT_DESCRIPTION': 0x0121,
-      'DEFAULT_SLOT_VALUE': 0x0122,
-      'SENSOR_DEFINITION': 0x0200,
-      'SENSOR_VALUE': 0x0201,
-      'RECORD_SENSORS': 0x0202,
-      'DEVICE_HOURS': 0x0400,
-      'LAMP_HOURS': 0x0401,
-      'LAMP_STRIKES': 0x0402,
-      'LAMP_STATE': 0x0403,
-      'LAMP_ON_MODE': 0x0404,
-      'DEVICE_POWER_CYCLES': 0x0405,
-      'DISPLAY_INVERT': 0x0500,
-      'DISPLAY_LEVEL': 0x0501,
-      'PAN_INVERT': 0x0600,
-      'TILT_INVERT': 0x0601,
-      'PAN_TILT_SWAP': 0x0602,
-      'REAL_TIME_CLOCK': 0x0603,
-      'IDENTIFY_DEVICE': 0x1000,
-      'RESET_DEVICE': 0x1001,
-      'POWER_STATE': 0x1010,
-      'PERFORM_SELFTEST': 0x1020,
-      'SELF_TEST_DESCRIPTION': 0x1021,
-      'CAPTURE_PRESET': 0x1030,
-      'PRESET_PLAYBACK': 0x1031,
-      'DMX_BLOCK_ADDRESS': 0x0140,
-      'DMX_FAIL_MODE': 0x0141,
-      'DMX_STARTUP_MODE': 0x0142,
-      'DIMMER_INFO': 0x0340,
-      'MINIMUM_LEVEL': 0x0341,
-      'MAXIMUM_LEVEL': 0x0342,
-      'CURVE': 0x0343,
-      'CURVE_DESCRIPTION': 0x0344,
-      'OUTPUT_RESPONSE_TIME': 0x0345,
-      'OUTPUT_RESPONSE_TIME_DESCRIPTION': 0x0346,
-      'MODULATION_FREQUENCY': 0x0347,
-      'MODULATION_FREQUENCY_DESCRIPTION': 0x0348,
-      'BURN_IN': 0x0440,
-      'LOCK_PIN': 0x0640,
-      'LOCK_STATE': 0x0641,
-      'LOCK_STATE_DESCRIPTION': 0x0642,
-      'IDENTIFY_MODE': 0x1040,
-      'PRESET_INFO': 0x1041,
-      'PRESET_STATUS': 0x1042,
-      'PRESET_MERGEMODE': 0x1043,
-      'POWER_ON_SELF_TEST': 0x1044,
-      'LIST_INTERFACES': 0x0700,
-      'INTERFACE_LABEL': 0x0701,
-      'INTERFACE_HARDWARE_ADDRESS_TYPE1': 0x0702,
-      'IPV4_DHCP_MODE': 0x0703,
-      'IPV4_ZEROCONF_MODE': 0x0704,
-      'IPV4_CURRENT_ADDRESS': 0x0705,
-      'IPV4_STATIC_ADDRESS': 0x0706,
-      'INTERFACE_RENEW_DHCP': 0x0707,
-      'INTERFACE_RELEASE_DHCP': 0x0708,
-      'INTERFACE_APPLY_CONFIGURATION': 0x0709,
-      'IPV4_DEFAULT_ROUTE': 0x070a,
-      'DNS_NAME_SERVER': 0x070b,
-      'DNS_HOSTNAME': 0x070c,
-      'DNS_DOMAIN_NAME': 0x070d
-    },
-    'RESPONSE_TYPE': {
-      'ACK': 0,
-      'ACK_TIMER': 1,
-      'NACK': 2,
-      'ACK_OVERFLOW': 3
-    },
-    'START_CODE': 0xcc,
-    'SUB_DEVICE': {
-      'ROOT_DEVICE': 0x0000,
-      'ALL_SUB_DEVICES': 0xffff
-    },
-    'UID_SIZE': 6
-  })
+ .constant('RDM', {
+  'COMMAND_CLASS': {
+   'DISCOVERY_COMMAND': 0x10,
+   'DISCOVERY_COMMAND_RESPONSE': 0x11,
+   'GET_COMMAND': 0x20,
+   'GET_COMMAND_RESPONSE': 0x21,
+   'SET_COMMAND': 0x30,
+   'SET_COMMAND_RESPONSE': 0x31
+  },
+  'EUID_SIZE': 16,
+  'NACK_REASON': {
+   'NR_UNKNOWN_PID': 0x0,
+   'NR_FORMAT_ERROR': 0x1,
+   'NR_HARDWARE_FAULT': 0x2,
+   'NR_PROXY_REJECT': 0x3,
+   'NR_WRITE_PROTECT': 0x4,
+   'NR_UNSUPPORTED_COMMAND_CLASS': 0x5,
+   'NR_DATA_OUT_OF_RANGE': 0x6,
+   'NR_BUFFER_FULL': 0x7,
+   'NR_PACKET_SIZE_UNSUPPORTED': 0x8,
+   'NR_SUB_DEVICE_OUT_OF_RANGE': 0x9,
+   'NR_PROXY_BUFFER_FULL': 0x10,
+   'NR_ACTION_NOT_SUPPORTED': 0x11
+  },
+  'PIDS': {
+   'DISC_UNIQUE_BRANCH': 0x0001,
+   'DISC_MUTE': 0x0002,
+   'DISC_UN_MUTE': 0x0003,
+   'PROXIED_DEVICES': 0x0010,
+   'PROXIED_DEVICE_COUNT': 0x0011,
+   'COMMS_STATUS': 0x0015,
+   'QUEUED_MESSAGE': 0x0020,
+   'STATUS_MESSAGES': 0x0030,
+   'STATUS_ID_DESCRIPTION': 0x0031,
+   'CLEAR_STATUS_ID': 0x0032,
+   'SUB_DEVICE_STATUS_REPORT_THRESHOLD': 0x0033,
+   'SUPPORTED_PARAMETERS': 0x0050,
+   'PARAMETER_DESCRIPTION': 0x0051,
+   'DEVICE_INFO': 0x0060,
+   'PRODUCT_DETAIL_ID_LIST': 0x0070,
+   'DEVICE_MODEL_DESCRIPTION': 0x0080,
+   'MANUFACTURER_LABEL': 0x0081,
+   'DEVICE_LABEL': 0x0082,
+   'FACTORY_DEFAULTS': 0x0090,
+   'LANGUAGE_CAPABILITIES': 0x00a0,
+   'LANGUAGE': 0x00b0,
+   'SOFTWARE_VERSION_LABEL': 0x00c0,
+   'BOOT_SOFTWARE_VERSION_ID': 0x00c1,
+   'BOOT_SOFTWARE_VERSION_LABEL': 0x00c2,
+   'DMX_PERSONALITY': 0x00E0,
+   'DMX_PERSONALITY_DESCRIPTION': 0x00e1,
+   'DMX_START_ADDRESS': 0x00f0,
+   'SLOT_INFO': 0x0120,
+   'SLOT_DESCRIPTION': 0x0121,
+   'DEFAULT_SLOT_VALUE': 0x0122,
+   'SENSOR_DEFINITION': 0x0200,
+   'SENSOR_VALUE': 0x0201,
+   'RECORD_SENSORS': 0x0202,
+   'DEVICE_HOURS': 0x0400,
+   'LAMP_HOURS': 0x0401,
+   'LAMP_STRIKES': 0x0402,
+   'LAMP_STATE': 0x0403,
+   'LAMP_ON_MODE': 0x0404,
+   'DEVICE_POWER_CYCLES': 0x0405,
+   'DISPLAY_INVERT': 0x0500,
+   'DISPLAY_LEVEL': 0x0501,
+   'PAN_INVERT': 0x0600,
+   'TILT_INVERT': 0x0601,
+   'PAN_TILT_SWAP': 0x0602,
+   'REAL_TIME_CLOCK': 0x0603,
+   'IDENTIFY_DEVICE': 0x1000,
+   'RESET_DEVICE': 0x1001,
+   'POWER_STATE': 0x1010,
+   'PERFORM_SELFTEST': 0x1020,
+   'SELF_TEST_DESCRIPTION': 0x1021,
+   'CAPTURE_PRESET': 0x1030,
+   'PRESET_PLAYBACK': 0x1031,
+   'DMX_BLOCK_ADDRESS': 0x0140,
+   'DMX_FAIL_MODE': 0x0141,
+   'DMX_STARTUP_MODE': 0x0142,
+   'DIMMER_INFO': 0x0340,
+   'MINIMUM_LEVEL': 0x0341,
+   'MAXIMUM_LEVEL': 0x0342,
+   'CURVE': 0x0343,
+   'CURVE_DESCRIPTION': 0x0344,
+   'OUTPUT_RESPONSE_TIME': 0x0345,
+   'OUTPUT_RESPONSE_TIME_DESCRIPTION': 0x0346,
+   'MODULATION_FREQUENCY': 0x0347,
+   'MODULATION_FREQUENCY_DESCRIPTION': 0x0348,
+   'BURN_IN': 0x0440,
+   'LOCK_PIN': 0x0640,
+   'LOCK_STATE': 0x0641,
+   'LOCK_STATE_DESCRIPTION': 0x0642,
+   'IDENTIFY_MODE': 0x1040,
+   'PRESET_INFO': 0x1041,
+   'PRESET_STATUS': 0x1042,
+   'PRESET_MERGEMODE': 0x1043,
+   'POWER_ON_SELF_TEST': 0x1044,
+   'LIST_INTERFACES': 0x0700,
+   'INTERFACE_LABEL': 0x0701,
+   'INTERFACE_HARDWARE_ADDRESS_TYPE1': 0x0702,
+   'IPV4_DHCP_MODE': 0x0703,
+   'IPV4_ZEROCONF_MODE': 0x0704,
+   'IPV4_CURRENT_ADDRESS': 0x0705,
+   'IPV4_STATIC_ADDRESS': 0x0706,
+   'INTERFACE_RENEW_DHCP': 0x0707,
+   'INTERFACE_RELEASE_DHCP': 0x0708,
+   'INTERFACE_APPLY_CONFIGURATION': 0x0709,
+   'IPV4_DEFAULT_ROUTE': 0x070a,
+   'DNS_NAME_SERVER': 0x070b,
+   'DNS_HOSTNAME': 0x070c,
+   'DNS_DOMAIN_NAME': 0x070d
+  },
+  'RESPONSE_TYPE': {
+   'ACK': 0,
+   'ACK_TIMER': 1,
+   'NACK': 2,
+   'ACK_OVERFLOW': 3
+  },
+  'START_CODE': 0xcc,
+  'SUB_DEVICE': {
+   'ROOT_DEVICE': 0x0000,
+   'ALL_SUB_DEVICES': 0xffff
+  },
+  'SUB_START_CODE': 0x01,
+  'UID_SIZE': 6
+ })
 
   .constant('OUTPUT_FORMAT', {
     'C_ARRAY': {'label': 'C Array', 'value': 0},
@@ -406,18 +407,25 @@ angular.module('rdmApp', [])
     };
   }])
 
-  .controller('UIDController',
-  ['$scope', '$log', 'checksumService', 'formatService',
-    'parserService',
-    function($scope, $log, checksumService, formatService,
-             parserService) {
-      'use strict';
-      var OUTPUT_FORMATS = {
-        'HEX_SUFFIX': {'label': '##h', 'value': 0},
-        'HEX_PREFIX': {'label': '0x##', 'value': 1},
-        'HEX_PAIRS': {'label': 'Hex Pairs (##)', 'value': 2},
-        'DECIMAL_PAIRS': {'label': 'Decimal Pairs (##)', 'value': 3}
-      };
+ .filter('byteToHex', ['formatService', function(formatService) {
+   'use strict';
+   return function(input) {
+    return formatService.toHex(input, 2, '0x');
+   };
+  }])
+
+ .controller('UIDController',
+             ['$scope', '$log', 'checksumService', 'formatService',
+              'parserService',
+              function($scope, $log, checksumService, formatService,
+                       parserService) {
+  'use strict';
+  var OUTPUT_FORMATS = {
+   'HEX_SUFFIX': {'label': '##h', 'value': 0},
+   'HEX_PREFIX': {'label': '0x##', 'value': 1},
+   'HEX_PAIRS': {'label': 'Hex Pairs (##)', 'value': 2},
+   'DECIMAL_PAIRS': {'label': 'Decimal Pairs (##)', 'value': 3}
+  };
 
       $scope.invalid_input_message = 'Invalid UID, please enter a UID in the ' +
         'form MMMM:NNNNNNNN';
@@ -751,31 +759,33 @@ angular.module('rdmApp', [])
       $scope.packet_data = '';
       $scope.show_output = false;
 
-      var resetPacket = function() {
-        $scope.packet = {
-          'start_code': '',
-          'sub_start_code': '',
-          'message_length': '',
-          'dest_uid': '',
-          'src_uid': '',
-          'transaction_number': '',
-          'port_id': '',
-          'message_count': '',
-          'sub_device': '',
-          'command_class': '',
-          'param_id': '',
-          'response_type': '',
-          'nack_reason': '',
-          'ack_timer': '',
-          'param_data_length': '',
-          'param_data': '',
-          'checksum': '',
-          'actual_size': '',
-          'calculated_checksum': '',
-          'nack_reason_error': '',
-          'ack_timer_error': ''
-        };
-      };
+  $scope.RDM = RDM;
+
+  var resetPacket = function() {
+   $scope.packet = {
+    'start_code': '',
+    'sub_start_code': '',
+    'message_length': '',
+    'dest_uid': '',
+    'src_uid': '',
+    'transaction_number': '',
+    'port_id': '',
+    'message_count': '',
+    'sub_device': '',
+    'command_class': '',
+    'param_id': '',
+    'response_type': '',
+    'nack_reason': '',
+    'ack_timer': '',
+    'param_data_length': '',
+    'param_data': '',
+    'checksum': '',
+    'actual_size': '',
+    'calculated_checksum': '',
+    'nack_reason_error': '',
+    'ack_timer_error': ''
+   };
+  };
 
       resetPacket();
 
@@ -800,23 +810,21 @@ angular.module('rdmApp', [])
         var original_packet_data = packet_data.slice();
         $scope.packet.actual_size = packet_data.length;
 
-        if (packet_data.length >= 1) {
-          $scope.packet.start_code = formatService.toHex(
-            packet_data.shift(), 2, '0x');
-        } else {
-          $scope.error = 'Insufficient data for start code';
-          return;
-        }
+   if (packet_data.length >= 1) {
+    $scope.packet.start_code = packet_data.shift();
+   } else {
+    $scope.error = 'Insufficient data for start code';
+    return;
+   }
 
         $scope.show_output = true;
 
-        if (packet_data.length >= 1) {
-          $scope.packet.sub_start_code = formatService.toHex(
-            packet_data.shift(), 2, '0x');
-        } else {
-          $scope.error = 'Insufficient data for sub start code';
-          return;
-        }
+   if (packet_data.length >= 1) {
+    $scope.packet.sub_start_code = packet_data.shift();
+   } else {
+    $scope.error = 'Insufficient data for sub start code';
+    return;
+   }
 
         if (packet_data.length >= 1) {
           $scope.packet.message_length = packet_data.shift();
