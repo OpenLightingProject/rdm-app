@@ -4,3 +4,5 @@ node_modules
 index.yaml
 .idea
 static/libs
+static/js/rdm.js
+static/js/rdm.js.map
