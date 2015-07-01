@@ -5,7 +5,7 @@ matrix:
     - python: "2.7"
       env: TASK="nosetests"
     - env: TASK="karma"
-    - env: TASK="jshint"
+    - env: TASK="js-lint"
 
 script: "bash -ex .travis-ci.sh"
 

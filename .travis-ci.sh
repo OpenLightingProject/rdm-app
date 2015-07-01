@@ -8,8 +8,8 @@ elif [[ $TASK = 'karma' ]]; then
     npm install -g grunt-cli
     npm install
     grunt unit-test
-elif [[ $TASK = 'jshint' ]]; then
+elif [[ $TASK = 'js-lint' ]]; then
     npm install -g grunt-cli
     npm install
-    grunt jshint
+    grunt lint
 fi
