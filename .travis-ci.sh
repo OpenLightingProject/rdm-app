@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 if [[ $TASK = 'nosetests' ]]; then
     nosetests
 elif [[ $TASK = 'karma' ]]; then
