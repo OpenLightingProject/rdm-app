@@ -6,6 +6,11 @@ cache:
 
 sudo: false
 
+install:
+  - pip install json-spec
+  - npm install -g grunt-cli
+  - npm install
+
 matrix:
   include:
     - python: "2.7"
