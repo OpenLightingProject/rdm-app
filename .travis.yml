@@ -2,7 +2,8 @@ language: python
 
 cache:
   - pip
-  - npm
+  directories:
+    - node_modules
 
 sudo: false
 
