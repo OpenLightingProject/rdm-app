@@ -1,9 +1,9 @@
 language: python
 
 cache:
-  - pip
   directories:
-    - node_modules
+    - $HOME/.npm
+    - $HOME/.cache/pip
 
 sudo: false
 
