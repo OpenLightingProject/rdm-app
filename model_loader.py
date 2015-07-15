@@ -222,7 +222,7 @@ class ModelUpdater(object):
     """
     # create the new version object and store it
     version_obj = SoftwareVersion(version_id = version_id,
-                                  label = version_info['label'],
+                                  label = version_info.get('label', ''),
                                   responder = responder)
     supported_params = version_info.get('supported_parameters')
     if supported_params:
