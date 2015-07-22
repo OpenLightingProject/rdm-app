@@ -2789,6 +2789,30 @@ MANUFACTURER_PIDS = [
        'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
        'notes': 'Gets the current version of the OLA code that is running.',
        'value': 0x8001},
+
+      #MODEL_ID
+      {'name': 'MODEL_ID',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
+       'get_sub_device_range': 0,
+       'set_request': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'Controls which model ID to use',
+       'value': 0x8002},
+
+      #MODEL_ID
+      {'name': 'MODEL_ID_LIST',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'models',
+                                   'type': 'group',
+                                   'items': [{'name': 'model_id', 'type': 'uint16'}]
+                        }]},
+       'get_sub_device_range': 0,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'The list of available model IDs',
+       'value': 0x8003},
     ],
   },
   {'id': 21324,
