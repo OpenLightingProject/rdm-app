@@ -2774,7 +2774,7 @@ MANUFACTURER_PIDS = [
        'set_request': {'items': [{'name': 'serial_number', 'type': 'uint32'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'Sets the serial number (UID) of the device.',
        'value': 0x8000},
 
@@ -2785,7 +2785,7 @@ MANUFACTURER_PIDS = [
                                    'max_size': 32,
                                    'type': 'string'}]},
        'get_sub_device_range': 2,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'Gets the current version of the OLA code that is running.',
        'value': 0x8001},
 
@@ -2797,7 +2797,7 @@ MANUFACTURER_PIDS = [
        'set_request': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'Controls which model ID to use',
        'value': 0x8002},
 
@@ -2809,7 +2809,7 @@ MANUFACTURER_PIDS = [
                                    'items': [{'name': 'model_id', 'type': 'uint16'}]
                         }]},
        'get_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'The list of available model IDs',
        'value': 0x8003},
 
@@ -2825,7 +2825,7 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'get_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'The type of pixel used',
        'value': 0x8005},
 
@@ -2838,7 +2838,7 @@ MANUFACTURER_PIDS = [
                                   'range': [(1, 0xffff)]}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'The number of pixels attached',
        'value': 0x8006},
     ],
@@ -2854,7 +2854,7 @@ MANUFACTURER_PIDS = [
        'set_request': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'Controls which model ID to use',
        'value': 0x8002},
 
@@ -2866,7 +2866,7 @@ MANUFACTURER_PIDS = [
                                    'items': [{'name': 'model_id', 'type': 'uint16'}]
                         }]},
        'get_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'The list of available model IDs',
        'value': 0x8003},
 
@@ -2882,7 +2882,7 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'get_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'The type of pixel used',
        'value': 0x8005},
 
@@ -2895,7 +2895,7 @@ MANUFACTURER_PIDS = [
                                   'range': [(1, 0xffff)]}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
-       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'link': 'https://wiki.openlighting.org/index.php/Open_Lighting_PIDs',
        'notes': 'The number of pixels attached',
        'value': 0x8006},
     ],
