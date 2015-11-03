@@ -21,6 +21,7 @@ import json
 import jsonspec.validators
 
 # This is from an early version of E1.37-5.
+# TODO(Peter): Fix the validation on label items
 PID_VALIDATOR = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'definitions': {
@@ -29,7 +30,7 @@ PID_VALIDATOR = {
       'properties': {
         'items': {
           'type': 'array',
-          'additionalItems': {
+          'items': {
             '$ref': '#/definitions/item'
           }
         }
@@ -38,56 +39,132 @@ PID_VALIDATOR = {
     },
     'item': {
       'type': 'object',
-      'properties': {
-        'name': {
-          'type': 'string',
-          'minLength': 1
+      'oneOf': [
+        {
+          'properties': {
+            'type': {
+              'enum': ['bool']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            }
+          },
+          'required': ['name', 'type']
         },
-        'max_size': {
-          'type': 'integer',
-          'minimum': 0,
-          'exclusiveMinimum': True
+        {
+          'properties': {
+            'type': {
+              'enum': ['int8', 'int16', 'int32', 'int64',
+                       'uint8', 'uint16', 'uint32', 'uint64']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            },
+            'labels': {
+              'type': 'array',
+              'items': {
+                '_ignore_$ref': '#/definitions/label'
+              }
+            },
+            'prefix': {
+              'type': 'integer',
+              'maximum': 255,
+              'minimum': 0
+            },
+            'ranges': {
+              'type': 'array',
+              'items': {
+                '$ref': '#/definitions/range'
+              }
+            },
+            'unit': {
+              'type': 'integer',
+              'maximum': 255,
+              'minimum': 0
+            }
+          },
+          'required': ['name', 'type']
         },
-        'min_size': {
-          'type': 'integer',
-          'minimum': 0
+        {
+          'properties': {
+            'type': {
+              'enum': ['string']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            },
+            'max_size': {
+              'type': 'integer',
+              'minimum': 0,
+              'exclusiveMinimum': True
+            },
+            'min_size': {
+              'type': 'integer',
+              'minimum': 0
+            }
+          },
+          'required': ['name', 'type']
         },
-        'prefix': {
-          'type': 'integer',
-          'maximum': 255,
-          'minimum': 0
+        {
+          'properties': {
+            'type': {
+              'enum': ['ipv4']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            }
+          },
+          'required': ['name', 'type']
         },
-        'type': {
-          'enum': ['bool', 'group', 'int16', 'int32', 'int64', 'int8',
-                   'ipv4','string', 'uid', 'uint16', 'uint32',
-                   'uint64', 'uint8'],
-          'type': 'string'
+        {
+          'properties': {
+            'type': {
+              'enum': ['mac']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            }
+          },
+          'required': ['name', 'type']
         },
-        'unit': {
-          'type': 'integer',
-          'maximum': 255,
-          'minimum': 0
+        {
+          'properties': {
+            'type': {
+              'enum': ['uid']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            }
+          },
+          'required': ['name', 'type']
         },
-        'labels': {
-          'type': 'array',
-          'additionalItems': {
-            '$ref': '#/definitions/label'
-          }
-        },
-        'ranges': {
-          'type': 'array',
-          'additionalItems': {
-            '$ref': '#/definitions/range'
-          }
-        },
-        'items': {
-          'type': 'array',
-          'additionalItems': {
-            '$ref': '#/definitions/field'
-          }
+        {
+          'properties': {
+            'type': {
+              'enum': ['group']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            },
+            'items': {
+              'type': 'array',
+              'items': {
+                '$ref': '#/definitions/item'
+              }
+            },
+            'max_size': {
+              'type': 'integer',
+              'minimum': 0,
+              'exclusiveMinimum': True
+            },
+            'min_size': {
+              'type': 'integer',
+              'minimum': 0
+            }
+          },
+          'required': ['name', 'items', 'type']
         }
-      },
-      'required': ['name', 'type']
+      ]
     },
     'label': {
       'type': 'object',
@@ -96,8 +173,6 @@ PID_VALIDATOR = {
           'minLength': 1,
           'type': 'string'
         },
-
-
         'value': {
           'type': 'integer',
           'maximum': 4294967295,
@@ -105,6 +180,10 @@ PID_VALIDATOR = {
         }
       },
       'required': ['label', 'value']
+    },
+    'name': {
+      'type': 'string',
+      'minLength': 1
     },
     'range': {
       'type': 'object',
@@ -119,29 +198,8 @@ PID_VALIDATOR = {
       'required': ['lower', 'upper']
     }
   },
-  'dependencies': {
-    'discovery_request': ['discovery_response', 'discovery_sub_device_range'],
-    'discovery_response': ['discovery_request', 'discovery_sub_device_range'],
-    'discovery_sub_device_range': ['discovery_request', 'discovery_response'],
-    'get_request': ['get_response', 'get_sub_device_range'],
-    'get_response': ['get_request', 'get_sub_device_range'],
-    'get_sub_device_range': ['get_request', 'get_response'],
-    'set_request': ['set_response', 'set_sub_device_range'],
-    'set_response': ['set_request', 'set_sub_device_range'],
-    'set_sub_device_range': ['set_request', 'set_response']
-  },
+  'type': 'object',
   'properties': {
-    'discovery_request': {
-      '$ref': '#/definitions/command'
-    },
-    'discovery_response': {
-      '$ref': '#/definitions/command'
-    },
-    'discovery_sub_device_range': {
-      'maximum': 3,
-      'minimum': 0,
-      'type': 'integer'
-    },
     'get_request': {
       '$ref': '#/definitions/command'
     },
@@ -161,6 +219,11 @@ PID_VALIDATOR = {
       'minLength': 1,
       'type': 'string'
     },
+    'value': {
+      'maximum': 65535,
+      'minimum': 0,
+      'type': 'integer'
+    },
     'set_request': {
       '$ref': '#/definitions/command'
     },
@@ -172,14 +235,16 @@ PID_VALIDATOR = {
       'minimum': 0,
       'type': 'integer'
     },
-    'value': {
-      'maximum': 65535,
-      'minimum': 0,
-      'type': 'integer'
-    },
   },
   'required': ['name', 'value'],
-  'type': 'object'
+  'dependencies': {
+    'get_request': ['get_response', 'get_sub_device_range'],
+    'get_response': ['get_request', 'get_sub_device_range'],
+    'get_sub_device_range': ['get_request', 'get_response'],
+    'set_request': ['set_response', 'set_sub_device_range'],
+    'set_response': ['set_request', 'set_sub_device_range'],
+    'set_sub_device_range': ['set_request', 'set_response']
+  }
 }
 
 MANUFACTURER_VALIDATOR = {
