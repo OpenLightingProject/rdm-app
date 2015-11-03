@@ -146,7 +146,11 @@ app.changeSoftwareVersion = function(element) {
       var tr = goog.dom.createDom('tr');
       // add the cells
       goog.dom.appendChild(tr, app.newTD(personality['index']));
-      goog.dom.appendChild(tr, app.newTD(personality['slot_count']));
+      if ('slot_count' in personality) {
+        goog.dom.appendChild(tr, app.newTD(personality['slot_count']));
+      } else {
+        goog.dom.appendChild(tr, app.newTD('Unknown'));
+      }
       goog.dom.appendChild(tr, app.newTD(personality['description']));
       goog.dom.appendChild(tbody, tr);
     }

@@ -101,7 +101,7 @@ class SoftwareVersion(db.Model):
   # Version id
   version_id = db.IntegerProperty(required=True)
   # Version label
-  label = db.StringProperty(required=True)
+  label = db.StringProperty(default='')
   # supported params
   supported_parameters = db.ListProperty(int)
   # reference to the responder this version is associated with
@@ -115,7 +115,9 @@ class ResponderPersonality(db.Model):
   # TODO(simon): make description required some time once we have all the data.
   description = db.StringProperty()
   index = db.IntegerProperty(required=True)
-  slot_count = db.IntegerProperty(required=True)
+  # Sometimes we know a personality exists, but not the description or the slot
+  # count.
+  slot_count = db.IntegerProperty()
   # reference to the responder this version is associated with
   sw_version = db.ReferenceProperty(SoftwareVersion,
                                     required=True,

@@ -1,0 +1,163 @@
+{% extends "base.tmpl" %}
+
+{% block title %}RDM Manufacturer Index - RDM Packet Builder{% endblock %}
+
+{% block content %}
+<div ng-app="rdmApp">
+  <h3>RDM Packet Builder (Beta)</h3>
+  <div ng-controller="RDMPacketBuilder">
+    <form class="form-inline" ng-submit="buildPacket()">
+      <br/>
+      <div class="form-group">
+       <table border="0" cellpadding="1" cellspacing="0">
+        <tr>
+         <td><label for="builder-dest-uid">Destination UID:</label></td>
+         <td>
+          <input id="builder-dest-uid" type="text" class="form-control"
+                 ng-model="packet.dest_uid" placeholder="Enter a UID"
+                 pattern="^([0-9a-fA-F]{2}\s*[\.,:]?\s*){5}[0-9a-fA-F]{2}$">
+                 (e.g. 7a70:00000000)
+         </td>
+        </tr>
+        <tr>
+         <td><label for="builder-src-uid">Source UID:</label></td>
+         <td>
+          <input id="builder-src-uid" type="text" class="form-control"
+                 ng-model="packet.src_uid" placeholder="Enter a UID"
+                 pattern="^([0-9a-fA-F]{2}\s*[\.,:]?\s*){5}[0-9a-fA-F]{2}$">
+                 (e.g. 7a70:12345678)
+         </td>
+        </tr>
+        <tr>
+         <td><label for="builder-transaction-number">Transaction
+         Number:</label></td>
+         <td>
+          <input id="builder-transaction-number" type="text"
+                 class="form-control" ng-model="packet.transaction_number"
+                 min="0" max="255" size="3">
+         </td>
+        </tr>
+        <tr>
+         <td><label for="builder-sub-device">Sub Device:</label></td>
+         <td>
+          <input id="builder-port-id" type="text" class="form-control"
+                 ng-model="packet.sub_device" min="0" max="65535" size="6">
+         </td>
+        </tr>
+        <tr>
+         <td><label for="builder-command-class">Command Class:</label></td>
+         <td>
+          <select class="form-control" id="builder-command-class"
+           ng-model="packet.command_class"
+           ng-options="item.value as item.label for item in command_classes ">
+           </select>
+         </td>
+        </tr>
+        <tr>
+         <td><label for="builder-param-id">Parameter ID:</label></td>
+         <td>
+          <select class="form-control" id="builder-param-id"
+           ng-model="packet.param_id"
+           ng-options="item.value as item.label for item in properties.pids">
+           </select>
+         </td>
+        </tr>
+        <tr ng-show="properties.is_request">
+         <td><label for="builder-port-id">Port ID:</label></td>
+         <td>
+          <input id="builder-port-id" type="text" class="form-control"
+                 ng-model="packet.port_id" min="0" max="255" size="3">
+         </td>
+        </tr>
+        <tr ng-hide="properties.is_request">
+         <td><label for="builder-message-count">Message Count:</label></td>
+         <td>
+          <input id="builder-message-count" type="text" class="form-control"
+                 ng-model="packet.message_count" min="0" max="255" size="3">
+         </td>
+        </tr>
+        <tr ng-show="packet.command_class === RDM.COMMAND_CLASS.GET_COMMAND_RESPONSE ||
+                     packet.command_class === RDM.COMMAND_CLASS.SET_COMMAND_RESPONSE">
+         <td><label for="builder-response-type">Response Type:</label></td>
+         <td>
+          <select class="form-control" id="builder-response-type"
+           ng-model="packet.response_type"
+           ng-options="key for (key, value) in RDM.RESPONSE_TYPE">
+           </select>
+         </td>
+        </tr>
+        <tr ng-show="packet.response_type == RDM.RESPONSE_TYPE.NACK">
+         <td><label for="builder-nack-reason">NACK Reason:</label></td>
+         <td>
+          <select class="form-control" id="builder-nack-reason"
+           ng-model="packet.nack_reason"
+           ng-options="key for (key, value) in RDM.NACK_REASON">
+           </select>
+         </td>
+        </tr>
+        <tr ng-show="packet.response_type == RDM.RESPONSE_TYPE.ACK_TIMER">
+         <td><label for="builder-ack-timer">Timer Delay:</label></td>
+         <td>
+          <input id="builder-ack-timer" type="text" class="form-control"
+                 ng-model="packet.ack_timer" min="0">
+                 (in 100ms increments)
+         </td>
+        </tr>
+        <tr ng-show="properties.show_param_data">
+         <td><label for="builder-param-data">Param Data</label></td>
+         <td>
+          <textarea id="builder-param-data-length" type="text"
+                 class="form-control" ng-model="packet.param_data">
+          </textarea>
+         </td>
+        </tr>
+        <tr ng-show="packet.command_class == RDM.COMMAND_CLASS.DISCOVERY_COMMAND &&
+                     packet.param_id == RDM.PIDS.DISC_UNIQUE_BRANCH">
+         <td><label for="builder-lower-uid">Lower UID:</label></td>
+         <td>
+          <input id="builder-lower-uid" type="text" class="form-control"
+                 ng-model="packet.lower_uid" placeholder="Enter a UID"
+                 pattern="^([0-9a-fA-F]{2}\s*[\.,:]?\s*){5}[0-9a-fA-F]{2}$">
+                 (e.g. 7a70:12345678)
+         </td>
+        </tr>
+        <tr ng-show="packet.command_class == RDM.COMMAND_CLASS.DISCOVERY_COMMAND &&
+                     packet.param_id == RDM.PIDS.DISC_UNIQUE_BRANCH">
+         <td><label for="builder-upper-uid">Upper UID:</label></td>
+         <td>
+          <input id="builder-upper-uid" type="text" class="form-control"
+                 ng-model="packet.upper_uid" placeholder="Enter a UID"
+                 pattern="^([0-9a-fA-F]{2}\s*[\.,:]?\s*){5}[0-9a-fA-F]{2}$">
+                 (e.g. 7a70:12345678)
+         </td>
+        </tr>
+       </table>
+      </div>
+      <br/>
+      <input class="btn btn-primary" type="submit" value="Build Packet">
+      <br/>
+      <label for="builder-output-format">Output Format:</label></td>
+      <select class="form-control" id="builder-output-format"
+       ng-model="settings.output_format"
+       ng-options="key for (key, value) in OUTPUT_FORMAT ">
+       </select>
+      <label for="builder-output-wrap">Line Wrap:</label></td>
+      <input id="builder-output-wrap" type="text" class="form-control"
+             ng-model="settings.wrap" min="0" max="120" size="2">
+
+       <br/>
+     <br/>
+      <textarea ng-show="output" rows=10 cols=100
+       style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; border: 1px solid #cccccc"
+       ng-bind="output">
+      </textarea>
+     </form>
+    <span style="color: red;margin-top: 5px;padding-top: 5px;display: flex;">{[{error }]} </span>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_headers %}
+    <script src="/libs/angular/js/angular.min.js"></script>
+    <script src="/js/rdm.js"></script>
+{% endblock %}

@@ -1,4 +1,4 @@
-#  This program is free software; you can redistribute it and/or modify
+# This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
@@ -16,25 +16,42 @@
 # Copyright (C) 2011 Simon Newton
 # Handlers for simple static pages
 
-import common
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
+
+import common
 
 
 class AboutPageHandler(common.BasePageHandler):
-  """Display the about page."""
-  TEMPLATE = 'templates/about.tmpl'
+    """Display the about page."""
+    TEMPLATE = 'templates/about.tmpl'
 
 
 class DisclaimerPageHandler(common.BasePageHandler):
-  """Display the disclaimer page."""
-  TEMPLATE = 'templates/disclaimer.tmpl'
+    """Display the disclaimer page."""
+    TEMPLATE = 'templates/disclaimer.tmpl'
+
+
+class UIDConverterHandler(common.BasePageHandler):
+    """Display the tools page."""
+    TEMPLATE = 'templates/uid-converter.tmpl'
+
+class PacketBuilderHandler(common.BasePageHandler):
+    """Display the packet builder page."""
+    TEMPLATE = 'templates/packet-builder.tmpl'
+
+class PacketExtractorHandler(common.BasePageHandler):
+    """Display the packet builder page."""
+    TEMPLATE = 'templates/packet-extractor.tmpl'
 
 
 app = webapp.WSGIApplication(
-  [
-    ('/about', AboutPageHandler),
-    ('/contact', AboutPageHandler),
-    ('/disclaimer', DisclaimerPageHandler),
-  ],
-  debug=True)
+    [
+        ('/about', AboutPageHandler),
+        ('/contact', AboutPageHandler),
+        ('/disclaimer', DisclaimerPageHandler),
+        ('/tools', UIDConverterHandler),  # legacy
+        ('/tools/uid-converter', UIDConverterHandler),
+        ('/tools/packet-builder', PacketBuilderHandler),
+        ('/tools/packet-extractor', PacketExtractorHandler)
+    ],
+    debug=True)
