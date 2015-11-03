@@ -101,7 +101,7 @@ class SoftwareVersion(db.Model):
   # Version id
   version_id = db.IntegerProperty(required=True)
   # Version label
-  label = db.StringProperty(required=True)
+  label = db.StringProperty(default='')
   # supported params
   supported_parameters = db.ListProperty(int)
   # reference to the responder this version is associated with

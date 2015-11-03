@@ -2769,7 +2769,6 @@ MANUFACTURER_PIDS = [
   {'id': 0x7a70,
    'name': 'Open Lighting',
    'pids': [
-
       #SERIAL_NUMBER
       {'name': 'SERIAL_NUMBER',
        'set_request': {'items': [{'name': 'serial_number', 'type': 'uint32'}]},
@@ -2789,6 +2788,59 @@ MANUFACTURER_PIDS = [
        'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
        'notes': 'Gets the current version of the OLA code that is running.',
        'value': 0x8001},
+
+      #MODEL_ID
+      {'name': 'MODEL_ID',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
+       'get_sub_device_range': 0,
+       'set_request': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'Controls which model ID to use',
+       'value': 0x8002},
+
+      #MODEL_ID
+      {'name': 'MODEL_ID_LIST',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'models',
+                                   'type': 'group',
+                                   'items': [{'name': 'model_id', 'type': 'uint16'}]
+                        }]},
+       'get_sub_device_range': 0,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'The list of available model IDs',
+       'value': 0x8003},
+
+      #PIXEL_TYPE
+      {'name': 'PIXEL_TYPE',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'pixel_type', 'type': 'uint16',
+                                   'labels': [(1, 'LPD8806'), (2, 'WS2801'),
+                                              (3, 'P9813'), (4, 'APA102')]}]},
+       'set_request': {'items': [{'name': 'pixel_type', 'type': 'uint16',
+                                  'labels': [(1, 'LPD8806'), (2, 'WS2801'),
+                                             (3, 'P9813'), (4, 'APA102')]}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'get_sub_device_range': 0,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'The type of pixel used',
+       'value': 0x8005},
+
+      #PIXEL_COUNT
+      {'name': 'PIXEL_COUNT',
+       'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'pixel_count', 'type': 'uint16'}]},
+       'get_sub_device_range': 0,
+       'set_request': {'items': [{'name': 'pixel_count', 'type': 'uint16',
+                                  'range': [(1, 0xffff)]}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': 'http://opendmx.net/index.php/Open_Lighting_PIDs',
+       'notes': 'The number of pixels attached',
+       'value': 0x8006},
     ],
   },
   {'id': 21324,
