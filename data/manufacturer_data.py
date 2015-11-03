@@ -307,6 +307,7 @@ MANUFACTURER_DATA = [
 (0x2C1A, "DMX4ALL GmbH"),
 (0x2C2A, "XTBA"),
 (0x2CE0, "Lighting Services Inc."),
+(0x2DC8, "Stellascapes"),
 (0x3235, "de koster Special Effects"),
 (0x3388, "Macostar International Ltd."),
 (0x3434, "Global Design Solutions, Ltd."),
