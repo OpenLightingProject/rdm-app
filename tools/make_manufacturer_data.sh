@@ -29,7 +29,14 @@ echo -n "MANUFACTURER_DATA = "
 
 # Fetch the manufacturer data, convert to Linux line endings
 # Tidy nbsp to space
+# Convert extended characters to closest normal equivalent
+# TODO(Peter): Check if rdm-app and OLA can handle extended characters (or fix
+# if not) and start allowing them through
 # Remove duplicate entry for manufacturer 0x0000
 # Remove duplicate entry for manufacturer 0x4C5A; keep the original owner of the ID
-wget --quiet -O - http://tsp.plasa.org/tsp/working_groups/CP/rdmids.php | tr --delete "\r" | tr "\240" " " | grep -v "(0x0000, \"ESTA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\"),"
+wget --quiet -O - http://tsp.esta.org/tsp/working_groups/CP/rdmids.php | \
+tr --delete "\r" | tr "\240" " " | \
+tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
+tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
+grep -v "(0x0000, \"ESTA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\"),"
 )
