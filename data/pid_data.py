@@ -4858,8 +4858,8 @@ ESTA_PIDS = [
   'name': 'LOCK_STATE_DESCRIPTION',
   'value': 0x0642},
 
-# These are ordered to match how they appear in E1.33
-# The pid values will change in the final document.
+# These are ordered to match how they appear in E1.37-7
+# The PID values will change in the final document.
  #ENDPOINT_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [
@@ -4871,7 +4871,7 @@ ESTA_PIDS = [
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_LIST',
   'draft': True,
-  'value': 0x7fe0},
+  'value': 0x7fd3},
 
  #ENDPOINT_LIST_CHANGE
  {'get_request': {'items': []},
@@ -4884,7 +4884,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fee},
 
- #ENDPOINT_IDENTIFY
+ #IDENTIFY_ENDPOINT
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
    ]},
@@ -4893,7 +4893,7 @@ ESTA_PIDS = [
     {'name': 'identify_state', 'type': 'bool'}
   ]},
   'get_sub_device_range': 0,
-  'name': 'ENDPOINT_IDENTIFY',
+  'name': 'IDENTIFY_ENDPOINT',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
      'range': [(0, 0xffff)],
@@ -4928,26 +4928,6 @@ ESTA_PIDS = [
   'set_sub_device_range': 0,
   'draft': True,
   'value': 0x7fe1},
-
- #RDM_TRAFFIC_ENABLE
- {'get_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
-  ]},
-  'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
-    {'name': 'rdm_enabled', 'type': 'bool'}
-  ]},
-  'get_sub_device_range': 0,
-  'name': 'RDM_TRAFFIC_ENABLE',
-  'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xffff)],
-     'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'rdm_enabled', 'type': 'bool'}
-  ]},
-  'set_response': {'items': []},
-  'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe2},
 
  #ENDPOINT_MODE
  {'get_request': {'items': [
@@ -5112,23 +5092,6 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe8},
 
- #TCP_COMMS_STATUS
- {'get_request': {'items': [
-  ]},
-  'get_response': {'items': [
-    {'name': 'controller_ip', 'type': 'ipv4',
-     'labels': [(0, 'No Connection')]},
-    {'name': 'unhealthy_events', 'type': 'uint16'},
-    {'name': 'connection_events', 'type': 'uint16'},
-  ]},
-  'get_sub_device_range': 0,
-  'name': 'TCP_COMMS_STATUS',
-  'set_request': {'items': []},
-  'set_response': {'items': []},
-  'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fed},
-
  #BACKGROUND_QUEUED_STATUS_POLICY
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]}
@@ -5163,6 +5126,45 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd1},
 
+# These are ordered to match how they appear in E1.33
+# The PID values will change in the final document.
+ #RDM_TRAFFIC_ENABLE
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
+    {'name': 'rdm_enabled', 'type': 'bool'}
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'RDM_TRAFFIC_ENABLE',
+  'set_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'rdm_enabled', 'type': 'bool'}
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'draft': True,
+  'value': 0x7fe2},
+
+ #TCP_COMMS_STATUS
+ {'get_request': {'items': [
+  ]},
+  'get_response': {'items': [
+    {'name': 'controller_ip', 'type': 'ipv4',
+     'labels': [(0, 'No Connection')]},
+    {'name': 'unhealthy_events', 'type': 'uint16'},
+    {'name': 'connection_events', 'type': 'uint16'},
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'TCP_COMMS_STATUS',
+  'set_request': {'items': []},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'draft': True,
+  'value': 0x7fed},
+ 
  #BACKGROUND_STATUS_TYPE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)]},
