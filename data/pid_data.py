@@ -4929,6 +4929,38 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe1},
 
+  #START_CODE_FILTER
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
+   ]},
+  'get_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16'},
+    {'name': 'filtering_state', 'type': 'bool'},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'START_CODE_FILTER',
+  'set_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'filtering_state', 'type': 'bool'},
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'draft': True,
+  'value': 0x7fe2},
+
+  #START_CODE_FILTER_DESCRIPTION
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'filter', 'type': 'group', 'min_size': 8, 'max_size': 8,
+     'items': [{'name': 'filter_state', 'type': 'uint8'}],
+     }
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'START_CODE_FILTER_DESCRIPTION',
+  'draft': True,
+  'value': 0x7fd4},
+  
  #ENDPOINT_MODE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
