@@ -4918,7 +4918,7 @@ ESTA_PIDS = [
      'range': [(0, 63999)]},
    ]},
   'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16'
+    {'name': 'endpoint_id', 'type': 'uint16',
      'labels': [(0, 'Management Endpoint')],
      'range': [(0, 63999)]},
     {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff),(0xffff, 0xffff)],
@@ -4947,7 +4947,7 @@ ESTA_PIDS = [
      'range': [(0, 63999)]},
    ]},
   'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16'
+    {'name': 'endpoint_id', 'type': 'uint16',
      'labels': [(0, 'Management Endpoint')],
      'range': [(0, 63999)]},
     {'name': 'filtering_state', 'type': 'bool'},
@@ -4983,7 +4983,7 @@ ESTA_PIDS = [
      'range': [(0, 63999)]},
   ]},
   'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16'
+    {'name': 'endpoint_id', 'type': 'uint16',
      'labels': [(0, 'Management Endpoint')],
      'range': [(0, 63999)]},
     {'name': 'endpoint_mode', 'type': 'uint8',
@@ -5009,7 +5009,7 @@ ESTA_PIDS = [
      'range': [(0, 63999)]},
   ]},
   'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16'
+    {'name': 'endpoint_id', 'type': 'uint16',
      'labels': [(0, 'Management Endpoint')],
      'range': [(0, 63999)]},
     {'name': 'endpoint_label', 'type': 'string', 'max_size': 32},
