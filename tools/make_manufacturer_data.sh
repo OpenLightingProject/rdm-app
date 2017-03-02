@@ -28,7 +28,7 @@ EOM
 echo -n "MANUFACTURER_DATA = "
 
 # Fetch the manufacturer data, convert to Linux line endings
-# Convert some HTML encoding to ASCII - TODO(Peter): Switch to recode
+# Convert any HTML encoding to Latin 1 using recode
 # Tidy nbsp to space
 # Convert extended characters to closest normal equivalent
 # TODO(Peter): Check if rdm-app and OLA can handle extended characters (or fix
@@ -39,7 +39,7 @@ echo -n "MANUFACTURER_DATA = "
 # TODO(Peter): Comment out any invalid rows
 wget --quiet -O - http://tsp.esta.org/tsp/working_groups/CP/rdmids.php | \
 tr --delete "\r" | \
-sed -r -e 's/&#(228)/\d228/' | \
+recode html..latin1 | \
 tr "\240" " " | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
