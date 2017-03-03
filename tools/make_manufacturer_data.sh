@@ -28,11 +28,7 @@ EOM
 echo -n "MANUFACTURER_DATA = "
 
 # Fetch the manufacturer data, convert to Linux line endings
-# Bodge for bugs in recode (recode takes "foo & bar" and incorrectly converts
-# it to "foo  bar", whereas "foo &amp; bar" correctly gets converted to
-# "foo & bar"). We can't find every instance of an ampersand that's not an
-# entity so we cheat.
-# Convert any HTML encoding to Latin 1 using recode
+# Decode any HTML entities
 # Tidy nbsp to space
 # Convert extended characters to closest normal equivalent
 # TODO(Peter): Check if rdm-app and OLA can handle extended characters (or fix
@@ -43,8 +39,7 @@ echo -n "MANUFACTURER_DATA = "
 # TODO(Peter): Comment out any invalid rows
 wget --quiet -O - http://tsp.esta.org/tsp/working_groups/CP/rdmids.php | \
 tr --delete "\r" | \
-sed -r -e 's/([[:space:]]+)&([[:space:]]+)/\1&amp;\2/' | \
-recode html..latin1 | \
+perl -p -i -e 'use HTML::Entities; decode_entities($_);' | \
 tr "\240" " " | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
