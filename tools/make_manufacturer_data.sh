@@ -1,6 +1,9 @@
 #!/bin/bash
 # Autogenerate data/manufacturer_data.py
 
+# Ensure we fail with the worst pipe status
+set -o pipefail
+
 (
 cat <<EOM
 # -*- coding: utf-8 -*-
