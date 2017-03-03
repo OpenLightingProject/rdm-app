@@ -22,7 +22,7 @@ matrix:
       addons:
         apt:
           packages:
-            - recode
+            - libhtml-parser-perl
 
 script: "bash -ex .travis-ci.sh"
 
