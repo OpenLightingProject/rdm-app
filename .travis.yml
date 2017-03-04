@@ -18,6 +18,11 @@ matrix:
       env: TASK="nosetests"
     - env: TASK="karma"
     - env: TASK="js-lint"
+    - env: TASK="data-check"
+      addons:
+        apt:
+          packages:
+            - libhtml-parser-perl
 
 script: "bash -ex .travis-ci.sh"
 
