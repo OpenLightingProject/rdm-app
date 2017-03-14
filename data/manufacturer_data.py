@@ -67,6 +67,7 @@ MANUFACTURER_DATA = [
 (0x02EC, "Lutron Electronics"),
 (0x02EE, "Firma GUTKOWSKI - Gutkowski Jan"),
 (0x02EF, "ABLETECH Co., Ltd."),
+(0x02F0, "iColor LED Shenzhen Co., Ltd."),
 (0x0303, "Shanghai Moons' Automation Control Co., Ltd"),
 (0x0306, "feno GmbH"),
 (0x0307, "Ledium Kft."),
