@@ -1,6 +1,11 @@
 #!/bin/bash
 # Autoupdate data/manufacturer_data.py
 
+set -x
+
+# Ensure we fail with the worst pipe status
+set -o pipefail
+
 (
 UPSTREAM=$1
 UPSTREAM_BRANCH=$2
@@ -14,8 +19,9 @@ echo "$0 upstream master origin manufacturer-updates"
 exit
 fi
 
+date
+
 cd "${BASH_SOURCE%/*}" || exit # cd into the bundle and use relative paths
-ls
 
 echo "Pulling from $ORIGIN $ORIGIN_BRANCH"
 git pull $ORIGIN $ORIGIN_BRANCH || exit
@@ -23,8 +29,10 @@ git pull $ORIGIN $ORIGIN_BRANCH || exit
 echo "Pulling from $UPSTREAM $UPSTREAM_BRANCH"
 git pull $UPSTREAM $UPSTREAM_BRANCH || exit
 
+echo "Updating data"
 ./make_manufacturer_data.sh > ../data/manufacturer_data.py
 
+echo "Checking for differences"
 git diff --exit-code ../data/manufacturer_data.py
 
 if [ $? -eq 0 ]
