@@ -1,6 +1,9 @@
 #!/bin/bash
 # Autogenerate data/manufacturer_data.py
 
+# Ensure we fail with the worst pipe status
+set -o pipefail
+
 (
 cat <<EOM
 # -*- coding: utf-8 -*-
@@ -28,15 +31,21 @@ EOM
 echo -n "MANUFACTURER_DATA = "
 
 # Fetch the manufacturer data, convert to Linux line endings
+# Decode any HTML entities
 # Tidy nbsp to space
 # Convert extended characters to closest normal equivalent
 # TODO(Peter): Check if rdm-app and OLA can handle extended characters (or fix
 # if not) and start allowing them through
 # Remove duplicate entry for manufacturer 0x0000
 # Remove duplicate entry for manufacturer 0x4C5A; keep the original owner of the ID
+# Remove any H's after the manufacturer IDs and generally sanitise the rows
+# TODO(Peter): Comment out any invalid rows
 wget --quiet -O - http://tsp.esta.org/tsp/working_groups/CP/rdmids.php | \
-tr --delete "\r" | tr "\240" " " | \
+tr --delete "\r" | \
+perl -p -i -e 'use HTML::Entities; decode_entities($_);' | \
+tr "\240" " " | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
-grep -v "(0x0000, \"ESTA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\"),"
+grep -v "(0x0000, \"ESTA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\")," | \
+sed -r -e 's/^[[:space:]]*\([[:space:]]*0x([[:xdigit:]]{4,4})[Hh][[:space:]]*,/(0x\1,/'
 )

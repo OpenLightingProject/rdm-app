@@ -7,4 +7,6 @@ elif [[ $TASK = 'karma' ]]; then
     grunt unit-test
 elif [[ $TASK = 'js-lint' ]]; then
     grunt lint
+elif [[ $TASK = 'data-check' ]]; then
+    ./tools/make_manufacturer_data.sh > data/manufacturer_data.py && git diff --exit-code data/manufacturer_data.py
 fi
