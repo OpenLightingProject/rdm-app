@@ -4036,7 +4036,7 @@ ESTA_PIDS = [
   'name': 'SOFTWARE_VERSION_LABEL',
   'value': 192},
 
- #LANGAUGE_CAPABILITIES
+ #LANGUAGE_CAPABILITIES
  {'get_request': {'items': []},
   'get_response': {'items': [{'type': 'group',
                               'name': 'languages',
