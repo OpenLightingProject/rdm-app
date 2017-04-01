@@ -53,6 +53,7 @@ MANUFACTURER_DATA = [
 (0x02A4, "McNicoll Entertainment Systems"),
 (0x02AA, "Jinnax Opto Technology Co., Ltd. "),
 (0x02AB, "Rift Labs"),
+(0x02AC, "PSL Electronik Sanayi ve Ticaret A.S. "),
 (0x02B0, "DMXControl-Projects e.V."),
 (0x02BD, "RE-Engineering"),
 (0x02C8, "Growflux LLC"),
