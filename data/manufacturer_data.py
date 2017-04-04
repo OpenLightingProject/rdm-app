@@ -158,6 +158,7 @@ MANUFACTURER_DATA = [
 (0x07B0, "ADDiCTiON BoX GbR"),
 (0x07B1, "TBF-PyroTec GmbH "),
 (0x07CC, "Griven S.r.l."),
+(0x07CF, "MH-Sound"),
 (0x07FD, "THELIGHT Luminary for Cine and TV S.L."),
 (0x0807, "Event Lighting Pty, Ltd."),
 (0x0808, "Zero 88"),
