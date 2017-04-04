@@ -432,6 +432,7 @@ MANUFACTURER_DATA = [
 (0x424F, "BOTEX"),
 (0x4253, "Barco"),
 (0x42A2, "Birket Engineering, Inc."),
+(0x4321, "Design Partners of Canada"),
 (0x4344, "CDCA Ltd."),
 (0x4347, "CAST Software"),
 (0x4349, "C.I.Tronics Lighting Designers Ltda"),
