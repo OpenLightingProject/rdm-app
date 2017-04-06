@@ -38,6 +38,7 @@ MANUFACTURER_DATA = [
 (0x01CB, "I-Light USA, Inc."),
 (0x01CC, "Portman Custom Lights"),
 (0x01CD, "Compulite Systems (2000) LTD"),
+(0x01CE, "Railiks Enterprises"),
 (0x0202, "Paul Heuts"),
 (0x0203, "Artemide S.p.A"),
 (0x0204, "LIGHTLINE Lasertechnik GmbH"),
