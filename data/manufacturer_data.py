@@ -194,6 +194,7 @@ MANUFACTURER_DATA = [
 (0x08D7, "PatternAgents, LLC"),
 (0x08D8, "W.A. Benjamin Electric Co."),
 (0x08D9, "STILED"),
+(0x08DA, "PLC Intelligent Technology (Shanghai) Co., Ltd."),
 (0x08DD, "Matthew Tong"),
 (0x08E0, "Red Arrow Controls"),
 (0x08ED, "ShowLED"),
