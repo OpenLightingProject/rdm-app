@@ -31,6 +31,7 @@ MANUFACTURER_DATA = [
 (0x0105, "LIGHTHOW (SHANGHAI) Ltd."),
 (0x0107, "Inventronics (Hangzhou), Inc."),
 (0x0108, "Haya Lighting Equipment Limited"),
+(0x0109, "V-Productions"),
 (0x016C, "LGR"),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
