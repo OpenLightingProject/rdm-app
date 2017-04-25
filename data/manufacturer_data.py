@@ -171,6 +171,7 @@ MANUFACTURER_DATA = [
 (0x084B, "Neon Circus Ltd"),
 (0x0851, "Junction Inc. Ltd"),
 (0x0858, "Juno Lighting Group "),
+(0x0865, "Contrade GmbH"),
 (0x0869, "Club Cannon LLC"),
 (0x0874, "Snow Professional Lighting"),
 (0x0875, "ARC Solid-State Lighting Corp."),
