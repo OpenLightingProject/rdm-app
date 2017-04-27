@@ -13,10 +13,10 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# ola_rdm_get.py
+# dump.py
 # Copyright (C) 2010 Simon Newton
 
-'''Get a PID from a UID.'''
+'''Dump PID data.'''
 
 __author__ = 'nomis52@gmail.com (Simon Newton)'
 
@@ -32,7 +32,7 @@ from ola import PidStore
 VALIDATOR_TO_VALUE = {
     PidStore.RootDeviceValidator: 0,
     PidStore.SubDeviceValidator: 1,
-    PidStore.NonBroadcastSubDeviceValiator: 2,
+    PidStore.NonBroadcastSubDeviceValidator: 2,
     PidStore.SpecificSubDeviceValidator: 3
 }
 
