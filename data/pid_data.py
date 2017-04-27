@@ -3613,7 +3613,7 @@ MANUFACTURER_PIDS = [
       #LED_DRIVE_CURRENT
       {'get_request': {'items': [{'name': 'channel', 'type': 'uint8',
                                   'labels': [(0xff, 'All')],
-                                  'range': [(1, 4), (0xff, 0xff)}]},
+                                  'range': [(1, 4), (0xff, 0xff)]}]},
        'get_response': {'items': [{'name': 'channel', 'type': 'uint8',
                                    'labels': [(0x00, 'All')],
                                    'range': [(0, 4)]},
