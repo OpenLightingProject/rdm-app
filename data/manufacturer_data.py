@@ -135,6 +135,7 @@ MANUFACTURER_DATA = [
 (0x0685, "IBL/ESD-Datentechnik GmbH"),
 (0x06A0, "Light.Audio.Design"),
 (0x06A1, "ProTec GmbH"),
+(0x06B9, "GUANGZHOU DASEN LIGHTING CORPORATION LIMITED"),
 (0x06C4, "RHENAC Systems GmbH"),
 (0x06C7, "L&L Luce&Light"),
 (0x06CE, "American-Pro International"),
