@@ -3598,6 +3598,41 @@ MANUFACTURER_PIDS = [
        'value': 0xf000},
     ],
   },
+  {'id': 0x3434,
+   'name': 'GDS',
+   'pids': [
+
+      #SERIAL_NUMBER
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'serial_number', 'type': 'uint32'}]},
+       'get_sub_device_range': 2,
+       'name': 'SERIAL_NUMBER',
+       'notes': 'Get the serial number.',
+       'value': 0xffdf},
+
+      #LED_DRIVE_CURRENT
+      {'get_request': {'items': [{'name': 'channel', 'type': 'uint8',
+                                  'labels': [(0xff, 'All')],
+                                  'range': [(1, 4), (0xff, 0xff)]}]},
+       'get_response': {'items': [{'name': 'channel', 'type': 'uint8',
+                                   'labels': [(0x00, 'All')],
+                                   'range': [(0, 4)]},
+                                  {'name': 'value', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'LED_DRIVE_CURRENT',
+       'set_request': {'items': [{'name': 'channel', 'type': 'uint8',
+                                  'labels': [(0xff, 'All')],
+                                  'range': [(0, 4)]},
+                                 {'name': 'value', 'type': 'uint8'}]},
+       'set_response': {'items': [{'name': 'channel', 'type': 'uint8',
+                                   'labels': [(0x00, 'All')],
+                                   'range': [(0, 4)]},
+                                  {'name': 'value', 'type': 'uint8'}]},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set the LED drive current.',
+       'value': 0x8020},
+    ],
+  },
 ]
 
 
