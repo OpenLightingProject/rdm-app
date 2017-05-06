@@ -147,6 +147,7 @@ MANUFACTURER_DATA = [
 (0x070F, "Theatrelight New Zealand"),
 (0x0710, "D.T.S. Illuminazione srl"),
 (0x0712, "Laser Imagineering GmbH"),
+(0x071F, "Moss LED Inc"),
 (0x072C, "SGM A/S"),
 (0x072F, "RayComposer - R. Adams"),
 (0x0732, "Galaxia Electronics"),
