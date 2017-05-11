@@ -69,6 +69,7 @@ MANUFACTURER_DATA = [
 (0x02EA, "d3 Technologies Ltd."),
 (0x02EB, "Amolvin Research & Development Lab."),
 (0x02EC, "Lutron Electronics"),
+(0x02ED, "OpenLX SP Ltd."),
 (0x02EE, "Firma GUTKOWSKI - Gutkowski Jan"),
 (0x02EF, "ABLETECH Co., Ltd."),
 (0x02F0, "iColor LED Shenzhen Co., Ltd."),
