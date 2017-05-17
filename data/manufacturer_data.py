@@ -34,6 +34,7 @@ MANUFACTURER_DATA = [
 (0x0109, "V-Productions"),
 (0x010A, "Elektralite"),
 (0x010B, "DesignLED Technology (HK) Co., Ltd."),
+(0x010C, "SES (Entertainment Services) Ltd."),
 (0x016C, "LGR"),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
