@@ -39,6 +39,7 @@ MANUFACTURER_DATA = [
 (0x010E, "Guangzhou ATON Lighting Technology Co.,Ltd"),
 (0x010F, "Saco Technologies Inc."),
 (0x0110, "APF S.r.l."),
+(0x0111, "Radig Hard & Software"),
 (0x016C, "LGR"),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
