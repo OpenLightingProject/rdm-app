@@ -138,6 +138,7 @@ MANUFACTURER_DATA = [
 (0x060B, "Lighting Science Group (formerly LED Effects, Inc.)"),
 (0x062B, "CKC Lighting Co., Ltd."),
 (0x063A, "AVM Belgium BVBA"),
+(0x0644, "COLEDER DISPLAY CO., LTD."),
 (0x0650, "RDC, Inc. d.b.a. LynTec"),
 (0x065E, "OFilms"),
 (0x0682, "Beijing Ming Rui Lighting Technology Co., Ltd. "),
