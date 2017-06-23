@@ -195,6 +195,7 @@ MANUFACTURER_DATA = [
 (0x088A, "Highendled Electronics Company Limited"),
 (0x088F, "First Design System Inc."),
 (0x089A, "ADL Electronics Ltd."),
+(0x089D, "gobo.ws"),
 (0x08A4, "Adam Hall GmbH"),
 (0x08AA, "PiXL Factory"),
 (0x08AC, "Bushveld Labs"),
