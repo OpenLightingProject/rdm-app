@@ -182,6 +182,7 @@ MANUFACTURER_DATA = [
 (0x080D, "HBJ Elektronik"),
 (0x080F, "Navo Corp."),
 (0x084B, "Neon Circus Ltd"),
+(0x084C, "Guangzhou Ba Lin Electronic Technology Co., Ltd."),
 (0x0851, "Junction Inc. Ltd"),
 (0x0858, "Juno Lighting Group "),
 (0x0865, "Contrade GmbH"),
