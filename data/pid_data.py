@@ -3589,6 +3589,46 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a simple setup mode.',
        'value': 0x8117},
 
+      #ETC_OVER_TEMP_MODE_DESCRIPTION
+      {'get_request': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_OVER_TEMP_MODE_DESCRIPTION',
+       'notes': 'Get a text description for an over temperature mode.',
+       'value': 0x8118},
+
+      #ETC_LOW_POWER_TIMEOUT_DESCRIPTION
+      {'get_request': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LOW_POWER_TIMEOUT_DESCRIPTION',
+       'notes': 'Get a text description for a low power timeout.',
+       'value': 0x8122},
+
+      #ETC_LED_FREQUENCY_ENUM_DESCRIPTION
+      {'get_request': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LED_FREQUENCY_ENUM_DESCRIPTION',
+       'notes': 'Get a text description for an LED frequency setting.',
+       'value': 0x8124},
+
+      #ETC_POWER_COMMAND_DESCRIPTION
+      {'get_request': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'power_command', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_POWER_COMMAND_DESCRIPTION',
+       'notes': 'Get a text description for a power command.',
+       'value': 0xa001},
+
       #ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD
       {'name': 'ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD',
        'set_request': {'items': []},
