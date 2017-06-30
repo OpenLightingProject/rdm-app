@@ -3599,6 +3599,17 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for an over temperature mode.',
        'value': 0x8118},
 
+      #ETC_LOW_POWER_TIMEOUT
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LOW_POWER_TIMEOUT',
+       'set_request': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set low power timeout.',
+       'value': 0x8121},
+
       #ETC_LOW_POWER_TIMEOUT_DESCRIPTION
       {'get_request': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'},
@@ -3609,6 +3620,17 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a low power timeout.',
        'value': 0x8122},
 
+      #ETC_LED_FREQUENCY_ENUM
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LED_FREQUENCY_ENUM',
+       'set_request': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set LED frequency.',
+       'value': 0x8123},
+
       #ETC_LED_FREQUENCY_ENUM_DESCRIPTION
       {'get_request': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'},
@@ -3618,6 +3640,17 @@ MANUFACTURER_PIDS = [
        'name': 'ETC_LED_FREQUENCY_ENUM_DESCRIPTION',
        'notes': 'Get a text description for an LED frequency setting.',
        'value': 0x8124},
+
+      #ETC_POWER_COMMAND
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_POWER_COMMAND',
+       'set_request': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set power commands.',
+       'value': 0xa000},
 
       #ETC_POWER_COMMAND_DESCRIPTION
       {'get_request': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
