@@ -3589,6 +3589,179 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a simple setup mode.',
        'value': 0x8117},
 
+      #ETC_OVER_TEMP_MODE_DESCRIPTION
+      {'get_request': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_OVER_TEMP_MODE_DESCRIPTION',
+       'notes': 'Get a text description for an over temperature mode.',
+       'value': 0x8118},
+
+      #ETC_SEQUENCE_PLAYBACK
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'sequence', 'type': 'uint16',
+                                  'labels': [(0, 'Off')]}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_SEQUENCE_PLAYBACK',
+       'set_request': {'items': [{'name': 'sequence', 'type': 'uint16',
+                                  'labels': [(0, 'Off')]}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set sequence playback.',
+       'value': 0x811f},
+
+      #ETC_SEQUENCE_CONFIG
+      #Complicated, TODO(Peter): Clarify how it actually works
+      {'name': 'ETC_SEQUENCE_CONFIG',
+       'get_request': {'items': []},
+       'get_response': {'items': []},
+       'get_sub_device_range': 2,
+       'set_request': {'items': []},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Sequence config.',
+       'value': 0x8120},
+
+      #ETC_LOW_POWER_TIMEOUT
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LOW_POWER_TIMEOUT',
+       'set_request': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set low power timeout.',
+       'value': 0x8121},
+
+      #ETC_LOW_POWER_TIMEOUT_DESCRIPTION
+      {'get_request': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LOW_POWER_TIMEOUT_DESCRIPTION',
+       'notes': 'Get a text description for a low power timeout.',
+       'value': 0x8122},
+
+      #ETC_LED_FREQUENCY_ENUM
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LED_FREQUENCY_ENUM',
+       'set_request': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set LED frequency.',
+       'value': 0x8123},
+
+      #ETC_LED_FREQUENCY_ENUM_DESCRIPTION
+      {'get_request': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_LED_FREQUENCY_ENUM_DESCRIPTION',
+       'notes': 'Get a text description for an LED frequency setting.',
+       'value': 0x8124},
+
+      #ETC_PRESET_CONFIG
+      #Complicated, TODO(Peter): Clarify how it actually works
+      {'name': 'ETC_PRESET_CONFIG',
+       'get_request': {'items': []},
+       'get_response': {'items': []},
+       'get_sub_device_range': 2,
+       'set_request': {'items': []},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Preset config.',
+       'value': 0x8125},
+
+      #ETC_POWER_COMMAND
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_POWER_COMMAND',
+       'set_request': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set power commands.',
+       'value': 0xa000},
+
+      #ETC_POWER_COMMAND_DESCRIPTION
+      {'get_request': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
+       'get_response': {'items': [{'name': 'power_command', 'type': 'uint8'},
+                                  {'name': 'description', 'type': 'string', 'max_size': 32},
+                                 ]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_POWER_COMMAND_DESCRIPTION',
+       'notes': 'Get a text description for a power command.',
+       'value': 0xa001},
+
+      #ETC_DALI_SHORT_ADDRESS
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'dali_short_address', 'type': 'uint8',
+                                   'range': [(0, 63)]}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_DALI_SHORT_ADDRESS',
+       'set_request': {'items': [{'name': 'dali_short_address', 'type': 'uint8',
+                                  'range': [(0, 63)]}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set DALI short address.',
+       'value': 0xa004},
+
+      #ETC_DALI_GROUP_MEMBERSHIP
+      #This is a bit set, TODO(Peter): Work out how best to implement this
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'dali_group_membership', 'type': 'uint16'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_DALI_GROUP_MEMBERSHIP',
+       'set_request': {'items': [{'name': 'dali_group_membership', 'type': 'uint16'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set DALI group membership.',
+       'value': 0xa005},
+
+      #ETC_AUTOBIND
+      {'get_request': {'items': []},
+       'get_response': {'items': [{'name': 'autobind', 'type': 'bool'}]},
+       'get_sub_device_range': 2,
+       'name': 'ETC_AUTOBIND',
+       'set_request': {'items': [{'name': 'autobind', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Get/Set autobind status.',
+       'value': 0xa006},
+
+      #ETC_DELETE_SUBDEVICE
+      {'name': 'ETC_DELETE_SUBDEVICE',
+       'set_request': {'items': [{'name': 'subdevice_number', 'type': 'uint16',
+                                  'range': [(1, 512)]}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'notes': 'Delete a subdevice.',
+       'value': 0xa007},
+
+      #ETC_HAS_ENUM_TEXT
+      #Complicated, TODO(Peter): Clarify how it actually works
+      {'name': 'ETC_HAS_ENUM_TEXT',
+       'get_request': {'items': []},
+       'get_response': {'items': []},
+       'get_sub_device_range': 2,
+       'notes': 'Has enum text.',
+       'value': 0x9001},
+
+      #ETC_GET_ENUM_TEXT
+      #Complicated, TODO(Peter): Clarify how it actually works
+      {'name': 'ETC_GET_ENUM_TEXT',
+       'get_request': {'items': []},
+       'get_response': {'items': []},
+       'get_sub_device_range': 2,
+       'notes': 'Get enum text.',
+       'value': 0x9002},
+
       #ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD
       {'name': 'ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD',
        'set_request': {'items': []},
