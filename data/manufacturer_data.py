@@ -46,6 +46,7 @@ MANUFACTURER_DATA = [
 (0x0115, "Kontrolcla Show Control S.L."),
 (0x0116, "SmoothLUX B.V."),
 (0x0117, "AD Toyo Lighting (Guangzhou) Co.,Ltd"),
+(0x0118, "Vello Light Co., Ltd."),
 (0x016C, "LGR"),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
