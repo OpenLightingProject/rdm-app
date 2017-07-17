@@ -529,6 +529,7 @@ MANUFACTURER_DATA = [
 (0x494C, "I-Lum"),
 (0x494E, "Interactive Technologies, Inc."),
 (0x4950, "Interesting Products, Inc."),
+(0x4951, "IQAir AG"),
 (0x4952, "Invisible Rival Incorporated"),
 (0x4953, "Integrated System Technologies Ltd."),
 (0x4954, "Integrated Theatre, Inc."),
