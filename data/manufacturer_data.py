@@ -498,6 +498,7 @@ MANUFACTURER_DATA = [
 (0x4541, "Engineering Arts"),
 (0x4543, "EC Elettronica Srl"),
 (0x4544, "Electronics Diversified LLC"),
+(0x4545, "EastSun Technology Co. Ltd."),
 (0x454C, "Ingenieurbuero fuer Nachrichtentechnik in der Studio und Veranstaltungstechnik"),
 (0x454D, "ELM Video Technology, Inc."),
 (0x454E, "ENTTEC Pty Ltd"),
