@@ -178,9 +178,34 @@ app.changeSoftwareVersion = function(element) {
       } else  {
         sensor_type = app.toHex(sensor['type'], 2)
       }
+
+      var sensor_range_min_max = '';
+	  var sensor_range_min = typeof sensor['range_min'] !== 'number' ? "" : sensor['range_min'];
+	  var sensor_range_max = typeof sensor['range_max'] !== 'number' ? "" : sensor['range_max'];
+	  sensor_range_min_max = sensor_range_min + " / " + sensor_range_max;
+
+      var sensor_normal_min_max = '';
+	  var sensor_normal_min = typeof sensor['normal_min'] !== 'number' ? "" : sensor['normal_min'];
+	  var sensor_normal_max = typeof sensor['normal_max'] !== 'number' ? "" : sensor['normal_max'];
+	  sensor_normal_min_max = sensor_normal_min + " / " + sensor_normal_max;
+
+      var unit_str = sensor['unit_str'];
+      var sensor_unit = '';
+      if (unit_str) {
+        sensor_unit = unit_str + ' (0x' + app.toHex(sensor['unit'], 2) + ')';
+      } else  {
+		if (unit_str==null){
+		  sensor_unit = ""
+		} else {
+		  sensor_unit = app.toHex(sensor['unit'], 2)
+		}
+      }
       goog.dom.appendChild(tr, app.newTD(sensor_type));
       goog.dom.appendChild(tr, app.newTD(sensor['supports_recording']));
       goog.dom.appendChild(tr, app.newTD(sensor['supports_min_max']));
+      goog.dom.appendChild(tr, app.newTD(sensor_range_min_max));
+      goog.dom.appendChild(tr, app.newTD(sensor_normal_min_max));
+      goog.dom.appendChild(tr, app.newTD(sensor_unit));
       goog.dom.appendChild(tbody, tr);
     }
     app.showBlock(sensor_fieldset);
