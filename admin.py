@@ -826,15 +826,14 @@ class ResponderModerator(BaseAdminPageHandler):
         'index': int(sensor.index),
         'supports_recording': recording,
         'type': int(sensor.type),
-        'range_min':range_min,
-        'range_max':range_min,
-        'normal_min':normal_min,
-        'normal_max':normal_min,
-        'unit':unit,
+        'range_min': range_min,
+        'range_max': range_min,
+        'normal_min': normal_min,
+        'normal_max': normal_min,
+        'unit': unit,
     })
     sensors.sort(key=lambda i: i['index'])
     return sensors
-
 
 class AdjustTestScore(BaseAdminPageHandler):
   """Displays the UI for adjusting a responder's test score.
