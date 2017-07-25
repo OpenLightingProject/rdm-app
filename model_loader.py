@@ -314,6 +314,27 @@ class ModelUpdater(object):
             sensor.supports_recording = recording
             save = True
 
+        new_normal_min = sensor_info.get('normal_min')
+        if new_normal_min is not None and sensor.normal_min != new_normal_min:
+          sensor.normal_min = new_normal_min
+          save = True
+        new_normal_max = sensor_info.get('normal_max')
+        if new_normal_max is not None and sensor.normal_max != new_normal_max:
+          sensor.normal_max = new_normal_max
+          save = True
+        new_range_min = sensor_info.get('range_min')
+        if new_range_min is not None and sensor.range_min != new_range_min:
+          sensor.range_min = new_range_min
+          save = True
+        new_range_max = sensor_info.get('range_max')
+        if new_range_max is not None and sensor.range_max != new_range_max:
+          sensor.range_max = new_range_max
+          save = True
+        new_unit = sensor_info.get('unit')
+        if new_unit is not None and sensor.unit != new_unit:
+          sensor.unit = new_unit
+          save = True
+
         if save:
           sensor.put()
           modified = True
@@ -321,11 +342,22 @@ class ModelUpdater(object):
 
     # add new sensors
     for offset, sensor_info in new_sensors.iteritems():
+      range_min=int(sensor_info.get('range_min')) if sensor_info.get('range_min') is not None else None
+      range_max=int(sensor_info.get('range_max')) if sensor_info.get('range_max') is not None else None
+      normal_min=int(sensor_info.get('normal_min')) if sensor_info.get('normal_min') is not None else None
+      normal_max=int(sensor_info.get('normal_max')) if sensor_info.get('normal_max') is not None else None
+      unit=int(sensor_info.get('unit')) if sensor_info.get('unit') is not None else None
+
       sensor = ResponderSensor(
           description = self._Encode(sensor_info['description']),
           index = offset,
           type = sensor_info['type'],
           supports_recording = bool(sensor_info['supports_recording'] & 1),
+          range_min = range_min,
+          range_max = range_max,
+          normal_min = normal_min,
+          normal_max = normal_max,
+          unit = unit,
           supports_min_max_recording = bool(
             sensor_info['supports_recording'] & 2),
           sw_version = software_version)

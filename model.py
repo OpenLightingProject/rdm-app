@@ -129,6 +129,11 @@ class ResponderSensor(db.Model):
   description = db.StringProperty(required=True)
   index = db.IntegerProperty(required=True)
   type = db.IntegerProperty(required=True)
+  range_min = db.IntegerProperty()
+  range_max = db.IntegerProperty()
+  normal_min = db.IntegerProperty()
+  normal_max = db.IntegerProperty()
+  unit = db.IntegerProperty()
   supports_min_max_recording = db.BooleanProperty()
   supports_recording = db.BooleanProperty()
   sw_version = db.ReferenceProperty(SoftwareVersion,

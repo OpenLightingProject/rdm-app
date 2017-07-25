@@ -22,6 +22,7 @@ import logging
 import memcache_keys
 import re
 from data.sensor_types import SENSOR_TYPES
+from data.sensor_units import SENSOR_UNITS
 from model import *
 from utils import StringToInt
 from google.appengine.api import images
@@ -289,10 +290,20 @@ class DisplayModel(common.BasePageHandler):
             'type': sensor.type,
             'supports_recording': sensor.supports_recording,
             'supports_min_max': sensor.supports_min_max_recording,
+            'range_min': sensor.range_min,
+            'range_max': sensor.range_max,
+            'normal_min': sensor.normal_min,
+            'normal_max': sensor.normal_max,
+            'unit': sensor.unit,
         }
         type_str = SENSOR_TYPES.get(sensor.type)
         if type_str is not None:
           sensor_info['type_str'] = type_str
+
+        unit_str = SENSOR_UNITS.get(sensor.unit)
+        if unit_str is not None:
+          sensor_info['unit_str'] = unit_str
+
         sensors.append(sensor_info)
 
       if sensors:
