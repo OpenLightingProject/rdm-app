@@ -800,12 +800,37 @@ class ResponderModerator(BaseAdminPageHandler):
         recording |= 1
       if sensor.supports_min_max_recording:
         recording |= 2
+      try:
+          range_min=int(sensor.range_min)
+      except:
+          range_min = None
+      try:
+          range_max=int(sensor.range_max)
+      except:
+          range_max = None
+      try:
+          normal_min=int(sensor.normal_min)
+      except:
+          normal_min = None
+      try:
+          normal_max=int(sensor.normal_max)
+      except:
+          normal_max = None 
+      try:
+          unit=str(sensor.unit)
+      except:
+          unit = None 
 
       sensors.append({
         'description': str(sensor.description),
         'index': int(sensor.index),
         'supports_recording': recording,
         'type': int(sensor.type),
+        'range_min':range_min,
+        'range_max':range_min,
+        'normal_min':normal_min,
+        'normal_max':normal_min,
+        'unit':unit,
     })
     sensors.sort(key=lambda i: i['index'])
     return sensors
