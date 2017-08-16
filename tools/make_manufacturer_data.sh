@@ -42,7 +42,7 @@ echo -n "MANUFACTURER_DATA = "
 # TODO(Peter): Comment out any invalid rows
 wget --quiet -O - http://tsp.esta.org/tsp/working_groups/CP/rdmids.php | \
 tr --delete "\r" | \
-perl -p -i -e 'use HTML::Entities; decode_entities($_);' | \
+perl -p -e 'use HTML::Entities; decode_entities($_);' | \
 tr "\240" " " | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
