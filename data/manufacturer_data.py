@@ -55,6 +55,7 @@ MANUFACTURER_DATA = [
 (0x0118, "Vello Light Co., Ltd."),
 (0x0119, "Peter Schneyder Design Management GmbH"),
 (0x016C, "LGR"),
+(0x01AA, "Vitec Videocom Inc."),
 (0x01C7, "SCHIEDERWERK GmbH "),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
