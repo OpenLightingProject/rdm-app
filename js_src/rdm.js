@@ -883,7 +883,7 @@ angular.module('rdmApp', [])
         if (packet_data.length >= 2) {
           var sub_device = (packet_data.shift() << 8) + packet_data.shift();
           $scope.packet.sub_device_error =
-            !((sub_device == RDM.SUB_DEVICE.ALL_SUB_DEVICES) ||
+            !((sub_device === RDM.SUB_DEVICE.ALL_SUB_DEVICES) ||
               ((sub_device >= RDM.SUB_DEVICE.ROOT_DEVICE) &&
                (sub_device <= RDM.SUB_DEVICE_MAX)));
           output = formatService.reverseLookup(RDM.SUB_DEVICE, sub_device);
