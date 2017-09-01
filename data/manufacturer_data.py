@@ -227,6 +227,7 @@ MANUFACTURER_DATA = [
 (0x08B0, "KIM Lighting"),
 (0x08B2, "MCI Group"),
 (0x08B3, "Stealth Light srl"),
+(0x08BA, "Meteor Lighting"),
 (0x08BD, "Lug Light Factory Sp. z o. o."),
 (0x08BF, "Times Square Stage Lighting Inc."),
 (0x08C1, "Project SSSHH Incorporated"),
