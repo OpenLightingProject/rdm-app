@@ -452,6 +452,7 @@ MANUFACTURER_DATA = [
 (0x3B10, "NXP Semiconductors B.V."),
 (0x3B88, "Shenzhen Eastar Electronic Co., Ltd."),
 (0x3D30, "zactrack Lighting Technologies Gmbh"),
+(0x400D, "Quasar Science LLC"),
 (0x4051, "SAN JACK ANALOG HOUSE CO., LTD."),
 (0x4131, "Altman Stage Lighting"),
 (0x4141, "AVAB America, Inc."),
