@@ -24,6 +24,7 @@ MANUFACTURER_DATA = [
 (0x0001, "GEE"),
 (0x00A1, "Creative Lighting And Sound Systems Pty Ltd."),
 (0x00A2, "EMP Designs Ltd."),
+(0x00A8, "Iwasaki Electric Co., Ltd."),
 (0x00A9, "Richter Lighting Technologies GmbH "),
 (0x00AA, "Hangzhou Easun Technology Co., Ltd."),
 (0x00AB, "MFX Asia Co., Ltd"),
