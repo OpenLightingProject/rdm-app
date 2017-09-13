@@ -178,6 +178,7 @@ MANUFACTURER_DATA = [
 (0x06F0, "CTG sp. z o.o."),
 (0x0702, "Drinelec"),
 (0x0707, "Conceptinetics Technologies and Consultancy Ltd."),
+(0x0708, "AK-LIGHT"),
 (0x070F, "Theatrelight New Zealand"),
 (0x0710, "D.T.S. Illuminazione srl"),
 (0x0712, "Laser Imagineering GmbH"),
