@@ -106,6 +106,7 @@ MANUFACTURER_DATA = [
 (0x02FF, "Guangzhou Eway Stage Equipment Technology Co., Ltd."),
 (0x0302, "Swefog Technology Group AB"),
 (0x0303, "Shanghai Moons' Automation Control Co., Ltd"),
+(0x0305, "DiCon Fiberoptics, Inc."),
 (0x0306, "feno GmbH"),
 (0x0307, "Ledium Kft."),
 (0x0308, "ImageCue LLC "),
