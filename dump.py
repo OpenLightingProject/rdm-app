@@ -13,10 +13,10 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# ola_rdm_get.py
+# dump.py
 # Copyright (C) 2010 Simon Newton
 
-'''Get a PID from a UID.'''
+'''Dump PID data.'''
 
 __author__ = 'nomis52@gmail.com (Simon Newton)'
 
@@ -32,29 +32,31 @@ from ola import PidStore
 VALIDATOR_TO_VALUE = {
     PidStore.RootDeviceValidator: 0,
     PidStore.SubDeviceValidator: 1,
-    PidStore.NonBroadcastSubDeviceValiator: 2,
+    PidStore.NonBroadcastSubDeviceValidator: 2,
     PidStore.SpecificSubDeviceValidator: 3
 }
 
 TYPE_TO_STRING = {
   PidStore.Bool: 'bool',
+  PidStore.Int8: 'int8',
   PidStore.UInt8: 'uint8',
+  PidStore.Int16: 'int16',
   PidStore.UInt16: 'uint16',
+  PidStore.Int32: 'int32',
   PidStore.UInt32: 'uint32',
   PidStore.String: 'string',
+  PidStore.UIDAtom: 'uid',
+  PidStore.MACAtom: 'mac',
+  PidStore.IPV4: 'ipv4',
+  PidStore.Group: 'group',
 }
 
 def BuildMessage(request):
   output = {
-    'is_repeated': False,
     'items': [],
   }
-  if isinstance(request, PidStore.RepeatedGroup):
-    output['is_repeated'] = True
-    if request.max:
-      output['max_repeats'] = request.max
 
-  for item in request:
+  for item in request.GetAtoms():
     type = None
 
     data = {
@@ -73,26 +75,28 @@ def BuildPid(pid):
     'value': pid.value,
   }
 
-  if pid._get_validators:
-    pid_dict['get_sub_device_range'] = VALIDATOR_TO_VALUE[pid._get_validators[0]]
-  if pid._set_validators:
-    pid_dict['set_sub_device_range'] = VALIDATOR_TO_VALUE[pid._set_validators[0]]
+  print(pid.name)
+  if pid._validators[PidStore.RDM_GET]:
+    pid_dict['get_sub_device_range'] = VALIDATOR_TO_VALUE[pid._validators[PidStore.RDM_GET][0]]
+  if pid._validators[PidStore.RDM_SET]:
+    pid_dict['set_sub_device_range'] = VALIDATOR_TO_VALUE[pid._validators[PidStore.RDM_SET][0]]
 
-  if pid._get_request is not None:
-    output = BuildMessage(pid._get_request)
+  if pid.GetRequest(PidStore.RDM_GET) is not None:
+    output = BuildMessage(pid.GetRequest(PidStore.RDM_GET))
     pid_dict['get_request'] = output
 
-  if pid._get_response is not None:
-    output = BuildMessage(pid._get_response)
+  if pid.GetResponse(PidStore.RDM_GET) is not None:
+    output = BuildMessage(pid.GetResponse(PidStore.RDM_GET))
     pid_dict['get_response'] = output
 
-  if pid._set_request is not None:
-    output = BuildMessage(pid._set_request)
+  if pid.GetRequest(PidStore.RDM_SET) is not None:
+    output = BuildMessage(pid.GetRequest(PidStore.RDM_SET))
     pid_dict['set_request'] = output
 
-  if pid._set_response is not None:
-    output = BuildMessage(pid._set_response)
+  if pid.GetResponse(PidStore.RDM_SET) is not None:
+    output = BuildMessage(pid.GetResponse(PidStore.RDM_SET))
     pid_dict['set_response'] = output
+
   return pid_dict
 
 

@@ -55,8 +55,8 @@ app.MessageField.prototype.createDom = function() {
   var class_names = this._field_info['type'] + '_field message_field';
   var field_name = this._field_info['name'];
   if (this._field_info['type'] == 'string') {
-    max = this._field_info['max_size'];
-    min = this._field_info['min_size'];
+    var max = this._field_info['max_size'];
+    var min = this._field_info['min_size'];
 
     if (max != undefined && min != undefined) {
       if (max == min) {
