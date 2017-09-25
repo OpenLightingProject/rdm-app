@@ -200,6 +200,7 @@ MANUFACTURER_DATA = [
 (0x07AE, "A-LITE B.V."),
 (0x07B0, "ADDiCTiON BoX GbR"),
 (0x07B1, "TBF-PyroTec GmbH "),
+(0x07C2, "BOOQlight BV"),
 (0x07CC, "Griven S.r.l."),
 (0x07CF, "MH-Sound"),
 (0x07F3, "Sam Light"),
