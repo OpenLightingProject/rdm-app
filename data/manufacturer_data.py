@@ -208,6 +208,7 @@ MANUFACTURER_DATA = [
 (0x07FD, "THELIGHT Luminary for Cine and TV S.L."),
 (0x0807, "Event Lighting Pty, Ltd."),
 (0x0808, "Zero 88"),
+(0x0809, "mumoco GmbH"),
 (0x080A, "Shenzhen FantaLED Electronics Co., Ltd"),
 (0x080D, "HBJ Elektronik"),
 (0x080F, "Navo Corp."),
