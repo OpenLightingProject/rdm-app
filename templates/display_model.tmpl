@@ -48,7 +48,7 @@
                 </tr>
             {% endif %}
             <tr>
-                <td>Fixture definitions</td>
+                <td>Fixture definition</td>
                 <td><a href="https://open-fixture-library.herokuapp.com/rdm?manufacturerId={{ manufacturer_id }}&amp;modelId={{ model_id }}&amp;source=olp">View in Open Fixture Library</a></td>
             </tr>
             <tr>
@@ -84,6 +84,7 @@
                         <th>Index</th>
                         <th>Slot Count</th>
                         <th>Description</th>
+                        <th>Channel List</th>
                     </tr>
                     <tbody id="model_personality_tbody"></tbody>
                 </table>
@@ -137,6 +138,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <script type="text/javascript">
+        app.setIds({{ manufacturer_id|safe }}, {{ model_id|safe }});
         app.setSoftwareVersions({{ software_versions_json|safe }});
         app.setLatestVersion(document.getElementById('software_select'));
         function dirty_fix(){

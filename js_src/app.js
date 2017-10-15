@@ -25,10 +25,12 @@ goog.require('app.MessageStructure');
 
 goog.provide('app.setup');
 
-var app = app || {}
+var app = app || {};
 
-// Empty list, this is populated in the page
-app.SOFTWARE_VERSIONS = []
+// These are populated in the page
+app.MANUFACTURER_ID = null;
+app.MODEL_ID = null;
+app.SOFTWARE_VERSIONS = [];
 
 /**
  * Sort hex values
@@ -113,6 +115,15 @@ goog.exportSymbol('app.makeModelTable', app.makeModelTable);
 
 
 /**
+ * Set manufacturer and model ID
+ */
+app.setIds = function(manufacturer_id, model_id) {
+  app.MANUFACTURER_ID = manufacturer_id;
+  app.MODEL_ID = model_id;
+};
+goog.exportSymbol('app.setIds', app.setIds);
+
+/**
  * Set the software versions
  */
 app.setSoftwareVersions = function(version_info) {
@@ -143,6 +154,8 @@ app.changeSoftwareVersion = function(element) {
     goog.dom.removeChildren(tbody);
     for (var i = 0; i < personalities.length; ++i) {
       var personality = personalities[i];
+      var oflLink = 'https://open-fixture-library.herokuapp.com/rdm?manufacturerId=' + app.MANUFACTURER_ID + '&amp;modelId=' + app.MODEL_ID + '&amp;personalityIndex=' + personality['index'] + '&amp;source=olp';
+
       var tr = goog.dom.createDom('tr');
       // add the cells
       goog.dom.appendChild(tr, app.newTD(personality['index']));
@@ -152,6 +165,7 @@ app.changeSoftwareVersion = function(element) {
         goog.dom.appendChild(tr, app.newTD('Unknown'));
       }
       goog.dom.appendChild(tr, app.newTD(personality['description']));
+      goog.dom.appendChild(tr, app.newTD('<a href="' + oflLink + '">View in Open Fixture Library</a>'));
       goog.dom.appendChild(tbody, tr);
     }
     app.showBlock(personality_fieldset);
