@@ -107,6 +107,23 @@ grunt copy-cleanup
 ```
 otherwise the files won't be compressed
 
+### Running the App Engine locally
+
+If you want to run the server locally for debugging, download and install the
+[Google Cloud Tools](https://cloud.google.com/sdk/docs/). Then you can start the
+server locally using:
+```bash
+/path/to/google-cloud-tools/dev_appserver.py /path/to/rdm-app/
+```
+
+On the first run, you are asked to install some additional components for Google
+Cloud Tools.
+
+You can access the local server at <http://localhost:8080/>. Logging in at
+[/admin](http://localhost:8080/admin) only works with one of the white-listed
+email addresses. Those are stored in
+[admin.py's BaseAdminPageHandler class](admin.py#L64).
+
 ### Deploying to App Engine
 
 Before deploying to App Engine run:
