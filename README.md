@@ -107,6 +107,14 @@ grunt copy-cleanup
 ```
 otherwise the files won't be compressed
 
+### Changing app.js
+
+After changing `app.js`, you have to build the compiled Google Closure script by
+using:
+```bash
+./BUILD
+```
+
 ### Running the App Engine locally
 
 If you want to run the server locally for debugging, download and install the
@@ -123,6 +131,9 @@ You can access the local server at <http://localhost:8080/>. Logging in at
 [/admin](http://localhost:8080/admin) only works with one of the white-listed
 email addresses. Those are stored in
 [admin.py's BaseAdminPageHandler class](admin.py#L64).
+
+If you want to add more RDM devices / nodes / etc. for testing, add them to the
+respective file in the `data/` directory.
 
 ### Deploying to App Engine
 
