@@ -21,11 +21,9 @@ goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.TableSorter');
-goog.require('app.MessageStructure');
+goog.require('app.pid');
 
 goog.provide('app.setup');
-
-var app = app || {};
 
 // These are populated in the page
 app.MANUFACTURER_ID = null;
@@ -271,7 +269,7 @@ goog.exportSymbol('app.makePIDTable', app.makePIDTable);
  * Display a pid command
  */
 app.displayCommand = function(json, element_id) {
-  var msg_structure = new app.MessageStructure();
+  var msg_structure = new app.pid.MessageStructure();
   msg_structure.decorate(goog.dom.$(element_id));
   msg_structure.update(json['items']);
 };

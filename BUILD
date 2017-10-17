@@ -1,6 +1,12 @@
 #!/bin/sh
 
-trunk/closure/bin/build/closurebuilder.py --root=trunk/  --root=js_src \
---namespace="app.setup" --output_mode=compiled  --compiler_jar=compiler.jar \
---compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
-> static/js/app.js
+java \
+-jar node_modules/google-closure-compiler/compiler.jar \
+--js 'js_src/**.js' \
+--js 'node_modules/google-closure-library/closure/**.js' \
+--js 'node_modules/google-closure-library/third_party/**.js' \
+--js '!**_test.js' \
+--entry_point 'app.setup' \
+--js_output_file static/js/app.js \
+--dependency_mode STRICT \
+--compilation_level ADVANCED_OPTIMIZATIONS
