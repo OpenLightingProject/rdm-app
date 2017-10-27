@@ -71,6 +71,8 @@ MANUFACTURER_DATA = [
 (0x01CE, "Railiks Enterprises"),
 (0x01CF, "SRM Technik GmbH"),
 (0x01D0, "Shanghai Semping Electronics Co., Ltd."),
+(0x01D1, "Yarilo Pro"),
+(0x01D2, "GIP Innovation Tools GmbH"),
 (0x0202, "Paul Heuts"),
 (0x0203, "Artemide S.p.A"),
 (0x0204, "LIGHTLINE Lasertechnik GmbH"),
