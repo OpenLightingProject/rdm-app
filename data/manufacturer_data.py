@@ -76,6 +76,7 @@ MANUFACTURER_DATA = [
 (0x01D3, "JSC Aksera"),
 (0x01D4, "x-labs"),
 (0x01D5, "Shenzhen Liantronics Co., Ltd"),
+(0x01D6, "Argent Data Systems, Inc."),
 (0x0202, "Paul Heuts"),
 (0x0203, "Artemide S.p.A"),
 (0x0204, "LIGHTLINE Lasertechnik GmbH"),
