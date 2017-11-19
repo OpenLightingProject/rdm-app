@@ -78,6 +78,7 @@ MANUFACTURER_DATA = [
 (0x01D5, "Shenzhen Liantronics Co., Ltd"),
 (0x01D6, "Argent Data Systems, Inc."),
 (0x01D7, "LIMEDIA"),
+(0x01D8, "Daniel Large Lighting"),
 (0x0202, "Paul Heuts"),
 (0x0203, "Artemide S.p.A"),
 (0x0204, "LIGHTLINE Lasertechnik GmbH"),
