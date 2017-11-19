@@ -12,7 +12,7 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# pid_handler.py
+# incoming_handler.py
 # Copyright (C) 2011 Simon Newton
 # PID search / display handlers.
 
