@@ -3,6 +3,7 @@
 java \
 -jar node_modules/google-closure-compiler/compiler.jar \
 --js 'js_src/**.js' \
+--js '!js_src/rdm.js' \
 --js 'node_modules/google-closure-library/closure/**.js' \
 --js 'node_modules/google-closure-library/third_party/**.js' \
 --js '!**_test.js' \
