@@ -1,6 +1,5 @@
 module.exports = function(grunt) {
   'use strict';
-
   require('google-closure-compiler').grunt(grunt);
 
   grunt.initConfig({
@@ -107,6 +106,7 @@ module.exports = function(grunt) {
             '--js', 'node_modules/google-closure-library/closure/**.js',
             '--js', 'node_modules/google-closure-library/third_party/**.js',
             '--js', '"!**_test.js"',
+            '--jscomp_warning', 'lintChecks',
             '--entry_point', 'app.setup',
             '--js_output_file', 'static/js/app.js',
             '--dependency_mode', 'STRICT',
