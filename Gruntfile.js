@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
   'use strict';
+
+  require('google-closure-compiler').grunt(grunt);
+
   grunt.initConfig({
     bower: {
       libs: {
@@ -92,6 +95,23 @@ module.exports = function(grunt) {
         tasks: ['jshint:dev', 'clean:copy', 'copy:develop'],
         options: {
           atBegin: true
+        }
+      }
+    },
+    'closure-compiler': {
+      build: {
+        options: {
+          args: [
+            '--js', 'js_src/**.js',
+            '--js', '!js_src/rdm.js',
+            '--js', 'node_modules/google-closure-library/closure/**.js',
+            '--js', 'node_modules/google-closure-library/third_party/**.js',
+            '--js', '"!**_test.js"',
+            '--entry_point', 'app.setup',
+            '--js_output_file', 'static/js/app.js',
+            '--dependency_mode', 'STRICT',
+            '--compilation_level',  'ADVANCED_OPTIMIZATIONS'
+          ]
         }
       }
     }
