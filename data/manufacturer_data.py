@@ -88,6 +88,7 @@ MANUFACTURER_DATA = [
 (0x0205, "SmartShow UK"),
 (0x0206, "Studio Due Light S.r.l."),
 (0x0207, "SILL LIGHTS GmbH"),
+(0x0208, "Shenzhen Yuming Vision Technology Co., Ltd."),
 (0x0235, "Company 235, LLC"),
 (0x0242, "ABLELITE INTERNATIONAL"),
 (0x025B, "Imlight-Showtechnic"),
