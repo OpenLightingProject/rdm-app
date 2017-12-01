@@ -40,7 +40,8 @@ class TestManufacturers(unittest.TestCase):
       self.assertEqual(int, type(esta_id))
       self.assertEqual(str, type(name))
 
-      self.assertNotIn(esta_id, seen_ids)
+      self.assertNotIn(esta_id, seen_ids,
+                       "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
 
     # check that ESTA exists
@@ -62,9 +63,12 @@ class TestManufacturers(unittest.TestCase):
       self.assertEqual(str, type(link))
 
       # Check we have a corresponding entry in the manufacturer data
-      self.assertIn(esta_id, esta_ids)
+      self.assertIn(esta_id, esta_ids,
+                    "ESTA ID 0x%04x is not present in the manufacturer data" % esta_id)
 
-      self.assertNotIn(esta_id, seen_ids)
+      # Check we've not seen this URL before
+      self.assertNotIn(esta_id, seen_ids,
+                       "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
 
     # optional, check that ESTA exists
