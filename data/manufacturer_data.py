@@ -268,6 +268,7 @@ MANUFACTURER_DATA = [
 (0x08F6, "Eulum Design, LLC"),
 (0x08F9, "ACS - Ackerman Computer Sciences"),
 (0x08FA, "Phaton Lighting Co., Ltd."),
+(0x08FE, "Zhuhai Shengchang Electronics Co., Ltd."),
 (0x0901, "GermTec GmbH & Co. KG"),
 (0x0903, "Shenzhen INFiLED Electronics, Ltd."),
 (0x0904, "Bigbear Co., Ltd."),
