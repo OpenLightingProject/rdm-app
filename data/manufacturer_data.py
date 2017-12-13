@@ -221,6 +221,7 @@ MANUFACTURER_DATA = [
 (0x07CF, "MH-Sound"),
 (0x07F3, "Sam Light"),
 (0x07FD, "THELIGHT Luminary for Cine and TV S.L."),
+(0x0800, "Hongyeah Light"),
 (0x0807, "Event Lighting Pty, Ltd."),
 (0x0808, "Zero 88"),
 (0x0809, "mumoco GmbH"),
