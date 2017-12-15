@@ -280,6 +280,7 @@ MANUFACTURER_DATA = [
 (0x0918, "David O Smith Design"),
 (0x091A, "Celex LED Technology Ltd."),
 (0x091B, "Krislite Pte. Ltd."),
+(0x091D, "TouchPlate Technologies Inc."),
 (0x0923, "Hangzhou Roleds Lighting System Co., Ltd."),
 (0x0936, "AquaTronic"),
 (0x093A, "HDT impex s.r.o."),
