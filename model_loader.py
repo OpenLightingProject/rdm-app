@@ -54,17 +54,20 @@ class ModelLoader(object):
     for manufacturer_id, models in self._model_data.iteritems():
       manufacturer = self._LookupManufacturer(manufacturer_id)
       if not manufacturer:
-        logging.error('No manufacturer found for %hx' % manufacturer_id)
+        logging.error('No manufacturer found for 0x%hx' % manufacturer_id)
         continue
 
       for model_info in models:
         was_added, was_modified = self._updater.UpdateResponder(
             manufacturer, model_info)
 
+        model_description = model_info.get('model_description')
+        if model_description is None:
+          model_description = ('RDM Model 0x%04x' % model_info.get('device_model', 0))
         if was_added:
-          added.append(model_info['model_description'])
+          added.append(model_description)
         elif was_modified:
-          updated.append(model_info['model_description'])
+          updated.append(model_description)
 
     return added, updated
 
@@ -189,7 +192,7 @@ class ModelUpdater(object):
     responder = Responder(
         manufacturer = manufacturer,
         device_model_id = model_id,
-        model_description = model_info['model_description'])
+        model_description = model_info.get('model_description', ''))
 
     # add product_category if there is one
     product_category_id = model_info.get('product_category')

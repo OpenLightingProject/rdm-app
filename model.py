@@ -38,7 +38,7 @@ class Manufacturer(db.Model):
   """Represents a Manufacturer."""
   esta_id = db.IntegerProperty(required=True)
   name = db.StringProperty(required=True)
-  # link to the product page
+  # link to the manufacturer website
   link = db.LinkProperty();
   # url of the source image
   image_url = db.LinkProperty();
@@ -59,11 +59,11 @@ class Responder(db.Model):
   # The Device Model ID field from DEVICE_INFO
   device_model_id = db.IntegerProperty()
   # The DEVICE_MODEL_DESCRIPTION
-  model_description = db.StringProperty(required=True)
+  model_description = db.StringProperty(default='')
   # The product category
   product_category = db.ReferenceProperty(ProductCategory,
                                           collection_name='responder_set')
-  # link to the product page
+  # link to the responder product page
   link = db.LinkProperty();
   # url of the source image
   image_url = db.LinkProperty();
@@ -112,7 +112,8 @@ class SoftwareVersion(db.Model):
 
 class ResponderPersonality(db.Model):
   """Represents a personality of a responder."""
-  # TODO(simon): make description required some time once we have all the data.
+  # Description can't be required, as DMX_PERSONALITY_DESCRIPTION is not a
+  # mandatory PID.
   description = db.StringProperty()
   index = db.IntegerProperty(required=True)
   # Sometimes we know a personality exists, but not the description or the slot
