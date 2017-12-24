@@ -192,7 +192,7 @@ class ModelUpdater(object):
     responder = Responder(
         manufacturer = manufacturer,
         device_model_id = model_id,
-        model_description = model_info.get('model_description', ''))
+        model_description = model_info.get('model_description'))
 
     # add product_category if there is one
     product_category_id = model_info.get('product_category')
@@ -225,7 +225,7 @@ class ModelUpdater(object):
     """
     # create the new version object and store it
     version_obj = SoftwareVersion(version_id = version_id,
-                                  label = version_info.get('label', ''),
+                                  label = version_info.get('label'),
                                   responder = responder)
     supported_params = version_info.get('supported_parameters')
     if supported_params:
@@ -272,7 +272,7 @@ class ModelUpdater(object):
     # add any new personalities
     for index, personality_info in new_personalities.iteritems():
       personality = ResponderPersonality(
-          description = personality_info.get('description', ''),
+          description = personality_info.get('description'),
           index = index,
           sw_version = software_version)
       if 'slot_count' in personality_info:

@@ -35,7 +35,16 @@
                 <div class="panel panel-default model_panel"
                      onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
                     <div class="panel-heading" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
-                        {{ model.name }}
+                        {% if model.name %}
+                            {{ model.name }}
+                        {% else %}
+                            {% if model.manufacturer_name %}
+                                {{ model.manufacturer_name }}
+                            {% else %}
+                                {{ model.manufacturer_id|stringformat:"04x" }}
+                            {% endif %}
+                             - Model ID {{ model.model_id }}
+                        {% endif %}
                     </div>
                     <div class="panel-body" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
                         {% if model.image_key %}

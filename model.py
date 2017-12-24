@@ -59,7 +59,7 @@ class Responder(db.Model):
   # The Device Model ID field from DEVICE_INFO
   device_model_id = db.IntegerProperty()
   # The DEVICE_MODEL_DESCRIPTION
-  model_description = db.StringProperty(default='')
+  model_description = db.StringProperty(default=None)
   # The product category
   product_category = db.ReferenceProperty(ProductCategory,
                                           collection_name='responder_set')
@@ -101,7 +101,7 @@ class SoftwareVersion(db.Model):
   # Version id
   version_id = db.IntegerProperty(required=True)
   # Version label
-  label = db.StringProperty(default='')
+  label = db.StringProperty(default=None)
   # supported params
   supported_parameters = db.ListProperty(int)
   # reference to the responder this version is associated with
@@ -114,7 +114,7 @@ class ResponderPersonality(db.Model):
   """Represents a personality of a responder."""
   # Description can't be required, as DMX_PERSONALITY_DESCRIPTION is not a
   # mandatory PID.
-  description = db.StringProperty()
+  description = db.StringProperty(default=None)
   index = db.IntegerProperty(required=True)
   # Sometimes we know a personality exists, but not the description or the slot
   # count.

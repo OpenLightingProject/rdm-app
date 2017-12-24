@@ -21,7 +21,8 @@ DEVICE_MODEL_DATA = {
  8482L: [{'device_model': 38,
           'model_description': 'LED BAR',
           'product_category': 1289,
-          'software_versions': {1: {'label': 'V1.02 \x00LED BAR\x00BRITEQ',
+          'software_versions': {1: {
+                                    #'label': 'V1.02 \x00LED BAR\x00BRITEQ',
                                     'languages': [],
                                     'manufacturer_pids': [],
                                     'personalities': [{'description': '   \x00\x08',
