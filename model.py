@@ -58,7 +58,8 @@ class Responder(db.Model):
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   # The Device Model ID field from DEVICE_INFO
   device_model_id = db.IntegerProperty()
-  # The DEVICE_MODEL_DESCRIPTION
+  # Description can't be required, as DEVICE_MODEL_DESCRIPTION is not a
+  # mandatory PID.
   model_description = db.StringProperty(default=None)
   # The product category
   product_category = db.ReferenceProperty(ProductCategory,
@@ -100,7 +101,10 @@ class SoftwareVersion(db.Model):
   """Represents a particular software version on a responder."""
   # Version id
   version_id = db.IntegerProperty(required=True)
-  # Version label
+  # Version label should be required, as SOFTWARE_VERSION_LABEL is a mandatory
+  # PID but we've had real world devices without it, or there could be issues
+  # with their implementation such as it being empty (which App Engine treats
+  # as not present)
   label = db.StringProperty(default=None)
   # supported params
   supported_parameters = db.ListProperty(int)
@@ -127,7 +131,11 @@ class ResponderPersonality(db.Model):
 
 class ResponderSensor(db.Model):
   """Represents a Sensor on a responder."""
-  description = db.StringProperty(required=True)
+  # Sensor description should be required, as the description field is part of
+  # the SENSOR_DEFINITION PID but there may be real world devices with issues
+  # with their implementation such as it being empty (which App Engine treats
+  # as not present)
+  description = db.StringProperty(default=None)
   index = db.IntegerProperty(required=True)
   type = db.IntegerProperty(required=True)
   supports_min_max_recording = db.BooleanProperty()
