@@ -33,8 +33,8 @@
         {% for row in model_rows %}
             {% for model in row %}
                 <div class="panel panel-default model_panel"
-                     onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
-                    <div class="panel-heading" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
+                     onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&amp;model={{ model.model_id }}'">
+                    <div class="panel-heading" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&amp;model={{ model.model_id }}'">
                         {% if model.name %}
                             {{ model.name }}
                         {% else %}
@@ -46,7 +46,7 @@
                              - Model ID {{ model.model_id }}
                         {% endif %}
                     </div>
-                    <div class="panel-body" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&model={{ model.model_id }}'">
+                    <div class="panel-body" onclick="location.href='/model/display?manufacturer={{ model.manufacturer_id }}&amp;model={{ model.model_id }}'">
                         {% if model.image_key %}
                             <img src="{{ model.image_key }}=s100">
                         {% else %}
