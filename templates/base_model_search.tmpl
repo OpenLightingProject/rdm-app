@@ -25,7 +25,7 @@
             <tr class="results_row"
                 onclick="window.location='/model/display?manufacturer={{ model.manufacturer.esta_id }}&model={{ model.device_model_id }}'">
                 <td>{{ model.manufacturer.name }}</td>
-                <td>{{ model.device_model_id }} ( 0x{{ model.device_model_id|stringformat:"04x" }} )</td>
+                <td>{{ model.device_model_id }} (0x{{ model.device_model_id|stringformat:"04x" }})</td>
                 <td>
                     {% if model.model_description %}
                         {{ model.model_description }}

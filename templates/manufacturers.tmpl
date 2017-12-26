@@ -19,7 +19,7 @@
             <tr class="results_row"
                 onclick="window.location='/manufacturer/display?manufacturer={{ manufacturer.id }}'">
                 <td>{{ manufacturer.name }}</td>
-                <td>{{ manufacturer.id }} ( 0x{{ manufacturer.id|stringformat:"04x" }} )</td>
+                <td>{{ manufacturer.id }} (0x{{ manufacturer.id|stringformat:"04x" }})</td>
             </tr>
         {% endfor %}
         </tbody>
