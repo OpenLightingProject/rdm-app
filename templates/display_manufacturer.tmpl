@@ -22,7 +22,13 @@
                 <ul class="list-group">
                     {% for device in devices %}
                         <li class="list-group-item">
-                            <a href="/model/display?manufacturer={{ id }}&model={{ device.device_model_id }}">{{ device.model_description }}</a>
+                            <a href="/model/display?manufacturer={{ id }}&model={{ device.device_model_id }}">
+                                {% if device.model_description %}
+                                    {{ device.model_description }}
+                                {% else %}
+                                    Model ID {{ device.device_model_id }}
+                                {% endif %}
+                            </a>
                         </li>
                     {% endfor %}
                 </ul>
