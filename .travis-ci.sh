@@ -23,4 +23,5 @@ elif [[ $TASK = 'spellintian' ]]; then
     exit 1;
   else
     echo "Found $spellingerrors spelling errors"
+  fi;
 fi
