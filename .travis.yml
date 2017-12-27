@@ -8,7 +8,7 @@ cache:
 sudo: false
 
 before_install:
-  - if [[ "$TASK" == "spellchecker" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
+  - if [[ "$TASK" == "spellintian" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
 
 install:
   - pip install json-spec
@@ -31,7 +31,7 @@ matrix:
       dist: trusty
       # Short duration job, would use the container/without sudo image as it boots faster, but we need a backported lintian, so don't
       sudo: required
-      env: TASK='spellchecker'
+      env: TASK='spellintian'
       addons:
         apt:
           packages:
@@ -39,7 +39,7 @@ matrix:
   allow_failures:
     - os: linux
       dist: trusty
-      env: TASK='spellchecker'
+      env: TASK='spellintian'
 
 script: "bash -ex .travis-ci.sh"
 
