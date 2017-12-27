@@ -72,12 +72,12 @@ def GetLatestSoftware(responder):
     A SoftwareVersion object or None.
   """
   max_version = None
-  version = None
+  max_version_info = None
   for version in responder.software_version_set:
     if max_version is None or version.version_id > max_version:
       max_version = version.version_id
-      version = version
-  return version
+      max_version_info = version
+  return max_version_info
 
 def LookupProductCategory(category_id):
   """Lookup a ProductCategory entity by id.
