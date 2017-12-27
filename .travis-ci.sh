@@ -12,7 +12,7 @@ elif [[ $TASK = 'data-check' ]]; then
 elif [[ $TASK = 'spellintian' ]]; then
   # run the spellchecker only if it is the requested task
   spellingfiles=$(find ./ -type f -and ! \( \
-      -wholename "./.git/*" -or \
+      -wholename "./.git/*" \
       \) | xargs)
   # count the number of spellchecker errors
   spellingerrors=$(zrun spellintian $spellingfiles 2>&1 | wc -l)
