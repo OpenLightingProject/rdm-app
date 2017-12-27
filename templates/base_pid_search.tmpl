@@ -32,7 +32,7 @@
         <tbody>
         {% for pid in pids %}
             <tr class="results_row"
-                onclick="window.location='/pid/display?manufacturer={{ pid.manufacturer.esta_id }}&pid={{ pid.pid_id }}'">
+                onclick="window.location='/pid/display?manufacturer={{ pid.manufacturer.esta_id }}&amp;pid={{ pid.pid_id }}'">
                 <td>{{ pid.manufacturer.name }}</td>
                 <td>0x{{ pid.manufacturer.esta_id|stringformat:"04hx"}}</td>
                 <td>0x{{ pid.pid_id|stringformat:"04hx" }}</td>

@@ -54,17 +54,20 @@ class ModelLoader(object):
     for manufacturer_id, models in self._model_data.iteritems():
       manufacturer = self._LookupManufacturer(manufacturer_id)
       if not manufacturer:
-        logging.error('No manufacturer found for %hx' % manufacturer_id)
+        logging.error('No manufacturer found for 0x%hx' % manufacturer_id)
         continue
 
       for model_info in models:
         was_added, was_modified = self._updater.UpdateResponder(
             manufacturer, model_info)
 
+        model_description = model_info.get('model_description')
+        if model_description is None:
+          model_description = ('RDM Model 0x%04x' % model_info.get('device_model', 0))
         if was_added:
-          added.append(model_info['model_description'])
+          added.append(model_description)
         elif was_modified:
-          updated.append(model_info['model_description'])
+          updated.append(model_description)
 
     return added, updated
 
@@ -189,7 +192,7 @@ class ModelUpdater(object):
     responder = Responder(
         manufacturer = manufacturer,
         device_model_id = model_id,
-        model_description = model_info['model_description'])
+        model_description = model_info.get('model_description'))
 
     # add product_category if there is one
     product_category_id = model_info.get('product_category')
@@ -222,7 +225,7 @@ class ModelUpdater(object):
     """
     # create the new version object and store it
     version_obj = SoftwareVersion(version_id = version_id,
-                                  label = version_info.get('label', ''),
+                                  label = version_info.get('label'),
                                   responder = responder)
     supported_params = version_info.get('supported_parameters')
     if supported_params:
@@ -269,7 +272,7 @@ class ModelUpdater(object):
     # add any new personalities
     for index, personality_info in new_personalities.iteritems():
       personality = ResponderPersonality(
-          description = personality_info.get('description', ''),
+          description = personality_info.get('description'),
           index = index,
           sw_version = software_version)
       if 'slot_count' in personality_info:
