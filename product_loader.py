@@ -175,7 +175,7 @@ class ProductLoader(object):
     for manufacturer_id, products in self._product_data.iteritems():
       manufacturer = self._LookupManufacturer(manufacturer_id)
       if not manufacturer:
-        logging.error('No manufacturer found for %hx' % manufacturer_id)
+        logging.error('No manufacturer found for 0x%hx' % manufacturer_id)
         continue
 
       for product_info in products:

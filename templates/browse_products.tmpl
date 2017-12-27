@@ -24,7 +24,7 @@
         <ul class="pager">
             {% if previous %}
                 <li class="previous">
-                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&amp;tag={{ tag|urlencode }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
                         <span aria-hidden="true">&larr;</span> Previous Page
                     </a>
                 </li>
@@ -36,7 +36,7 @@
             <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
             {% if next %}
                 <li class="next">
-                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&amp;tag={{ tag|urlencode }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
                         Next Page <span aria-hidden="true">&rarr;</span>
                     </a>
                 </li>
@@ -74,7 +74,7 @@
         <ul class="pager">
             {% if previous %}
                 <li class="previous">
-                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                    <a href="/{{ product_type }}/browse?page={{ previous }}{% if tag %}&amp;tag={{ tag|urlencode }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
                         <span aria-hidden="true">&larr;</span> Previous Page
                     </a>
                 </li>
@@ -86,7 +86,7 @@
             <li>Displaying {{ start }} to {{ end }} of {{ total }}</li>
             {% if next %}
                 <li class="next">
-                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&tag={{ tag }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
+                    <a href="/{{ product_type }}/browse?page={{ next }}{% if tag %}&amp;tag={{ tag|urlencode }}{% endif %}{% if manufacturer %}&manufacturer={{ manufacturer }}{% endif %}">
                         Next Page <span aria-hidden="true">&rarr;</span>
                     </a>
                 </li>

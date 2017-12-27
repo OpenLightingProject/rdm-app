@@ -18,15 +18,19 @@
 
 import unittest
 
-class TestManufacturerData(unittest.TestCase):
-  """ Test the manufacturer data file is valid."""
+class TestManufacturers(unittest.TestCase):
+  """ Test the manufacturer data files are valid."""
   def setUp(self):
     globals = {}
     locals = {}
     execfile("data/manufacturer_data.py", globals, locals)
     self.data = locals['MANUFACTURER_DATA']
+    globals = {}
+    locals = {}
+    execfile("data/manufacturer_links.py", globals, locals)
+    self.links = locals['MANUFACTURER_LINKS']
 
-  def test_Data(self):
+  def test_ManufacturerData(self):
     seen_ids = set()
 
     for manufacturer_data in self.data:
@@ -36,10 +40,38 @@ class TestManufacturerData(unittest.TestCase):
       self.assertEqual(int, type(esta_id))
       self.assertEqual(str, type(name))
 
-      self.assertNotIn(esta_id, seen_ids)
+      self.assertNotIn(esta_id, seen_ids,
+                       "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
 
-    # check that PLASA exists
+    # check that ESTA exists
+    self.assertIn(0, seen_ids)
+
+
+  def test_ManufacturerLinks(self):
+    esta_ids = set()
+    seen_ids = set()
+    for manufacturer_data in self.data:
+      esta_id, name = manufacturer_data
+      esta_ids.add(esta_id)
+
+    for manufacturer_link in self.links:
+      self.assertEqual(tuple, type(manufacturer_link))
+      self.assertEqual(2, len(manufacturer_link))
+      esta_id, link = manufacturer_link
+      self.assertEqual(int, type(esta_id))
+      self.assertEqual(str, type(link))
+
+      # Check we have a corresponding entry in the manufacturer data
+      self.assertIn(esta_id, esta_ids,
+                    "ESTA ID 0x%04x is not present in the manufacturer data" % esta_id)
+
+      # Check we've not seen this URL before
+      self.assertNotIn(esta_id, seen_ids,
+                       "ESTA ID 0x%04x is present twice" % esta_id)
+      seen_ids.add(esta_id)
+
+    # optional, check that ESTA exists
     self.assertIn(0, seen_ids)
 
 

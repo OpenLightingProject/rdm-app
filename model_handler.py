@@ -65,6 +65,8 @@ class BrowseModels(common.BasePageHandler):
           'rating': model.rdm_responder_rating,
           'star_width': rating_scale,
       }
+      if hasattr(model.manufacturer, 'name') and model.manufacturer.name:
+        output['manufacturer_name'] = model.manufacturer.name
       if model.image_data:
         serving_url = model.image_serving_url
         if not serving_url:

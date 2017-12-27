@@ -268,7 +268,7 @@ MANUFACTURER_VALIDATOR = {
   'type': 'object'
 }
 
-class TestPiddata(unittest.TestCase):
+class TestPidData(unittest.TestCase):
   """ Test the PID data file is valid."""
   def setUp(self):
     globals = {}
