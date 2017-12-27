@@ -3114,7 +3114,7 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.soundlight.de/techtips/dmx512/slh_rdm_commands.htm',
-       'notes': 'With the parameters, the offset adjustment of the outputs are set to the desired value. The values are collected directly from the DMX input (the last valid zero weather package). There are are as many values as outputs must be set. The acquisition is initiated by the command. A reading is possible with the function DC_OFFSET. ',
+       'notes': 'With the parameters, the offset adjustment of the outputs are set to the desired value. The values are collected directly from the DMX input (the last valid zero-start packet). There are as many values as outputs must be set. The acquisition is initiated by the command. A reading is possible with the function DC_OFFSET. ',
        'value': 0xdc0f},
 
       #CURVE_DEFINITION
