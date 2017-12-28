@@ -36,14 +36,14 @@ elif [[ $TASK = 'spellintian' ]]; then
     echo "Found $spellingerrors spelling errors"
   fi;
 elif [[ $TASK = 'flake8' ]]; then
-  flake8 --max-line-length 80 --exclude .git,__pycache *
-  #--ignore E111,E114,E121,E127,E129
+  flake8 --max-line-length 80 --exclude .git,__pycache --ignore E111,E114,E129 $(find ./ -name "*.py" | xargs)
+  #,E121,E127
 elif [[ $TASK = 'pychecker' ]]; then
   PYTHONPATH=./:$PYTHONPATH
   export PYTHONPATH
-  pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" \) | xargs)
+  pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" | xargs)
 elif [[ $TASK = 'pychecker-wip' ]]; then
   PYTHONPATH=./:$PYTHONPATH
   export PYTHONPATH
-  pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" \) | xargs)
+  pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" | xargs)
 fi
