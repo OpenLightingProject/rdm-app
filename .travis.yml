@@ -1,6 +1,5 @@
 language: python
 
-
 before_cache:
 - rm -f $HOME/.cache/pip/log/debug.log # erase log
 
@@ -52,7 +51,7 @@ matrix:
     - os: linux
       dist: trusty
       env: TASK='pychecker-wip'
- allow_failures:
+  allow_failures:
     - os: linux
       dist: trusty
       env: TASK='flake8'
