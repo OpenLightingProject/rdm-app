@@ -36,10 +36,6 @@ matrix:
         apt:
           packages:
             - moreutils
-  allow_failures:
-    - os: linux
-      dist: trusty
-      env: TASK='spellintian'
 
 script: "bash -ex .travis-ci.sh"
 
