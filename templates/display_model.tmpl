@@ -17,13 +17,15 @@
                 <td>Manufacturer</td>
                 <td><a href="/manufacturer/display?manufacturer={{ manufacturer_id }}">{{ manufacturer }}</a></td>
             </tr>
-            <tr>
-                <td>Name</td>
-                <td>{{ description }}</td>
-            </tr>
+            {% if description %}
+                <tr>
+                    <td>Name</td>
+                    <td>{{ description }}</td>
+                </tr>
+            {% endif %}
             <tr>
                 <td>Model Id</td>
-                <td>{{ model_id }} ( 0x{{ model_id|stringformat:"04x" }} )</td>
+                <td>{{ model_id }} (0x{{ model_id|stringformat:"04x" }})</td>
             </tr>
             {% if product_category %}
                 <tr>
@@ -42,7 +44,7 @@
                     <td>Tags</td>
                     <td>
                         {% for tag in tags %}
-                            <div class="model_tag">{{ tag }}</div>
+                            <div class="model_tag"><a href="tag?tag={{ tag|urlencode }}">{{ tag }}</a></div>
                         {% endfor %}
                     </td>
                 </tr>
@@ -72,7 +74,11 @@
                 <select class="form-control" name="software_select" id="software_select"
                         onChange="app.changeSoftwareVersion(this); dirty_fix()">
                     {% for version in software_versions %}
-                        <option>{{ version.label }} ({{ version.version_id }})</option>
+                        {% if version.label %}
+                            <option>{{ version.label }} ({{ version.version_id }})</option>
+                        {% else %}
+                            <option>{{ version.version_id }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </legend>

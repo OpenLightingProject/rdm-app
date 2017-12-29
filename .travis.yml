@@ -7,6 +7,9 @@ cache:
 
 sudo: false
 
+before_install:
+  - if [[ "$TASK" == "spellintian" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
+
 install:
   - pip install json-spec
   - npm install -g grunt-cli
@@ -24,6 +27,15 @@ matrix:
         apt:
           packages:
             - libhtml-parser-perl
+    - os: linux
+      dist: trusty
+      # Short duration job, would use the container/without sudo image as it boots faster, but we need a backported lintian, so don't
+      sudo: required
+      env: TASK='spellintian'
+      addons:
+        apt:
+          packages:
+            - moreutils
 
 script: "bash -ex .travis-ci.sh"
 
