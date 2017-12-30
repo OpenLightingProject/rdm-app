@@ -35,9 +35,11 @@ class UIDConverterHandler(common.BasePageHandler):
     """Display the tools page."""
     TEMPLATE = 'templates/uid-converter.tmpl'
 
+
 class PacketBuilderHandler(common.BasePageHandler):
     """Display the packet builder page."""
     TEMPLATE = 'templates/packet-builder.tmpl'
+
 
 class PacketExtractorHandler(common.BasePageHandler):
     """Display the packet builder page."""

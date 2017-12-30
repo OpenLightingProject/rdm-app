@@ -17,9 +17,7 @@
 # Product search / display handlers
 
 import common
-import logging
 from model import *
-from utils import StringToInt
 from google.appengine.ext import webapp
 
 

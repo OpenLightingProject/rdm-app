@@ -17,7 +17,6 @@
 # Copyright (C) 2015 Simon Newton
 
 import unittest
-import json
 import jsonspec.validators
 
 # This is from an early version of E1.37-5.
