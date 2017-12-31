@@ -184,6 +184,7 @@ MANUFACTURER_DATA = [
 (0x0644, "COLEDER DISPLAY CO., LTD."),
 (0x0650, "RDC, Inc. d.b.a. LynTec"),
 (0x065E, "OFilms"),
+(0x067C, "LOTRONIC SA"),
 (0x0682, "Beijing Ming Rui Lighting Technology Co., Ltd. "),
 (0x0684, "LEDART LLC"),
 (0x0685, "IBL/ESD-Datentechnik GmbH"),
