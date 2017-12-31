@@ -128,8 +128,8 @@ class AdminPageHandler(BaseAdminPageHandler):
         continue
 
       logging.info('adding %d (%s)' % (manufacturer_id, manufacturer_name))
-      manufacturer = Manufacturer(esta_id = manufacturer_id,
-                                  name = manufacturer_name)
+      manufacturer = Manufacturer(esta_id=manufacturer_id,
+                                  name=manufacturer_name)
       manufacturer.put()
       added += 1
 
@@ -165,20 +165,24 @@ class AdminPageHandler(BaseAdminPageHandler):
             manufacturer.link = new_link
             manufacturer.put()
             if manufacturer.link:
-              logging.info('Updating link for %d (%s) %s -> %s' % (id, manufacturer.name, manufacturer.link, new_link))
+              logging.info('Updating link for %d (%s) %s -> %s' %
+                           (id, manufacturer.name, manufacturer.link, new_link))
               updated += 1
             else:
-              logging.info('Adding link for %d (%s) - %s' % (id, manufacturer.name, new_link))
+              logging.info('Adding link for %d (%s) - %s' %
+                           (id, manufacturer.name, new_link))
               added += 1
           except BadValueError as e:
-            logging.error('Failed to add link for 0x%hx (%s) - %s: %s' % (id, manufacturer.name, new_link, e))
+            logging.error('Failed to add link for 0x%hx (%s) - %s: %s' %
+                          (id, manufacturer.name, new_link, e))
             errors += 1
             continue
 
     # link no manufacturer
     missing_manufacturers = set(new_data.keys()) - present_manufacturers
     for manufacturer_id in sorted(missing_manufacturers):
-      logging.error('Failed to add link for 0x%hx as manufacturer missing: %s' % (manufacturer_id, new_data[manufacturer_id]))
+      logging.error('Failed to add link for 0x%hx as manufacturer missing: %s' %
+                    (manufacturer_id, new_data[manufacturer_id]))
       missing += 1
 
     logging.info('update complete')

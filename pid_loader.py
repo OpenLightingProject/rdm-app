@@ -100,19 +100,18 @@ class PidLoader():
       return True
 
     elif has_command:
-      command = Command(sub_device_range = new_pid_data[sub_device_attr],
-                        request = str(new_pid_data.get(request_attr)),
-                        response = str(new_pid_data.get(response_attr)))
+      command = Command(sub_device_range=new_pid_data[sub_device_attr],
+                        request=str(new_pid_data.get(request_attr)),
+                        response=str(new_pid_data.get(response_attr)))
       command.put()
       setattr(pid, command_attr, command)
-      logging.info('Set %s:%s' % 
+      logging.info('Set %s:%s' %
                    (command_type, new_pid_data['name']))
       return True
     else:
       return False
 
-
-  def UpdateIfRequired(self, new_pid_data, manufacturer_id = 0):
+  def UpdateIfRequired(self, new_pid_data, manufacturer_id=0):
     """
     Check if we need to update the data for this PID.
 
@@ -127,9 +126,9 @@ class PidLoader():
     save = False
 
     if not pid:
-      pid = Pid(manufacturer = manufacturer,
-                pid_id = new_pid_data['value'],
-                name = new_pid_data['name'])
+      pid = Pid(manufacturer=manufacturer,
+                pid_id=new_pid_data['value'],
+                name=new_pid_data['name'])
 
     if pid.link != new_pid_data.get('link'):
       pid.link = new_pid_data.get('link')

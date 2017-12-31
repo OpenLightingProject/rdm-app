@@ -17,7 +17,6 @@
 # Copyright (C) 2015 Simon Newton
 
 import unittest
-import json
 import jsonspec.validators
 
 # This is from an early version of E1.37-5.
@@ -268,6 +267,7 @@ MANUFACTURER_VALIDATOR = {
   'type': 'object'
 }
 
+
 class TestPidData(unittest.TestCase):
   """ Test the PID data file is valid."""
   def setUp(self):
@@ -307,7 +307,6 @@ class TestPidData(unittest.TestCase):
       pids = manufacturer_data['pids']
       self.assertNotIn(manufacturer_data['id'], seen_manufacturer_ids)
       seen_manufacturer_ids.add(manufacturer_data['id'])
-
 
       seen_pids = set()
       seen_pid_names = set()

@@ -1,4 +1,9 @@
 #!/bin/bash
+
+
+PYCHECKER_BLACKLIST=""
+#threading,unittest,cmd,optparse,google,google.protobuf,ssl,fftpack,lapack_lite,mtrand
+
 if [[ $TASK = 'nosetests' ]]; then
     nosetests --verbosity=3 --detailed-errors
 elif [[ $TASK = 'karma' ]]; then
@@ -30,4 +35,15 @@ elif [[ $TASK = 'spellintian' ]]; then
   else
     echo "Found $spellingerrors spelling errors"
   fi;
+elif [[ $TASK = 'flake8' ]]; then
+  flake8 --max-line-length 80 --exclude .git,__pycache --ignore E111,E114,E129 $(find ./ -name "*.py" | xargs)
+  #,E121,E127
+elif [[ $TASK = 'pychecker' ]]; then
+  PYTHONPATH=./:$PYTHONPATH
+  export PYTHONPATH
+  pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" | xargs)
+elif [[ $TASK = 'pychecker-wip' ]]; then
+  PYTHONPATH=./:$PYTHONPATH
+  export PYTHONPATH
+  pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" | xargs)
 fi

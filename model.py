@@ -39,9 +39,9 @@ class Manufacturer(db.Model):
   esta_id = db.IntegerProperty(required=True)
   name = db.StringProperty(required=True)
   # link to the manufacturer website
-  link = db.LinkProperty();
+  link = db.LinkProperty()
   # url of the source image
-  image_url = db.LinkProperty();
+  image_url = db.LinkProperty()
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
   # the url we're serving the image on
@@ -65,9 +65,9 @@ class Responder(db.Model):
   product_category = db.ReferenceProperty(ProductCategory,
                                           collection_name='responder_set')
   # link to the responder product page
-  link = db.LinkProperty();
+  link = db.LinkProperty()
   # url of the source image
-  image_url = db.LinkProperty();
+  image_url = db.LinkProperty()
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
   # the url we're serving the image on
@@ -150,9 +150,9 @@ class Product(polymodel.PolyModel):
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   name = db.StringProperty(required=True)
   # link to the product page
-  link = db.LinkProperty();
+  link = db.LinkProperty()
   # image url
-  image_url = db.LinkProperty();
+  image_url = db.LinkProperty()
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
   # the url we're serving the image on
@@ -182,13 +182,16 @@ class Controller(Product):
   """Represents an RDM Controller."""
   pass
 
+
 class Node(Product):
   """Extra node properties can go here."""
   pass
 
+
 class Software(Product):
   """Extra software properties can go here."""
   pass
+
 
 class Splitter(Product):
   """Extra splitter properties can go here."""
@@ -216,8 +219,8 @@ class Pid(db.Model):
   """Represents a PID."""
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   pid_id = db.IntegerProperty(required=True)
-  name = db.StringProperty(required=True);
-  link = db.LinkProperty();
+  name = db.StringProperty(required=True)
+  link = db.LinkProperty()
   notes = db.TextProperty()
   draft = db.BooleanProperty(default=False)
   discovery_command = db.ReferenceProperty(
@@ -229,6 +232,7 @@ class Pid(db.Model):
                                      collection_name='pid_set_command_set')
   # A list of responder keys that support this PID.
   responders = db.ListProperty(db.Key)
+
 
 class UploadedResponderInfo(db.Model):
   # This doesn't link to a Manufacturer, since we may not know about all
