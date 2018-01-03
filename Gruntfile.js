@@ -110,7 +110,7 @@ module.exports = function(grunt) {
             '--entry_point', 'app.setup',
             '--js_output_file', 'static/js/app.js',
             '--dependency_mode', 'STRICT',
-            '--compilation_level',  'ADVANCED_OPTIMIZATIONS'
+            '--compilation_level', 'ADVANCED_OPTIMIZATIONS'
           ]
         }
       }
