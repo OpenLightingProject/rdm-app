@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestManufacturers(unittest.TestCase):
   """ Test the manufacturer data files are valid."""
   def setUp(self):
@@ -47,7 +48,6 @@ class TestManufacturers(unittest.TestCase):
     # check that ESTA exists
     self.assertIn(0, seen_ids)
 
-
   def test_ManufacturerLinks(self):
     esta_ids = set()
     seen_ids = set()
@@ -64,7 +64,8 @@ class TestManufacturers(unittest.TestCase):
 
       # Check we have a corresponding entry in the manufacturer data
       self.assertIn(esta_id, esta_ids,
-                    "ESTA ID 0x%04x is not present in the manufacturer data" % esta_id)
+                    ("ESTA ID 0x%04x is not present in the manufacturer data" %
+                     esta_id))
 
       # Check we've not seen this URL before
       self.assertNotIn(esta_id, seen_ids,

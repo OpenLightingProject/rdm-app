@@ -1,5 +1,8 @@
 language: python
 
+before_cache:
+- rm -f $HOME/.cache/pip/log/debug.log # erase log
+
 cache:
   directories:
     - $HOME/.npm
@@ -14,6 +17,9 @@ install:
   - pip install json-spec
   - npm install -g grunt-cli
   - npm install
+  - if [ "$TASK" = "flake8" ]; then pip install flake8; fi
+# If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
+  - if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
 
 matrix:
   fast_finish: true
@@ -36,6 +42,25 @@ matrix:
         apt:
           packages:
             - moreutils
+    - os: linux
+      dist: trusty
+      env: TASK='flake8'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker-wip'
+  allow_failures:
+    - os: linux
+      dist: trusty
+      env: TASK='flake8'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker-wip'
 
 script: "bash -ex .travis-ci.sh"
 

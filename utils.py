@@ -17,9 +17,9 @@
 # Various functions to make things easier.
 
 import time
-import logging
 
-def StringToInt(value, allow_hex = True):
+
+def StringToInt(value, allow_hex=True):
   """Convert a string value to an int
 
     Args:

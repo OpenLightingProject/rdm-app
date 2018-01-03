@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestProductCategoryData(unittest.TestCase):
   """ Test the product category data file is valid."""
   def setUp(self):

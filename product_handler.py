@@ -18,14 +18,10 @@
 
 import common
 import logging
-import memcache_keys
-import re
 from model import *
 from utils import StringToInt
 from google.appengine.api import images
-from google.appengine.api import memcache
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
 
 
 class BrowseProducts(common.BasePageHandler):
@@ -63,7 +59,7 @@ class BrowseProducts(common.BasePageHandler):
     query = tags[0].product_set
     total = query.count()
     tag_relationships = query.fetch(limit=self.RESULTS_PER_PAGE,
-                                     offset=page * self.RESULTS_PER_PAGE)
+                                    offset=(page * self.RESULTS_PER_PAGE))
     return total, [r.product for r in tag_relationships]
 
   def FilterByManufacturer(self, page, manufacturer):
@@ -93,7 +89,7 @@ class BrowseProducts(common.BasePageHandler):
     total = 0
     products = []
     tag = self.request.get('tag')
-    manufacturer = self.request.get('manufacturer');
+    manufacturer = self.request.get('manufacturer')
     if tag:
       data['tag'] = tag
       total, products = self.FilterByTag(page, tag)
@@ -125,7 +121,7 @@ class BrowseProducts(common.BasePageHandler):
 
     start = page * self.RESULTS_PER_PAGE
     data['end'] = start + len(products)
-    data['product_rows'] =  rows
+    data['product_rows'] = rows
     data['start'] = start + 1
 
     if page:
@@ -196,32 +192,39 @@ class BrowseController(BrowseProducts):
   def ProductType(self):
     return Controller
 
+
 class DisplayController(DisplayProduct):
   def ProductType(self):
     return Controller
+
 
 # Nodes
 class BrowseNodes(BrowseProducts):
   def ProductType(self):
     return Node
 
+
 class DisplayNode(DisplayProduct):
   def ProductType(self):
     return Node
+
 
 # Software
 class BrowseSoftware(BrowseProducts):
   def ProductType(self):
     return Software
 
+
 class DisplaySoftware(DisplayProduct):
   def ProductType(self):
     return Software
+
 
 # Splitters
 class BrowseSplitters(BrowseProducts):
   def ProductType(self):
     return Splitter
+
 
 class DisplaySplitters(DisplayProduct):
   def ProductType(self):
