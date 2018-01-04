@@ -59,6 +59,7 @@ MANUFACTURER_DATA = [
 (0x0118, "Vello Light Co., Ltd."),
 (0x0119, "Peter Schneyder Design Management GmbH"),
 (0x011A, "Guangzhou Hotion Technology Co., Ltd."),
+(0x011B, "Jumptronic GmbH"),
 (0x016C, "LGR"),
 (0x019F, "DaisaLed Ltd."),
 (0x01AA, "Vitec Videocom Inc."),
