@@ -34,6 +34,7 @@ MANUFACTURER_DATA = [
 (0x00AD, "ColorDeve Co. Limited"),
 (0x00AE, "Vitrulux Ltd"),
 (0x00AF, "NanoPLC LLC"),
+(0x00B0, "ARENA LUCI s.r.l."),
 (0x0101, "St. Anne Engineering GmbH"),
 (0x0102, "Bortis Elektronik"),
 (0x0103, "Fontana Technologies"),
