@@ -247,6 +247,7 @@ MANUFACTURER_DATA = [
 (0x0885, "SIRS-E"),
 (0x088A, "Highendled Electronics Company Limited"),
 (0x088F, "First Design System Inc."),
+(0x0891, "Feiner Lichttechnik GMBH"),
 (0x089A, "ADL Electronics Ltd."),
 (0x089D, "gobo.ws"),
 (0x08A4, "Adam Hall GmbH"),
