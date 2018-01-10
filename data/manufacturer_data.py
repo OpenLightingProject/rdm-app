@@ -559,6 +559,7 @@ MANUFACTURER_DATA = [
 (0x4678, "Global Special Effects"),
 (0x4744, "Goddard Design Co."),
 (0x4745, "GPE srl"),
+(0x4747, "G&G LED Lighting"),
 (0x474C, "G-LEC Europe GmbH"),
 (0x4750, "DES"),
 (0x4753, "Golden Sea Disco Light Manufacturer"),
