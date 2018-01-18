@@ -65,6 +65,7 @@ MANUFACTURER_DATA = [
 (0x019F, "DaisaLed Ltd."),
 (0x01AA, "Vitec Videocom Inc."),
 (0x01AB, "Shanghai Euchips Industrial Co., Ltd."),
+(0x01B1, "Lightcare A/S"),
 (0x01C7, "SCHIEDERWERK GmbH "),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
