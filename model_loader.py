@@ -20,6 +20,7 @@ import logging
 import common
 from model import *
 
+
 class ModelLoader(object):
   """Load Model definition into the datastore."""
   def __init__(self, model_data):
@@ -54,17 +55,21 @@ class ModelLoader(object):
     for manufacturer_id, models in self._model_data.iteritems():
       manufacturer = self._LookupManufacturer(manufacturer_id)
       if not manufacturer:
-        logging.error('No manufacturer found for %hx' % manufacturer_id)
+        logging.error('No manufacturer found for 0x%hx' % manufacturer_id)
         continue
 
       for model_info in models:
         was_added, was_modified = self._updater.UpdateResponder(
             manufacturer, model_info)
 
+        model_description = model_info.get('model_description')
+        if model_description is None:
+          model_description = ('RDM Model 0x%04x' %
+                               model_info.get('device_model', 0))
         if was_added:
-          added.append(model_info['model_description'])
+          added.append(model_description)
         elif was_modified:
-          updated.append(model_info['model_description'])
+          updated.append(model_description)
 
     return added, updated
 
@@ -156,7 +161,7 @@ class ModelUpdater(object):
           modified = True
         else:
           logging.info('No product category found for 0x%hx' %
-              product_category_id)
+                       product_category_id)
 
     # update link url
     link_url = model_info.get('link')
@@ -187,9 +192,9 @@ class ModelUpdater(object):
       The new Responder entity.
     """
     responder = Responder(
-        manufacturer = manufacturer,
-        device_model_id = model_id,
-        model_description = model_info['model_description'])
+        manufacturer=manufacturer,
+        device_model_id=model_id,
+        model_description=model_info.get('model_description'))
 
     # add product_category if there is one
     product_category_id = model_info.get('product_category')
@@ -199,7 +204,7 @@ class ModelUpdater(object):
         responder.product_category = category
       else:
         logging.info('No product category found for 0x%hx' %
-            product_category_id)
+                     product_category_id)
 
     # add link and image_url if they exist
     link_url = model_info.get('link')
@@ -221,9 +226,9 @@ class ModelUpdater(object):
       version_info: the dict with the version information
     """
     # create the new version object and store it
-    version_obj = SoftwareVersion(version_id = version_id,
-                                  label = version_info.get('label', ''),
-                                  responder = responder)
+    version_obj = SoftwareVersion(version_id=version_id,
+                                  label=version_info.get('label'),
+                                  responder=responder)
     supported_params = version_info.get('supported_parameters')
     if supported_params:
       # keep things sorted
@@ -235,7 +240,6 @@ class ModelUpdater(object):
 
     sensors = version_info.get('sensors', [])
     self._UpdateSensors(version_obj, sensors)
-
 
   def _UpdatePersonalities(self, software_version, personalities):
     """Update the personalities for a SoftwareVersion entity.
@@ -269,8 +273,8 @@ class ModelUpdater(object):
     # add any new personalities
     for index, personality_info in new_personalities.iteritems():
       personality = ResponderPersonality(
-          description = personality_info.get('description', ''),
-          index = index,
+          description=personality_info.get('description'),
+          index=index,
           sw_version = software_version)
       if 'slot_count' in personality_info:
         personality.slot_count = personality_info['slot_count']
@@ -322,13 +326,13 @@ class ModelUpdater(object):
     # add new sensors
     for offset, sensor_info in new_sensors.iteritems():
       sensor = ResponderSensor(
-          description = self._Encode(sensor_info['description']),
-          index = offset,
-          type = sensor_info['type'],
-          supports_recording = bool(sensor_info['supports_recording'] & 1),
-          supports_min_max_recording = bool(
+          description=self._Encode(sensor_info['description']),
+          index=offset,
+          type=sensor_info['type'],
+          supports_recording=bool(sensor_info['supports_recording'] & 1),
+          supports_min_max_recording=bool(
             sensor_info['supports_recording'] & 2),
-          sw_version = software_version)
+          sw_version=software_version)
       sensor.put()
       modified = True
 
@@ -412,8 +416,8 @@ class ModelUpdater(object):
     for tag_label in new_tags:
       tag_entity = self._LookupOrAddTag(tag_label)
       relationship = ResponderTagRelationship(
-          tag = tag_entity,
-          responder = responder)
+          tag=tag_entity,
+          responder=responder)
       relationship.put()
       modified = True
 
@@ -445,7 +449,7 @@ class ModelUpdater(object):
     if software_versions:
       if self._UpdateSoftwareVersions(responder, software_versions):
         logging.info('updated versions for %s' %
-            responder.model_description)
+                     responder.model_description)
         was_modified = True
 
     # add / update any tags

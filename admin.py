@@ -19,6 +19,7 @@
 import common
 from data.controller_data import CONTROLLER_DATA
 from data.manufacturer_data import MANUFACTURER_DATA
+from data.manufacturer_links import MANUFACTURER_LINKS
 from data.model_data import DEVICE_MODEL_DATA
 from data.node_data import NODE_DATA
 from data.pid_data import ESTA_PIDS, MANUFACTURER_PIDS
@@ -37,6 +38,7 @@ from google.appengine.api import taskqueue
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
+from google.appengine.ext.db import BadValueError
 from google.appengine.ext.webapp import template
 from model import *
 from utils import StringToInt
@@ -126,8 +128,8 @@ class AdminPageHandler(BaseAdminPageHandler):
         continue
 
       logging.info('adding %d (%s)' % (manufacturer_id, manufacturer_name))
-      manufacturer = Manufacturer(esta_id = manufacturer_id,
-                                  name = manufacturer_name)
+      manufacturer = Manufacturer(esta_id=manufacturer_id,
+                                  name=manufacturer_name)
       manufacturer.put()
       added += 1
 
@@ -140,6 +142,53 @@ class AdminPageHandler(BaseAdminPageHandler):
     UpdateModificationTime(timestamp_keys.MANUFACTURERS)
     return ('Manufacturers: added %d, removed %d, updated %d, errors %d' %
             (added, removed, updated, errors))
+
+  def UpdateManufacturerLinks(self):
+    # TODO(Peter): Add ability to remove links if not present in data?
+    new_data = {}
+    for id, name in MANUFACTURER_LINKS:
+      new_data[id] = name
+
+    present_manufacturers = set()
+    # invalidate the cache now
+    memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
+    added = updated = missing = errors = 0
+
+    for manufacturer in Manufacturer.all():
+      id = manufacturer.esta_id
+      if id in new_data:
+        present_manufacturers.add(id)
+        new_link = new_data[id]
+        if not(manufacturer.link) or (new_link != manufacturer.link):
+          try:
+            # add/update if required
+            manufacturer.link = new_link
+            manufacturer.put()
+            if manufacturer.link:
+              logging.info('Updating link for %d (%s) %s -> %s' %
+                           (id, manufacturer.name, manufacturer.link, new_link))
+              updated += 1
+            else:
+              logging.info('Adding link for %d (%s) - %s' %
+                           (id, manufacturer.name, new_link))
+              added += 1
+          except BadValueError as e:
+            logging.error('Failed to add link for 0x%hx (%s) - %s: %s' %
+                          (id, manufacturer.name, new_link, e))
+            errors += 1
+            continue
+
+    # link no manufacturer
+    missing_manufacturers = set(new_data.keys()) - present_manufacturers
+    for manufacturer_id in sorted(missing_manufacturers):
+      logging.error('Failed to add link for 0x%hx as manufacturer missing: %s' %
+                    (manufacturer_id, new_data[manufacturer_id]))
+      missing += 1
+
+    logging.info('update complete')
+    UpdateModificationTime(timestamp_keys.MANUFACTURERS)
+    return ('Manufacturer links: added %d, updated %d, missing %d, errors %d' %
+            (added, updated, missing, errors))
 
   def ClearPids(self):
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
@@ -460,6 +509,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         'update_categories': self.UpdateProductCategories,
         'update_controllers': self.UpdateControllers,
         'update_m': self.UpdateManufacturers,
+        'update_m_links': self.UpdateManufacturerLinks,
         'update_models': self.UpdateModels,
         'update_nodes': self.UpdateNodes,
         'update_software': self.UpdateSoftware,

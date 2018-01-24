@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestProductCategoryData(unittest.TestCase):
   """ Test the product category data file is valid."""
   def setUp(self):
@@ -26,7 +27,7 @@ class TestProductCategoryData(unittest.TestCase):
     execfile("data/product_categories.py", globals, locals)
     self.data = locals['PRODUCT_CATEGORIES']
 
-  def test_Data(self):
+  def test_ProductCategoryData(self):
     seen_category_ids = set()
     seen_category_names = set()
 
