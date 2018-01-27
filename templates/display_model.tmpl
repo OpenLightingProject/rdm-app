@@ -51,7 +51,7 @@
             {% endif %}
             <tr>
                 <td>Fixture definition</td>
-                <td><a href="https://open-fixture-library.herokuapp.com/rdm?manufacturerId={{ manufacturer_id }}&amp;modelId={{ model_id }}&amp;source=olp">View in Open Fixture Library</a></td>
+                <td><a href="{{ open_fixture_library_base_url }}rdm?manufacturerId={{ manufacturer_id }}&amp;modelId={{ model_id }}&amp;source=olp">View in Open Fixture Library</a></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -144,6 +144,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <script type="text/javascript">
+        app.setOpenFixtureLibraryBaseUrl('{{ open_fixture_library_base_url }}');
         app.setIds({{ manufacturer_id|safe }}, {{ model_id|safe }});
         app.setSoftwareVersions({{ software_versions_json|safe }});
         app.setLatestVersion(document.getElementById('software_select'));

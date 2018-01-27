@@ -306,6 +306,7 @@ class DisplayModel(common.BasePageHandler):
       'model_id': model.device_model_id,
       'software_versions': software_versions,
       'software_versions_json': json.dumps(software_versions),
+      'open_fixture_library_base_url': 'https://open-fixture-library.herokuapp.com/'
     }
     # link and product_category are optional
     if model.link:

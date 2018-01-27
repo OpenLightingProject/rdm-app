@@ -30,6 +30,7 @@ goog.require('goog.ui.TableSorter');
 app.MANUFACTURER_ID = null;
 app.MODEL_ID = null;
 app.SOFTWARE_VERSIONS = [];
+app.OPEN_FIXTURE_LIBRARY_BASE_URL = null;
 
 /**
  * Sort hex values
@@ -122,8 +123,8 @@ goog.exportSymbol('app.makeModelTable', app.makeModelTable);
 
 /**
  * Set manufacturer and model ID
- * @param {!string} manufacturer_id The manufacturer RDM ID.
- * @param {!string} model_id The model RDM ID.
+ * @param {!string} manufacturer_id The RDM manufacturer ID.
+ * @param {!string} model_id The RDM model ID.
  */
 app.setIds = function(manufacturer_id, model_id) {
   app.MANUFACTURER_ID = manufacturer_id;
@@ -139,6 +140,16 @@ app.setSoftwareVersions = function(version_info) {
   app.SOFTWARE_VERSIONS = version_info;
 };
 goog.exportSymbol('app.setSoftwareVersions', app.setSoftwareVersions);
+
+/**
+ * Set the base URL of the Open Fixture library so we can link to it.
+ * @param {!string} baseUrl The base URL starting with the protocol and ending with a slash.
+ */
+app.setOpenFixtureLibraryBaseUrl = function(baseUrl) {
+  console.log('new URL!', baseUrl);
+  app.OPEN_FIXTURE_LIBRARY_BASE_URL = baseUrl;
+};
+goog.exportSymbol('app.setOpenFixtureLibraryBaseUrl', app.setOpenFixtureLibraryBaseUrl);
 
 
 /**
@@ -164,7 +175,7 @@ app.changeSoftwareVersion = function(element) {
     goog.dom.removeChildren(tbody);
     for (var i = 0; i < personalities.length; ++i) {
       var personality = personalities[i];
-      var oflLink = 'https://open-fixture-library.herokuapp.com/rdm?manufacturerId=' + app.MANUFACTURER_ID + '&amp;modelId=' + app.MODEL_ID + '&amp;personalityIndex=' + personality['index'] + '&amp;source=olp';
+      var oflLink = app.OPEN_FIXTURE_LIBRARY_BASE_URL + 'rdm?manufacturerId=' + app.MANUFACTURER_ID + '&amp;modelId=' + app.MODEL_ID + '&amp;personalityIndex=' + personality['index'] + '&amp;source=olp';
 
       var tr = goog.dom.createDom('tr');
       // add the cells
