@@ -146,7 +146,6 @@ goog.exportSymbol('app.setSoftwareVersions', app.setSoftwareVersions);
  * @param {!string} baseUrl The base URL starting with the protocol and ending with a slash.
  */
 app.setOpenFixtureLibraryBaseUrl = function(baseUrl) {
-  console.log('new URL!', baseUrl);
   app.OPEN_FIXTURE_LIBRARY_BASE_URL = baseUrl;
 };
 goog.exportSymbol('app.setOpenFixtureLibraryBaseUrl', app.setOpenFixtureLibraryBaseUrl);
