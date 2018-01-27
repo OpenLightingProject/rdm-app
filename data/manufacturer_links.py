@@ -26,6 +26,7 @@ MANUFACTURER_LINKS = [
 (0x0308, "http://imagecue.lighting/"),
 (0x0455, "https://lampandpencil.com/"),
 (0x04FC, "http://strong.lighting/"),
+(0x056B, "https://www.cosmolight.it/"),
 (0x0710, "https://dts-lighting.it/"),
 (0x0808, "http://zero88.com/"),
 (0x089D, "http://www.gobo.ws/"),
