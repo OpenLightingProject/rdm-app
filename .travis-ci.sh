@@ -13,7 +13,7 @@ elif [[ $TASK = 'karma' ]]; then
 elif [[ $TASK = 'js-lint' ]]; then
     grunt --verbose lint
 elif [[ $TASK = 'closure-compiler' ]]; then
-    grunt --verbose closure-compiler 
+    grunt --verbose closure-compiler
 elif [[ $TASK = 'data-check' ]]; then
     ./tools/make_manufacturer_data.sh > data/manufacturer_data.py && git diff --exit-code data/manufacturer_data.py
 elif [[ $TASK = 'spellintian' ]]; then

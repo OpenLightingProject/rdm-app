@@ -17,7 +17,7 @@
  * Copyright (C) 2011 Simon Newton
  */
 
-goog.provide('app.pid');
+goog.provide('app.MessageStructure');
 
 goog.require('goog.dom');
 goog.require('goog.ui.Component');
@@ -31,31 +31,31 @@ goog.require('goog.ui.Tooltip');
  * @constructor
  * @extends goog.ui.Component
  */
-app.pid.MessageField = function(field_info, opt_domHelper) {
+app.MessageField = function(field_info, opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
   this._field_info = field_info;
 };
-goog.inherits(app.pid.MessageField, goog.ui.Component);
+goog.inherits(app.MessageField, goog.ui.Component);
 
 
 /**
  * Return the underlying field info
  * @return {*}
  */
-app.pid.MessageField.prototype.pid = function() { return this._pid; };
+app.MessageField.prototype.pid = function() { return this._pid; };
 
 
 /**
  * This component can't be used to decorate
  * @return {!boolean}
  */
-app.pid.MessageField.prototype.canDecorate = function() { return false; };
+app.MessageField.prototype.canDecorate = function() { return false; };
 
 
 /**
  * Create the dom for this component
  */
-app.pid.MessageField.prototype.createDom = function() {
+app.MessageField.prototype.createDom = function() {
   var class_names = this._field_info['type'] + '_field message_field';
   var field_name = this._field_info['name'];
   if (this._field_info['type'] == 'string') {
@@ -85,8 +85,8 @@ app.pid.MessageField.prototype.createDom = function() {
 /**
  * Attach the event handler
  */
-app.pid.MessageField.prototype.enterDocument = function() {
-  app.pid.MessageField.superClass_.enterDocument.call(this);
+app.MessageField.prototype.enterDocument = function() {
+  app.MessageField.superClass_.enterDocument.call(this);
 
   var tt = (
     'Type: ' + this._field_info['type'] + '<br>' +
@@ -126,8 +126,8 @@ app.pid.MessageField.prototype.enterDocument = function() {
 /**
  * Remove the tooltip
  */
-app.pid.MessageField.prototype.exitDocument = function() {
-  app.pid.MessageField.superClass_.exitDocument.call(this);
+app.MessageField.prototype.exitDocument = function() {
+  app.MessageField.superClass_.exitDocument.call(this);
   if (this.tt) {
     this.tt.detach(this.getElement());
   }
@@ -140,16 +140,16 @@ app.pid.MessageField.prototype.exitDocument = function() {
  * @constructor
  * @extends goog.ui.Component
  */
-app.pid.MessageStructure = function(opt_domHelper) {
+app.MessageStructure = function(opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
 };
-goog.inherits(app.pid.MessageStructure, goog.ui.Component);
+goog.inherits(app.MessageStructure, goog.ui.Component);
 
 
 /**
  * Create the dom for the TableContainer
  */
-app.pid.MessageStructure.prototype.createDom = function() {
+app.MessageStructure.prototype.createDom = function() {
   this.decorateInternal(this.dom_.createElement('div'));
 };
 
@@ -158,8 +158,8 @@ app.pid.MessageStructure.prototype.createDom = function() {
  * Decorate an existing element
  * @param {Element} element
  */
-app.pid.MessageStructure.prototype.decorateInternal = function(element) {
-  app.pid.MessageStructure.superClass_.decorateInternal.call(this, element);
+app.MessageStructure.prototype.decorateInternal = function(element) {
+  app.MessageStructure.superClass_.decorateInternal.call(this, element);
 };
 
 
@@ -168,15 +168,15 @@ app.pid.MessageStructure.prototype.decorateInternal = function(element) {
  * @param {Element} element The DOM element to check.
  * @return {!boolean} True if we can decorate the element.
  */
-app.pid.MessageStructure.prototype.canDecorate = function(element) {
+app.MessageStructure.prototype.canDecorate = function(element) {
   return element.tagName == 'DIV';
 };
 
 
 /**
- * @param {!Array.<app.pid.MessageField>} fields
+ * @param {!Array.<app.MessageField>} fields
  */
-app.pid.MessageStructure.prototype.update = function(fields) {
+app.MessageStructure.prototype.update = function(fields) {
   this.removeChildren(true);
 
   for (var i = 0; i < fields.length; ++i) {
@@ -184,12 +184,12 @@ app.pid.MessageStructure.prototype.update = function(fields) {
 
     var new_div = null;
     if (field['type'] == 'group') {
-      new_div = new app.pid.MessageGroup();
+      new_div = new app.MessageGroup();
       new_div.update(field['items']);
       this.addChild(new_div, true);
       new_div.attachTooltip(field);
     } else {
-      new_div = new app.pid.MessageField(field);
+      new_div = new app.MessageField(field);
       this.addChild(new_div, true);
     }
   }
@@ -203,18 +203,18 @@ app.pid.MessageStructure.prototype.update = function(fields) {
  * @constructor
  * @extends goog.ui.Component
  */
-app.pid.MessageGroup = function(opt_domHelper) {
+app.MessageGroup = function(opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
   this.tt = null;
 };
-goog.inherits(app.pid.MessageGroup, app.pid.MessageStructure);
+goog.inherits(app.MessageGroup, app.MessageStructure);
 
 
 /**
  * Attach the tooltip for this group
- * @param {!app.pid.MessageField} field
+ * @param {!app.MessageField} field
  */
-app.pid.MessageGroup.prototype.attachTooltip = function(field) {
+app.MessageGroup.prototype.attachTooltip = function(field) {
   this.tt = new goog.ui.Tooltip(this.getElement());
   var tt = 'A repeated group of fields. ';
   var min = field['min_size'];
@@ -239,7 +239,7 @@ app.pid.MessageGroup.prototype.attachTooltip = function(field) {
  * Decorate an existing element
  * @param {Element} element
  */
-app.pid.MessageGroup.prototype.decorateInternal = function(element) {
-  app.pid.MessageStructure.superClass_.decorateInternal.call(this, element);
+app.MessageGroup.prototype.decorateInternal = function(element) {
+  app.MessageStructure.superClass_.decorateInternal.call(this, element);
   element.className = 'message_group';
 };

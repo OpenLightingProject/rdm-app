@@ -19,7 +19,7 @@
 
 goog.provide('app.setup');
 
-goog.require('app.pid');
+goog.require('app.displayCommand');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
@@ -283,16 +283,3 @@ app.makePIDTable = function(table_id) {
   table.setSortFunction(5, goog.ui.TableSorter.alphaSort);
 };
 goog.exportSymbol('app.makePIDTable', app.makePIDTable);
-
-
-/**
- * Display a pid command
- * @param {!Object} json
- * @param {!string} element_id
- */
-app.displayCommand = function(json, element_id) {
-  var msg_structure = new app.pid.MessageStructure();
-  msg_structure.decorate(goog.dom.$(element_id));
-  msg_structure.update(json['items']);
-};
-goog.exportSymbol('app.displayCommand', app.displayCommand);
