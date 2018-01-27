@@ -17,13 +17,14 @@
  * Copyright (C) 2011 Simon Newton
  */
 
+goog.provide('app.setup');
+
+goog.require('app.pid');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.TableSorter');
-goog.require('app.pid');
 
-goog.provide('app.setup');
 
 // These are populated in the page
 app.MANUFACTURER_ID = null;
@@ -37,7 +38,7 @@ app.SOFTWARE_VERSIONS = [];
  * @return {number} Negative if a < b, 0 if a = b, and positive if a > b.
  */
 app.hexSort = function(a, b) {
-  return parseInt(a) - parseInt(b);
+  return parseInt(a, 16) - parseInt(b, 16);
 };
 
 
@@ -61,45 +62,52 @@ app.toHex = function(n, padding) {
 
 /**
  * Hide a node.
+ * @param {!Element} node The HTML element to hide.
  */
 app.hideNode = function(node) {
   node.style.display = 'none';
-}
+};
 
 /**
  * Show a block node
+ * @param {!Element} node The HTML element to show as a block.
  */
 app.showBlock = function(node) {
   node.style.display = 'block';
-}
+};
 
 /**
  * Show a inline node
+ * @param {!Element} node The HTML element to show inline.
  */
 app.showInline = function(node) {
   node.style.display = 'inline';
-}
+};
 
 /**
  * Show a table row
+ * @param {!Element} row The HTML element to show as a table row.
  */
 app.showRow = function(row) {
   row.style.display = 'table-row';
-}
+};
 
 
 /**
  * Create a TD node and set the innerHTML property
+ * @param {!string} text Inner HTML for the new table cell.
+ * @return {!Element} The created TD element.
  */
 app.newTD = function(text) {
   var td = goog.dom.createDom('td');
   td.innerHTML = text;
   return td;
-}
+};
 
 
 /**
  * Make the model table sortable
+ * @param {!string} table_id
  */
 app.makeModelTable = function(table_id) {
   var table = new goog.ui.TableSorter();
@@ -114,6 +122,8 @@ goog.exportSymbol('app.makeModelTable', app.makeModelTable);
 
 /**
  * Set manufacturer and model ID
+ * @param {!string} manufacturer_id The manufacturer RDM ID.
+ * @param {!string} model_id The model RDM ID.
  */
 app.setIds = function(manufacturer_id, model_id) {
   app.MANUFACTURER_ID = manufacturer_id;
@@ -123,6 +133,7 @@ goog.exportSymbol('app.setIds', app.setIds);
 
 /**
  * Set the software versions
+ * @param {!string} version_info The software versions.
  */
 app.setSoftwareVersions = function(version_info) {
   app.SOFTWARE_VERSIONS = version_info;
@@ -132,6 +143,7 @@ goog.exportSymbol('app.setSoftwareVersions', app.setSoftwareVersions);
 
 /**
  * Display info for the currently selected software version
+ * @param {?Element=} element
  */
 app.changeSoftwareVersion = function(element) {
   // default to displaying the first version
@@ -166,8 +178,10 @@ app.changeSoftwareVersion = function(element) {
       goog.dom.appendChild(tr, app.newTD('<a href="' + oflLink + '">View in Open Fixture Library</a>'));
       goog.dom.appendChild(tbody, tr);
     }
-    app.showBlock(personality_fieldset);
-  } else {
+    if (personality_fieldset) {
+      app.showBlock(personality_fieldset);
+    }
+  } else if (personality_fieldset) {
     app.hideNode(personality_fieldset);
   }
 
@@ -188,15 +202,17 @@ app.changeSoftwareVersion = function(element) {
       if (type_str) {
         sensor_type = type_str + ' (0x' + app.toHex(sensor['type'], 2) + ')';
       } else  {
-        sensor_type = app.toHex(sensor['type'], 2)
+        sensor_type = app.toHex(sensor['type'], 2);
       }
       goog.dom.appendChild(tr, app.newTD(sensor_type));
       goog.dom.appendChild(tr, app.newTD(sensor['supports_recording']));
       goog.dom.appendChild(tr, app.newTD(sensor['supports_min_max']));
       goog.dom.appendChild(tbody, tr);
     }
-    app.showBlock(sensor_fieldset);
-  } else {
+    if (sensor_fieldset) {
+      app.showBlock(sensor_fieldset);
+    }
+  } else if (sensor_fieldset) {
     app.hideNode(sensor_fieldset);
   }
 
@@ -215,14 +231,16 @@ app.changeSoftwareVersion = function(element) {
         a.innerHTML = param_name + ' (0x' + app.toHex(param['id'], 4) + ')';
         a.href = ('/pid/display?manufacturer=' + param['manufacturer_id'] +
           '&pid=' + param['id']);
-        goog.dom.appendChild(li, a)
+        goog.dom.appendChild(li, a);
       } else {
         li.innerHTML = '0x' + app.toHex(param['id'], 4);
       }
       goog.dom.appendChild(supported_params_list, li);
     }
-    app.showBlock(supported_params_fieldset);
-  } else {
+    if (supported_params_fieldset) {
+      app.showBlock(supported_params_fieldset);
+    }
+  } else if (supported_params_fieldset) {
     app.hideNode(supported_params_fieldset);
   }
 };
@@ -231,6 +249,7 @@ goog.exportSymbol('app.changeSoftwareVersion', app.changeSoftwareVersion);
 
 /**
  * Display the latest version for the element.
+ * @param {!Element} element
  */
 app.setLatestVersion = function(element) {
   var index = 0;
@@ -244,12 +263,13 @@ app.setLatestVersion = function(element) {
   }
   element.selectedIndex = index;
   app.changeSoftwareVersion(element);
-}
+};
 goog.exportSymbol('app.setLatestVersion', app.setLatestVersion);
 
 
 /**
  * Make the pid table sortable
+ * @param {!string} table_id
  */
 app.makePIDTable = function(table_id) {
   var table = new goog.ui.TableSorter();
@@ -267,6 +287,8 @@ goog.exportSymbol('app.makePIDTable', app.makePIDTable);
 
 /**
  * Display a pid command
+ * @param {!Object} json
+ * @param {!string} element_id
  */
 app.displayCommand = function(json, element_id) {
   var msg_structure = new app.pid.MessageStructure();
