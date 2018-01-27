@@ -27,10 +27,8 @@ goog.require('goog.ui.TableSorter');
 
 
 // These are populated in the page
-app.MANUFACTURER_ID = null;
-app.MODEL_ID = null;
 app.SOFTWARE_VERSIONS = [];
-app.OPEN_FIXTURE_LIBRARY_BASE_URL = null;
+app.OPEN_FIXTURE_LIBRARY_MODEL_URL = null;
 
 /**
  * Sort hex values
@@ -122,17 +120,6 @@ goog.exportSymbol('app.makeModelTable', app.makeModelTable);
 
 
 /**
- * Set manufacturer and model ID
- * @param {!string} manufacturer_id The RDM manufacturer ID.
- * @param {!string} model_id The RDM model ID.
- */
-app.setIds = function(manufacturer_id, model_id) {
-  app.MANUFACTURER_ID = manufacturer_id;
-  app.MODEL_ID = model_id;
-};
-goog.exportSymbol('app.setIds', app.setIds);
-
-/**
  * Set the software versions
  * @param {!string} version_info The software versions.
  */
@@ -141,14 +128,16 @@ app.setSoftwareVersions = function(version_info) {
 };
 goog.exportSymbol('app.setSoftwareVersions', app.setSoftwareVersions);
 
+
 /**
- * Set the base URL of the Open Fixture library so we can link to it.
- * @param {!string} baseUrl The base URL starting with the protocol and ending with a slash.
+ * Set the URL of the RDM lookup page in the Open Fixture library with the RDM IDs
+ * of this model so we can use it to link every personality.
+ * @param {!string} url The URL with query parameters for RDM manufacturer ID and RDM model ID.
  */
-app.setOpenFixtureLibraryBaseUrl = function(baseUrl) {
-  app.OPEN_FIXTURE_LIBRARY_BASE_URL = baseUrl;
+app.setOpenFixtureLibraryModelUrl = function(url) {
+  app.OPEN_FIXTURE_LIBRARY_MODEL_URL = url;
 };
-goog.exportSymbol('app.setOpenFixtureLibraryBaseUrl', app.setOpenFixtureLibraryBaseUrl);
+goog.exportSymbol('app.setOpenFixtureLibraryModelUrl', app.setOpenFixtureLibraryModelUrl);
 
 
 /**
@@ -174,7 +163,7 @@ app.changeSoftwareVersion = function(element) {
     goog.dom.removeChildren(tbody);
     for (var i = 0; i < personalities.length; ++i) {
       var personality = personalities[i];
-      var oflLink = app.OPEN_FIXTURE_LIBRARY_BASE_URL + 'rdm?manufacturerId=' + app.MANUFACTURER_ID + '&amp;modelId=' + app.MODEL_ID + '&amp;personalityIndex=' + personality['index'] + '&amp;source=olp';
+      var oflLink = app.OPEN_FIXTURE_LIBRARY_MODEL_URL + '&amp;personalityIndex=' + personality['index'];
 
       var tr = goog.dom.createDom('tr');
       // add the cells

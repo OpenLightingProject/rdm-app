@@ -299,6 +299,11 @@ class DisplayModel(common.BasePageHandler):
         sensors.sort(key=lambda x: x['index'])
         version_output['sensors'] = sensors
 
+    # construct link to Open Fixture Library's RDM lookup page
+    ofl_model_url = 'https://open-fixture-library.herokuapp.com/rdm?source=olp'
+    ofl_model_url += '&manufacturerId=' + str(model.manufacturer.esta_id)
+    ofl_model_url += '&modelId=' + str(model.device_model_id)
+
     output = {
       'description': model.model_description,
       'manufacturer': model.manufacturer.name,
@@ -306,7 +311,7 @@ class DisplayModel(common.BasePageHandler):
       'model_id': model.device_model_id,
       'software_versions': software_versions,
       'software_versions_json': json.dumps(software_versions),
-      'open_fixture_library_base_url': 'https://open-fixture-library.herokuapp.com/'
+      'open_fixture_library_model_url': ofl_model_url
     }
     # link and product_category are optional
     if model.link:
