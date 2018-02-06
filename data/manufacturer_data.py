@@ -64,6 +64,7 @@ MANUFACTURER_DATA = [
 (0x011B, "Jumptronic GmbH"),
 (0x016C, "LGR"),
 (0x019F, "DaisaLed Ltd."),
+(0x01A0, "Light With LED"),
 (0x01AA, "Vitec Videocom Inc."),
 (0x01AB, "Shanghai Euchips Industrial Co., Ltd."),
 (0x01AF, "Hunan Minghe Opto Tech Co., Ltd."),
