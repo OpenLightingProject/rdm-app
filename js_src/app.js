@@ -158,89 +158,89 @@ app.changeSoftwareVersion = function(element) {
   // DMX Personalities
   var personalities = software_version['personalities'];
   var personality_fieldset = goog.dom.$('model_personality_fieldset');
-  if (personalities && personalities.length) {
-    var tbody = goog.dom.$('model_personality_tbody');
-    goog.dom.removeChildren(tbody);
-    for (var i = 0; i < personalities.length; ++i) {
-      var personality = personalities[i];
-      var oflLink = app.OPEN_FIXTURE_LIBRARY_MODEL_URL + '&amp;personalityIndex=' + personality['index'];
+  if (personality_fieldset) {
+    if (personalities && personalities.length) {
+      var tbody = goog.dom.$('model_personality_tbody');
+      goog.dom.removeChildren(tbody);
+      for (var i = 0; i < personalities.length; ++i) {
+        var personality = personalities[i];
+        var oflLink = app.OPEN_FIXTURE_LIBRARY_MODEL_URL + '&amp;personalityIndex=' + personality['index'];
 
-      var tr = goog.dom.createDom('tr');
-      // add the cells
-      goog.dom.appendChild(tr, app.newTD(personality['index']));
-      if ('slot_count' in personality) {
-        goog.dom.appendChild(tr, app.newTD(personality['slot_count']));
-      } else {
-        goog.dom.appendChild(tr, app.newTD('Unknown'));
+        var tr = goog.dom.createDom('tr');
+        // add the cells
+        goog.dom.appendChild(tr, app.newTD(personality['index']));
+        if ('slot_count' in personality) {
+          goog.dom.appendChild(tr, app.newTD(personality['slot_count']));
+        } else {
+          goog.dom.appendChild(tr, app.newTD('Unknown'));
+        }
+        goog.dom.appendChild(tr, app.newTD(personality['description']));
+        goog.dom.appendChild(tr, app.newTD('<a href="' + oflLink + '">View in Open Fixture Library</a>'));
+        goog.dom.appendChild(tbody, tr);
       }
-      goog.dom.appendChild(tr, app.newTD(personality['description']));
-      goog.dom.appendChild(tr, app.newTD('<a href="' + oflLink + '">View in Open Fixture Library</a>'));
-      goog.dom.appendChild(tbody, tr);
-    }
-    if (personality_fieldset) {
       app.showBlock(personality_fieldset);
+    } else {
+      app.hideNode(personality_fieldset);
     }
-  } else if (personality_fieldset) {
-    app.hideNode(personality_fieldset);
   }
 
   // Sensors
   var sensors = software_version['sensors'];
   var sensor_fieldset = goog.dom.$('model_sensor_fieldset');
-  if (sensors && sensors.length) {
-    var tbody = goog.dom.$('model_sensor_tbody');
-    goog.dom.removeChildren(tbody);
-    for (var i = 0; i < sensors.length; ++i) {
-      var sensor = sensors[i];
-      var tr = goog.dom.createDom('tr');
-      // add the cells
-      goog.dom.appendChild(tr, app.newTD(sensor['index']));
-      goog.dom.appendChild(tr, app.newTD(sensor['description']));
-      var type_str = sensor['type_str'];
-      var sensor_type = '';
-      if (type_str) {
-        sensor_type = type_str + ' (0x' + app.toHex(sensor['type'], 2) + ')';
-      } else  {
-        sensor_type = app.toHex(sensor['type'], 2);
+  if (sensor_fieldset) {
+    if (sensors && sensors.length) {
+      var tbody = goog.dom.$('model_sensor_tbody');
+      goog.dom.removeChildren(tbody);
+      for (var i = 0; i < sensors.length; ++i) {
+        var sensor = sensors[i];
+        var tr = goog.dom.createDom('tr');
+        // add the cells
+        goog.dom.appendChild(tr, app.newTD(sensor['index']));
+        goog.dom.appendChild(tr, app.newTD(sensor['description']));
+        var type_str = sensor['type_str'];
+        var sensor_type = '';
+        if (type_str) {
+          sensor_type = type_str + ' (0x' + app.toHex(sensor['type'], 2) + ')';
+        } else  {
+          sensor_type = app.toHex(sensor['type'], 2);
+        }
+        goog.dom.appendChild(tr, app.newTD(sensor_type));
+        goog.dom.appendChild(tr, app.newTD(sensor['supports_recording']));
+        goog.dom.appendChild(tr, app.newTD(sensor['supports_min_max']));
+        goog.dom.appendChild(tbody, tr);
       }
-      goog.dom.appendChild(tr, app.newTD(sensor_type));
-      goog.dom.appendChild(tr, app.newTD(sensor['supports_recording']));
-      goog.dom.appendChild(tr, app.newTD(sensor['supports_min_max']));
-      goog.dom.appendChild(tbody, tr);
-    }
-    if (sensor_fieldset) {
       app.showBlock(sensor_fieldset);
+    } else {
+      app.hideNode(sensor_fieldset);
     }
-  } else if (sensor_fieldset) {
-    app.hideNode(sensor_fieldset);
   }
 
   // supported params
   var supported_params = software_version['supported_parameters'];
   var supported_params_fieldset = goog.dom.$('model_params_fieldset');
-  if (supported_params && supported_params.length) {
-    var supported_params_list = goog.dom.$('model_params_list');
-    goog.dom.removeChildren(supported_params_list);
-    for (var i = 0; i < supported_params.length; ++i) {
-      var param = supported_params[i];
-      var param_name = param['name'];
-      var li = goog.dom.createDom('li');
-      if (param_name) {
-        var a = goog.dom.createDom('a');
-        a.innerHTML = param_name + ' (0x' + app.toHex(param['id'], 4) + ')';
-        a.href = ('/pid/display?manufacturer=' + param['manufacturer_id'] +
-          '&pid=' + param['id']);
-        goog.dom.appendChild(li, a);
-      } else {
-        li.innerHTML = '0x' + app.toHex(param['id'], 4);
+  if (supported_params_fieldset) {
+    if (supported_params && supported_params.length) {
+      var supported_params_list = goog.dom.$('model_params_list');
+      goog.dom.removeChildren(supported_params_list);
+      for (var i = 0; i < supported_params.length; ++i) {
+        var param = supported_params[i];
+        var param_name = param['name'];
+        var li = goog.dom.createDom('li');
+        if (param_name) {
+          var a = goog.dom.createDom('a');
+          a.innerHTML = param_name + ' (0x' + app.toHex(param['id'], 4) + ')';
+          a.href = ('/pid/display?manufacturer=' + param['manufacturer_id'] +
+            '&pid=' + param['id']);
+          goog.dom.appendChild(li, a);
+        } else {
+          li.innerHTML = '0x' + app.toHex(param['id'], 4);
+        }
+        goog.dom.appendChild(supported_params_list, li);
       }
-      goog.dom.appendChild(supported_params_list, li);
-    }
-    if (supported_params_fieldset) {
       app.showBlock(supported_params_fieldset);
+    } else {
+      app.hideNode(supported_params_fieldset);
     }
-  } else if (supported_params_fieldset) {
-    app.hideNode(supported_params_fieldset);
   }
 };
 goog.exportSymbol('app.changeSoftwareVersion', app.changeSoftwareVersion);
