@@ -117,6 +117,7 @@ MANUFACTURER_DATA = [
 (0x02C9, "Theatrixx Technologies"),
 (0x02CA, "Acclaim Lighting"),
 (0x02CB, "GVA Lighting, Inc."),
+(0x02CC, "Brightix"),
 (0x02D0, "Winona Lighting"),
 (0x02D1, "Hoffmeister Leuchten GmbH"),
 (0x02E1, "Tait Towers Manufacturing Inc."),
