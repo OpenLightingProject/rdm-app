@@ -43,9 +43,11 @@ def GetManufacturer(manufacturer_id):
     return manufacturer
   return None
 
+
 def LookupModelFromRequest(request):
   return LookupModel(request.get('manufacturer'),
                      request.get('model'))
+
 
 def LookupModel(manufacturer, model_id):
   """Lookup a model based on the URL params."""
@@ -55,7 +57,6 @@ def LookupModel(manufacturer, model_id):
   if manufacturer is None or model_id is None:
     return None
 
-  results = {}
   models = Responder.all()
   models.filter('device_model_id = ', model_id)
   models.filter('manufacturer = ', manufacturer.key())
@@ -64,6 +65,7 @@ def LookupModel(manufacturer, model_id):
   if not model_data:
     return None
   return model_data[0]
+
 
 def GetLatestSoftware(responder):
   """Find the latest software version for a responder.
@@ -79,6 +81,7 @@ def GetLatestSoftware(responder):
       max_version_info = version
   return max_version_info
 
+
 def LookupProductCategory(category_id):
   """Lookup a ProductCategory entity by id.
 
@@ -92,6 +95,7 @@ def LookupProductCategory(category_id):
     return categories[0]
   else:
     return None
+
 
 def MaybeSendEmail(new_responder_count):
   """Send an email there were previously no responders in the moderation queue
@@ -108,13 +112,14 @@ def MaybeSendEmail(new_responder_count):
     message = mail.EmailMessage(
         sender='RDM Site <support@rdmprotocol-hrd.appspotmail.com>',
         subject='Pending Moderation Requests',
-        to = '<nomis52@gmail.com>',
+        to='<nomis52@gmail.com>',
     )
     message.body = textwrap.dedent("""\
       There are new responders in the moderation queue.
       Please visit http://rdm.openlighting.org/admin/moderate_responder_data
     """)
     message.send()
+
 
 class BasePageHandler(webapp.RequestHandler):
   """The base class for all page requests.
