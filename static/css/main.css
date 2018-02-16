@@ -203,6 +203,14 @@ th.goog-tablesorter-sorted-reverse .sorter_icon:after {
   border-radius: 4px;
 }
 
+div#discovery_request {
+  text-align: center;
+}
+
+div#discovery_response {
+  text-align: center;
+}
+
 div#get_request {
   text-align: center;
 }
