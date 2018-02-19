@@ -13,36 +13,34 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# product_category_test.py
-# Copyright (C) 2015 Simon Newton
+# controller_test.py
+# Copyright (C) 2017 Peter Newman
 
 import unittest
 
-
-class TestProductCategoryData(unittest.TestCase):
-  """ Test the product category data file is valid."""
+class TestControllerData(unittest.TestCase):
+  """ Test the controller data files are valid."""
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/product_categories.py", globals, locals)
-    self.data = locals['PRODUCT_CATEGORIES']
+    execfile("data/controller_data.py", globals, locals)
+    self.data = locals['CONTROLLER_DATA']
 
-  def test_ProductCategoryData(self):
-    seen_category_ids = set()
-    seen_category_names = set()
+  def test_ControllerData(self):
+    # Check the type
+    self.assertEqual(type(self.data), dict)
 
-    for data in self.data:
-      self.assertEqual(tuple, type(data))
-      self.assertEqual(2, len(data))
-      category, category_id = data
-      self.assertEqual(str, type(category))
-      self.assertEqual(int, type(category_id))
+    for esta_id in self.data:
+      self.assertEqual(int, type(esta_id))
+      self.assertEqual(list, type(self.data[esta_id]))
 
-      self.assertNotIn(category_id, seen_category_ids)
-      seen_category_ids.add(category_id)
+      seen_names = set()
 
-      self.assertNotIn(category, seen_category_names)
-      seen_category_names.add(category)
+      for controller in self.data[esta_id]:
+        name = controller['name']
+        self.assertNotIn(name, seen_names,
+                         "Name %s for ESTA ID 0x%04x is present twice" % (name, esta_id))
+        seen_names.add(name)
 
 
 if __name__ == '__main__':

@@ -73,7 +73,7 @@ class ProductLoader(object):
 
     if products.count() > 1:
       logging.error('More than one product exists for %s and 0x%hx' %
-          (product_name, manufacturer_key.esta_id))
+                    (product_name, manufacturer_key.esta_id))
     product_data = products.fetch(1)
     if not product_data:
       return None
@@ -115,8 +115,8 @@ class ProductLoader(object):
       The new Product entity.
     """
     product = self._product_type(
-        manufacturer = manufacturer,
-        name = product_info['name'])
+        manufacturer=manufacturer,
+        name=product_info['name'])
 
     # add link and image_url if they exist
     link_url = product_info.get('link')
@@ -154,8 +154,8 @@ class ProductLoader(object):
     for tag_label in new_tags:
       tag_entity = self._LookupOrAddTag(tag_label)
       relationship = ProductTagRelationship(
-          tag = tag_entity,
-          product = product)
+          tag=tag_entity,
+          product=product)
       relationship.put()
       modified = True
 
@@ -175,7 +175,7 @@ class ProductLoader(object):
     for manufacturer_id, products in self._product_data.iteritems():
       manufacturer = self._LookupManufacturer(manufacturer_id)
       if not manufacturer:
-        logging.error('No manufacturer found for %hx' % manufacturer_id)
+        logging.error('No manufacturer found for 0x%hx' % manufacturer_id)
         continue
 
       for product_info in products:

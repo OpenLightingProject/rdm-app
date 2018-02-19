@@ -117,7 +117,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
   def WriteManufacturer(self, manufacturer, pids):
     self.Write('manufacturer {')
     self.Write('  manufacturer_id: %d' % manufacturer.esta_id)
-    self.Write('  manufacturer_name: "%s"' % manufacturer.name)
+    self.Write('  manufacturer_name: "%s"' % manufacturer.name.replace('"', '\\"'))
     for pid in pids:
       self.WritePid(pid, indent=2)
 
@@ -127,40 +127,53 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
     esta_manufacturer = common.GetManufacturer(self.ESTA_ID)
     self.response.headers['Content-Type'] = 'text/plain'
 
-    # Can be '', 'esta', 'esta-draft' or 'manufacturers'
+    # Can be '', 'esta', 'esta-draft', 'manufacturers' or 'manufacturer-names'
     pid_selection = self.request.get('pids')
-    pids = Pid.all()
+    if pid_selection == 'manufacturer-names':
+      manufacturers = []
+      query = Manufacturer.all()
+      query.order('name')
+      for manufacturer in query:
+        if manufacturer.esta_id in [self.ESTA_ID, 0xffff]:
+          continue
 
-    if pid_selection == 'esta':
-      pids.filter('draft =', False)
-      pids.filter('manufacturer = ', esta_manufacturer)
-    elif pid_selection == 'esta-draft':
-      pids.filter('draft =', True)
-      pids.filter('manufacturer = ', esta_manufacturer)
-    elif pid_selection == "manufacturers":
-      pids.filter('manufacturer != ', esta_manufacturer)
+        self.WriteManufacturer(manufacturer, [])
+    else:
+      pids = Pid.all()
 
-    manufacturers = {}
-    esta_pids = []
-    for pid in pids:
-      if pid.manufacturer.esta_id == self.ESTA_ID:
-        esta_pids.append(pid)
-      else:
-        #Build the hash of manufacturer pids by manufacturer
-        manufacturers.setdefault(pid.manufacturer.esta_id, []).append(pid)
+      if pid_selection == 'esta':
+        pids.filter('draft =', False)
+        pids.filter('manufacturer = ', esta_manufacturer)
+      elif pid_selection == 'esta-draft':
+        pids.filter('draft =', True)
+        pids.filter('manufacturer = ', esta_manufacturer)
+      elif pid_selection == "manufacturers":
+        pids.filter('manufacturer != ', esta_manufacturer)
 
-    esta_pids.sort(key=lambda p: p.pid_id)
-    for pid in esta_pids:
-      self.WritePid(pid)
+      manufacturers = {}
+      esta_pids = []
+      for pid in pids:
+        if pid.manufacturer.esta_id == self.ESTA_ID:
+          esta_pids.append(pid)
+        else:
+          #Build the hash of manufacturer pids by manufacturer
+          manufacturers.setdefault(pid.manufacturer.esta_id, []).append(pid)
 
-    for manufacturer_id in sorted(manufacturers):
-      manufacturer_pids = manufacturers[manufacturer_id]
-      manufacturer_pids.sort(key=lambda p: p.pid_id)
-      self.WriteManufacturer(manufacturers[manufacturer_id][0].manufacturer,
-                             manufacturer_pids)
+      esta_pids.sort(key=lambda p: p.pid_id)
+      for pid in esta_pids:
+        self.WritePid(pid)
+
+      for manufacturer_id in sorted(manufacturers):
+        manufacturer_pids = manufacturers[manufacturer_id]
+        manufacturer_pids.sort(key=lambda p: p.pid_id)
+        self.WriteManufacturer(manufacturers[manufacturer_id][0].manufacturer,
+                               manufacturer_pids)
 
     query = LastUpdateTime.all()
-    query.filter('name = ', timestamp_keys.PIDS)
+    if pid_selection == 'manufacturer-names':
+      query.filter('name = ', timestamp_keys.MANUFACTURERS)
+    else:
+      query.filter('name = ', timestamp_keys.PIDS)
     update_time = query.fetch(1)
     if update_time:
       timestamp = TimestampToInt(update_time[0].update_time)

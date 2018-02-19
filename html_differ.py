@@ -19,6 +19,7 @@
 import difflib
 import logging
 
+
 class HTMLDiffer(object):
   def __init__(self, left_class, right_class):
     """

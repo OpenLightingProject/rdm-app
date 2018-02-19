@@ -1,6 +1,6 @@
 {% extends "base.tmpl" %} 
 
-{% block title %}Browse Devices, Page {{ page_number }}{% endblock %}
+{% block title %}Admin{% endblock %}
 
 {% block content %}
     <div style="padding-left: 15px; padding-bottom: 15px">
@@ -29,6 +29,7 @@
 
         <div class="btn-group-vertical" role="group">
             <a class="btn btn-default" href="/admin?action=update_m">Update Manufacturers</a>
+            <a class="btn btn-default" href="/admin?action=update_m_links">Update Manufacturer Links</a>
             <a class="btn btn-default" href="/admin?action=update_categories">Update Categories</a>
             <a class="btn btn-default" href="/admin?action=gc_tags">Garbage Collect Tags</a>
             <a class="btn btn-default" href="/admin?action=gc_blobs">Garbage Collect Blobs</a>
@@ -42,7 +43,9 @@
 
         <div class="btn-group-vertical" role="group">
             <div>/admin?action=clear_p - Clear PIDs</div>
-            <!-- This deliberately isn't a link, so people don't click it accidentally -->
+            <div>/admin?action=clear_mp&amp;manufacturer=1234 - Clear Manufacturer PIDs</div>
+            <div>/admin?action=flush_cache - Flush Cache</div>
+            <!-- These deliberately aren't links, so people don't click them accidentally -->
             <a class="btn btn-default" href="/admin?action=load_p">Load ESTA PIDs</a>
             <a class="btn btn-default" href="/admin?action=load_mp">Load Manufacturer PIDs</a>
             <a class="btn btn-default" href="/admin?action=responder_pid_index">Build PID Index</a>
