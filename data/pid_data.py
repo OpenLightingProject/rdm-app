@@ -5173,8 +5173,11 @@ ESTA_PIDS = [
     {'name': 'list_change_number', 'type' : 'uint32'},
     {'name': 'endpoints', 'type': 'group',
      'items': [{'name': 'endpoint_id', 'type': 'uint16',
-                'labels': [(0, 'Management Endpoint')],
-                'range': [(0, 63999)]}],
+                'range': [(1, 63999)]},
+               {'name': 'endpoint_type', 'type': 'uint8',
+                'labels': [(0, 'Virtual Endpoint'),
+                           (1, 'Physical Endpoint')],
+                'range': [(0, 1)]}],
      }
   ]},
   'get_sub_device_range': 2,
@@ -5196,24 +5199,26 @@ ESTA_PIDS = [
  # IDENTIFY_ENDPOINT
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
    ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'identify_state', 'type': 'bool'}
   ]},
   'get_sub_device_range': 2,
   'name': 'IDENTIFY_ENDPOINT',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'), (0xffff, 'All Endpoints')]},
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'identify_state', 'type': 'bool'}
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe9},
@@ -5221,13 +5226,11 @@ ESTA_PIDS = [
  # ENDPOINT_TO_UNIVERSE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
    ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff),(0xffff, 0xffff)],
      'labels': [(0, 'Unpatched'),(0xffff, 'Composite')],
     },
@@ -5237,74 +5240,72 @@ ESTA_PIDS = [
   'name': 'ENDPOINT_TO_UNIVERSE',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff)],
      'labels': [(0, 'Unpatched')]},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe1},
 
- # START_CODE_FILTER
+ # RDM_TRAFFIC_ENABLE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
    ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
-    {'name': 'filtering_state', 'type': 'bool'},
+     'range': [(1, 63999)]},
+    {'name': 'rdm_enabled', 'type': 'bool'},
   ]},
   'get_sub_device_range': 2,
-  'name': 'START_CODE_FILTER',
+  'name': 'RDM_TRAFFIC_ENABLE',
   'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
-    {'name': 'filtering_state', 'type': 'bool'},
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'rdm_enabled', 'type': 'bool'},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe2},
-
- # START_CODE_FILTER_DESCRIPTION
- {'get_request': {'items': []},
-  'get_response': {'items': [
-    {'name': 'filter', 'type': 'group', 'min_size': 8, 'max_size': 8,
-     'items': [{'name': 'filter_state', 'type': 'uint8'}],
-     }
-  ]},
-  'get_sub_device_range': 2,
-  'name': 'START_CODE_FILTER_DESCRIPTION',
-  'draft': True,
-  'value': 0x7fd4},
   
  # ENDPOINT_MODE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'endpoint_mode', 'type': 'uint8',
      'labels': [(0, 'Disabled'), (1, 'Input'), (2, 'Output')]},
   ]},
   'get_sub_device_range': 2,
   'name': 'ENDPOINT_MODE',
   'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'endpoint_mode', 'type': 'uint8',
      'labels': [(0, 'Disabled'), (1, 'Input'), (2, 'Output')]},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe3},
@@ -5312,23 +5313,26 @@ ESTA_PIDS = [
  # ENDPOINT_LABEL
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'endpoint_label', 'type': 'string', 'max_size': 32},
   ]},
   'get_sub_device_range': 2,
   'name': 'ENDPOINT_LABEL',
   'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'endpoint_label', 'type': 'string', 'max_size': 32},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe4},
@@ -5336,31 +5340,34 @@ ESTA_PIDS = [
  # DISCOVERY_STATE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'device_count', 'type': 'uint16', 'range': [(0, 0xffff)],
-     'labels': [(0xffff, 'Not Supported')]},
+     'labels': [(0, 'Incomplete'), (0xffff, 'Unknown')]},
     {'name': 'discovery_state', 'type': 'uint8',
      'range': [(0, 4),(0x80, 0xdf)],
      'labels': [(0, 'Incomplete'), (1, 'Incremental'),
-               (2, 'Full'), (3, 'Observational'), (4, 'Completed')]},
+                (2, 'Full'), (4, 'Completed')]},
   ]},
   'get_sub_device_range': 2,
   'name': 'DISCOVERY_STATE',
   'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'discovery_state', 'type': 'uint8',
      'range': [(1, 4),(0x80, 0xdf)],
-     'labels': [(1, 'Incremental'),
-               (2, 'Full'), (3, 'Observational'), (4, 'Stop')]},
+     'labels': [(1, 'Incremental'), (2, 'Full'),
+                (4, 'Stop')]},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe5},
@@ -5368,23 +5375,26 @@ ESTA_PIDS = [
  # BACKGROUND_DISCOVERY
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'background_discovery', 'type': 'bool'},
   ]},
   'get_sub_device_range': 2,
   'name': 'BACKGROUND_DISCOVERY',
   'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'background_discovery', 'type': 'bool'},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fea},
@@ -5427,7 +5437,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe7},
 
- # ENDPOINT_DEVICE_LIST_CHANGE
+ # ENDPOINT_RESPONDER_LIST_CHANGE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
      'labels': [(0, 'Management Endpoint')],
@@ -5440,11 +5450,11 @@ ESTA_PIDS = [
     {'name': 'list_change_number', 'type': 'uint32'},
   ]},
   'get_sub_device_range': 2,
-  'name': 'ENDPOINT_DEVICE_LIST_CHANGE',
+  'name': 'ENDPOINT_RESPONDER_LIST_CHANGE',
   'draft': True,
   'value': 0x7feb},
 
- # ENDPOINT_DEVICES
+ # ENDPOINT_RESPONDERS
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
      'labels': [(0, 'Management Endpoint')],
@@ -5460,7 +5470,7 @@ ESTA_PIDS = [
     {'type': 'group', 'name': 'uids', 'items': [{'name': 'uid', 'type': 'uid'}]},
   ]},
   'get_sub_device_range': 2,
-  'name': 'ENDPOINT_DEVICES',
+  'name': 'ENDPOINT_RESPONDERS',
   'draft': True,
   'value': 0x7fec},
 
@@ -5507,7 +5517,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd0},
 
- #BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
+ # BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
  {'get_request': {'items': [
     {'name': 'policy_setting', 'type': 'uint8',
      'range': [(0, 0xff)],
