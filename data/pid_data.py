@@ -5402,34 +5402,41 @@ ESTA_PIDS = [
  # ENDPOINT_TIMING
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
-    {'name': 'current_setting', 'type': 'uint8'},
+     'range': [(1, 63999)]},
+    {'name': 'current_setting', 'type': 'uint8',
+     'range': [(1, 0xff)]},
     {'name': 'number_of_settings', 'type': 'uint8'},
   ]},
   'get_sub_device_range': 2,
   'name': 'ENDPOINT_TIMING',
   'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 63999),(0xffff, 0xffff)],
-     'labels': [(0, 'Management Endpoint'),(0xffff, 'All Endpoints')]},
-    {'name': 'timing_setting', 'type': 'uint8'},
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'timing_setting', 'type': 'uint8',
+     'range': [(1, 0xff)]},
   ]},
-  'set_response': {'items': []},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
   'set_sub_device_range': 1,
   'draft': True,
   'value': 0x7fe6},
 
  # ENDPOINT_TIMING_DESCRIPTION
  {'get_request': {'items': [
-    {'name': 'timing_setting', 'type': 'uint8'},
+    {'name': 'timing_setting', 'type': 'uint8',
+     'range': [(1, 0xff)]},
   ]},
   'get_response': {'items': [
-    {'name': 'timing_setting', 'type': 'uint8'},
+    {'name': 'timing_setting', 'type': 'uint8',
+     'range': [(1, 0xff)]},
     {'name': 'description', 'type': 'string', 'max_size': 32},
   ]},
   'get_sub_device_range': 2,
@@ -5440,13 +5447,11 @@ ESTA_PIDS = [
  # ENDPOINT_RESPONDER_LIST_CHANGE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'list_change_number', 'type': 'uint32'},
   ]},
   'get_sub_device_range': 2,
@@ -5457,16 +5462,12 @@ ESTA_PIDS = [
  # ENDPOINT_RESPONDERS
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'list_change_number', 'type': 'uint32'},
-    {'name': 'age_in_seconds', 'type': 'uint32', 'range': [(0, 0xffffffff)],
-     'labels': [(0xffffffff, 'Discovery Not Performed')]},
     {'type': 'group', 'name': 'uids', 'items': [{'name': 'uid', 'type': 'uid'}]},
   ]},
   'get_sub_device_range': 2,
@@ -5477,14 +5478,12 @@ ESTA_PIDS = [
  # BINDING_CONTROL_FIELDS
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'uid', 'type': 'uid'}
   ]},
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'labels': [(0, 'Management Endpoint')],
-     'range': [(0, 63999)]},
+     'range': [(1, 63999)]},
     {'name': 'uid', 'type': 'uid'},
     {'name': 'control_bits', 'type': 'uint16'},
     {'name': 'binding_uid', 'type': 'uid',
@@ -5535,26 +5534,6 @@ ESTA_PIDS = [
 
 # These are ordered to match how they appear in E1.33
 # The PID values will change in the final document.
- # RDM_TRAFFIC_ENABLE
- {'get_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
-  ]},
-  'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
-    {'name': 'rdm_enabled', 'type': 'bool'}
-  ]},
-  'get_sub_device_range': 0,
-  'name': 'RDM_TRAFFIC_ENABLE',
-  'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xffff)],
-     'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'rdm_enabled', 'type': 'bool'}
-  ]},
-  'set_response': {'items': []},
-  'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe2},
-
  # TCP_COMMS_STATUS
  {'get_request': {'items': [
   ]},
