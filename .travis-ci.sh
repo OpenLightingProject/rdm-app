@@ -37,6 +37,22 @@ elif [[ $TASK = 'spellintian' ]]; then
   else
     echo "Found $spellingerrors spelling errors"
   fi;
+elif [[ $TASK = 'codespell' ]]; then
+  # run codespell only if it is the requested task
+  spellingfiles=$(find ./ -type f -and ! \( \
+      -wholename "./.git/*" -or \
+      -wholename "./node_modules/*" \
+      \) | xargs)
+  # count the number of codespell errors
+  spellingerrors=$(zrun codespell --check-filenames --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore $spellingfiles 2>&1 | wc -l)
+  if [[ $spellingerrors -ne 0 ]]; then
+    # print the output for info
+    zrun codespell --check-filenames --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore $spellingfiles
+    echo "Found $spellingerrors spelling errors via codespell"
+    exit 1;
+  else
+    echo "Found $spellingerrors spelling errors via codespell"
+  fi;
 elif [[ $TASK = 'flake8' ]]; then
   flake8 --max-line-length 80 --exclude .git,__pycache --ignore E111,E114,E129 $(find ./ -name "*.py" | xargs)
   #,E121,E127
