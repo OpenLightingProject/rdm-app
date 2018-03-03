@@ -427,7 +427,7 @@ class ModelUpdater(object):
     """Add or Update a Responder.
 
     Returns:
-      was_added, was_modifed
+      was_added, was_modified
     """
     was_added = False
     was_modified = False
