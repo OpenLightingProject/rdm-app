@@ -121,7 +121,7 @@ goog.exportSymbol('app.makeModelTable', app.makeModelTable);
 
 /**
  * Set the software versions
- * @param {!string} version_info The software versions.
+ * @param {!Array.<Object>} version_info The software versions.
  */
 app.setSoftwareVersions = function(version_info) {
   app.SOFTWARE_VERSIONS = version_info;

@@ -26,7 +26,7 @@ goog.require('goog.ui.Tooltip');
 
 /**
  * A message field, this represents a field within a RDM message.
- * @param {*} field_info
+ * @param {Object} field_info
  * @param {?goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends goog.ui.Component
@@ -40,7 +40,7 @@ goog.inherits(app.MessageField, goog.ui.Component);
 
 /**
  * Return the underlying field info
- * @return {*}
+ * @return {Object}
  */
 app.MessageField.prototype.pid = function() { return this._pid; };
 
