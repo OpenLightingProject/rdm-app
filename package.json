@@ -10,7 +10,8 @@
     "Simon Newton",
     "Peter Newman",
     "Dave Olsthoorn",
-    "Sean Sill"
+    "Sean Sill",
+    "Florian Edelmann"
   ],
   "devDependencies": {
     "google-closure-compiler": "^20170910.0.0",
