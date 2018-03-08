@@ -4439,7 +4439,7 @@ ESTA_PIDS = [
                            (0x0506, 'Fan control'),
                            (0x0507, 'Heater control'),
                            (0x0508, 'Fountain water pump control'),
-                           (0xFFFF, 'No definition')]},
+                           (0xFFFF, 'No definition')]}],
     }]},
   'get_sub_device_range': 2,
   'name': 'SLOT_INFO',
