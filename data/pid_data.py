@@ -4396,6 +4396,7 @@ ESTA_PIDS = [
                            (0xff, 'Secondary undefined')]},
                {'name': 'slot_label_id',
                 'type': 'uint16',
+                'range': [(0, 0xffdf), (0xffff, 0xffff)],
                 'labels': [(0x0001, 'Intensity'),
                            (0x0002, 'Intensity Master'),
                            (0x0101, 'Pan'),
