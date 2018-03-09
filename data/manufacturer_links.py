@@ -32,7 +32,8 @@ MANUFACTURER_LINKS = [
 (0x089D, "http://www.gobo.ws/"),
 (0x0987, "https://www.mathertel.de/"),
 (0x1AFA, "https://tmb.com/"),
-(0x15D0, "http://prolights.it/"),
+(0x15D0, "https://www.musiclights.it/"),
+#(0x15D0, "http://prolights.it/"), # This is one of their sub-brands
 (0x20B9, "https://www.arri.com/"),
 (0x21A4, "https://www.chauvetdj.com/"),
 (0x2122, "https://beglec.com/"),

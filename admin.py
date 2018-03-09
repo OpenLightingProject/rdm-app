@@ -655,14 +655,14 @@ class ResponderModerator(BaseAdminPageHandler):
     left = left_dict.get(key)
     right = right_dict.get(key)
     if left and right:
-      left_formated, right_formatted = self._differ.Diff(str(left), str(right))
+      left_formatted, right_formatted = self._differ.Diff(str(left), str(right))
     else:
-      left_formated = left
+      left_formatted = left
       right_formatted = right
     return  {
       'name': name,
       'key': key,
-      'left': left_formated,
+      'left': left_formatted,
       'different': left != right,
       'prefer_left': left is not None and right is None,
       'prefer_right': right is not None and left is None,
