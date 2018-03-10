@@ -715,6 +715,7 @@ MANUFACTURER_DATA = [
 (0x5653, "Viso Systems Aps"),
 (0x5744, "W-DEV"),
 (0x5746, "Wildfire, Inc."),
+(0x5747, "Wenger / JR Clancy"),
 (0x5753, "Wireless Solution Sweden AB"),
 (0x5759, "Wybron, Inc."),
 (0x584C, "X-Laser"),
