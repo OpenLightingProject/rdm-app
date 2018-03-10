@@ -50,6 +50,10 @@
                 </tr>
             {% endif %}
             <tr>
+                <td>Fixture definition</td>
+                <td><a href="{{ open_fixture_library_model_url }}">View in Open Fixture Library</a></td>
+            </tr>
+            <tr>
                 <td colspan="2">
                         <div style="display: inline-flex!important;" class="fb-like" data-send="false"
                              data-layout="button_count"
@@ -86,6 +90,7 @@
                         <th>Index</th>
                         <th>Slot Count</th>
                         <th>Description</th>
+                        <th>Channel List</th>
                     </tr>
                     <tbody id="model_personality_tbody"></tbody>
                 </table>
@@ -139,6 +144,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <script type="text/javascript">
+        app.setOpenFixtureLibraryModelUrl('{{ open_fixture_library_model_url }}');
         app.setSoftwareVersions({{ software_versions_json|safe }});
         app.setLatestVersion(document.getElementById('software_select'));
         function dirty_fix(){
