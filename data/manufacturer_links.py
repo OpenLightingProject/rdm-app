@@ -54,6 +54,7 @@ MANUFACTURER_LINKS = [
 (0x4354, "http://www.citytheatrical.com/"),
 (0x4446, "http://www.dfd.com/"),
 (0x454E, "https://www.enttec.com/"),
+(0x4658, "https://www.magicfx.eu/"),
 (0x4744, "http://www.goddarddesign.com/"),
 (0x4845, "http://www.helluk.com/"),
 (0x4953, "https://www.istl.com/"),
