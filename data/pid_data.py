@@ -1,9 +1,9 @@
 MANUFACTURER_PIDS = [
-  #Creative Lighting DEVICE_MODE
+  # Creative Lighting
   {'id': 0x00a1,
    'name': 'Creative Lighting',
    'pids': [
-      #DEVICE_MODE
+      # DEVICE_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'mode', 'type': 'uint8', 'labels': [
@@ -22,11 +22,11 @@ MANUFACTURER_PIDS = [
        'value': 32768}]
   },
 
-  #ARRI
+  # ARRI
   {'id': 0x20b9,
    'name': 'ARRI',
    'pids': [
-      #FAN_MODE
+      # FAN_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'fan_mode', 'type': 'uint8',
@@ -57,7 +57,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Change the operating mode of the fan',
        'value': 0x8001},
 
-       #STATUS_LEDS
+      # STATUS_LEDS
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'disable_status_leds', 'type': 'bool'},
@@ -70,7 +70,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls the status LEDs & LCD backlight',
        'value': 0x8002},
 
-      #CCT_ADJUST
+      # CCT_ADJUST
       {'get_request': {'items': []},
        'get_response': {'items': [
                          {'name': 'CCT_value', 'type': 'int32', 'multiplier': -2},
@@ -85,7 +85,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Adjust the Correlated Color Temperature Value',
        'value': 0x8003},
 
-      #GN_ADJUST
+      # GN_ADJUST
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'GN_value', 'type': 'int32', 'multiplier': -2},
@@ -99,7 +99,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Adjust the Green Shift Value',
        'value': 0x8004},
 
-      #DMX_SIGNAL_LOSS_MODE
+      # DMX_SIGNAL_LOSS_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'mode', 'type': 'uint8',
@@ -488,7 +488,7 @@ MANUFACTURER_PIDS = [
                'set_sub_device_range': 1,
                'value': 34332},
              { 'get_request': { 'items': []},
-            'get_response': { 'items': [ { 'name': 'channel_mode_pixels', 'type': 'uint8', 'labels': [(0, 'Disabled'), (1, 'RGB'), (2, 'RGBW')]}]},
+               'get_response': { 'items': [ { 'name': 'channel_mode_pixels', 'type': 'uint8', 'labels': [(0, 'Disabled'), (1, 'RGB'), (2, 'RGBW')]}]},
                'get_sub_device_range': 2,
                'name': 'CP_CHNLMODE_PIXELS',
                'set_request': { 'items': [ { 'name': 'channel_mode_pixels', 'type': 'uint8', 'labels': [(0, 'Disabled'), (1, 'RGB'), (2, 'RGBW')]}]},
@@ -497,11 +497,11 @@ MANUFACTURER_PIDS = [
                'value': 34335},
     ],
   },
-  #City Theatrical
+  # City Theatrical
   {'id': 0x4354,
    'name': 'City Theatrical Inc.',
    'pids': [
-      #SHOW_ID
+      # SHOW_ID
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'show_id', 'type': 'uint8',
@@ -518,7 +518,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the SHoW ID in a SHoW DMX system.',
        'value': 0x8000},
 
-      #OUTPUT_POWER
+      # OUTPUT_POWER
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'output_power', 'type': 'uint8',
@@ -538,7 +538,7 @@ MANUFACTURER_PIDS = [
                 'Transmit power in a receiver is used for RDM talk back data.',
        'value': 0x8001},
 
-      #HOP_PATTERN
+      # HOP_PATTERN
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'hop_pattern', 'type': 'uint8',
@@ -555,7 +555,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the SHoW DMX hop pattern in a SHoW DMX transmitter.',
        'value': 0x8002},
 
-      #BANDWIDTH
+      # BANDWIDTH
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'bandwidth', 'type': 'uint8',
@@ -574,7 +574,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the bandwidth usage of the SHoW DMX system.',
        'value': 0x8003},
 
-      #NUMBER_OF_CHANNELS
+      # NUMBER_OF_CHANNELS
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'number_of_channels', 'type': 'uint8',
@@ -622,7 +622,7 @@ MANUFACTURER_PIDS = [
                 'This functionality has largely been moved to DMX personalities.',
        'value': 0x8004},
 
-      #LEVEL_TEST
+      # LEVEL_TEST
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'test_level', 'type': 'uint8',
@@ -641,26 +641,26 @@ MANUFACTURER_PIDS = [
                 'ID 2 is dimmer B, and ID 3 is dimmer C.',
        'value': 0x8005},
 
-      #CURVE
+      # CURVE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'curve', 'type': 'uint8',
                            'labels': [(1, 'ISL'), (2, 'Linear'),
-                                     (3, 'Non-Dim'), (4, 'LED')],
+                                      (3, 'Non-Dim'), (4, 'LED')],
                           }
                         ]},
        'get_sub_device_range': 3,
        'name': 'CURVE',
        'set_request': {'items': [{'name': 'curve', 'type': 'uint8',
                                   'labels': [(1, 'ISL'), (2, 'Linear'),
-                                            (3, 'Non-Dim'), (4, 'LED')],
+                                             (3, 'Non-Dim'), (4, 'LED')],
                       }]},
        'set_response': {'items': []},
        'set_sub_device_range': 3,
        'notes': 'Get/Set the curve setting in a SHoW DMX dimmer.',
        'value': 0x8006},
 
-      #BUMP_ENABLED
+      # BUMP_ENABLED
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'bump_enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -671,7 +671,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the bump enable button.',
        'value': 0x8007},
 
-      #DATA_LOSS_TIMEOUT
+      # DATA_LOSS_TIMEOUT
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'minutes', 'type': 'uint8',
                                    'range': [(0, 120)]}]},
@@ -684,7 +684,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the DMX loss timeout parameter.',
        'value': 0x8008},
 
-      #BACKLIGHT_TIMEOUT
+      # BACKLIGHT_TIMEOUT
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'seconds', 'type': 'uint8',
                                    'range': [(0, 241)],
@@ -701,7 +701,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the LCD backlight timeout parameter.',
        'value': 0x8009},
 
-      #RDM_PROXY_ENABLE
+      # RDM_PROXY_ENABLE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'rdm_proxy_enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -712,26 +712,26 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable / Disable the RDM proxy in a SHoW DMX transmitter or receiver.',
        'value': 0x800a},
 
-      #INPUT_FORMAT
+      # INPUT_FORMAT
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'input_format', 'type': 'uint8',
                            'labels': [(0, 'DMX'), (1, 'ArtNet'),
-                                     (2, 'E1.31'), (3, 'KiNet')],
+                                      (2, 'E1.31'), (3, 'KiNet')],
                           }
                         ]},
        'get_sub_device_range': 0,
        'name': 'INPUT_FORMAT',
        'set_request': {'items': [{'name': 'input_format', 'type': 'uint8',
                                   'labels': [(0, 'DMX'), (1, 'ArtNet'),
-                                            (2, 'E1.31'), (3, 'KiNet')],
+                                             (2, 'E1.31'), (3, 'KiNet')],
                       }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'notes': 'Get/Set the input format of a SHoW DMX transmitter.',
        'value': 0x800b},
 
-      #IP_ADDRESS
+      # IP_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'ip_address', 'type': 'uint32',}]},
@@ -745,7 +745,7 @@ MANUFACTURER_PIDS = [
                  'Data is in big endian format.'),
        'value': 0x800c},
 
-      #IP_SUBNET_MASK
+      # IP_SUBNET_MASK
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'subnet_mask', 'type': 'uint32',}]},
@@ -759,7 +759,7 @@ MANUFACTURER_PIDS = [
                  'Data is in big endian format.'),
        'value': 0x800d},
 
-      #IP_GATEWAY
+      # IP_GATEWAY
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'default_gateway', 'type': 'uint32',}]},
@@ -773,7 +773,7 @@ MANUFACTURER_PIDS = [
                  'Data is in big endian format.'),
        'value': 0x800e},
 
-      #DHCP_MODE
+      # DHCP_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'dhcp_enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -784,7 +784,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable / Disable the DHCP client.',
        'value': 0x800f},
 
-      #MAC_ADDRESS
+      # MAC_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [{'type': 'group',
                                    'name': 'languages',
@@ -805,7 +805,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the MAC address. Set is only allowed in debug mode.',
        'value': 0x8010},
 
-      #SET_UID
+      # SET_UID
       {'name': 'SET_UID',
        'set_request': {'items': [{'name': 'uid', 'type': 'uid'}]},
        'set_response': {'items': []},
@@ -813,26 +813,26 @@ MANUFACTURER_PIDS = [
        'notes': 'Set the UID of the device. Only allowed in debug mode.',
        'value': 0x8014},
 
-      #DMX_OUTPUT_STANDARD
+      # DMX_OUTPUT_STANDARD
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'output_format', 'type': 'uint8',
                            'labels': [(1, 'DMX512/199'), (2, 'DMX512-A'),
-                                     (3, 'RDM E1.20-200')],
+                                      (3, 'RDM E1.20-200')],
                           }
                         ]},
        'get_sub_device_range': 0,
        'name': 'DMX_OUTPUT_STANDARD',
        'set_request': {'items': [{'name': 'output_format', 'type': 'uint8',
                                   'labels': [(1, 'DMX512/199'), (2, 'DMX512-A'),
-                                            (3, 'RDM E1.20-200')],
+                                             (3, 'RDM E1.20-200')],
                       }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'notes': 'Get/Set the output timing of a SHoW DMX receiver.',
        'value': 0x8015},
 
-      #ADD_DISCOVERY
+      # ADD_DISCOVERY
       {'name': 'ADD_DISCOVERY',
        'set_request': {'items': [{'name': 'enabled', 'type': 'uint8',
                                   'labels': [(1, 'On')],
@@ -844,7 +844,7 @@ MANUFACTURER_PIDS = [
                  'command only to known receivers'),
        'value': 0x8016},
 
-      #DMX_INTERSLOT_TIME
+      # DMX_INTERSLOT_TIME
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'micro_seconds', 'type': 'uint8'}]},
        'get_sub_device_range': 0,
@@ -856,7 +856,7 @@ MANUFACTURER_PIDS = [
                  'transmitting DMX.'),
        'value': 0x8017},
 
-      #LATENCY
+      # LATENCY
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'latency_setting', 'type': 'uint8',
@@ -871,7 +871,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set the Normal/Low Latency setting in SHoW DMX Neo products.',
        'value': 0x8019},
 
-      #FACTORY_SETTINGS_LOCK
+      # FACTORY_SETTINGS_LOCK
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'lock_code', 'type': 'uint32'}]},
        'get_sub_device_range': 0,
@@ -885,7 +885,7 @@ MANUFACTURER_PIDS = [
                  'example would be RDM UID or MAC addresses.'),
        'value': 0x801a},
 
-      #DMX_RDM_INTERLEAVE
+      # DMX_RDM_INTERLEAVE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'interleave_ratio', 'type': 'uint8'}]},
        'get_sub_device_range': 0,
@@ -897,7 +897,7 @@ MANUFACTURER_PIDS = [
                  'The value is the number of DMX frames sent before a RDM frame is sent.'),
        'value': 0x801b},
 
-      #PROXIED_DEVICES_ENHANCED
+      # PROXIED_DEVICES_ENHANCED
       {'get_request': {'items': []},
        'get_response': {'items': [{
            'type': 'group',
@@ -913,7 +913,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the entire list of proxied devices including control bits',
        'value': 0x801c},
 
-      #ADAPTIVE_ON_OFF
+      # ADAPTIVE_ON_OFF
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -926,11 +926,11 @@ MANUFACTURER_PIDS = [
     ],
   },
 
-  #Howard Eaton Lighting
+  # Howard Eaton Lighting
   {'id': 0x4845,
    'name': 'Howard Eaton Lighting',
    'pids': [
-      #PWRUP_TEST
+      # PWRUP_TEST
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'enabled', 'type': 'bool'},
@@ -945,7 +945,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable/disable the Power On Self Test (POST).',
        'value': 0xc857},
 
-      #INTERNAL_STATS
+      # INTERNAL_STATS
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'dmx_nsc_packet_count', 'type': 'uint16'},
@@ -969,12 +969,12 @@ MANUFACTURER_PIDS = [
        'value': 0xc862},
     ],
   },
-  #JANDS
+  # JANDS
   {'id': 0x4a61,
    'name': 'Jands',
    'pids': [
 
-      #NE_FAULT_DETECT_MODE
+      # NE_FAULT_DETECT_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'enabled', 'type': 'bool'}
@@ -988,7 +988,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Turns the Neutral-Earth (N-E) fault detector on and off.',
        'value': 0x8080},
 
-      #DMX_PROTECT_MODE
+      # DMX_PROTECT_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -1000,7 +1000,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Unknown.',
        'value': 0x8082},
 
-      #DMX_LOSS_MODE
+      # DMX_LOSS_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'mode', 'type': 'uint8',
@@ -1020,7 +1020,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls the behaviour when the DMX signal is lost.',
        'value': 0x8084},
 
-      #PREHEAT_LEVEL
+      # PREHEAT_LEVEL
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'level', 'type': 'uint8', 'labels': [
@@ -1039,41 +1039,41 @@ MANUFACTURER_PIDS = [
        'notes': 'The Preheat function is used to  inject a small amount of power into the lamps when the control is set to zero.',
        'value': 0x8086},
 
-      #OUTPUT_CAP_VALUE
+      # OUTPUT_CAP_VALUE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'cap', 'type': 'uint8',
                            'labels': [(0, 'Off'),
-                                     (1, '95%'),
-                                     (2, '90%'),
-                                     (3, '85%'),
-                                     (4, '80%'),
-                                     (5, '75%'),
-                                     (6, '70%'),
-                                     (7, '65%'),
-                                     (8, '60%'),
-                                     (9, '55%'),
-                                     (10, '50%'),
-                                     (11, '45%'),
-                                     (12, '40%')],
+                                      (1, '95%'),
+                                      (2, '90%'),
+                                      (3, '85%'),
+                                      (4, '80%'),
+                                      (5, '75%'),
+                                      (6, '70%'),
+                                      (7, '65%'),
+                                      (8, '60%'),
+                                      (9, '55%'),
+                                      (10, '50%'),
+                                      (11, '45%'),
+                                      (12, '40%')],
                           }
                         ]},
        'get_sub_device_range': 2,
        'name': 'OUTPUT_CAP_VALUE',
        'set_request': {'items': [{'name': 'cap', 'type': 'uint8',
                                    'labels': [(0, 'Off'),
-                                             (1, '95%'),
-                                             (2, '90%'),
-                                             (3, '85%'),
-                                             (4, '80%'),
-                                             (5, '75%'),
-                                             (6, '70%'),
-                                             (7, '65%'),
-                                             (8, '60%'),
-                                             (9, '55%'),
-                                             (10, '50%'),
-                                             (11, '45%'),
-                                             (12, '40%'),
+                                              (1, '95%'),
+                                              (2, '90%'),
+                                              (3, '85%'),
+                                              (4, '80%'),
+                                              (5, '75%'),
+                                              (6, '70%'),
+                                              (7, '65%'),
+                                              (8, '60%'),
+                                              (9, '55%'),
+                                              (10, '50%'),
+                                              (11, '45%'),
+                                              (12, '40%'),
                                             ],
                           }]},
        'set_response': {'items': []},
@@ -1082,7 +1082,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Scale the output power of by a preset percentage. Each increment reduces output power by 5%, down to a minimum value of 40%. See the manual for more details on output voltage.',
        'value': 0x8088},
 
-      #DMX_TERM_MODE
+      # DMX_TERM_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -1096,11 +1096,11 @@ MANUFACTURER_PIDS = [
     ]
   },
 
-  #MDG Fog Generators Ltd
+  # MDG Fog Generators Ltd
   {'id': 0x4d44,
    'name': u"MDG Fog Generators Ltd.",
    'pids': [
-      #MDG_NETWORK_UNIVERSE_NUMBER
+      # MDG_NETWORK_UNIVERSE_NUMBER
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
        'get_sub_device_range': 0,
@@ -1111,7 +1111,7 @@ MANUFACTURER_PIDS = [
        'notes': '',
        'value': 0x8000},
 
-      #MDG_NETWORK_UNIVERSE_NAME
+      # MDG_NETWORK_UNIVERSE_NAME
       {'get_request': {'items': []},
         'get_response': {'items': [{'name': 'universe_name',
                                     'max_size': 32,
@@ -1125,7 +1125,7 @@ MANUFACTURER_PIDS = [
         'set_sub_device_range': 0,
         'value': 0x8001},
 
-      #MDG_GENERATOR_STATE
+      # MDG_GENERATOR_STATE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'generator_state',
                                    'type': 'string',
@@ -1136,12 +1136,12 @@ MANUFACTURER_PIDS = [
         'value': 0x8002},
     ]
   },
-  #Martin Professional
+  # Martin Professional
   {'id': 0x4d50,
    'name': 'Martin Professional A/S',
    'pids': [
 
-      #DMX_LAMP_OFF_ENABLE
+      # DMX_LAMP_OFF_ENABLE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
@@ -1152,21 +1152,21 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls if the fixture will accept a lamp on/off command via the DMX protocol',
        'value': 0x8000},
 
-      #DMX_RESET_ENABLE
+      # DMX_RESET_ENABLE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'reset_mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Off'),
-                                             (1, 'On'),
-                                             (2, '5 second delay')],
+                                              (1, 'On'),
+                                              (2, '5 second delay')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'DMX_RESET_ENABLE',
        'set_request': {'items': [{'name': 'reset_mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Off'),
-                                            (1, 'On'),
-                                            (2, '5 second delay')],
+                                             (1, 'On'),
+                                             (2, '5 second delay')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1208,16 +1208,16 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Single Fixture'),
-                                             (1, 'Master Fixture'),
-                                             (2, 'Syncronized fixture')],
+                                              (1, 'Master Fixture'),
+                                              (2, 'Synchronized fixture')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'SYNCHRONIZED',
-       'set_request': {'items': [{'name': 'sycronization_mode',
+       'set_request': {'items': [{'name': 'synchronization_mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Single Fixture'),
-                                            (1, 'Master Fixture'),
-                                            (2, 'Syncronized fixture')],
+                                             (1, 'Master Fixture'),
+                                             (2, 'Synchronized fixture')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1231,26 +1231,26 @@ MANUFACTURER_PIDS = [
        'set_request': {'items': [{'name': 'auto_program_enabled', 'type': 'bool'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
-       'notes': ('Enable auto play for stand alone mode when power is applied.'
-                 ' This requires STAND_ALONE_OPERATION_ENABLE to be on.'),
+       'notes': ('Enable auto play for stand alone mode when power is applied. '
+                 'This requires STAND_ALONE_OPERATION_ENABLE to be on.'),
        'value': 0x8102},
 
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'timer_settings',
                                    'type': 'uint8',
                                    'labels': [(0, 'No timers enabled'),
-                                             (1, 'Timer 1 enabled'),
-                                             (2, 'Timer 2 enabled'),
-                                             (3, 'Timer 1 & Timer 2 enabled')],
+                                              (1, 'Timer 1 enabled'),
+                                              (2, 'Timer 2 enabled'),
+                                              (3, 'Timer 1 & Timer 2 enabled')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'ENABLE_TIMERS',
        'set_request': {'items': [{'name': 'timer_settings',
                                   'type': 'uint8',
                                   'labels': [(0, 'No timers enabled'),
-                                            (1, 'Timer 1 enabled'),
-                                            (2, 'Timer 2 enabled'),
-                                            (3, 'Timer 1 & Timer 2 enabled')],
+                                             (1, 'Timer 1 enabled'),
+                                             (2, 'Timer 2 enabled'),
+                                             (3, 'Timer 1 & Timer 2 enabled')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1608,36 +1608,36 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'color_wheel',
                                    'type': 'uint8',
                                    'labels': [(0, 'Random colors off'),
-                                             (1, 'CMY slow'),
-                                             (2, 'CMY medium'),
-                                             (3, 'CMY fast'),
-                                             (4, 'Magenta/Yellow slow'),
-                                             (5, 'Magenta/Yellow medium'),
-                                             #(4, 'Magenta/Yellow fast'),
-                                             (6, 'Cyan/Magenta slow'),
-                                             (7, 'Cyan/Magenta medium'),
-                                             (8, 'Cyan/Magenta fast'),
-                                             (9, 'Cyan/Yellow slow'),
-                                             (10, 'Cyan/Yellow medium'),
-                                             (11, 'Cyan/Yellow fast')],
+                                              (1, 'CMY slow'),
+                                              (2, 'CMY medium'),
+                                              (3, 'CMY fast'),
+                                              (4, 'Magenta/Yellow slow'),
+                                              (5, 'Magenta/Yellow medium'),
+                                              # (?, 'Magenta/Yellow fast'),
+                                              (6, 'Cyan/Magenta slow'),
+                                              (7, 'Cyan/Magenta medium'),
+                                              (8, 'Cyan/Magenta fast'),
+                                              (9, 'Cyan/Yellow slow'),
+                                              (10, 'Cyan/Yellow medium'),
+                                              (11, 'Cyan/Yellow fast')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'SCENE_RANDOM_COLOR',
        'set_request': {'items': [{'name': 'color_wheel',
                                   'type': 'uint8',
                                   'labels': [(0, 'Random colors off'),
-                                            (1, 'CMY slow'),
-                                            (2, 'CMY medium'),
-                                            (3, 'CMY fast'),
-                                            (4, 'Magenta/Yellow slow'),
-                                            (5, 'Magenta/Yellow medium'),
-                                            #(4, 'Magenta/Yellow fast'),
-                                            (6, 'Cyan/Magenta slow'),
-                                            (7, 'Cyan/Magenta medium'),
-                                            (8, 'Cyan/Magenta fast'),
-                                            (9, 'Cyan/Yellow slow'),
-                                            (10, 'Cyan/Yellow medium'),
-                                            (11, 'Cyan/Yellow fast')],
+                                             (1, 'CMY slow'),
+                                             (2, 'CMY medium'),
+                                             (3, 'CMY fast'),
+                                             (4, 'Magenta/Yellow slow'),
+                                             (5, 'Magenta/Yellow medium'),
+                                             # (?, 'Magenta/Yellow fast'),
+                                             (6, 'Cyan/Magenta slow'),
+                                             (7, 'Cyan/Magenta medium'),
+                                             (8, 'Cyan/Magenta fast'),
+                                             (9, 'Cyan/Yellow slow'),
+                                             (10, 'Cyan/Yellow medium'),
+                                             (11, 'Cyan/Yellow fast')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1648,22 +1648,22 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'color_wheel',
                                    'type': 'uint8',
                                    'labels': [(0, 'White (Open)'),
-                                             (1, 'Color 1'),
-                                             (2, 'Color 2'),
-                                             (3, 'Color 3'),
-                                             (4, 'Color 4'),
-                                             (5, 'Color 5')],
+                                              (1, 'Color 1'),
+                                              (2, 'Color 2'),
+                                              (3, 'Color 3'),
+                                              (4, 'Color 4'),
+                                              (5, 'Color 5')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'SCENE_COLOR_WHEEL',
        'set_request': {'items': [{'name': 'color_wheel',
                                   'type': 'uint8',
                                   'labels': [(0, 'White (Open)'),
-                                            (1, 'Color 1'),
-                                            (2, 'Color 2'),
-                                            (3, 'Color 3'),
-                                            (4, 'Color 4'),
-                                            (5, 'Color 5')],
+                                             (1, 'Color 1'),
+                                             (2, 'Color 2'),
+                                             (3, 'Color 3'),
+                                             (4, 'Color 4'),
+                                             (5, 'Color 5')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1674,24 +1674,24 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'gobo_wheel',
                                    'type': 'uint8',
                                    'labels': [(0, 'White (Open)'),
-                                             (1, 'Gobo 1'),
-                                             (2, 'Gobo 2'),
-                                             (3, 'Gobo 3'),
-                                             (4, 'Gobo 1 rotation'),
-                                             (5, 'Gobo 2 rotation'),
-                                             (6, 'Gobo 3 rotation')],
+                                              (1, 'Gobo 1'),
+                                              (2, 'Gobo 2'),
+                                              (3, 'Gobo 3'),
+                                              (4, 'Gobo 1 rotation'),
+                                              (5, 'Gobo 2 rotation'),
+                                              (6, 'Gobo 3 rotation')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'SCENE_GOBO_SELECTION',
        'set_request': {'items': [{'name': 'gobo_wheel',
                                   'type': 'uint8',
                                   'labels': [(0, 'White (Open)'),
-                                            (1, 'Gobo 1'),
-                                            (2, 'Gobo 2'),
-                                            (3, 'Gobo 3'),
-                                            (4, 'Gobo 1 rotation'),
-                                            (5, 'Gobo 2 rotation'),
-                                            (6, 'Gobo 3 rotation')],
+                                             (1, 'Gobo 1'),
+                                             (2, 'Gobo 2'),
+                                             (3, 'Gobo 3'),
+                                             (4, 'Gobo 1 rotation'),
+                                             (5, 'Gobo 2 rotation'),
+                                             (6, 'Gobo 3 rotation')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1731,7 +1731,7 @@ MANUFACTURER_PIDS = [
       {'name': 'SCENE_GET_DMX',
        'set_request': {'items': [{'name': 'capture_dmx', 'type': 'uint8',
                                   'labels': [(0, 'Add to the end of the scene list'),
-                                            (1, 'Insert before the current scene')],
+                                             (1, 'Insert before the current scene')],
                                 }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1762,20 +1762,20 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'effect_speed',
                                    'type': 'uint8',
                                    'labels': [(0, 'Follow pan/tilt speed'),
-                                             (1, 'Normal Speed'),
-                                             (2, 'Fast Speed'),
-                                             (3, 'Slow Speed'),
-                                             (4, 'Safe Speed')],
+                                              (1, 'Normal Speed'),
+                                              (2, 'Fast Speed'),
+                                              (3, 'Slow Speed'),
+                                              (4, 'Safe Speed')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'EFFECT_SPEED',
        'set_request': {'items': [{'name': 'effect_speed',
                                   'type': 'uint8',
                                   'labels': [(0, 'Follow pan/tilt speed'),
-                                            (1, 'Normal Speed'),
-                                            (2, 'Fast Speed'),
-                                            (3, 'Slow Speed'),
-                                            (4, 'Safe Speed')],
+                                             (1, 'Normal Speed'),
+                                             (2, 'Fast Speed'),
+                                             (3, 'Slow Speed'),
+                                             (4, 'Safe Speed')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1911,14 +1911,14 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'tracking_mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Absolute delta value algorithm'),
-                                             (1, 'Real delta value algorithm')],
+                                              (1, 'Real delta value algorithm')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'TRACKING_MODE',
        'set_request': {'items': [{'name': 'tracking_mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Absolute delta value algorithm'),
-                                            (1, 'Real delta value algorithm')],
+                                             (1, 'Real delta value algorithm')],
                                 }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1946,9 +1946,9 @@ MANUFACTURER_PIDS = [
                                    'type': 'uint8',
                                    'range': [(0, 255)],
                                    'labels': [(0, 'Optical linear'),
-                                             (1, 'Square law'),
-                                             (2, 'Inverse square law'),
-                                             (3, 'S-curve')],
+                                              (1, 'Square law'),
+                                              (2, 'Inverse square law'),
+                                              (3, 'S-curve')],
                                  }]},
        'get_sub_device_range': 0,
        'name': 'DIMMER_CURVE',
@@ -1956,9 +1956,9 @@ MANUFACTURER_PIDS = [
                                   'type': 'uint8',
                                   'range': [(0, 255)],
                                   'labels': [(0, 'Optical linear'),
-                                            (1, 'Square law'),
-                                            (2, 'Inverse square law'),
-                                            (3, 'S-curve')],
+                                             (1, 'Square law'),
+                                             (2, 'Inverse square law'),
+                                             (3, 'S-curve')],
                                  }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1969,18 +1969,18 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'focus_tracking',
                                    'type': 'uint8',
                                    'labels': [(0, 'Focus tracking off'),
-                                             (1, 'Focus tracking range is near'),
-                                             (2, 'Focus tracking range is medium'),
-                                             (3, 'Focus tracking range is far')],
+                                              (1, 'Focus tracking range is near'),
+                                              (2, 'Focus tracking range is medium'),
+                                              (3, 'Focus tracking range is far')],
                                  }]},
        'get_sub_device_range': 0,
        'name': 'FOCUS_TRACKING',
        'set_request': {'items': [{'name': 'focus_tracking',
                                   'type': 'uint8',
                                   'labels': [(0, 'Focus tracking off'),
-                                            (1, 'Focus tracking range is near'),
-                                            (2, 'Focus tracking range is medium'),
-                                            (3, 'Focus tracking range is far')],
+                                             (1, 'Focus tracking range is near'),
+                                             (2, 'Focus tracking range is medium'),
+                                             (3, 'Focus tracking range is far')],
                                  }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1992,9 +1992,9 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'display_auto_off',
                                    'type': 'uint8',
                                    'labels': [(0, 'Display is always on'),
-                                             (1, 'Display off after 2 minutes'),
-                                             (2, 'Display off after 5 minutes'),
-                                             (3, 'Display off after 10 minutes')],
+                                              (1, 'Display off after 2 minutes'),
+                                              (2, 'Display off after 5 minutes'),
+                                              (3, 'Display off after 10 minutes')],
                                  }]},
        'get_sub_device_range': 0,
        'name': 'DISPLAY_AUTO_OFF',
@@ -2087,16 +2087,16 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'studio_mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Disabled'),
-                                             (1, 'Enabled'),
-                                             (2, 'Silent Mode')],
+                                              (1, 'Enabled'),
+                                              (2, 'Silent Mode')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'STUDIO_MODE',
        'set_request': {'items': [{'name': 'studio_mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Disabled'),
-                                            (1, 'Enabled'),
-                                            (2, 'Silent Mode')],
+                                             (1, 'Enabled'),
+                                             (2, 'Silent Mode')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2107,16 +2107,16 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'block_temperature_setting',
                                    'type': 'uint8',
                                    'labels': [(0, 'Low'),
-                                             (1, 'Normal'),
-                                             (2, 'High')],
+                                              (1, 'Normal'),
+                                              (2, 'High')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'BLOCK_TEMP_SETTING',
        'set_request': {'items': [{'name': 'block_temperature_setting',
                                   'type': 'uint8',
                                   'labels': [(0, 'Low'),
-                                            (1, 'Normal'),
-                                            (2, 'High')],
+                                             (1, 'Normal'),
+                                             (2, 'High')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2124,57 +2124,57 @@ MANUFACTURER_PIDS = [
        'value': 0x831a},
 
       { 'get_request': { 'items': []},
-        'get_response': { 'items': [ { 'labels': [ (0L, 'Position Off'),
-                                                   (1L, 'Position 1'),
-                                                   (2L, 'Position 2'),
-                                                   (3L, 'Position 3'),
-                                                   (4L, 'Position 4'),
-                                                   (5L, 'Position 5'),
-                                                   (6L, 'Position 6'),
-                                                   (7L, 'Position 7'),
-                                                   (8L, 'Position 8')],
+        'get_response': { 'items': [ { 'labels': [ (0, 'Position Off'),
+                                                   (1, 'Position 1'),
+                                                   (2, 'Position 2'),
+                                                   (3, 'Position 3'),
+                                                   (4, 'Position 4'),
+                                                   (5, 'Position 5'),
+                                                   (6, 'Position 6'),
+                                                   (7, 'Position 7'),
+                                                   (8, 'Position 8')],
                                        'name': 'gobo3_animation_start',
                                        'type': 'uint8'}]},
         'get_sub_device_range': 0,
         'name': 'GOBO3_ANIMATION_START',
-        'set_request': { 'items': [ { 'labels': [ (0L, 'Position Off'),
-                                                  (1L, 'Position 1'),
-                                                  (2L, 'Position 2'),
-                                                  (3L, 'Position 3'),
-                                                  (4L, 'Position 4'),
-                                                  (5L, 'Position 5'),
-                                                  (6L, 'Position 6'),
-                                                  (7L, 'Position 7'),
-                                                  (8L, 'Position 8')],
+        'set_request': { 'items': [ { 'labels': [ (0, 'Position Off'),
+                                                  (1, 'Position 1'),
+                                                  (2, 'Position 2'),
+                                                  (3, 'Position 3'),
+                                                  (4, 'Position 4'),
+                                                  (5, 'Position 5'),
+                                                  (6, 'Position 6'),
+                                                  (7, 'Position 7'),
+                                                  (8, 'Position 8')],
                                       'name': 'gobo3_animation_start',
                                       'type': 'uint8'}]},
         'set_response': { 'items': []},
         'set_sub_device_range': 0,
         'value': 33567},
       { 'get_request': { 'items': []},
-        'get_response': { 'items': [ { 'labels': [ (0L, 'Position Off'),
-                                                   (1L, 'Position 1'),
-                                                   (2L, 'Position 2'),
-                                                   (3L, 'Position 3'),
-                                                   (4L, 'Position 4'),
-                                                   (5L, 'Position 5'),
-                                                   (6L, 'Position 6'),
-                                                   (7L, 'Position 7'),
-                                                   (8L, 'Position 8'),
-                                                   (9L, 'Position 9')],
+        'get_response': { 'items': [ { 'labels': [ (0, 'Position Off'),
+                                                   (1, 'Position 1'),
+                                                   (2, 'Position 2'),
+                                                   (3, 'Position 3'),
+                                                   (4, 'Position 4'),
+                                                   (5, 'Position 5'),
+                                                   (6, 'Position 6'),
+                                                   (7, 'Position 7'),
+                                                   (8, 'Position 8'),
+                                                   (9, 'Position 9')],
                                        'name': 'gobo3_animation_end',
                                        'type': 'uint8'}]},
         'get_sub_device_range': 0,
         'name': 'GOBO3_ANIMATION_END',
-        'set_request': { 'items': [ { 'labels': [ (0L, 'Position Off'),
-                                                  (1L, 'Position 1'),
-                                                  (2L, 'Position 2'),
-                                                  (3L, 'Position 3'),
-                                                  (4L, 'Position 4'),
-                                                  (5L, 'Position 5'),
-                                                  (6L, 'Position 6'),
-                                                  (7L, 'Position 7'),
-                                                  (8L, 'Position 8')],
+        'set_request': { 'items': [ { 'labels': [ (0, 'Position Off'),
+                                                  (1, 'Position 1'),
+                                                  (2, 'Position 2'),
+                                                  (3, 'Position 3'),
+                                                  (4, 'Position 4'),
+                                                  (5, 'Position 5'),
+                                                  (6, 'Position 6'),
+                                                  (7, 'Position 7'),
+                                                  (8, 'Position 8')],
                                       'name': 'gobo3_animation_start',
                                       'type': 'uint8'}]},
         'set_response': { 'items': []},
@@ -2185,16 +2185,16 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Normal'),
-                                             (1, 'Fast'),
-                                             (2, 'Slow')],
+                                              (1, 'Fast'),
+                                              (2, 'Slow')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'PAN_TILT_SPEED',
        'set_request': {'items': [{'name': 'mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Normal'),
-                                            (1, 'Fast'),
-                                            (2, 'Slow')],
+                                             (1, 'Fast'),
+                                             (2, 'Slow')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2265,14 +2265,14 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Inside limits'),
-                                             (1, 'Outside limits')],
+                                              (1, 'Outside limits')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'PAN_TILT_LIMITATION_AREA',
        'set_request': {'items': [{'name': 'mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Inside limits'),
-                                            (1, 'Outside limits')],
+                                             (1, 'Outside limits')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2335,7 +2335,7 @@ MANUFACTURER_PIDS = [
 #       'set_response': {'items': []},
 #       'set_sub_device_range': 0,
 #       'notes': 'Get or set the general settings for a node.',
-#       'value': 0x8601},
+#       'value': },
 
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'regulate_fan_speed', 'type': 'bool'}]},
@@ -2361,14 +2361,14 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'cooling_level',
                                    'type': 'uint8',
                                    'labels': [(0, '50%'),
-                                             (1, '80%')],
+                                              (1, '80%')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'LAMP_COOLING',
        'set_request': {'items': [{'name': 'cooling_level',
                                   'type': 'uint8',
                                   'labels': [(0, '50%'),
-                                            (1, '80%')],
+                                             (1, '80%')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2379,16 +2379,16 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'fan_clean_mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Off'),
-                                             (1, 'Auto'),
-                                             (2, 'Forced')],
+                                              (1, 'Auto'),
+                                              (2, 'Forced')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'FAN_CLEAN',
        'set_request': {'items': [{'name': 'fan_clean_mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Off'),
-                                            (1, 'Auto'),
-                                            (2, 'Forced')],
+                                             (1, 'Auto'),
+                                             (2, 'Forced')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2399,18 +2399,18 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'fan_mode',
                                    'type': 'uint8',
                                    'labels': [(0, 'Normal'),
-                                             (1, 'Silent'),
-                                             (2, 'Full'),
-                                             (3, 'Regulated')],
+                                              (1, 'Silent'),
+                                              (2, 'Full'),
+                                              (3, 'Regulated')],
                                   }]},
        'get_sub_device_range': 0,
        'name': 'FAN_MODE',
        'set_request': {'items': [{'name': 'fan_mode',
                                   'type': 'uint8',
                                   'labels': [(0, 'Normal'),
-                                            (1, 'Silent'),
-                                            (2, 'Full'),
-                                            (3, 'Regulated')],
+                                             (1, 'Silent'),
+                                             (2, 'Full'),
+                                             (3, 'Regulated')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2419,7 +2419,7 @@ MANUFACTURER_PIDS = [
 
       {'name': 'SERIAL_NUMBER',
        'get_request': {'items': []},
-       'get_response': {'items': [{'name': 'serial', 'type': 'string', 'max_size': 32,}]},
+       'get_response': {'items': [{'name': 'serial', 'type': 'string', 'max_size': 32}]},
        'get_sub_device_range': 0,
        'notes': 'Get the serial number for the device.',
        'value': 0x8700},
@@ -2725,15 +2725,12 @@ MANUFACTURER_PIDS = [
                 'get_response': { 'items': [ { 'labels': [ (0, 'Receiver'),
                                                            (1, 'Transmitter G3'),
                                                            (2, 'Not used'),
-                                                           ( 3,
-                                                             'Transmitter G4 Compatibility mode'),
+                                                           (3, 'Transmitter G4 Compatibility mode'),
                                                            (4, 'Not used'),
                                                            (5, 'Transmitter G4S 2.4Ghz'),
                                                            (6, 'Transmitter G4S 5.8Ghz'),
-                                                           ( 7,
-                                                             'Transmitter G4S 2.4Ghz Repeater mode'),
-                                                           ( 8,
-                                                             'Transmitter G4S 5.8Ghz Repeater mode')],
+                                                           (7, 'Transmitter G4S 2.4Ghz Repeater mode'),
+                                                           (8, 'Transmitter G4S 5.8Ghz Repeater mode')],
                                                'name': 'Radio Mode',
                                                'type': 'uint8'}]},
                 'get_sub_device_range': 0,
@@ -2741,15 +2738,12 @@ MANUFACTURER_PIDS = [
                 'set_request': { 'items': [ { 'labels': [ (0, 'Receiver'),
                                                           (1, 'Transmitter G3'),
                                                           (2, 'Not used'),
-                                                          ( 3,
-                                                            'Transmitter G4 Compatibility mode'),
+                                                          (3, 'Transmitter G4 Compatibility mode'),
                                                           (4, 'Not used'),
                                                           (5, 'Transmitter G4S 2.4Ghz'),
                                                           (6, 'Transmitter G4S 5.8Ghz'),
-                                                          ( 7,
-                                                            'Transmitter G4S 2.4Ghz Repeater mode'),
-                                                          ( 8,
-                                                            'Transmitter G4S 5.8Ghz Repeater mode')],
+                                                          (7, 'Transmitter G4S 2.4Ghz Repeater mode'),
+                                                          (8, 'Transmitter G4S 5.8Ghz Repeater mode')],
                                               'name': 'Radio Mode',
                                               'type': 'uint8'}]},
                 'set_response': { 'items': []},
@@ -2827,7 +2821,7 @@ MANUFACTURER_PIDS = [
   {'id': 0x7a70,
    'name': 'Open Lighting',
    'pids': [
-      #SERIAL_NUMBER
+      # SERIAL_NUMBER
       {'name': 'SERIAL_NUMBER',
        'set_request': {'items': [{'name': 'serial_number', 'type': 'uint32'}]},
        'set_response': {'items': []},
@@ -2836,7 +2830,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Sets the serial number (UID) of the device.',
        'value': 0x8000},
 
-      #CODE_VERSION
+      # CODE_VERSION
       {'name': 'CODE_VERSION',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'code_version',
@@ -2847,7 +2841,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Gets the current version of the OLA code that is running.',
        'value': 0x8001},
 
-      #MODEL_ID
+      # MODEL_ID
       {'name': 'MODEL_ID',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
@@ -2859,7 +2853,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls which model ID to use',
        'value': 0x8002},
 
-      #MODEL_ID_LIST
+      # MODEL_ID_LIST
       {'name': 'MODEL_ID_LIST',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'models',
@@ -2871,7 +2865,7 @@ MANUFACTURER_PIDS = [
        'notes': 'The list of available model IDs',
        'value': 0x8003},
 
-      #PIXEL_TYPE
+      # PIXEL_TYPE
       {'name': 'PIXEL_TYPE',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'pixel_type', 'type': 'uint16',
@@ -2887,7 +2881,7 @@ MANUFACTURER_PIDS = [
        'notes': 'The type of pixel used',
        'value': 0x8005},
 
-      #PIXEL_COUNT
+      # PIXEL_COUNT
       {'name': 'PIXEL_COUNT',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'pixel_count', 'type': 'uint16'}]},
@@ -2904,7 +2898,7 @@ MANUFACTURER_PIDS = [
   {'id': 0x2dc8,
    'name': 'Stellascapes',
    'pids': [
-      #MODEL_ID
+      # MODEL_ID
       {'name': 'MODEL_ID',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'model_id', 'type': 'uint16'}]},
@@ -2916,7 +2910,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls which model ID to use',
        'value': 0x8002},
 
-      #MODEL_ID_LIST
+      # MODEL_ID_LIST
       {'name': 'MODEL_ID_LIST',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'models',
@@ -2928,7 +2922,7 @@ MANUFACTURER_PIDS = [
        'notes': 'The list of available model IDs',
        'value': 0x8003},
 
-      #PIXEL_TYPE
+      # PIXEL_TYPE
       {'name': 'PIXEL_TYPE',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'pixel_type', 'type': 'uint16',
@@ -2944,7 +2938,7 @@ MANUFACTURER_PIDS = [
        'notes': 'The type of pixel used',
        'value': 0x8005},
 
-      #PIXEL_COUNT
+      # PIXEL_COUNT
       {'name': 'PIXEL_COUNT',
        'get_request': {'items': []},
        'get_response': {'items': [{'name': 'pixel_count', 'type': 'uint16'}]},
@@ -2962,14 +2956,16 @@ MANUFACTURER_PIDS = [
    'name': 'Soundlight',
    'pids': [
 
-      #DMX_HOLD_MODE
+      # DMX_HOLD_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'mode', 'type': 'uint8'}]},
        'get_sub_device_range': 2,
        'name': 'DMX_HOLD_MODE',
        'set_request': {'items': [{'name': 'mode', 'type': 'uint8', 'labels': [
-                          (0, 'Outputs to 0%'), (1, 'Output to 100%'),
-                          (2, 'Hold'), (3, 'Go to predefined scene')],
+                          (0, 'Outputs to 0%'),
+                          (1, 'Output to 100%'),
+                          (2, 'Hold'),
+                          (3, 'Go to predefined scene')],
                         }]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
@@ -2977,7 +2973,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls the behavior of the device when the signal fails.',
        'value': 0x80f1},
 
-     #SLOT_LABELS
+     # SLOT_LABELS
      {'get_request': {'items': [{'name': 'slot_number', 'type': 'uint16'}]},
       'get_response': {'items': [{'name': 'slot_number', 'type': 'uint16'},
                                  {'name': 'name', 'max_size': 16, 'type': 'string'}]},
@@ -2991,7 +2987,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Sets the description (label) for a DMX512 slot.',
        'value': 0x8121},
 
-     #MODIFY_SENSOR_DEFINITION
+     # MODIFY_SENSOR_DEFINITION
      {'get_request': {'items': [{'name': 'sensor_number', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'sensor_number', 'type': 'uint8'},
                                   {'name': 'type', 'type': 'uint8'},
@@ -3027,7 +3023,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Used for setting a sensor definition for devices with variable sensor input. The SENSOR_DEFINITION PID in the E1.20 standard can read a sensor standard definition only, but not set.',
        'value': 0x8200},
 
-      #DC_CALIBRATION
+      # DC_CALIBRATION
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'scale_value', 'type': 'uint8'}]},
        'get_sub_device_range': 2,
@@ -3039,7 +3035,7 @@ MANUFACTURER_PIDS = [
        'notes': 'With the parameters, the outputs can be scaled to the desired maximum value',
        'value': 0xdcca},
 
-      #NETWORK_ADDRESS
+      # NETWORK_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'ip_address', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
@@ -3051,7 +3047,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get / Set the IP Address',
        'value': 0x8801},
 
-      #NETWORK_MASK
+      # NETWORK_MASK
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'net_mask', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
@@ -3063,7 +3059,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get / Set the subnet mask',
        'value': 0x8802},
 
-      #GATEWAY_ADDRESS
+      # GATEWAY_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'gateway_address', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
@@ -3075,7 +3071,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get / Set the address of the default gateway.',
        'value': 0x8803},
 
-      #DNS_ADDRESS
+      # DNS_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'dns_address', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
@@ -3087,7 +3083,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get / Set the address of the DNS server.',
        'value': 0x8804},
 
-      #DC_OFFSET
+      # DC_OFFSET
       {'get_request': {'items': []},
        'get_response': {'items': [{'type': 'group',
                                    'name': 'dc_offsets',
@@ -3105,7 +3101,7 @@ MANUFACTURER_PIDS = [
        'notes': 'With the parameters, the offset adjustment of the outputs are set to the desired value. It is transmitted as many values as outputs must be set. The number is determined by the parameters length (PDL).  The offset input is especially useful when driving LEDs with a different starting point',
        'value': 0xdc0e},
 
-      #DC_FADER_OFFSET
+      # DC_FADER_OFFSET
       {'name': 'DC_FADER_OFFSET',
         'set_request': {'items': [{'type': 'group',
                                    'name': 'offsets',
@@ -3114,10 +3110,10 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.soundlight.de/techtips/dmx512/slh_rdm_commands.htm',
-       'notes': 'With the parameters, the offset adjustment of the outputs are set to the desired value. The values are collected directly from the DMX input (the last valid zero weather package). There are are as many values as outputs must be set. The acquisition is initiated by the command. A reading is possible with the function DC_OFFSET. ',
+       'notes': 'With the parameters, the offset adjustment of the outputs are set to the desired value. The values are collected directly from the DMX input (the last valid zero-start packet). There are as many values as outputs must be set. The acquisition is initiated by the command. A reading is possible with the function DC_OFFSET. ',
        'value': 0xdc0f},
 
-      #CURVE_DEFINITION
+      # CURVE_DEFINITION
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'curve_number', 'type': 'uint8'},
@@ -3162,7 +3158,7 @@ MANUFACTURER_PIDS = [
    'name': 'Lumen Radio',
    'pids': [
 
-      #FULL_DISCOVERY
+      # FULL_DISCOVERY
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'enabled', 'type': 'bool'}
@@ -3174,9 +3170,10 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 0,
        'notes': 'Starts full RDM discovery.',
        'value': 0x8000},
+
       # 0x8001 exists but we can't get a description for it
 
-      #OUTPUT_DEFAULT_VALUE
+      # OUTPUT_DEFAULT_VALUE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'dmx_level', 'type': 'uint8'}
@@ -3189,7 +3186,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Sets the output level to use when there is no DMX signal',
        'value': 0x8002},
 
-      #DALI_FADE_TIME
+      # DALI_FADE_TIME
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'fade_time', 'type': 'uint8'}
@@ -3202,7 +3199,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Sets the DALI fade time.',
        'value': 0x8003},
 
-      #INCREMENTAL_DISCOVERY_INTERVAL
+      # INCREMENTAL_DISCOVERY_INTERVAL
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'interval', 'type': 'uint16',
@@ -3219,7 +3216,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls the frequency at which incremental discovery runs.',
        'value': 0x8101},
 
-      #ACK_TIMER_FACTOR
+      # ACK_TIMER_FACTOR
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'timer_factor', 'type': 'uint16'}
@@ -3300,30 +3297,30 @@ MANUFACTURER_PIDS = [
    'name': 'ETC',
    'pids': [
 
-      #ETC_LED_CURVE
+      # ETC_LED_CURVE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'curve_setting',
                            'type': 'uint8',
                            'labels': [(0, 'Standard'),
-                                     (1, 'Incandescent'),
-                                     (2, 'Linear Response'),
-                                     (3, 'Quick Curve (No Smoothing)')],
+                                      (1, 'Incandescent'),
+                                      (2, 'Linear Response'),
+                                      (3, 'Quick Curve (No Smoothing)')],
                         }]},
        'get_sub_device_range': 2,
        'name': 'ETC_LED_CURVE',
        'set_request': {'items': [{'name': 'curve_setting', 'type': 'uint8',
                                   'labels': [(0, 'Standard'),
-                                            (1, 'Incandescent'),
-                                            (2, 'Linear Response'),
-                                            (3, 'Quick Curve (No Smoothing)')],
+                                             (1, 'Incandescent'),
+                                             (2, 'Linear Response'),
+                                             (3, 'Quick Curve (No Smoothing)')],
                                  }]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'notes': 'Get or Set the LED response curve.',
        'value': 0x8101},
 
-      #ETC_LED_CURVE_DESCRIPTION
+      # ETC_LED_CURVE_DESCRIPTION
       {'get_request': {'items': [{'name': 'curve', 'type': 'uint8',}]},
        'get_response': {'items': [{'name': 'curve_number', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3333,7 +3330,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the text description for a LED response curve.',
        'value': 0x8102},
 
-      #ETC_LED_STROBE
+      # ETC_LED_STROBE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'strobe_enabled', 'type': 'bool'}]},
        'get_sub_device_range': 2,
@@ -3344,14 +3341,14 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable/Disable the strobe feature.',
        'value': 0x8103},
 
-      #ETC_LED_OUTPUT_MODE
+      # ETC_LED_OUTPUT_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'output_mode',
                            'type': 'uint8',
                            'labels': [(0, 'Regulated mode, droop com, LEDs dim at high temps'),
-                                     (1, 'Boost mode, no droop comp, LEDs dim at high temps'),
-                                     (2, 'Protected mode, LEDs are always dim to prevent overtemp.')],
+                                      (1, 'Boost mode, no droop comp, LEDs dim at high temps'),
+                                      (2, 'Protected mode, LEDs are always dim to prevent overtemp.')],
                         }]},
        'get_sub_device_range': 2,
        'name': 'ETC_LED_OUTPUT_MODE',
@@ -3363,7 +3360,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get or Set the LED Output Mode',
        'value': 0x8104},
 
-      #ETC_LED_OUTPUT_DESCRIPTION
+      # ETC_LED_OUTPUT_DESCRIPTION
       {'get_request': {'items': [{'name': 'output_mode', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'output_mode', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3373,7 +3370,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the text description for a LED output mode.',
        'value': 0x8105},
 
-      #ETC_LED_RED_SHIFT
+      # ETC_LED_RED_SHIFT
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'red_shift_enabled', 'type': 'bool'}]},
        'get_sub_device_range': 2,
@@ -3384,7 +3381,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable/Disable the Red Shift Effect.',
        'value': 0x8106},
 
-      #ETC_LED_WHITE_POINT
+      # ETC_LED_WHITE_POINT
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'white_point', 'type': 'uint8',
                                    'labels': [(0, '2950K'), (1, '3200K'), (2, '5600K'), (3, '6500K')],
@@ -3399,7 +3396,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get or Set the white point',
        'value': 0x8107},
 
-      #ETC_LED_WHITE_POINT_DESCRIPTION
+      # ETC_LED_WHITE_POINT_DESCRIPTION
       {'get_request': {'items': [{'name': 'white_point', 'type': 'uint8',}]},
        'get_response': {'items': [{'name': 'white_point', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3409,7 +3406,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the text description for a given white point.',
        'value': 0x8108},
 
-      #ETC_LED_FREQUENCY
+      # ETC_LED_FREQUENCY
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'frequency', 'type': 'uint16'}]},
        'get_sub_device_range': 2,
@@ -3420,7 +3417,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get or Set the LED output frequency',
        'value': 0x8109},
 
-      #ETC_DMX_LOSS_BEHAVIOR
+      # ETC_DMX_LOSS_BEHAVIOR
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'loss_behavior', 'type': 'uint8',
                                    'labels': [(0, 'Instant go dark.'), (1, 'Hold for 2 mins'), (2, 'Hold forever')],
@@ -3435,7 +3432,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Control the behavior when the DMX512 signal is lost.',
        'value': 0x810a},
 
-      #ETC_DMX_LOSS_BEHAVIOR_DESCRIPTION
+      # ETC_DMX_LOSS_BEHAVIOR_DESCRIPTION
       {'get_request': {'items': [{'name': 'loss_behavior', 'type': 'uint8',}]},
        'get_response': {'items': [{'name': 'loss_behavior', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3445,7 +3442,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the text description for a DMX512 loss mode.',
        'value': 0x810b},
 
-      #ETC_LED_PLUS_SEVEN
+      # ETC_LED_PLUS_SEVEN
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'plus_seven_enabled', 'type': 'bool'}]},
        'get_sub_device_range': 2,
@@ -3456,7 +3453,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable/Disable the Plus Seven Control.',
        'value': 0x810c},
 
-      #ETC_BACKLIGHT_BRIGHTNESS
+      # ETC_BACKLIGHT_BRIGHTNESS
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'backlight_brightness', 'type': 'uint8'}]},
        'get_sub_device_range': 2,
@@ -3467,26 +3464,26 @@ MANUFACTURER_PIDS = [
        'notes': 'Control the brightness of the LCD backlight.',
        'value': 0x810d},
 
-      #ETC_BACKLIGHT_TIMEOUT
+      # ETC_BACKLIGHT_TIMEOUT
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'backlight_timeout', 'type': 'uint8',
                                    'labels': [(0, 'Never'), (1, '30 seconds'),
-                                             (2, '1 minute'), (3, '5 minutes'),
-                                             (4, '15 minutes')],
+                                              (2, '1 minute'), (3, '5 minutes'),
+                                              (4, '15 minutes')],
                                   }]},
        'get_sub_device_range': 2,
        'name': 'ETC_BACKLIGHT_TIMEOUT',
        'set_request': {'items': [{'name': 'backlight_timeout', 'type': 'uint8',
                                   'labels': [(0, 'Never'), (1, '30 seconds'),
-                                            (2, '1 minute'), (3, '5 minutes'),
-                                            (4, '15 minutes')],
+                                             (2, '1 minute'), (3, '5 minutes'),
+                                             (4, '15 minutes')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'notes': 'Control the timeout for the LCD backlight.',
        'value': 0x810e},
 
-      #ETC_STATUS_INDICATORS
+      # ETC_STATUS_INDICATORS
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'status_indicators', 'type': 'bool'}]},
        'get_sub_device_range': 2,
@@ -3497,7 +3494,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Enable/Disable the status indicators.',
        'value': 0x810f},
 
-      #ETC_RECALIBRATE_FIXTURE
+      # ETC_RECALIBRATE_FIXTURE
       {'name': 'ETC_RECALIBRATE_FIXTURE',
        'set_request': {'items': []},
        'set_response': {'items': []},
@@ -3505,7 +3502,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Recalibrate the fixture',
        'value': 0x8110},
 
-      #ETC_OVER_TEMP_MODE
+      # ETC_OVER_TEMP_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8',
                                    'labels': [(0, 'Dark'), (1, 'Red')],
@@ -3520,26 +3517,26 @@ MANUFACTURER_PIDS = [
        'notes': 'Get or Set the over temperature mode.',
        'value': 0x8111},
 
-      #ETC_SIMPLE_SETUP_MODE
+      # ETC_SIMPLE_SETUP_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'quick_setup_mode', 'type': 'uint8',
                                    'labels': [(0, 'General Use'), (1, 'State Setup'),
-                                             (2, 'Architectural Setup'), (3, 'Effects Setup'),
-                                             (4, 'Studio Setup'), (5, 'Advanced Setup')],
+                                              (2, 'Architectural Setup'), (3, 'Effects Setup'),
+                                              (4, 'Studio Setup'), (5, 'Advanced Setup')],
                                   }]},
        'get_sub_device_range': 2,
        'name': 'ETC_SIMPLE_SETUP_MODE',
        'set_request': {'items': [{'name': 'quick_setup_mode', 'type': 'uint8',
                                   'labels': [(0, 'General Use'), (1, 'State Setup'),
-                                            (2, 'Architectural Setup'), (3, 'Effects Setup'),
-                                            (4, 'Studio Setup'), (5, 'Advanced Setup')],
+                                             (2, 'Architectural Setup'), (3, 'Effects Setup'),
+                                             (4, 'Studio Setup'), (5, 'Advanced Setup')],
                                   }]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'notes': 'Get or Set the simple setup mode.',
        'value': 0x8112},
 
-      #ETC_LED_STROBE_DESCRIPTION
+      # ETC_LED_STROBE_DESCRIPTION
       {'get_request': {'items': [{'name': 'strobe_number', 'type': 'uint8',}]},
        'get_response': {'items': [{'name': 'strobe_number', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3549,7 +3546,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the text description for a strobe value.',
        'value': 0x8113},
 
-      #ETC_LED_RED_SHIFT_DESCRIPTION
+      # ETC_LED_RED_SHIFT_DESCRIPTION
       {'get_request': {'items': [{'name': 'red_shift_value', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'red_shift_value', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3559,7 +3556,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description of a given Red Shift value.',
        'value': 0x8114},
 
-      #ETC_LED_PLUS_SEVEN_DESCRIPTION
+      # ETC_LED_PLUS_SEVEN_DESCRIPTION
       {'get_request': {'items': [{'name': 'plus_seven_mode', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'plus_seven_mode', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3569,7 +3566,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a plus seven value.',
        'value': 0x8115},
 
-      #ETC_BACKLIGHT_TIMEOUT_DESCRIPTION
+      # ETC_BACKLIGHT_TIMEOUT_DESCRIPTION
       {'get_request': {'items': [{'name': 'backlight_timeout', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'backlight_timeout', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3579,7 +3576,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a backlight timeout value.',
        'value': 0x8116},
 
-      #ETC_SIMPLE_SETUP_MODE_DESCRIPTION
+      # ETC_SIMPLE_SETUP_MODE_DESCRIPTION
       {'get_request': {'items': [{'name': 'simple_setup_mode', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'simple_setup_mode', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3589,7 +3586,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a simple setup mode.',
        'value': 0x8117},
 
-      #ETC_OVER_TEMP_MODE_DESCRIPTION
+      # ETC_OVER_TEMP_MODE_DESCRIPTION
       {'get_request': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'over_temperature_mode', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3599,7 +3596,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for an over temperature mode.',
        'value': 0x8118},
 
-      #ETC_SEQUENCE_PLAYBACK
+      # ETC_SEQUENCE_PLAYBACK
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'sequence', 'type': 'uint16',
                                   'labels': [(0, 'Off')]}]},
@@ -3612,8 +3609,8 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set sequence playback.',
        'value': 0x811f},
 
-      #ETC_SEQUENCE_CONFIG
-      #Complicated, TODO(Peter): Clarify how it actually works
+      # ETC_SEQUENCE_CONFIG
+      # Complicated, TODO(Peter): Clarify how it actually works
       {'name': 'ETC_SEQUENCE_CONFIG',
        'get_request': {'items': []},
        'get_response': {'items': []},
@@ -3624,7 +3621,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Sequence config.',
        'value': 0x8120},
 
-      #ETC_LOW_POWER_TIMEOUT
+      # ETC_LOW_POWER_TIMEOUT
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
        'get_sub_device_range': 2,
@@ -3635,7 +3632,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set low power timeout.',
        'value': 0x8121},
 
-      #ETC_LOW_POWER_TIMEOUT_DESCRIPTION
+      # ETC_LOW_POWER_TIMEOUT_DESCRIPTION
       {'get_request': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'low_power_timeout', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3645,7 +3642,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a low power timeout.',
        'value': 0x8122},
 
-      #ETC_LED_FREQUENCY_ENUM
+      # ETC_LED_FREQUENCY_ENUM
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
        'get_sub_device_range': 2,
@@ -3656,7 +3653,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set LED frequency.',
        'value': 0x8123},
 
-      #ETC_LED_FREQUENCY_ENUM_DESCRIPTION
+      # ETC_LED_FREQUENCY_ENUM_DESCRIPTION
       {'get_request': {'items': [{'name': 'frequency', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'frequency', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3666,8 +3663,8 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for an LED frequency setting.',
        'value': 0x8124},
 
-      #ETC_PRESET_CONFIG
-      #Complicated, TODO(Peter): Clarify how it actually works
+      # ETC_PRESET_CONFIG
+      # Complicated, TODO(Peter): Clarify how it actually works
       {'name': 'ETC_PRESET_CONFIG',
        'get_request': {'items': []},
        'get_response': {'items': []},
@@ -3678,7 +3675,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Preset config.',
        'value': 0x8125},
 
-      #ETC_POWER_COMMAND
+      # ETC_POWER_COMMAND
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
        'get_sub_device_range': 2,
@@ -3689,7 +3686,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set power commands.',
        'value': 0xa000},
 
-      #ETC_POWER_COMMAND_DESCRIPTION
+      # ETC_POWER_COMMAND_DESCRIPTION
       {'get_request': {'items': [{'name': 'power_command', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'power_command', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
@@ -3699,7 +3696,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get a text description for a power command.',
        'value': 0xa001},
 
-      #ETC_DALI_SHORT_ADDRESS
+      # ETC_DALI_SHORT_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'dali_short_address', 'type': 'uint8',
                                    'range': [(0, 63)]}]},
@@ -3712,8 +3709,8 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set DALI short address.',
        'value': 0xa004},
 
-      #ETC_DALI_GROUP_MEMBERSHIP
-      #This is a bit set, TODO(Peter): Work out how best to implement this
+      # ETC_DALI_GROUP_MEMBERSHIP
+      # This is a bit set, TODO(Peter): Work out how best to implement this
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'dali_group_membership', 'type': 'uint16'}]},
        'get_sub_device_range': 2,
@@ -3724,7 +3721,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set DALI group membership.',
        'value': 0xa005},
 
-      #ETC_AUTOBIND
+      # ETC_AUTOBIND
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'autobind', 'type': 'bool'}]},
        'get_sub_device_range': 2,
@@ -3735,7 +3732,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get/Set autobind status.',
        'value': 0xa006},
 
-      #ETC_DELETE_SUBDEVICE
+      # ETC_DELETE_SUBDEVICE
       {'name': 'ETC_DELETE_SUBDEVICE',
        'set_request': {'items': [{'name': 'subdevice_number', 'type': 'uint16',
                                   'range': [(1, 512)]}]},
@@ -3744,8 +3741,8 @@ MANUFACTURER_PIDS = [
        'notes': 'Delete a subdevice.',
        'value': 0xa007},
 
-      #ETC_HAS_ENUM_TEXT
-      #Complicated, TODO(Peter): Clarify how it actually works
+      # ETC_HAS_ENUM_TEXT
+      # Complicated, TODO(Peter): Clarify how it actually works
       {'name': 'ETC_HAS_ENUM_TEXT',
        'get_request': {'items': []},
        'get_response': {'items': []},
@@ -3753,8 +3750,8 @@ MANUFACTURER_PIDS = [
        'notes': 'Has enum text.',
        'value': 0x9001},
 
-      #ETC_GET_ENUM_TEXT
-      #Complicated, TODO(Peter): Clarify how it actually works
+      # ETC_GET_ENUM_TEXT
+      # Complicated, TODO(Peter): Clarify how it actually works
       {'name': 'ETC_GET_ENUM_TEXT',
        'get_request': {'items': []},
        'get_response': {'items': []},
@@ -3762,7 +3759,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get enum text.',
        'value': 0x9002},
 
-      #ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD
+      # ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD
       {'name': 'ETC_PREPARE_FOR_SOFTWARE_DOWNLOAD',
        'set_request': {'items': []},
        'set_response': {'items': []},
@@ -3775,7 +3772,7 @@ MANUFACTURER_PIDS = [
    'name': 'GDS',
    'pids': [
 
-      #SERIAL_NUMBER
+      # SERIAL_NUMBER
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'serial_number', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
@@ -3783,7 +3780,7 @@ MANUFACTURER_PIDS = [
        'notes': 'Get the serial number.',
        'value': 0xffdf},
 
-      #LED_DRIVE_CURRENT
+      # LED_DRIVE_CURRENT
       {'get_request': {'items': [{'name': 'channel', 'type': 'uint8',
                                   'range': [(1, 4)]}]},
        'get_response': {'items': [{'name': 'channel', 'type': 'uint8',
@@ -3809,7 +3806,7 @@ MANUFACTURER_PIDS = [
 
 ESTA_PIDS = [
 
- #DISC_UNIQUE_BRANCH
+ # DISC_UNIQUE_BRANCH
  {'discovery_request': {'items': [
     {'name': 'lower_uid', 'type': 'uid'},
     {'name': 'upper_uid', 'type': 'uid'}
@@ -3819,7 +3816,7 @@ ESTA_PIDS = [
   'name': 'DISC_UNIQUE_BRANCH',
   'value': 1},
 
- #DISC_MUTE
+ # DISC_MUTE
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
@@ -3831,7 +3828,7 @@ ESTA_PIDS = [
   'name': 'DISC_MUTE',
   'value': 2},
 
- #DISC_UN_MUTE
+ # DISC_UN_MUTE
  {'discovery_request': {'items': []},
   'discovery_response': {'items': [
     {'name': 'control_field', 'type': 'uint16'},
@@ -3843,7 +3840,7 @@ ESTA_PIDS = [
   'name': 'DISC_UN_MUTE',
   'value': 3},
 
- #DEVICE_MODEL_DESCRIPTION
+ # DEVICE_MODEL_DESCRIPTION
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'description',
                               'max_size': 32,
@@ -3852,7 +3849,7 @@ ESTA_PIDS = [
   'name': 'DEVICE_MODEL_DESCRIPTION',
   'value': 128},
 
- #MANUFACTURER_LABEL
+ # MANUFACTURER_LABEL
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'label',
                               'max_size': 32,
@@ -3861,7 +3858,7 @@ ESTA_PIDS = [
   'name': 'MANUFACTURER_LABEL',
   'value': 129},
 
- #DEVICE_LABEL
+ # DEVICE_LABEL
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'label',
                               'max_size': 32,
@@ -3875,7 +3872,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 130},
 
- #LAMP_STATE
+ # LAMP_STATE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'state',
                               'type': 'uint8',
@@ -3892,7 +3889,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1027},
 
- #LAMP_ON_MODE
+ # LAMP_ON_MODE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'mode',
                               'type': 'uint8',
@@ -3909,7 +3906,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1028},
 
- #DEVICE_POWER_CYCLES
+ # DEVICE_POWER_CYCLES
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'power_cycles', 'type': 'uint32'}]},
   'get_sub_device_range': 2,
@@ -3919,7 +3916,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1029},
 
- #IDENTIFY_DEVICE
+ # IDENTIFY_DEVICE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'identify_state', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -3929,14 +3926,14 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4096},
 
- #BOOT_SOFTWARE_VERSION_ID
+ # BOOT_SOFTWARE_VERSION_ID
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'version', 'type': 'uint32'}]},
   'get_sub_device_range': 2,
   'name': 'BOOT_SOFTWARE_VERSION_ID',
   'value': 193},
 
- #RECORD_SENSORS
+ # RECORD_SENSORS
  {'name': 'RECORD_SENSORS',
   'set_request': {'items': [{'name': 'sensor_number', 'type': 'uint8',
                              'range': [(0, 0xff)],
@@ -3946,7 +3943,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 514},
 
- #PROXIED_DEVICES
+ # PROXIED_DEVICES
  {'get_request': {'items': []},
   'get_response': {'items': [{'type': 'group',
                               'name': 'uids',
@@ -3956,7 +3953,7 @@ ESTA_PIDS = [
   'name': 'PROXIED_DEVICES',
   'value': 16},
 
- #PROXIED_DEVICE_COUNT
+ # PROXIED_DEVICE_COUNT
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'device_count', 'type': 'uint16'},
                              {'name': 'list_changed', 'type': 'bool'}]},
@@ -3964,7 +3961,7 @@ ESTA_PIDS = [
   'name': 'PROXIED_DEVICE_COUNT',
   'value': 17},
 
- #REAL_TIME_CLOCK
+ # REAL_TIME_CLOCK
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'year', 'type': 'uint16'},
                              {'name': 'month', 'type': 'uint8'},
@@ -3984,7 +3981,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1539},
 
- #COMMS_STATUS
+ # COMMS_STATUS
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'short_message', 'type': 'uint16'},
                              {'name': 'length_mismatch', 'type': 'uint16'},
@@ -3996,7 +3993,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 0,
   'value': 21},
 
-  #SENSOR_DEFINITION
+  # SENSOR_DEFINITION
   {'get_request': {'items': [{'name': 'sensor_number', 'type': 'uint8',
                              'range': [(0, 0xfe)],
                  }]},
@@ -4116,7 +4113,7 @@ ESTA_PIDS = [
   'name': 'SENSOR_DEFINITION',
   'value': 512},
 
- #QUEUED_MESSAGES
+ # QUEUED_MESSAGES
  {'get_request': {'items': [{'name': 'status_type', 'type': 'uint8', 'labels': [
                     (1, 'Last Message'), (2, 'Advisory'),
                     (3, 'Warning'), (4, 'Error')]
@@ -4126,7 +4123,7 @@ ESTA_PIDS = [
   'name': 'QUEUED_MESSAGE',
   'value': 32},
 
- #LANGUAGE
+ # LANGUAGE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'language',
                               'max_size': 2,
@@ -4140,7 +4137,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 176},
 
- #DEFAULT_SLOT_VALUE
+ # DEFAULT_SLOT_VALUE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'slot_values',
                               'type': 'group',
@@ -4151,7 +4148,7 @@ ESTA_PIDS = [
   'name': 'DEFAULT_SLOT_VALUE',
   'value': 290},
 
- #RESET_DEVICE
+ # RESET_DEVICE
  {'name': 'RESET_DEVICE',
   'set_request': {'items': [{'name': 'reset_mode', 'type': 'uint8', 'labels': [
                     (1, 'Warm'), (0xff, 'Cold')]
@@ -4160,7 +4157,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4097},
 
- #DEVICE_HOURS
+ # DEVICE_HOURS
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'hours', 'type': 'uint32'}]},
   'get_sub_device_range': 2,
@@ -4170,7 +4167,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1024},
 
- #CAPTURE_PRESET
+ # CAPTURE_PRESET
  {'name': 'CAPTURE_PRESET',
   'set_request': {'items': [
     {'name': 'scene', 'type': 'uint16', 'range': [(0x1, 0xfffe)]},
@@ -4181,7 +4178,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4144},
 
- #DMX_START_ADDRESS
+ # DMX_START_ADDRESS
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'dmx_address', 'type': 'uint16'}]},
   'get_sub_device_range': 2,
@@ -4193,7 +4190,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 240},
 
- #DISPLAY_INVERT
+ # DISPLAY_INVERT
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'invert_status', 'type': 'uint8',
                               'labels': [(0, 'Off'), (1, 'On'), (2, 'Auto')]}]},
@@ -4206,7 +4203,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1280},
 
- #STATUS_MESSAGES
+ # STATUS_MESSAGES
  {'get_request': {'items': [{'name': 'status_type', 'type': 'uint8', 'labels': [
                     (0, 'None'), (1, 'Last Message'), (2, 'Advisory'),
                     (3, 'Warning'), (4, 'Error')]
@@ -4223,7 +4220,7 @@ ESTA_PIDS = [
   'name': 'STATUS_MESSAGES',
   'value': 48},
 
- #STATUS_ID_DESCRIPTION
+ # STATUS_ID_DESCRIPTION
  {'get_request': {'items': [{'name': 'status_id', 'type': 'uint16'}]},
   'get_response': {'items': [{'name': 'label',
                               'max_size': 32,
@@ -4232,14 +4229,14 @@ ESTA_PIDS = [
   'name': 'STATUS_ID_DESCRIPTION',
   'value': 49},
 
- #CLEAR_STATUS_ID
+ # CLEAR_STATUS_ID
  {'name': 'CLEAR_STATUS_ID',
   'set_request': {'items': []},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'value': 50},
 
- #SUB_DEVICE_STATUS_REPORT_THRESHOLD
+ # SUB_DEVICE_STATUS_REPORT_THRESHOLD
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'status_type', 'type': 'uint8'}]},
   'get_sub_device_range': 3,
@@ -4251,7 +4248,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 51},
 
- #SENSOR_VALUE
+ # SENSOR_VALUE
  {'get_request': {'items': [{'name': 'sensor_number', 'type': 'uint8',
                              'range': [(0, 0xfe)],
                   }]},
@@ -4275,7 +4272,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 513},
 
- #PAN_INVERT
+ # PAN_INVERT
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'invert', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4285,7 +4282,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1536},
 
- #SOFTWARE_VERSION_LABEL
+ # SOFTWARE_VERSION_LABEL
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'label',
                               'max_size': 32,
@@ -4294,7 +4291,7 @@ ESTA_PIDS = [
   'name': 'SOFTWARE_VERSION_LABEL',
   'value': 192},
 
- #LANGUAGE_CAPABILITIES
+ # LANGUAGE_CAPABILITIES
  {'get_request': {'items': []},
   'get_response': {'items': [{'type': 'group',
                               'name': 'languages',
@@ -4307,7 +4304,7 @@ ESTA_PIDS = [
   'name': 'LANGUAGE_CAPABILITIES',
   'value': 160},
 
- #BOOT_SOFTWARE_VERSION_LABEL
+ # BOOT_SOFTWARE_VERSION_LABEL
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'label',
                               'max_size': 32,
@@ -4316,7 +4313,7 @@ ESTA_PIDS = [
   'name': 'BOOT_SOFTWARE_VERSION_LABEL',
   'value': 194},
 
- #LAMP_HOURS
+ # LAMP_HOURS
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'hours', 'type': 'uint32'}]},
   'get_sub_device_range': 2,
@@ -4326,7 +4323,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1025},
 
- #PRESET_PLAYBACK
+ # PRESET_PLAYBACK
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'mode', 'type': 'uint16',
                               'labels': [(0, 'Off'), (0xffff, 'All')],
@@ -4342,7 +4339,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4145},
 
- #DMX_PERSONALITY_DESCRIPTION
+ # DMX_PERSONALITY_DESCRIPTION
  {'get_request': {'items': [{'name': 'personality', 'type': 'uint8', 'range': [
                     (1, 0xff)]
                   }]},
@@ -4355,7 +4352,7 @@ ESTA_PIDS = [
   'name': 'DMX_PERSONALITY_DESCRIPTION',
   'value': 225},
 
- #DISPLAY_LEVEL
+ # DISPLAY_LEVEL
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'level', 'type': 'uint8'}]},
   'get_sub_device_range': 2,
@@ -4365,7 +4362,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1281},
 
- #DMX_PERSONALITY
+ # DMX_PERSONALITY
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'current_personality',
                               'type': 'uint8'},
@@ -4380,7 +4377,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 224},
 
- #SLOT_INFO
+ # SLOT_INFO
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'slots',
@@ -4397,13 +4394,58 @@ ESTA_PIDS = [
                            (0x06, 'Secondary rotation speed'),
                            (0x07, 'Secondary rotation index'),
                            (0xff, 'Secondary undefined')]},
-               {'name': 'slot_label_id', 'type': 'uint16'}],
+               {'name': 'slot_label_id',
+                'type': 'uint16',
+                'range': [(0, 0xffdf), (0xffff, 0xffff)],
+                'labels': [(0x0001, 'Intensity'),
+                           (0x0002, 'Intensity Master'),
+                           (0x0101, 'Pan'),
+                           (0x0102, 'Tilt'),
+                           (0x0201, 'Color Wheel'),
+                           (0x0202, 'Subtractive Color Mixer - Cyan/Blue'),
+                           (0x0203, 'Subtractive Color Mixer - Yellow/Amber'),
+                           (0x0204, 'Subtractive Color Mixer - Magenta'),
+                           (0x0205, 'Additive Color Mixer - Red'),
+                           (0x0206, 'Additive Color Mixer - Green'),
+                           (0x0207, 'Additive Color Mixer - Blue'),
+                           (0x0208, 'Color Temperature Correction'),
+                           (0x0209, 'Color Scroll'),
+                           (0x0210, 'Color Semaphore'),
+                           (0x0211, 'Additive Color Mixer - Amber'),
+                           (0x0212, 'Additive Color Mixer - White'),
+                           (0x0213, 'Additive Color Mixer - Warm White'),
+                           (0x0214, 'Additive Color Mixer - Cool White'),
+                           (0x0215, 'Subtractive Color Mixer - UV'),
+                           (0x0216, 'Hue'),
+                           (0x0217, 'Saturation'),
+                           (0x0301, 'Static gobo wheel'),
+                           (0x0302, 'Rotating gobo wheel'),
+                           (0x0303, 'Prism wheel'),
+                           (0x0304, 'Effects wheel'),
+                           (0x0401, 'Beam size iris'),
+                           (0x0402, 'Edge/Lens focus'),
+                           (0x0403, 'Frost/Diffusion'),
+                           (0x0404, 'Strobe/Shutter'),
+                           (0x0405, 'Zoom lens'),
+                           (0x0406, 'Framing shutter'),
+                           (0x0407, 'Framing shutter rotation'),
+                           (0x0408, 'Douser'),
+                           (0x0409, 'Barn Door'),
+                           (0x0501, 'Lamp control functions'),
+                           (0x0502, 'Fixture control channel'),
+                           (0x0503, 'Overall speed setting applied to multiple or all parameters'),
+                           (0x0504, 'Macro control'),
+                           (0x0505, 'Relay or power control'),
+                           (0x0506, 'Fan control'),
+                           (0x0507, 'Heater control'),
+                           (0x0508, 'Fountain water pump control'),
+                           (0xFFFF, 'No definition')]}],
     }]},
   'get_sub_device_range': 2,
   'name': 'SLOT_INFO',
   'value': 288},
 
- #SUPPORTED_PARAMETERS
+ # SUPPORTED_PARAMETERS
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'params',
                               'type': 'group',
@@ -4414,7 +4456,7 @@ ESTA_PIDS = [
   'name': 'SUPPORTED_PARAMETERS',
   'value': 80},
 
- #PARAMETER_DESCRIPTION
+ # PARAMETER_DESCRIPTION
  {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}]},
   'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
                              {'name': 'pdl_size', 'type': 'uint8'},
@@ -4496,7 +4538,7 @@ ESTA_PIDS = [
   'name': 'PARAMETER_DESCRIPTION',
   'value': 81},
 
- #TILT_INVERT
+ # TILT_INVERT
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'invert', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4506,7 +4548,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1537},
 
- #DEVICE_INFO
+ # DEVICE_INFO
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'protocol_major', 'type': 'uint8'},
                              {'name': 'protocol_minor', 'type': 'uint8'},
@@ -4605,7 +4647,7 @@ ESTA_PIDS = [
   'name': 'DEVICE_INFO',
   'value': 96},
 
- #FACTORY_DEFAULTS
+ # FACTORY_DEFAULTS
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'using_defaults', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4615,7 +4657,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 144},
 
- #LAMP_STRIKES
+ # LAMP_STRIKES
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'strikes', 'type': 'uint32'}]},
   'get_sub_device_range': 2,
@@ -4625,7 +4667,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1026},
 
- #SELF_TEST_DESCRIPTION
+ # SELF_TEST_DESCRIPTION
  {'get_request': {'items': [{'name': 'test_number', 'type': 'uint8'}]},
   'get_response': {'items': [{'name': 'test_number', 'type': 'uint8'},
                              {'name': 'description',
@@ -4635,7 +4677,7 @@ ESTA_PIDS = [
   'name': 'SELF_TEST_DESCRIPTION',
   'value': 4129},
 
- #POWER_STATE
+ # POWER_STATE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'power_state', 'type': 'uint8',
                               'labels': [(0, 'Full Off'), (1, 'Shutdown'), (2, 'Standby'), (0xff, 'Normal')],
@@ -4650,7 +4692,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4112},
 
- #PERFORM_SELF_TEST
+ # PERFORM_SELF_TEST
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'tests_active', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4663,7 +4705,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4128},
 
- #SLOT_DESCRIPTION
+ # SLOT_DESCRIPTION
  {'get_request': {'items': [{'name': 'slot_number', 'type': 'uint16'}]},
   'get_response': {'items': [{'name': 'slot_number', 'type': 'uint16'},
                              {'name': 'name', 'max_size': 32, 'type': 'string'}]},
@@ -4671,7 +4713,7 @@ ESTA_PIDS = [
   'name': 'SLOT_DESCRIPTION',
   'value': 289},
 
- #PRODUCT_DETAIL_ID_LIST
+ # PRODUCT_DETAIL_ID_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [{
     'name': 'detail_ids',
@@ -4684,7 +4726,7 @@ ESTA_PIDS = [
                  (0x0002, 'Metal Halide Lamp'),
                  (0x0003, 'Incandescent Lamp'),
                  (0x0004, 'LED'),
-                 (0x0005, 'Fluroescent'),
+                 (0x0005, 'Fluorescent'),
                  (0x0006, 'Cold Cathode'),
                  (0x0007, 'Electro-luminescent'),
                  (0x0008, 'Laser'),
@@ -4745,7 +4787,7 @@ ESTA_PIDS = [
                  (0x0602, 'DMX512 Merger'),
                  (0x0603, 'Data Patch'),
                  (0x0604, 'Wireless link'),
-                 (0x0701, 'Protocol Convertor'),
+                 (0x0701, 'Protocol Converter'),
                  (0x0702, 'DMX512 to DC Voltage'),
                  (0x0703, 'DC Voltage to DMX512'),
                  (0x0704, 'Switch Panel'),
@@ -4777,7 +4819,7 @@ ESTA_PIDS = [
   'name': 'PRODUCT_DETAIL_ID_LIST',
   'value': 112},
 
- #PAN_TILT_SWAP
+ # PAN_TILT_SWAP
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'swap', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4788,7 +4830,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 1538},
 
- #IDENTIFY_MODE
+ # IDENTIFY_MODE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'identify_mode', 'type': 'uint8'}]},
   'get_sub_device_range': 2,
@@ -4803,7 +4845,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x1040},
 
- #PRESET_INFO
+ # PRESET_INFO
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'level_field_supported', 'type': 'bool'},
@@ -4830,7 +4872,7 @@ ESTA_PIDS = [
   'name': 'PRESET_INFO',
   'value': 0x1041},
 
- #PRESET_STATUS
+ # PRESET_STATUS
  {'get_request': {'items': [
     {'name': 'scene_number', 'type': 'uint16', 'range': [(1, 0xfffe)]},
   ]},
@@ -4856,7 +4898,7 @@ ESTA_PIDS = [
   'name': 'PRESET_STATUS',
   'value': 0x1042},
 
- #PRESET_MERGEMODE
+ # PRESET_MERGEMODE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'merge_mode', 'type': 'uint8',
@@ -4876,7 +4918,7 @@ ESTA_PIDS = [
   'name': 'PRESET_MERGEMODE',
   'value': 0x1043},
 
- #POWER_ON_SELF_TEST
+ # POWER_ON_SELF_TEST
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'power_on_self_test', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4886,7 +4928,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x1044},
 
- #DMX_BLOCK_ADDRESS
+ # DMX_BLOCK_ADDRESS
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'sub_device_footprint', 'type': 'uint16'},
@@ -4900,7 +4942,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 0,
   'value': 0x0140},
 
- #DMX_FAIL_MODE
+ # DMX_FAIL_MODE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'scene_number', 'type': 'uint16'},
@@ -4933,7 +4975,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0141},
 
- #DMX_STARTUP_MODE
+ # DMX_STARTUP_MODE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'scene_number', 'type': 'uint16'},
@@ -4966,7 +5008,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0142},
 
- #DIMMER_INFO
+ # DIMMER_INFO
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'minimum_level_lower', 'type': 'uint16'},
@@ -4983,7 +5025,7 @@ ESTA_PIDS = [
   'name': 'DIMMER_INFO',
   'value': 0x0340},
 
- #MINIMUM_LEVEL
+ # MINIMUM_LEVEL
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'minimum_level_increasing', 'type': 'uint16'},
@@ -5001,7 +5043,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0341},
 
- #MAXIMUM_LEVEL
+ # MAXIMUM_LEVEL
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'maximum_level', 'type': 'uint16'},
@@ -5015,7 +5057,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0342},
 
- #CURVE
+ # CURVE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_curve', 'type': 'uint8'},
@@ -5030,7 +5072,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0343},
 
- #CURVE_DESCRIPTION
+ # CURVE_DESCRIPTION
  {'get_request': {'items': [
    {'name': 'curve_number', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -5042,7 +5084,7 @@ ESTA_PIDS = [
   'name': 'CURVE_DESCRIPTION',
   'value': 0x0344},
 
- #OUTPUT_RESPONSE_TIME
+ # OUTPUT_RESPONSE_TIME
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_response_time', 'type': 'uint8'},
@@ -5057,7 +5099,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0345},
 
- #OUTPUT_RESPONSE_TIME_DESCRIPTION
+ # OUTPUT_RESPONSE_TIME_DESCRIPTION
  {'get_request': {'items': [
    {'name': 'response_time', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -5069,7 +5111,7 @@ ESTA_PIDS = [
   'name': 'OUTPUT_RESPONSE_TIME_DESCRIPTION',
   'value': 0x0346},
 
- #MODULATION_FREQUENCY
+ # MODULATION_FREQUENCY
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_modulation_frequency', 'type': 'uint8'},
@@ -5084,7 +5126,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0347},
 
- #MODULATION_FREQUENCY_DESCRIPTION
+ # MODULATION_FREQUENCY_DESCRIPTION
  {'get_request': {'items': [
    {'name': 'modulation_frequency', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -5097,7 +5139,7 @@ ESTA_PIDS = [
   'name': 'MODULATION_FREQUENCY_DESCRIPTION',
   'value': 0x0348},
 
- #BURN_IN
+ # BURN_IN
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'hours_remaining', 'type': 'uint8'},
@@ -5111,7 +5153,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0440},
 
- #LOCK_PIN
+ # LOCK_PIN
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'pin_code', 'type': 'uint16',
@@ -5132,7 +5174,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0640},
 
-  #LOCK_STATE
+ # LOCK_STATE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'current_lock_state', 'type': 'uint8',
@@ -5154,7 +5196,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 0x0641},
 
- #LOCK_STATE DESCRIPTION
+ # LOCK_STATE DESCRIPTION
  {'get_request': {'items': [
      {'name': 'lock_state', 'type': 'uint8', 'range': [(1, 0xff)]},
   ]},
@@ -5170,7 +5212,7 @@ ESTA_PIDS = [
 
 # These are ordered to match how they appear in E1.33
 # The pid values will change in the final document.
- #ENDPOINT_LIST
+ # ENDPOINT_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'list_change_number', 'type' : 'uint32'},
@@ -5183,7 +5225,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe0},
 
- #ENDPOINT_LIST_CHANGE
+ # ENDPOINT_LIST_CHANGE
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'list_change_number', 'type': 'uint32',
@@ -5194,7 +5236,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fee},
 
- #ENDPOINT_IDENTIFY
+ # ENDPOINT_IDENTIFY
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
    ]},
@@ -5215,7 +5257,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe9},
 
-  #ENDPOINT_TO_UNIVERSE
+ # ENDPOINT_TO_UNIVERSE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
    ]},
@@ -5239,7 +5281,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe1},
 
- #RDM_TRAFFIC_ENABLE
+ # RDM_TRAFFIC_ENABLE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
   ]},
@@ -5259,7 +5301,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe2},
 
- #ENDPOINT_MODE
+ # ENDPOINT_MODE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
   ]},
@@ -5281,7 +5323,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe3},
 
- #ENDPOINT_LABEL
+ # ENDPOINT_LABEL
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
   ]},
@@ -5301,7 +5343,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe4},
 
-  #DISCOVERY_STATE
+ # DISCOVERY_STATE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
   ]},
@@ -5328,7 +5370,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe5},
 
- #BACKGROUND_DISCOVERY
+ # BACKGROUND_DISCOVERY
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
   ]},
@@ -5348,7 +5390,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fea},
 
- #ENDPOINT_TIMING
+ # ENDPOINT_TIMING
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]},
   ]},
@@ -5369,7 +5411,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe6},
 
- #ENDPOINT_TIMING_DESCRIPTION
+ # ENDPOINT_TIMING_DESCRIPTION
  {'get_request': {'items': [
     {'name': 'timing_setting', 'type': 'uint8'},
   ]},
@@ -5382,7 +5424,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe7},
 
- #ENDPOINT_DEVICE_LIST_CHANGE
+ # ENDPOINT_DEVICE_LIST_CHANGE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]}
   ]},
@@ -5395,7 +5437,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7feb},
 
- #ENDPOINT_DEVICES
+ # ENDPOINT_DEVICES
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]}
   ]},
@@ -5409,7 +5451,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fec},
 
- #BINDING_CONTROL_FIELDS
+ # BINDING_CONTROL_FIELDS
  {'get_request': {'items': [ {'name': 'uid', 'type': 'uid'}]},
   'get_response': {'items': [
     {'name': 'uid', 'type': 'uid'},
@@ -5422,7 +5464,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe8},
 
- #TCP_COMMS_STATUS
+ # TCP_COMMS_STATUS
  {'get_request': {'items': [
   ]},
   'get_response': {'items': [
@@ -5439,7 +5481,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fed},
 
- #BACKGROUND_QUEUED_STATUS_POLICY
+ # BACKGROUND_QUEUED_STATUS_POLICY
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range': [(0, 0xfffe)]}
   ]},
@@ -5460,7 +5502,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd0},
 
- #BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
+ # BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
  {'get_request': {'items': [
     {'name': 'policy_setting', 'type': 'uint8'},
   ]},
@@ -5473,7 +5515,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd1},
 
- #BACKGROUND_STATUS_TYPE
+ # BACKGROUND_STATUS_TYPE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)]},
   ]},
@@ -5493,7 +5535,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd2},
 
-  #QUEUED_STATUS_ENDPOINT_COLLECTION
+ # QUEUED_STATUS_ENDPOINT_COLLECTION
  {'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)],
     'labels': [(0xffff, 'All Endpoints')]},
@@ -5505,7 +5547,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd3},
 
- #QUEUED_STATUS_UID_COLLECTION
+ # QUEUED_STATUS_UID_COLLECTION
  {'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)]},
     {'name': 'target_uid', 'type': 'uid'},
@@ -5518,7 +5560,7 @@ ESTA_PIDS = [
   'value': 0x7fd4},
 
 # These are ordered to match how they appear in E1.37-2
- #LIST_INTERFACES
+ # LIST_INTERFACES
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'interfaces',
@@ -5531,7 +5573,7 @@ ESTA_PIDS = [
   'name': 'LIST_INTERFACES',
   'value': 0x0700},
 
- #INTERFACE_LABEL
+ # INTERFACE_LABEL
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
@@ -5540,7 +5582,7 @@ ESTA_PIDS = [
   'name': 'INTERFACE_LABEL',
   'value': 0x0701},
 
- #INTERFACE_HARDWARE_ADDRESS_TYPE1
+ # INTERFACE_HARDWARE_ADDRESS_TYPE1
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
@@ -5549,7 +5591,7 @@ ESTA_PIDS = [
   'name': 'INTERFACE_HARDWARE_ADDRESS_TYPE1',
   'value': 0x0702},
 
- #IPV4_DHCP_MODE
+ # IPV4_DHCP_MODE
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
@@ -5563,7 +5605,7 @@ ESTA_PIDS = [
   'name': 'IPV4_DHCP_MODE',
   'value': 0x0703},
 
- #IPV4_ZEROCONF_MODE
+ # IPV4_ZEROCONF_MODE
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
@@ -5577,7 +5619,7 @@ ESTA_PIDS = [
   'name': 'IPV4_ZEROCONF_MODE',
   'value': 0x0704},
 
- #IPV4_CURRENT_ADDRESS
+ # IPV4_CURRENT_ADDRESS
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
@@ -5592,7 +5634,7 @@ ESTA_PIDS = [
   'name': 'IPV4_CURRENT_ADDRESS',
   'value': 0x0705},
 
- #IPV4_STATIC_ADDRESS
+ # IPV4_STATIC_ADDRESS
  {'get_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
@@ -5612,7 +5654,7 @@ ESTA_PIDS = [
   'name': 'IPV4_STATIC_ADDRESS',
   'value': 0x0706},
 
- #INTERFACE_APPLY_CONFIGURATION
+ # INTERFACE_APPLY_CONFIGURATION
  {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'set_response': {'items': []},
@@ -5620,7 +5662,7 @@ ESTA_PIDS = [
   'name': 'INTERFACE_APPLY_CONFIGURATION',
   'value': 0x0709},
 
- #INTERFACE_RENEW_DHCP
+ # INTERFACE_RENEW_DHCP
  {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'set_response': {'items': []},
@@ -5628,7 +5670,7 @@ ESTA_PIDS = [
   'name': 'INTERFACE_RENEW_DHCP',
   'value': 0x0707},
 
- #INTERFACE_RELEASE_DHCP
+ # INTERFACE_RELEASE_DHCP
  {'set_request': {'items': [{'name': 'interface_identifier', 'type': 'uint32',
                              'range': [(1, 0xffffff00)]}]},
   'set_response': {'items': []},
@@ -5636,7 +5678,7 @@ ESTA_PIDS = [
   'name': 'INTERFACE_RELEASE_DHCP',
   'value': 0x0708},
 
- #IPV4_DEFAULT_ROUTE
+ # IPV4_DEFAULT_ROUTE
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'interface_identifier', 'type': 'uint32'},
                              {'name': 'ipv4_address', 'type': 'ipv4',
@@ -5652,7 +5694,7 @@ ESTA_PIDS = [
   'name': 'IPV4_DEFAULT_ROUTE',
   'value': 0x070a},
 
- #DNS_IPV4_NAME_SERVER
+ # DNS_IPV4_NAME_SERVER
  {'get_request': {'items': [{'name': 'name_server_index', 'type': 'uint8',
                              'range': [(0, 2)]}]},
   'get_response': {'items': [{'name': 'name_server_index', 'type': 'uint8'},
@@ -5668,7 +5710,7 @@ ESTA_PIDS = [
   'name': 'DNS_IPV4_NAME_SERVER',
   'value': 0x070b},
 
- #DNS_HOSTNAME
+ # DNS_HOSTNAME
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'dns_hostname',
                               'min_size': 1,
@@ -5684,7 +5726,7 @@ ESTA_PIDS = [
   'name': 'DNS_HOSTNAME',
   'value': 0x070c},
 
- #DNS_DOMAIN_NAME
+ # DNS_DOMAIN_NAME
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'dns_domain_name',
                               'max_size': 231,

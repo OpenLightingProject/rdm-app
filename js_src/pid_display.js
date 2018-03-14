@@ -17,17 +17,19 @@
  * Copyright (C) 2011 Simon Newton
  */
 
+goog.provide('app.MessageStructure');
+
 goog.require('goog.dom');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Tooltip');
 
 
-goog.provide('app.MessageStructure');
-
-
 /**
  * A message field, this represents a field within a RDM message.
+ * @param {Object} field_info
+ * @param {?goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
+ * @extends goog.ui.Component
  */
 app.MessageField = function(field_info, opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
@@ -38,12 +40,14 @@ goog.inherits(app.MessageField, goog.ui.Component);
 
 /**
  * Return the underlying field info
+ * @return {Object}
  */
 app.MessageField.prototype.pid = function() { return this._pid; };
 
 
 /**
  * This component can't be used to decorate
+ * @return {!boolean}
  */
 app.MessageField.prototype.canDecorate = function() { return false; };
 
@@ -124,13 +128,17 @@ app.MessageField.prototype.enterDocument = function() {
  */
 app.MessageField.prototype.exitDocument = function() {
   app.MessageField.superClass_.exitDocument.call(this);
-  this.tt.detach(this.getElement());
+  if (this.tt) {
+    this.tt.detach(this.getElement());
+  }
 };
 
 
 /**
  * Create a RDM message structure object.
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
+ * @extends goog.ui.Component
  */
 app.MessageStructure = function(opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
@@ -141,13 +149,14 @@ goog.inherits(app.MessageStructure, goog.ui.Component);
 /**
  * Create the dom for the TableContainer
  */
-app.MessageStructure.prototype.createDom = function(container) {
+app.MessageStructure.prototype.createDom = function() {
   this.decorateInternal(this.dom_.createElement('div'));
 };
 
 
 /**
  * Decorate an existing element
+ * @param {Element} element
  */
 app.MessageStructure.prototype.decorateInternal = function(element) {
   app.MessageStructure.superClass_.decorateInternal.call(this, element);
@@ -156,13 +165,17 @@ app.MessageStructure.prototype.decorateInternal = function(element) {
 
 /**
  * Check if we can decorate an element.
- * @param {Element} element the dom element to check.
+ * @param {Element} element The DOM element to check.
+ * @return {!boolean} True if we can decorate the element.
  */
 app.MessageStructure.prototype.canDecorate = function(element) {
   return element.tagName == 'DIV';
 };
 
 
+/**
+ * @param {!Array.<app.MessageField>} fields
+ */
 app.MessageStructure.prototype.update = function(fields) {
   this.removeChildren(true);
 
@@ -186,7 +199,9 @@ app.MessageStructure.prototype.update = function(fields) {
 /**
  * A message group, this represents a repeated group of fields within an RDM
  * message.
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
+ * @extends goog.ui.Component
  */
 app.MessageGroup = function(opt_domHelper) {
   goog.ui.Component.call(this, opt_domHelper);
@@ -197,6 +212,7 @@ goog.inherits(app.MessageGroup, app.MessageStructure);
 
 /**
  * Attach the tooltip for this group
+ * @param {!app.MessageField} field
  */
 app.MessageGroup.prototype.attachTooltip = function(field) {
   this.tt = new goog.ui.Tooltip(this.getElement());
@@ -221,19 +237,9 @@ app.MessageGroup.prototype.attachTooltip = function(field) {
 
 /**
  * Decorate an existing element
+ * @param {Element} element
  */
 app.MessageGroup.prototype.decorateInternal = function(element) {
   app.MessageStructure.superClass_.decorateInternal.call(this, element);
   element.className = 'message_group';
-};
-
-
-/**
- * Remove the tooltip
- */
-app.MessageField.prototype.exitDocument = function() {
-  app.MessageField.superClass_.exitDocument.call(this);
-  if (this.tt) {
-    this.tt.detach(this.getElement());
-  }
 };

@@ -10,9 +10,12 @@
     "Simon Newton",
     "Peter Newman",
     "Dave Olsthoorn",
-    "Sean Sill"
+    "Sean Sill",
+    "Florian Edelmann"
   ],
   "devDependencies": {
+    "google-closure-compiler": "^20170910.0.0",
+    "google-closure-library": "^20170910.0.0",
     "grunt": "^1.0.0",
     "grunt-bower-task": "~0.4.0",
     "grunt-contrib-clean": "~0.6.0",

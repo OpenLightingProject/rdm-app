@@ -112,7 +112,7 @@ otherwise the files won't be compressed
 After changing `app.js`, you have to build the compiled Google Closure script by
 using:
 ```bash
-./BUILD
+grunt closure-compiler
 ```
 
 ### Running the App Engine locally
