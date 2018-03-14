@@ -89,10 +89,12 @@ class TestManufacturers(unittest.TestCase):
           pprint.pprint(vars(e.headers))
           self.fail("Link %s failed due to %s" % (link, e.reason))
         elif hasattr(e, 'code'):
-          self.fail("The server couldn't fulfill the request for %s. Error code: %s" % (link, e.code))
+          self.fail("The server couldn't fulfill the request for %s. Error "
+                    "code: %s" % (link, e.code))
       else:
         self.assertEqual(response.code, 200,
-                         "Failed to fetch URL %s got status %d" % (link, response.code))
+                         "Failed to fetch URL %s got status %d" %
+                         (link, response.code))
 
     # optional, check that ESTA exists
     self.assertIn(0, seen_ids)

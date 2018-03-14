@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestNodeData(unittest.TestCase):
   """ Test the node data files are valid."""
   def setUp(self):
