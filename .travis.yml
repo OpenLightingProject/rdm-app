@@ -29,6 +29,7 @@ matrix:
       env: TASK="nosetests"
     - env: TASK="karma"
     - env: TASK="js-lint"
+    - env: TASK="closure-compiler"
     - env: TASK="data-check"
       addons:
         apt:
