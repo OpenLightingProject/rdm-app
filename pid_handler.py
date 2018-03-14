@@ -95,7 +95,7 @@ class SearchByName(BaseSearchHandler):
       # do full string matching for now
       results = Pid.all()
       results.filter('draft = ', False)
-      results.filter('name =' , name)
+      results.filter('name =', name)
 
       return results
     return []
@@ -109,7 +109,7 @@ class SearchById(BaseSearchHandler):
     pid_id = StringToInt(self.request.get('id'))
     if pid_id is not None:
       results = Pid.all()
-      results.filter('pid_id =' , pid_id)
+      results.filter('pid_id =', pid_id)
       results.filter('draft = ', False)
       return results
     return []

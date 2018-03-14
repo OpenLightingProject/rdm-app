@@ -111,7 +111,6 @@ class AddInfoResponderHandler(BaseContribPageHandler):
       return None
     return url
 
-
   def SaveChanges(self, responders):
     added = 0
     for responder in responders:
@@ -124,9 +123,9 @@ class AddInfoResponderHandler(BaseContribPageHandler):
         continue
 
       responder_obj = UploadedResponderInfo(
-        manufacturer_id = responder.manufacturer.esta_id,
-        device_model_id = responder.device_model_id,
-        upload_time = datetime.datetime.now()
+        manufacturer_id=responder.manufacturer.esta_id,
+        device_model_id=responder.device_model_id,
+        upload_time=datetime.datetime.now()
       )
       if image:
         responder_obj.image_url = image
@@ -136,6 +135,7 @@ class AddInfoResponderHandler(BaseContribPageHandler):
       responder_obj.put()
       added += 1
     common.MaybeSendEmail(added)
+
 
 app = webapp.WSGIApplication(
   [

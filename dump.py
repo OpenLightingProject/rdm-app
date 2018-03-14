@@ -28,7 +28,6 @@ import pprint
 from ola import PidStore
 
 
-
 VALIDATOR_TO_VALUE = {
     PidStore.RootDeviceValidator: 0,
     PidStore.SubDeviceValidator: 1,
@@ -51,14 +50,13 @@ TYPE_TO_STRING = {
   PidStore.Group: 'group',
 }
 
+
 def BuildMessage(request):
   output = {
     'items': [],
   }
 
   for item in request.GetAtoms():
-    type = None
-
     data = {
         'name': item.name,
         'type': TYPE_TO_STRING[item.__class__],
@@ -122,9 +120,10 @@ def main():
       manufacturer['pids'].append(pid_dict)
     manufacturers.append(manufacturer)
 
-  #pprint.pprint(manufacturers)
+  # pprint.pprint(manufacturers)
 
   pprint.pprint(pids)
+
 
 if __name__ == '__main__':
   main()

@@ -60,7 +60,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
 
     if item['type'] == 'group':
       for child_item in item['items']:
-        self.WriteItem(child_item, indent+2)
+        self.WriteItem(child_item, indent + 2)
 
     for value, label in item.get('labels', []):
       self.Write('  label {', indent)
@@ -156,7 +156,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
         if pid.manufacturer.esta_id == self.ESTA_ID:
           esta_pids.append(pid)
         else:
-          #Build the hash of manufacturer pids by manufacturer
+          # Build the hash of manufacturer pids by manufacturer
           manufacturers.setdefault(pid.manufacturer.esta_id, []).append(pid)
 
       esta_pids.sort(key=lambda p: p.pid_id)
@@ -252,7 +252,6 @@ class MissingModelsHandler(webapp.RequestHandler):
     results = Responder.all()
     results.order('device_model_id')
 
-    models = []
     self.response.out.write(
         'Manufacturer ID,Manufacturer Name,Device ID,Model Name,Info Url,'
         'Image Url\n')
@@ -306,6 +305,7 @@ class InfoHandler(webapp.RequestHandler):
             update_timestamp.update_time)
 
     self.response.out.write(json.dumps(output))
+
 
 class ModelInfoHandler(webapp.RequestHandler):
   """Return responder model info."""
