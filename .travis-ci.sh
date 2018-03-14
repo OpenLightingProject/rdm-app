@@ -54,7 +54,7 @@ elif [[ $TASK = 'codespell' ]]; then
     echo "Found $spellingerrors spelling errors via codespell"
   fi;
 elif [[ $TASK = 'flake8' ]]; then
-  flake8 --max-line-length 80 --exclude .git,__pycache --ignore E111,E114,E129 $(find ./ -name "*.py" | xargs)
+  flake8 --max-line-length 80 --exclude .git,__pycache,node_modules --ignore E111,E114,E129 $(find ./ -name "*.py" | xargs)
   #,E121,E127
 elif [[ $TASK = 'pychecker' ]]; then
   PYTHONPATH=./:$PYTHONPATH
