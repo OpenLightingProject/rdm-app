@@ -70,7 +70,7 @@ class TestManufacturers(unittest.TestCase):
                     ("ESTA ID 0x%04x is not present in the manufacturer data" %
                      esta_id))
 
-      # Check we've not seen this URL before
+      # Check we've not seen a URL for this ID before
       self.assertNotIn(esta_id, seen_ids,
                        "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
