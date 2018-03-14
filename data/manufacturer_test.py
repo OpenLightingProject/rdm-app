@@ -17,6 +17,9 @@
 # Copyright (C) 2015 Simon Newton
 
 import unittest
+import urllib2
+import pprint
+from urllib2 import URLError
 
 class TestManufacturers(unittest.TestCase):
   """ Test the manufacturer data files are valid."""
@@ -70,6 +73,25 @@ class TestManufacturers(unittest.TestCase):
       self.assertNotIn(esta_id, seen_ids,
                        "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
+
+      # Check the link is valid
+      try:
+        # Some web servers, and Cloudflare, block us unless we have a
+        # non-python User Agent
+        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)'}
+
+        request = urllib2.Request(link, headers=ua)
+        response = urllib2.urlopen(request)
+      except URLError as e:
+        if hasattr(e, 'reason'):
+          pprint.pprint(e.code)
+          pprint.pprint(vars(e.headers))
+          self.fail("Link %s failed due to %s" % (link, e.reason))
+        elif hasattr(e, 'code'):
+          self.fail("The server couldn't fulfill the request for %s. Error code: %s" % (link, e.code))
+      else:
+        self.assertEqual(response.code, 200,
+                         "Failed to fetch URL %s got status %d" % (link, response.code))
 
     # optional, check that ESTA exists
     self.assertIn(0, seen_ids)
