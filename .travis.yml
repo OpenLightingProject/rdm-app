@@ -1,5 +1,8 @@
 language: python
 
+before_cache:
+- rm -f $HOME/.cache/pip/log/debug.log # erase log
+
 cache:
   directories:
     - $HOME/.npm
@@ -7,10 +10,17 @@ cache:
 
 sudo: false
 
+before_install:
+  - if [[ "$TASK" == "spellintian" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
+
 install:
   - pip install json-spec
   - npm install -g grunt-cli
   - npm install
+  - if [ "$TASK" = "flake8" ]; then pip install flake8; fi
+# If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
+  - if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
+  - if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/lucasdemarchi/codespell.git; fi
 
 matrix:
   fast_finish: true
@@ -19,11 +29,49 @@ matrix:
       env: TASK="nosetests"
     - env: TASK="karma"
     - env: TASK="js-lint"
+    - env: TASK="closure-compiler"
     - env: TASK="data-check"
       addons:
         apt:
           packages:
             - libhtml-parser-perl
+    - os: linux
+      dist: trusty
+      # Short duration job, would use the container/without sudo image as it boots faster, but we need a backported lintian, so don't
+      sudo: required
+      env: TASK='spellintian'
+      addons:
+        apt:
+          packages:
+            - moreutils
+    - os: linux
+      dist: trusty
+      # Short duration job, use the container/without sudo image as it boots faster
+      sudo: false
+      env: TASK='codespell'
+      addons:
+        apt:
+          packages:
+           - moreutils
+    - os: linux
+      dist: trusty
+      env: TASK='flake8'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker-wip'
+  allow_failures:
+    - os: linux
+      dist: trusty
+      env: TASK='flake8'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker'
+    - os: linux
+      dist: trusty
+      env: TASK='pychecker-wip'
 
 script: "bash -ex .travis-ci.sh"
 

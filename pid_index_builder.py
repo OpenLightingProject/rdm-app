@@ -59,7 +59,6 @@ class PidIndexBuilder():
     new_index = {}
 
     for responder in Responder.all():
-      params = []
       version = common.GetLatestSoftware(responder)
       if not version:
         continue

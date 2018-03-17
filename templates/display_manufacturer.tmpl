@@ -22,7 +22,13 @@
                 <ul class="list-group">
                     {% for device in devices %}
                         <li class="list-group-item">
-                            <a href="/model/display?manufacturer={{ id }}&model={{ device.device_model_id }}">{{ device.model_description }}</a>
+                            <a href="/model/display?manufacturer={{ id }}&amp;model={{ device.device_model_id }}">
+                                {% if device.model_description %}
+                                    {{ device.model_description }}
+                                {% else %}
+                                    Model ID {{ device.device_model_id }}
+                                {% endif %}
+                            </a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -92,7 +98,7 @@
                 <ul class="list-group">
                     {% for pid in pids %}
                         <li class="list-group-item">
-                            <a href="/pid/display?manufacturer={{ id }}&pid={{ pid.pid_id }}">{{ pid.name }}</a>
+                            <a href="/pid/display?manufacturer={{ id }}&amp;pid={{ pid.pid_id }}">{{ pid.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>

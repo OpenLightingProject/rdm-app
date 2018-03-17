@@ -12,7 +12,7 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# page.py
+# pages.py
 # Copyright (C) 2011 Simon Newton
 # Handlers for simple static pages
 
@@ -35,9 +35,11 @@ class UIDConverterHandler(common.BasePageHandler):
     """Display the tools page."""
     TEMPLATE = 'templates/uid-converter.tmpl'
 
+
 class PacketBuilderHandler(common.BasePageHandler):
     """Display the packet builder page."""
     TEMPLATE = 'templates/packet-builder.tmpl'
+
 
 class PacketExtractorHandler(common.BasePageHandler):
     """Display the packet builder page."""

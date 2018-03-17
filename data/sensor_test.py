@@ -13,36 +13,33 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# product_category_test.py
-# Copyright (C) 2015 Simon Newton
+# sensor_test.py
+# Copyright (C) 2017 Peter Newman
 
 import unittest
 
-
-class TestProductCategoryData(unittest.TestCase):
-  """ Test the product category data file is valid."""
+class TestSensorTypes(unittest.TestCase):
+  """ Test the sensor types data file is valid."""
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/product_categories.py", globals, locals)
-    self.data = locals['PRODUCT_CATEGORIES']
+    execfile("data/sensor_types.py", globals, locals)
+    self.data = locals['SENSOR_TYPES']
 
-  def test_ProductCategoryData(self):
-    seen_category_ids = set()
-    seen_category_names = set()
+  def test_SensorTypeData(self):
+    seen_names = set()
 
-    for data in self.data:
-      self.assertEqual(tuple, type(data))
-      self.assertEqual(2, len(data))
-      category, category_id = data
-      self.assertEqual(str, type(category))
-      self.assertEqual(int, type(category_id))
+    for sensor_type_id in self.data:
+      name = self.data[sensor_type_id]
+      self.assertEqual(int, type(sensor_type_id))
+      self.assertEqual(str, type(name))
 
-      self.assertNotIn(category_id, seen_category_ids)
-      seen_category_ids.add(category_id)
+      self.assertNotIn(name, seen_names,
+                       "Sensor Name %s is present twice" % name)
+      seen_names.add(name)
 
-      self.assertNotIn(category, seen_category_names)
-      seen_category_names.add(category)
+    # check that some sensors exist
+    self.assertGreater(len(seen_names), 30)
 
 
 if __name__ == '__main__':

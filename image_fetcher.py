@@ -17,12 +17,10 @@
 # Handles fetching images from remote sites.
 
 from __future__ import with_statement
-from model import *
 import logging
 from google.appengine.api import files
 from google.appengine.api import images
 from google.appengine.api import urlfetch
-from google.appengine.ext import blobstore
 
 
 class ImageFetcher(object):
@@ -61,7 +59,7 @@ class ImageFetcher(object):
     if img.width > self.RESIZE_WIDTH:
       img.resize(width=self.RESIZE_WIDTH)
     # we need at least one transform, so use I'm feeling lucky :)
-    img.im_feeling_lucky();
+    img.im_feeling_lucky()
     try:
       thumbnail = img.execute_transforms(output_encoding=images.PNG)
     except SystemError, e:
@@ -75,4 +73,3 @@ class ImageFetcher(object):
     files.finalize(file_name)
 
     return files.blobstore.get_blob_key(file_name)
-

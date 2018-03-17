@@ -16,11 +16,10 @@
 # Copyright (C) 2011 Simon Newton
 # Defines the task queue handlers.
 
-import logging
 from google.appengine.api import images
 from google.appengine.ext import webapp
 from image_fetcher import ImageFetcher
-from model import Controller, Product, Responder
+from model import Product, Responder
 from pid_index_builder import PidIndexBuilder
 
 
@@ -87,6 +86,7 @@ class RankDevices(webapp.RequestHandler):
       device.score = score
       device.put()
     return
+
 
 class BuildPidResponderIndex(webapp.RequestHandler):
   """Build the mappings between PIDs and the responders which support the
