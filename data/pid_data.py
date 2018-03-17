@@ -926,6 +926,42 @@ MANUFACTURER_PIDS = [
     ],
   },
 
+  # Enttec
+  {'id': 0x454E,
+   'name': 'Enttec Pty Ltd',
+   'pids': [
+      # PWM_OUTPUT_FREQUENCY
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': 'frequency', 'type': 'uint16'}]},
+       'get_sub_device_range': 2,
+       'name': 'PWM_OUTPUT_FREQUENCY',
+       'set_request': {'items': [{'name': 'frequency', 'type': 'uint16',
+                                  'range': [(500, 2000)],
+                      }]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': '',
+       'value': 32770},
+
+      # FAN_ON_PERCENTAGE
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': 'percentage', 'type': 'uint8',
+                           'labels': [(0, 'Auto')]}]},
+       'get_sub_device_range': 0,
+       'name': 'FAN_ON_PERCENTAGE',
+       'set_request': {'items': [{'name': 'percentage', 'type': 'uint8',
+                                  'labels': [(0, 'Auto')],
+                                  'range': [(0, 0), (50, 100)],
+                      }]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'notes': '',
+       'value': 32771},
+    ],
+  },
+
   # Howard Eaton Lighting
   {'id': 0x4845,
    'name': 'Howard Eaton Lighting',
