@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestSoftwareData(unittest.TestCase):
   """ Test the software data files are valid."""
   def setUp(self):
