@@ -85,8 +85,10 @@ class TestManufacturers(unittest.TestCase):
         response = urllib2.urlopen(request)
       except URLError as e:
         if hasattr(e, 'reason'):
-          pprint.pprint(e.code)
-          pprint.pprint(vars(e.headers))
+          if hasattr(e, 'code'):
+            pprint.pprint(e.code)
+          if hasattr(e, 'headers'):
+            pprint.pprint(vars(e.headers))
           self.fail("Link %s failed due to %s" % (link, e.reason))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
