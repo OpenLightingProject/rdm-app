@@ -72,6 +72,7 @@ MANUFACTURER_DATA = [
 (0x01A9, "Shenzhen Uniview LED Ltd. Co."),
 (0x01AA, "Vitec Videocom Inc."),
 (0x01AB, "Shanghai Euchips Industrial Co., Ltd."),
+(0x01AC, "DongGuan  Phcistar Optoelectronics Technology Co., Ltd."),
 (0x01AF, "Hunan Minghe Opto Tech Co., Ltd."),
 (0x01B1, "Lightcare A/S"),
 (0x01C7, "SCHIEDERWERK GmbH "),
