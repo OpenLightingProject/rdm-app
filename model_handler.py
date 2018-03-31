@@ -300,7 +300,7 @@ class DisplayModel(common.BasePageHandler):
         version_output['sensors'] = sensors
 
     # construct link to Open Fixture Library's RDM lookup page
-    ofl_model_url = 'https://open-fixture-library.herokuapp.com/rdm?source=olp'
+    ofl_model_url = 'https://open-fixture-library.org/rdm?source=olp'
     ofl_model_url += '&manufacturerId=' + str(model.manufacturer.esta_id)
     ofl_model_url += '&modelId=' + str(model.device_model_id)
 
