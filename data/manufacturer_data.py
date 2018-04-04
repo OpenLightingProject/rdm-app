@@ -75,6 +75,8 @@ MANUFACTURER_DATA = [
 (0x01AC, "DongGuan  Phcistar Optoelectronics Technology Co., Ltd."),
 (0x01AF, "Hunan Minghe Opto Tech Co., Ltd."),
 (0x01B1, "Lightcare A/S"),
+(0x01B2, "DJSI Schinstad ANS (Northern Light)"),
+(0x01B3, "Ricardo Dias"),
 (0x01C7, "SCHIEDERWERK GmbH "),
 (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd. "),
 (0x01C9, "ALPHA LITE Inc."),
