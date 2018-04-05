@@ -346,6 +346,7 @@ MANUFACTURER_DATA = [
 (0x09D3, "WLPS Wodielite Production Services"),
 (0x09D6, "Mittomakers"),
 (0x09D7, "Unilumin Group"),
+(0x09DE, "Matthias Bauch Software"),
 (0x09E9, "Starway"),
 (0x09FC, "deskontrol electronics"),
 (0x1212, "HPL Light Company"),
