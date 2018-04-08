@@ -111,6 +111,7 @@ MANUFACTURER_DATA = [
 (0x0242, "ABLELITE INTERNATIONAL"),
 (0x025B, "Imlight-Showtechnic"),
 (0x026F, "Acuity Brands Lighting Inc."),
+(0x0280, "Arrigo Lighting"),
 (0x02A0, "LLC Likhoslavl Plant of Lighting Engineering (Svetotehnika)"),
 (0x02A1, "LLC Moscow Experimental Lighting Plant (TeleMechanic)"),
 (0x02A2, "OJSC Kadoshkinsky electrotechnical "),
