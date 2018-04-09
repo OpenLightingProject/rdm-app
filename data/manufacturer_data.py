@@ -100,6 +100,7 @@ MANUFACTURER_DATA = [
 (0x01DB, "Logen Ltd."),
 (0x01DC, "LED Linear GmbH"),
 (0x01DD, "Photonia srl"),
+(0x01DE, "Guangzhou Baiyun Xinxiang Lighting Equipment Factory (XPRO LIGHT)"),
 (0x0202, "Paul Heuts"),
 (0x0203, "Artemide S.p.A"),
 (0x0204, "LIGHTLINE Lasertechnik GmbH"),
