@@ -32,7 +32,7 @@ class ManufacturerList(webapp.RequestHandler):
   CACHE_KEY = memcache_keys.MANUFACTURER_CACHE_KEY
 
   def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.headers['Content-Type'] = 'application/json'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
     response = memcache.get(memcache_keys.MANUFACTURER_CACHE_KEY)
