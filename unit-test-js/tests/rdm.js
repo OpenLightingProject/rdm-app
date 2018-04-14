@@ -69,7 +69,7 @@ describe('rdmApp', function() {
       converter.euid = '';
       converter.convertToUID();
       expect(converter.error).toEqual(
-        'Invalid EUID: insufficent data, should be 16 bytes');
+        'Invalid EUID: incorrect amount of data, should be 16 bytes');
       expect(converter.uid).toEqual('');
     });
 
