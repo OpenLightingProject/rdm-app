@@ -105,19 +105,19 @@ class ResponderFirmware(webapp.RequestHandler):
       self.error(404)
       return
 
-    version = common.GetLatestSoftware(responder);
+    version = common.GetLatestSoftware(responder)
     if version is None:
       self.error(404)
 
     output = {
       'version': version.version_id,
-      'label' : version.label,
+      'label': version.label,
     }
     # Standardise on link in API v2 upwards
     if self.API_VERSION > 1:
-      output['link'] = None;
+      output['link'] = None
     else:
-      output['URL'] = '';
+      output['URL'] = ''
     # Add other useful info in API v2 upwards
     if self.API_VERSION > 1:
       output['manufacturer_name'] = responder.manufacturer.name
@@ -245,6 +245,7 @@ class ProductTags(webapp.RequestHandler):
           })
       memcache.set(self.MemcacheKey(), tag_list)
     self.response.out.write(json.dumps(tag_list))
+
 
 class ProductManufacturers(webapp.RequestHandler):
   """Return the manufactures and number of products for each."""
