@@ -12,9 +12,9 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
-# proto_v1.py
+# proto_api.py
 # Copyright (C) 2012 Simon Newton
-# Version 1 of the Proto API
+# Version 1 and 2 of the Proto API
 
 from model import *
 import logging
@@ -22,23 +22,35 @@ from google.appengine.ext import webapp
 
 
 class ManufacturerList(webapp.RequestHandler):
+  API_VERSION = 1
+
   """Return the list of all manufacturers."""
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.headers['Cache-Control'] = 'public; max-age=300;'
 
     output = []
-    for manufacturer in Manufacturer.all():
+    query = Manufacturer.all()
+    if self.API_VERSION > 1:
+      query.order('name')
+    for manufacturer in query:
       output.append("manufacturer {")
       output.append("  name: \"%s\"" % manufacturer.name)
       output.append("  id: %d" % manufacturer.esta_id)
+      if self.API_VERSION > 1 and manufacturer.link:
+        output.append("  link: \"%s\"" % manufacturer.link)
       output.append("}")
 
     self.response.out.write('\n'.join(output))
 
 
+class ManufacturerList2(ManufacturerList):
+  API_VERSION = 2
+
+
 app = webapp.WSGIApplication(
   [
     ('/api/proto/1/manufacturers', ManufacturerList),
+    ('/api/proto/2/manufacturers', ManufacturerList2),
   ],
   debug=True)

@@ -99,8 +99,19 @@ class AdminPageHandler(BaseAdminPageHandler):
     manufacturers_to_delete = []
     # invalidate the cache now
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
-    memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY_2)
+    # This is linked to manufacturer PIDs, so invalidate
     memcache.delete(memcache_keys.MANUFACTURER_PID_COUNT_KEY)
+    # These need invalidating as they display manufacturer names
+    memcache.delete(memcache_keys.MANUFACTURER_MODEL_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_NODE_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_SOFTWARE_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_SPLITTER_COUNTS)
+    memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS_2)
+    memcache.delete(memcache_keys.MANUFACTURER_NODE_COUNTS_2)
+    memcache.delete(memcache_keys.MANUFACTURER_SOFTWARE_COUNTS_2)
+    memcache.delete(memcache_keys.MANUFACTURER_SPLITTER_COUNTS_2)
     added = removed = updated = errors = 0
 
     for manufacturer in Manufacturer.all():
@@ -152,6 +163,12 @@ class AdminPageHandler(BaseAdminPageHandler):
     present_manufacturers = set()
     # invalidate the cache now
     memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY)
+    memcache.delete(memcache_keys.MANUFACTURER_CACHE_KEY_2)
+    # These need invalidating as they display manufacturer links
+    memcache.delete(memcache_keys.MANUFACTURER_CONTROLLER_COUNTS_2)
+    memcache.delete(memcache_keys.MANUFACTURER_NODE_COUNTS_2)
+    memcache.delete(memcache_keys.MANUFACTURER_SOFTWARE_COUNTS_2)
+    memcache.delete(memcache_keys.MANUFACTURER_SPLITTER_COUNTS_2)
     added = updated = missing = errors = 0
 
     for manufacturer in Manufacturer.all():
@@ -453,6 +470,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         CONTROLLER_DATA,
         Controller,
         [memcache_keys.MANUFACTURER_CONTROLLER_COUNTS,
+         memcache_keys.MANUFACTURER_CONTROLLER_COUNTS_2,
          memcache_keys.TAG_CONTROLLER_COUNTS],
         timestamp_keys.CONTROLLERS)
 
@@ -464,6 +482,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         NODE_DATA,
         Node,
         [memcache_keys.MANUFACTURER_NODE_COUNTS,
+         memcache_keys.MANUFACTURER_NODE_COUNTS_2,
          memcache_keys.TAG_NODE_COUNTS],
         timestamp_keys.NODES)
 
@@ -475,6 +494,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         SPLITTER_DATA,
         Splitter,
         [memcache_keys.MANUFACTURER_SPLITTER_COUNTS,
+         memcache_keys.MANUFACTURER_SPLITTER_COUNTS_2,
          memcache_keys.TAG_SPLITTER_COUNTS],
         timestamp_keys.SPLITTERS)
 
@@ -486,6 +506,7 @@ class AdminPageHandler(BaseAdminPageHandler):
         SOFTWARE_DATA,
         Software,
         [memcache_keys.MANUFACTURER_SOFTWARE_COUNTS,
+         memcache_keys.MANUFACTURER_SOFTWARE_COUNTS_2,
          memcache_keys.TAG_SOFTWARE_COUNTS],
         timestamp_keys.SOFTWARE)
 
