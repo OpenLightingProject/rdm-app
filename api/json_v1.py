@@ -78,7 +78,7 @@ class ResponderFirmware(webapp.RequestHandler):
       self.error(404)
       return
 
-    version = common.GetLatestSoftware(responder);
+    version = common.GetLatestSoftware(responder)
     if version is None:
       self.error(404)
 
@@ -173,6 +173,7 @@ class ProductTags(webapp.RequestHandler):
           })
       memcache.set(self.MemcacheKey(), tag_list)
     self.response.out.write(json.dumps(tag_list))
+
 
 class ProductManufacturers(webapp.RequestHandler):
   """Return the manufactures and number of products for each."""
