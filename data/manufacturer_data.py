@@ -70,6 +70,7 @@ MANUFACTURER_DATA = [
 (0x019F, "DaisaLed Ltd."),
 (0x01A0, "Light With LED"),
 (0x01A1, "Yuesheng Stage Light Limited"),
+(0x01A2, "Art Lighting Production, s.r.o."),
 (0x01A8, "ZongDa Photoelectricity Science and Technology Co., Ltd."),
 (0x01A9, "Shenzhen Uniview LED Ltd. Co."),
 (0x01AA, "Vitec Videocom Inc."),
