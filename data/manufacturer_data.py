@@ -67,6 +67,7 @@ MANUFACTURER_DATA = [
 (0x016C, "LGR"),
 (0x0199, "Ocean LED Marine Ltd."),
 (0x019A, "TwoGain Electronics"),
+(0x019B, "ElectroTAS Soluciones Profesionales"),
 (0x019F, "DaisaLed Ltd."),
 (0x01A0, "Light With LED"),
 (0x01A1, "Yuesheng Stage Light Limited"),
