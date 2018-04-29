@@ -716,14 +716,14 @@ MANUFACTURER_PIDS = [
       {'get_request': {'items': []},
        'get_response': {'items': [
                           {'name': 'input_format', 'type': 'uint8',
-                           'labels': [(0, 'DMX'), (1, 'ArtNet'),
+                           'labels': [(0, 'DMX'), (1, 'Art-Net'),
                                       (2, 'E1.31'), (3, 'KiNet')],
                           }
                         ]},
        'get_sub_device_range': 0,
        'name': 'INPUT_FORMAT',
        'set_request': {'items': [{'name': 'input_format', 'type': 'uint8',
-                                  'labels': [(0, 'DMX'), (1, 'ArtNet'),
+                                  'labels': [(0, 'DMX'), (1, 'Art-Net'),
                                              (2, 'E1.31'), (3, 'KiNet')],
                       }]},
        'set_response': {'items': []},
