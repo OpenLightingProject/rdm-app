@@ -65,6 +65,8 @@ MANUFACTURER_DATA = [
 (0x011A, "Guangzhou Hotion Technology Co., Ltd."),
 (0x011B, "Jumptronic GmbH"),
 (0x016C, "LGR"),
+(0x016D, "Hive Lighting"),
+(0x016E, "Artled Technology Corp."),
 (0x0199, "Ocean LED Marine Ltd."),
 (0x019A, "TwoGain Electronics"),
 (0x019B, "ElectroTAS Soluciones Profesionales"),
