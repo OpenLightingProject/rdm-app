@@ -19,6 +19,7 @@
 import unittest
 import urllib2
 import pprint
+from socket import error as SocketError
 from urllib2 import URLError
 
 
@@ -93,6 +94,9 @@ class TestManufacturers(unittest.TestCase):
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
                     "code: %s" % (link, e.code))
+      except SocketError as e:
+        if hasattr(e, 'errno'):
+          self.fail("Link %s failed due to socket error %s" % (link, e.errno))
       else:
         self.assertEqual(response.code, 200,
                          "Failed to fetch URL %s got status %d" %
