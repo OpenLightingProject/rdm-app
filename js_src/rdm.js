@@ -506,7 +506,7 @@ angular.module('rdmApp', [])
         var data = return_data[1];
 
         if (data.length !== RDM.EUID_SIZE) {
-          $scope.error = 'Invalid EUID: insufficent data, should be 16 bytes';
+          $scope.error = 'Invalid EUID: insufficient data, should be 16 bytes';
           return;
         }
 
