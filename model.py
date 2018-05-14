@@ -178,6 +178,7 @@ class ProductTagRelationship(db.Model):
                                  required=True,
                                  collection_name='tag_set')
 
+
 class Controller(Product):
   """Represents an RDM Controller."""
   pass

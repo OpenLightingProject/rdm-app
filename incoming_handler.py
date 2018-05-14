@@ -106,10 +106,10 @@ class HandleModelData(webapp.RequestHandler):
         del responder['device_model']
 
         responder_obj = UploadedResponderInfo(
-          manufacturer_id = manufacturer_id,
-          device_model_id = device_model_id,
-          info = str(responder),
-          upload_time = datetime.datetime.now()
+          manufacturer_id=manufacturer_id,
+          device_model_id=device_model_id,
+          info=str(responder),
+          upload_time=datetime.datetime.now()
         )
         responder_obj.put()
 
@@ -122,7 +122,6 @@ class HandleModelData(webapp.RequestHandler):
         })
 
     return responder_obj_ids
-
 
 
 class UpdateModelData(webapp.RequestHandler):
@@ -145,7 +144,7 @@ class UpdateModelData(webapp.RequestHandler):
     output = {
       'ok': errors == [],
       'errors': errors,
-    };
+    }
     self.response.out.write(json.dumps(output))
 
   def UpdateResponders(self, data, email):

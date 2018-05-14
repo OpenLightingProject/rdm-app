@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestDeviceModelData(unittest.TestCase):
   """ Test the device model data files are valid."""
   def setUp(self):

@@ -33,7 +33,7 @@ MANUFACTURER_LINKS = [
 (0x0987, "https://www.mathertel.de/"),
 (0x1AFA, "https://tmb.com/"),
 (0x15D0, "https://www.musiclights.it/"),
-#(0x15D0, "http://prolights.it/"), # This is one of their sub-brands
+# (0x15D0, "http://prolights.it/"), # This is one of their sub-brands
 (0x20B9, "https://www.arri.com/"),
 (0x21A4, "https://www.chauvetdj.com/"),
 (0x2122, "https://beglec.com/"),
@@ -54,7 +54,7 @@ MANUFACTURER_LINKS = [
 (0x4354, "http://www.citytheatrical.com/"),
 (0x4446, "http://www.dfd.com/"),
 (0x454E, "https://www.enttec.com/"),
-(0x4658, "https://www.magicfx.eu/"),
+(0x4658, "http://www.magicfx.eu/"),
 (0x4744, "http://www.goddarddesign.com/"),
 (0x4845, "http://www.helluk.com/"),
 (0x4953, "https://www.istl.com/"),

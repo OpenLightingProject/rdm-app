@@ -17,6 +17,10 @@
 # Copyright (C) 2015 Simon Newton
 
 import unittest
+import urllib2
+import pprint
+from socket import error as SocketError
+from urllib2 import URLError
 
 
 class TestManufacturers(unittest.TestCase):
@@ -67,10 +71,36 @@ class TestManufacturers(unittest.TestCase):
                     ("ESTA ID 0x%04x is not present in the manufacturer data" %
                      esta_id))
 
-      # Check we've not seen this URL before
+      # Check we've not seen a URL for this ID before
       self.assertNotIn(esta_id, seen_ids,
                        "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
+
+      # Check the link is valid
+      try:
+        # Some web servers, and Cloudflare, block us unless we have a
+        # non-python User Agent
+        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)'}
+
+        request = urllib2.Request(link, headers=ua)
+        response = urllib2.urlopen(request)
+      except URLError as e:
+        if hasattr(e, 'reason'):
+          if hasattr(e, 'code'):
+            pprint.pprint(e.code)
+          if hasattr(e, 'headers'):
+            pprint.pprint(vars(e.headers))
+          self.fail("Link %s failed due to %s" % (link, e.reason))
+        elif hasattr(e, 'code'):
+          self.fail("The server couldn't fulfill the request for %s. Error "
+                    "code: %s" % (link, e.code))
+      except SocketError as e:
+        if hasattr(e, 'errno'):
+          self.fail("Link %s failed due to socket error %s" % (link, e.errno))
+      else:
+        self.assertEqual(response.code, 200,
+                         "Failed to fetch URL %s got status %d" %
+                         (link, response.code))
 
     # optional, check that ESTA exists
     self.assertIn(0, seen_ids)

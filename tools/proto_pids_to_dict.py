@@ -41,6 +41,7 @@ TYPES = {
   Pids_pb2.MAC: 'mac',
 }
 
+
 def LoadProto(pid_file_name):
   pid_file = open(pid_file_name, 'r')
   lines = pid_file.readlines()
@@ -80,6 +81,7 @@ def FieldToDict(field):
       labels.append((label.value, label.label.encode('ascii', 'ignore')))
 
   return output
+
 
 def AddCommand(pid_dict, pid, prefix):
   request = '%s_request' % prefix
