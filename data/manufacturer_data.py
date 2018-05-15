@@ -360,6 +360,7 @@ MANUFACTURER_DATA = [
 (0x09DE, "Matthias Bauch Software"),
 (0x09E9, "Starway"),
 (0x09FC, "deskontrol electronics"),
+(0x0A01, "Star-Reach Corporation"),
 (0x1112, "Zhuhai Bincolor Electronic Technology Co., Ltd."),
 (0x1113, "SiliconCore Technology, Inc."),
 (0x1212, "HPL Light Company"),
