@@ -363,6 +363,7 @@ MANUFACTURER_DATA = [
 (0x0A01, "Star-Reach Corporation"),
 (0x1112, "Zhuhai Bincolor Electronic Technology Co., Ltd."),
 (0x1113, "SiliconCore Technology, Inc."),
+(0x1200, "Seekway Technology Limited"),
 (0x1212, "HPL Light Company"),
 (0x1234, "ESTA"),
 (0x12DA, "Newlab S.r.l."),
