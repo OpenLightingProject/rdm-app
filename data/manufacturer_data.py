@@ -39,6 +39,7 @@ MANUFACTURER_DATA = [
 (0x00B1, "Guangzhou Omarte Lighting Co., Ltd."),
 (0x00B2, "unonovesette srl"),
 (0x00B3, "LANTERN"),
+(0x00B5, "Suga koubou Co., Ltd."),
 (0x0101, "St. Anne Engineering GmbH"),
 (0x0102, "Bortis Elektronik"),
 (0x0103, "Fontana Technologies"),
