@@ -317,6 +317,7 @@ MANUFACTURER_DATA = [
 (0x091B, "Krislite Pte. Ltd."),
 (0x091D, "TouchPlate Technologies Inc."),
 (0x0923, "Hangzhou Roleds Lighting System Co., Ltd."),
+(0x0931, "Cristal Controles"),
 (0x0936, "AquaTronic"),
 (0x093A, "HDT impex s.r.o."),
 (0x0940, "Shenzhen CreateLED Electronics Co., Ltd"),

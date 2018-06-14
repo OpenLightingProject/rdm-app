@@ -41,7 +41,7 @@ MANUFACTURER_LINKS = [
 (0x242A, "http://www.hungaroflash.com/"),
 (0x263C, "http://www.i-pix.com/"),
 (0x2635, "http://www.ljusdesign.se/"),
-(0x26B4, "http://www.milinst.co.uk/"),
+# (0x26B4, "http://www.milinst.co.uk/"), # Company, and website has gone
 (0x2C2A, "http://www.xtba.co.uk/"),
 (0x2DC8, "http://www.stellascapes.com/"),
 (0x29B4, "http://www.highlite.nl/"),
