@@ -78,7 +78,7 @@ script: "bash -ex .travis-ci.sh"
 
 deploy:
   provider: gae
-  keyfile: peter-ola-rdm-app-51be81f8c2c3.json.enc
+  keyfile: peter-ola-rdm-app-51be81f8c2c3.json
   project: peter-ola-rdm-app
   skip_cleanup: true
   on:
