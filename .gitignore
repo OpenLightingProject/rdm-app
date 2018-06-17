@@ -1,6 +1,8 @@
 *rdm*.json
 *.pyc
 *.swp
+api_key.py
+credentials.tar.gz
 node_modules
 index.yaml
 .idea
