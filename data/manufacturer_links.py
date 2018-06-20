@@ -23,7 +23,7 @@ MANUFACTURER_LINKS = [
 (0x00A2, "http://www.empdesigns.co.uk/"),
 (0x00A7, "http://www.syncronorm.de/"),
 (0x00A8, "https://www.eye.co.jp/"),
-(0x00A9, "http://www.richter-lt.de"),
+# (0x00A9, "http://www.richter-lt.de"), # Temporarily(?) down
 (0x00B0, "http://www.arenaluci.com/"),
 (0x0104, "https://www.blizzardlighting.com/"),
 (0x01CC, "https://portmanlights.com/"),
