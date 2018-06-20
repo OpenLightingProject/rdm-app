@@ -24,6 +24,7 @@ MANUFACTURER_LINKS = [
 (0x0206, "http://www.studiodue.com/"),
 (0x02E1, "http://www.taittowers.com/"),
 (0x0308, "http://imagecue.lighting/"),
+(0x044E, "http://benpeoples.com/"),
 (0x0455, "https://lampandpencil.com/"),
 (0x04FC, "http://strong.lighting/"),
 (0x056B, "https://www.cosmolight.it/"),
@@ -95,6 +96,7 @@ MANUFACTURER_LINKS = [
 (0x6D62, "http://www.proled.com/"),
 (0x780E, "https://www.mole.com/"),
 (0x7A70, "https://www.openlighting.org/"),
+(0x7068, "https://www.pharoscontrols.com/"),
 (0x7FF0, "http://tsp.esta.org/tsp/working_groups/cp.html"),
 (0x7FF1, "http://tsp.esta.org/tsp/working_groups/cp.html"),
 (0x7FF2, "http://tsp.esta.org/tsp/working_groups/cp.html"),
@@ -111,4 +113,5 @@ MANUFACTURER_LINKS = [
 (0x7FFD, "http://tsp.esta.org/tsp/working_groups/cp.html"),
 (0x7FFE, "http://tsp.esta.org/tsp/working_groups/cp.html"),
 (0x7FFF, "http://tsp.esta.org/tsp/working_groups/cp.html"),
+(0xFFFF, "http://tsp.esta.org/tsp/working_groups/cp.html"),
 ]
