@@ -30,6 +30,7 @@ MANUFACTURER_LINKS = [
 (0x0710, "https://dts-lighting.it/"),
 (0x0808, "http://zero88.com/"),
 (0x089D, "http://www.gobo.ws/"),
+(0x08A4, "https://www.adamhall.com/"),
 (0x0987, "https://www.mathertel.de/"),
 (0x1AFA, "https://tmb.com/"),
 (0x15D0, "https://www.musiclights.it/"),
