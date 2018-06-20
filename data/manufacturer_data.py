@@ -783,6 +783,7 @@ MANUFACTURER_DATA = [
 (0x6574, "Electronic Theatre Controls, Inc."),
 (0x6576, "eventa Aktiengesellschaft"),
 (0x6644, "Sunlab Technologies S.L."),
+(0x666D, "MAD-Effects"),
 (0x6673, "Freescale Semiconductor U.K. Ltd."),
 (0x6756, "Lumisia Co., Ltd."),
 (0x676C, "GLP German Light Products GmbH"),
