@@ -65,5 +65,6 @@ elif [[ $TASK = 'pychecker-wip' ]]; then
   export PYTHONPATH
   pychecker --quiet --limit 500 --blacklist $PYCHECKER_BLACKLIST $(find ./ -name "*.py" | xargs)
 elif [[ $TASK = 'deploy' ]]; then
+    grunt --verbose bower
     grunt --verbose compress
 fi

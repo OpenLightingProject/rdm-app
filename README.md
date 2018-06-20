@@ -137,7 +137,7 @@ respective file in the `data/` directory.
 
 ### Deploying to App Engine
 
-Before deploying to App Engine run:
+Before deploying to App Engine run (grunt bower if you hadn't already, and):
 ```bash
 grunt compress
 ```
