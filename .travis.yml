@@ -64,6 +64,18 @@ matrix:
     - os: linux
       dist: trusty
       env: TASK='pychecker-wip'
+    - stage: deploy
+      os: linux
+      dist: trusty
+      env: TASK='deploy'
+      deploy:
+        provider: gae
+        keyfile: peter-ola-rdm-app-51be81f8c2c3.json
+        project: peter-ola-rdm-app
+        skip_cleanup: true
+        on:
+          all_branches: true
+
   allow_failures:
     - os: linux
       dist: trusty
@@ -76,14 +88,6 @@ matrix:
       env: TASK='pychecker-wip'
 
 script: "bash -ex .travis-ci.sh"
-
-deploy:
-  provider: gae
-  keyfile: peter-ola-rdm-app-51be81f8c2c3.json
-  project: peter-ola-rdm-app
-  skip_cleanup: true
-  on:
-    all_branches: true
 
 notifications:
   irc:
