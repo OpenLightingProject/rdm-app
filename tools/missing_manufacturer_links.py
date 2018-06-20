@@ -19,8 +19,8 @@
 # Tidy with:
 # sed -i '/^##/d' manufacturer_links.py
 
-import pprint
 import textwrap
+
 
 def Header():
   print textwrap.dedent("""\
@@ -42,12 +42,14 @@ def Header():
   # manufacturer_links.py
   # Copyright (C) 2017 Peter Newman
   # The links for Manufacturers
-  
+
   MANUFACTURER_LINKS = [""")
+
 
 def Footer():
   print textwrap.dedent("""\
   ]""")
+
 
 if __name__ == '__main__':
   globals = {}
