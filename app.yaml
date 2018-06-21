@@ -90,6 +90,8 @@ builtins:
 skip_files:
 - ^(.*/)?app\.yaml
 - ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
 - ^(.*/)?#.*#
 - ^(.*/)?.*~
 - ^(.*/)?.*\.py[co]
