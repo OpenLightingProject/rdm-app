@@ -24,6 +24,12 @@ indexes:
 - kind: Product
   properties:
   - name: class
+  - name: manufacturer
+  - name: name
+
+- kind: Product
+  properties:
+  - name: class
   - name: image_url
     direction: desc
 
