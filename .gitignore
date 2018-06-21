@@ -4,7 +4,6 @@
 api_key.py
 credentials.tar.gz
 node_modules
-index.yaml
 .idea
 static/libs
 static/js/rdm.js
