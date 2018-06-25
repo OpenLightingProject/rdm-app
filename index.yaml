@@ -24,14 +24,19 @@ indexes:
 - kind: Product
   properties:
   - name: class
-  - name: manufacturer
-  - name: name
+  - name: image_url
+    direction: desc
 
 - kind: Product
   properties:
   - name: class
-  - name: image_url
-    direction: desc
+  - name: manufacturer
+  - name: name
+
+- kind: ProductTag
+  properties:
+  - name: product_type
+  - name: label
 
 - kind: Responder
   properties:
