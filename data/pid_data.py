@@ -3357,7 +3357,7 @@ MANUFACTURER_PIDS = [
         'set_request': {'items': [{'name': 'DL Compatible Mode', 'type': 'bool'}]},
         'set_response': {'items': []},
         'set_sub_device_range': 1,
-        'value': 409739},
+        'value': 40973},
       { 'get_request': { 'items': []},
         'get_response': { 'items': [ { 'labels': [ (0, 'Off'),
                                                    (1, '1 Minute'),
