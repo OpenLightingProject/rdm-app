@@ -20,7 +20,7 @@
 SOFTWARE_DATA = {
   0x454E: [
     {'name': 'ENTTEC RDM Controller',
-     'link': 'http://www.enttec.com/index.php?main_menu=Products&pn=70531&show=description&name=rdmcontroller',
+     'link': 'https://www.enttec.com/products/controls/rdm/rdm-controller/',
      'image_url': 'http://www.enttec.com/img/rdm/cr_sum_small.png',
      'tags': ['Windows']},
   ],
