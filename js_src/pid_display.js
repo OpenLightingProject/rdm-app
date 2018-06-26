@@ -89,8 +89,8 @@ app.MessageField.prototype.createDom = function() {
 app.MessageField.prototype.enterDocument = function() {
   app.MessageField.superClass_.enterDocument.call(this);
 
-  var tt = 'Type: ' + this._field_info['type'] + '<br>';
-  tt += 'Name: ' + this._field_info['name'] + '<br>';
+  var tt = 'Type: ' + this._field_info['type'] + '<br>' +
+    'Name: ' + this._field_info['name'] + '<br>';
 
   if (this._field_info['multiplier'] != undefined) {
     tt += 'Multipler: 10<sup>' + this._field_info['multiplier'] + '</sup><br>';
@@ -113,7 +113,7 @@ app.MessageField.prototype.enterDocument = function() {
     tt += 'Labeled Values: <ul>';
     var enums = this._field_info['enums'];
     for (var i = 0; i < enums.length; ++i) {
-      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'] + '</li/>';
+      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'] + '</li>';
     }
     tt += '</ul>';
   }
