@@ -261,6 +261,7 @@ MANUFACTURER_DATA = [
 (0x080A, "Shenzhen FantaLED Electronics Co., Ltd"),
 (0x080D, "HBJ Elektronik"),
 (0x080F, "Navo Corp."),
+(0x083A, "Bright Ideas Custom Electronics Inc."),
 (0x0845, "Cush Light LLC"),
 (0x084B, "Neon Circus Ltd"),
 (0x084C, "Guangzhou Ba Lin Electronic Technology Co., Ltd."),
