@@ -20,14 +20,12 @@ import common
 import json
 import logging
 import memcache_keys
-import re
 from data.sensor_types import SENSOR_TYPES
 from model import *
 from utils import StringToInt
 from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
 
 
 class BrowseModels(common.BasePageHandler):
@@ -65,6 +63,8 @@ class BrowseModels(common.BasePageHandler):
           'rating': model.rdm_responder_rating,
           'star_width': rating_scale,
       }
+      if hasattr(model.manufacturer, 'name') and model.manufacturer.name:
+        output['manufacturer_name'] = model.manufacturer.name
       if model.image_data:
         serving_url = model.image_serving_url
         if not serving_url:
@@ -77,12 +77,12 @@ class BrowseModels(common.BasePageHandler):
       rows[-1].append(output)
 
     start = page * self.RESULTS_PER_PAGE
-    data= {
+    data = {
         'end': start + len(models),
         'model_rows': rows,
         'page_number': page + 1,  # back to 1 offset
         'start': start + 1,
-        'total' : total,
+        'total': total,
     }
     if page:
       data['previous'] = page
@@ -245,10 +245,10 @@ class DisplayModel(common.BasePageHandler):
       if supported_parameters is not None:
         param_output = []
         for param in supported_parameters:
-          param_dict = { 'id': param, }
+          param_dict = {'id': param}
 
           query = Pid.all()
-          query.filter('pid_id =' , param)
+          query.filter('pid_id =', param)
           if param >= 0x8000:
             query.filter('manufacturer = ', model.manufacturer)
             param_dict['manufacturer_id'] = model.manufacturer.esta_id
@@ -279,7 +279,7 @@ class DisplayModel(common.BasePageHandler):
 
       if personalities:
         personalities.sort(key=lambda x: x['index'])
-        version_output['personalities'] = personalities;
+        version_output['personalities'] = personalities
 
       sensors = []
       for sensor in version_info.sensor_set:
@@ -299,6 +299,11 @@ class DisplayModel(common.BasePageHandler):
         sensors.sort(key=lambda x: x['index'])
         version_output['sensors'] = sensors
 
+    # construct link to Open Fixture Library's RDM lookup page
+    ofl_model_url = 'https://open-fixture-library.org/rdm?source=olp'
+    ofl_model_url += '&manufacturerId=' + str(model.manufacturer.esta_id)
+    ofl_model_url += '&modelId=' + str(model.device_model_id)
+
     output = {
       'description': model.model_description,
       'manufacturer': model.manufacturer.name,
@@ -306,6 +311,7 @@ class DisplayModel(common.BasePageHandler):
       'model_id': model.device_model_id,
       'software_versions': software_versions,
       'software_versions_json': json.dumps(software_versions),
+      'open_fixture_library_model_url': ofl_model_url
     }
     # link and product_category are optional
     if model.link:

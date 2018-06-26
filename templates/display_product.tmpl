@@ -32,7 +32,7 @@
                         <td>Tags</td>
                         <td>
                             {% for tag in tags %}
-                                <div class="model_tag">{{ tag }}</div>
+                                <div class="model_tag"><a href="browse?tag={{ tag|urlencode }}">{{ tag }}</a></div>
                             {% endfor %}
                         </td>
                     </tr>

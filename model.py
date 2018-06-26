@@ -38,10 +38,10 @@ class Manufacturer(db.Model):
   """Represents a Manufacturer."""
   esta_id = db.IntegerProperty(required=True)
   name = db.StringProperty(required=True)
-  # link to the product page
-  link = db.LinkProperty();
+  # link to the manufacturer website
+  link = db.LinkProperty()
   # url of the source image
-  image_url = db.LinkProperty();
+  image_url = db.LinkProperty()
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
   # the url we're serving the image on
@@ -58,15 +58,16 @@ class Responder(db.Model):
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   # The Device Model ID field from DEVICE_INFO
   device_model_id = db.IntegerProperty()
-  # The DEVICE_MODEL_DESCRIPTION
-  model_description = db.StringProperty(required=True)
+  # Description can't be required, as DEVICE_MODEL_DESCRIPTION is not a
+  # mandatory PID.
+  model_description = db.StringProperty(default=None)
   # The product category
   product_category = db.ReferenceProperty(ProductCategory,
                                           collection_name='responder_set')
-  # link to the product page
-  link = db.LinkProperty();
+  # link to the responder product page
+  link = db.LinkProperty()
   # url of the source image
-  image_url = db.LinkProperty();
+  image_url = db.LinkProperty()
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
   # the url we're serving the image on
@@ -100,8 +101,11 @@ class SoftwareVersion(db.Model):
   """Represents a particular software version on a responder."""
   # Version id
   version_id = db.IntegerProperty(required=True)
-  # Version label
-  label = db.StringProperty(default='')
+  # Version label should be required, as SOFTWARE_VERSION_LABEL is a mandatory
+  # PID but we've had real world devices without it, or there could be issues
+  # with their implementation such as it being empty (which App Engine treats
+  # as not present)
+  label = db.StringProperty(default=None)
   # supported params
   supported_parameters = db.ListProperty(int)
   # reference to the responder this version is associated with
@@ -112,8 +116,9 @@ class SoftwareVersion(db.Model):
 
 class ResponderPersonality(db.Model):
   """Represents a personality of a responder."""
-  # TODO(simon): make description required some time once we have all the data.
-  description = db.StringProperty()
+  # Description can't be required, as DMX_PERSONALITY_DESCRIPTION is not a
+  # mandatory PID.
+  description = db.StringProperty(default=None)
   index = db.IntegerProperty(required=True)
   # Sometimes we know a personality exists, but not the description or the slot
   # count.
@@ -126,7 +131,11 @@ class ResponderPersonality(db.Model):
 
 class ResponderSensor(db.Model):
   """Represents a Sensor on a responder."""
-  description = db.StringProperty(required=True)
+  # Sensor description should be required, as the description field is part of
+  # the SENSOR_DEFINITION PID but there may be real world devices with issues
+  # with their implementation such as it being empty (which App Engine treats
+  # as not present)
+  description = db.StringProperty(default=None)
   index = db.IntegerProperty(required=True)
   type = db.IntegerProperty(required=True)
   supports_min_max_recording = db.BooleanProperty()
@@ -141,9 +150,9 @@ class Product(polymodel.PolyModel):
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   name = db.StringProperty(required=True)
   # link to the product page
-  link = db.LinkProperty();
+  link = db.LinkProperty()
   # image url
-  image_url = db.LinkProperty();
+  image_url = db.LinkProperty()
   # the blob for the image data
   image_data = blobstore.BlobReferenceProperty()
   # the url we're serving the image on
@@ -169,17 +178,21 @@ class ProductTagRelationship(db.Model):
                                  required=True,
                                  collection_name='tag_set')
 
+
 class Controller(Product):
   """Represents an RDM Controller."""
   pass
+
 
 class Node(Product):
   """Extra node properties can go here."""
   pass
 
+
 class Software(Product):
   """Extra software properties can go here."""
   pass
+
 
 class Splitter(Product):
   """Extra splitter properties can go here."""
@@ -207,8 +220,8 @@ class Pid(db.Model):
   """Represents a PID."""
   manufacturer = db.ReferenceProperty(Manufacturer, required=True)
   pid_id = db.IntegerProperty(required=True)
-  name = db.StringProperty(required=True);
-  link = db.LinkProperty();
+  name = db.StringProperty(required=True)
+  link = db.LinkProperty()
   notes = db.TextProperty()
   draft = db.BooleanProperty(default=False)
   discovery_command = db.ReferenceProperty(
@@ -220,6 +233,7 @@ class Pid(db.Model):
                                      collection_name='pid_set_command_set')
   # A list of responder keys that support this PID.
   responders = db.ListProperty(db.Key)
+
 
 class UploadedResponderInfo(db.Model):
   # This doesn't link to a Manufacturer, since we may not know about all

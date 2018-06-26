@@ -17,16 +17,25 @@
 # Copyright (C) 2015 Simon Newton
 
 import unittest
+import urllib2
+import pprint
+from socket import error as SocketError
+from urllib2 import URLError
 
-class TestManufacturerData(unittest.TestCase):
-  """ Test the manufacturer data file is valid."""
+
+class TestManufacturers(unittest.TestCase):
+  """ Test the manufacturer data files are valid."""
   def setUp(self):
     globals = {}
     locals = {}
     execfile("data/manufacturer_data.py", globals, locals)
     self.data = locals['MANUFACTURER_DATA']
+    globals = {}
+    locals = {}
+    execfile("data/manufacturer_links.py", globals, locals)
+    self.links = locals['MANUFACTURER_LINKS']
 
-  def test_Data(self):
+  def test_ManufacturerData(self):
     seen_ids = set()
 
     for manufacturer_data in self.data:
@@ -36,10 +45,64 @@ class TestManufacturerData(unittest.TestCase):
       self.assertEqual(int, type(esta_id))
       self.assertEqual(str, type(name))
 
-      self.assertNotIn(esta_id, seen_ids)
+      self.assertNotIn(esta_id, seen_ids,
+                       "ESTA ID 0x%04x is present twice" % esta_id)
       seen_ids.add(esta_id)
 
-    # check that PLASA exists
+    # check that ESTA exists
+    self.assertIn(0, seen_ids)
+
+  def test_ManufacturerLinks(self):
+    esta_ids = set()
+    seen_ids = set()
+    for manufacturer_data in self.data:
+      esta_id, name = manufacturer_data
+      esta_ids.add(esta_id)
+
+    for manufacturer_link in self.links:
+      self.assertEqual(tuple, type(manufacturer_link))
+      self.assertEqual(2, len(manufacturer_link))
+      esta_id, link = manufacturer_link
+      self.assertEqual(int, type(esta_id))
+      self.assertEqual(str, type(link))
+
+      # Check we have a corresponding entry in the manufacturer data
+      self.assertIn(esta_id, esta_ids,
+                    ("ESTA ID 0x%04x is not present in the manufacturer data" %
+                     esta_id))
+
+      # Check we've not seen a URL for this ID before
+      self.assertNotIn(esta_id, seen_ids,
+                       "ESTA ID 0x%04x is present twice" % esta_id)
+      seen_ids.add(esta_id)
+
+      # Check the link is valid
+      try:
+        # Some web servers, and Cloudflare, block us unless we have a
+        # non-python User Agent
+        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)'}
+
+        request = urllib2.Request(link, headers=ua)
+        response = urllib2.urlopen(request)
+      except URLError as e:
+        if hasattr(e, 'reason'):
+          if hasattr(e, 'code'):
+            pprint.pprint(e.code)
+          if hasattr(e, 'headers'):
+            pprint.pprint(vars(e.headers))
+          self.fail("Link %s failed due to %s" % (link, e.reason))
+        elif hasattr(e, 'code'):
+          self.fail("The server couldn't fulfill the request for %s. Error "
+                    "code: %s" % (link, e.code))
+      except SocketError as e:
+        if hasattr(e, 'errno'):
+          self.fail("Link %s failed due to socket error %s" % (link, e.errno))
+      else:
+        self.assertEqual(response.code, 200,
+                         "Failed to fetch URL %s got status %d" %
+                         (link, response.code))
+
+    # optional, check that ESTA exists
     self.assertIn(0, seen_ids)
 
 

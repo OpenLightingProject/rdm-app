@@ -129,6 +129,8 @@ angular.module('rdmApp', [])
       'ROOT_DEVICE': 0x0000,
       'ALL_SUB_DEVICES': 0xffff
     },
+    'SUB_DEVICE_MIN': 0x0001,
+    'SUB_DEVICE_MAX': 0x0200,
     'SUB_START_CODE': 0x01,
     'UID_SIZE': 6
   })
@@ -504,7 +506,8 @@ angular.module('rdmApp', [])
         var data = return_data[1];
 
         if (data.length !== RDM.EUID_SIZE) {
-          $scope.error = 'Invalid EUID: insufficent data, should be 16 bytes';
+          $scope.error = 'Invalid EUID: incorrect amount of data, should be ' +
+                         '16 bytes';
           return;
         }
 
@@ -781,6 +784,7 @@ angular.module('rdmApp', [])
           'checksum': '',
           'actual_size': '',
           'calculated_checksum': '',
+          'sub_device_error': false,
           'nack_reason_error': '',
           'ack_timer_error': ''
         };
@@ -879,12 +883,16 @@ angular.module('rdmApp', [])
 
         if (packet_data.length >= 2) {
           var sub_device = (packet_data.shift() << 8) + packet_data.shift();
+          $scope.packet.sub_device_error =
+            !((sub_device === RDM.SUB_DEVICE.ALL_SUB_DEVICES) ||
+              ((sub_device >= RDM.SUB_DEVICE.ROOT_DEVICE) &&
+               (sub_device <= RDM.SUB_DEVICE_MAX)));
           output = formatService.reverseLookup(RDM.SUB_DEVICE, sub_device);
+          hex_value = formatService.toHex(sub_device, 4, '0x');
           if (output) {
-            $scope.packet.sub_device = output +
-              ' (' + formatService.toHex(sub_device, 4, '0x') + ')';
+            $scope.packet.sub_device = output + ' (' + hex_value + ')';
           } else {
-            $scope.packet.sub_device = sub_device;
+            $scope.packet.sub_device = sub_device + ' (' + hex_value + ')';
           }
         } else {
           $scope.error = 'Insufficient data for sub device';

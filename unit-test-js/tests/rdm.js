@@ -13,84 +13,84 @@ describe('rdmApp', function() {
 
   describe('convertToEUID', function() {
     it('displays error when invalid uid', function() {
-      var convertor = {};
-      $controller('UIDController', {$scope: convertor});
-      convertor.uid = 'invalidteststring';
-      convertor.convertToEUID();
-      expect(convertor.error).toEqual(
+      var converter = {};
+      $controller('UIDController', {$scope: converter});
+      converter.uid = 'invalidteststring';
+      converter.convertToEUID();
+      expect(converter.error).toEqual(
         'Invalid UID, please enter a UID in the form MMMM:NNNNNNNN');
-      expect(convertor.euid).toEqual('');
+      expect(converter.euid).toEqual('');
     });
 
     it('displays EUID if UID is valid', function() {
-      var convertor = {};
-      $controller('UIDController', {$scope: convertor});
-      convertor.uid = '7a70:00000001';
-      convertor.convertToEUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.euid)
+      var converter = {};
+      $controller('UIDController', {$scope: converter});
+      converter.uid = '7a70:00000001';
+      converter.convertToEUID();
+      expect(converter.error).toEqual('');
+      expect(converter.euid)
         .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
 
-      convertor.uid = '7a7000000001';
-      convertor.convertToEUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.euid)
+      converter.uid = '7a7000000001';
+      converter.convertToEUID();
+      expect(converter.error).toEqual('');
+      expect(converter.euid)
         .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
 
-      convertor.uid = '7a 70 00 00 00 01';
-      convertor.convertToEUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.euid)
+      converter.uid = '7a 70 00 00 00 01';
+      converter.convertToEUID();
+      expect(converter.error).toEqual('');
+      expect(converter.euid)
         .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
 
-      convertor.uid = '7a.70.00.00.00.01';
-      convertor.convertToEUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.euid)
+      converter.uid = '7a.70.00.00.00.01';
+      converter.convertToEUID();
+      expect(converter.error).toEqual('');
+      expect(converter.euid)
         .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
 
-      convertor.uid = '7a-70-00-00-00-01';
-      convertor.convertToEUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.euid)
+      converter.uid = '7a-70-00-00-00-01';
+      converter.convertToEUID();
+      expect(converter.error).toEqual('');
+      expect(converter.euid)
         .toEqual('fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5');
     });
   });
   describe('convertToUID', function() {
     it('displays error when invalid euid', function() {
-      var convertor = {};
-      $controller('EUIDController', {$scope: convertor});
-      convertor.euid = 'invalidteststring';
-      convertor.convertToUID();
-      expect(convertor.error).toEqual(
+      var converter = {};
+      $controller('EUIDController', {$scope: converter});
+      converter.euid = 'invalidteststring';
+      converter.convertToUID();
+      expect(converter.error).toEqual(
         'Invalid EUID: Invalid byte: invalidteststring');
-      expect(convertor.uid).toEqual('');
+      expect(converter.uid).toEqual('');
 
-      convertor.euid = '';
-      convertor.convertToUID();
-      expect(convertor.error).toEqual(
-        'Invalid EUID: insufficent data, should be 16 bytes');
-      expect(convertor.uid).toEqual('');
+      converter.euid = '';
+      converter.convertToUID();
+      expect(converter.error).toEqual(
+        'Invalid EUID: incorrect amount of data, should be 16 bytes');
+      expect(converter.uid).toEqual('');
     });
 
     it('displays uid if euid is valid', function() {
-      var convertor = {};
-      $controller('EUIDController', {$scope: convertor});
-      convertor.euid = 'fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5';
-      convertor.convertToUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.uid).toEqual('7a70:00000001');
+      var converter = {};
+      $controller('EUIDController', {$scope: converter});
+      converter.euid = 'fa 7f fa 75 aa 55 aa 55 aa 55 ab 55 ae 57 ef f5';
+      converter.convertToUID();
+      expect(converter.error).toEqual('');
+      expect(converter.uid).toEqual('7a70:00000001');
 
-      convertor.euid =
+      converter.euid =
         'fa, 7f, fa, 75, aa, 55, aa, 55, aa, 55, ab, 55, ae, 57, ef, f5';
-      convertor.convertToUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.uid).toEqual('7a70:00000001');
+      converter.convertToUID();
+      expect(converter.error).toEqual('');
+      expect(converter.uid).toEqual('7a70:00000001');
 
-      convertor.euid = 'fa,7f,fa,75,aa,55,aa,55,aa,55,ab,55,ae,57,ef,f5';
-      convertor.convertToUID();
-      expect(convertor.error).toEqual('');
-      expect(convertor.uid).toEqual('7a70:00000001');
+      converter.euid = 'fa,7f,fa,75,aa,55,aa,55,aa,55,ab,55,ae,57,ef,f5';
+      converter.convertToUID();
+      expect(converter.error).toEqual('');
+      expect(converter.uid).toEqual('7a70:00000001');
     });
   });
 });
