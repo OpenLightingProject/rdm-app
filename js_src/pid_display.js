@@ -90,7 +90,7 @@ app.MessageField.prototype.enterDocument = function() {
   app.MessageField.superClass_.enterDocument.call(this);
 
   var tt = 'Type: ' + this._field_info['type'] + '<br>' +
-    'Name: ' + this._field_info['name'] + '<br>';
+           'Name: ' + this._field_info['name'] + '<br>';
 
   if (this._field_info['multiplier'] != undefined) {
     tt += 'Multipler: 10<sup>' + this._field_info['multiplier'] + '</sup><br>';
