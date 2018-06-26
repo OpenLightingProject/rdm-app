@@ -22,6 +22,7 @@ import datetime
 import logging
 import memcache_keys
 import textwrap
+from google.appengine.api import app_identity
 from google.appengine.api import mail
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -110,7 +111,7 @@ def MaybeSendEmail(new_responder_count):
   query.filter('processed = ', False)
   if query.count() == new_responder_count:
     message = mail.EmailMessage(
-        sender='RDM Site <support@rdmprotocol-hrd.appspotmail.com>',
+        sender=('RDM Site <support@%s.appspotmail.com>' % app_identity.get_application_id()),
         subject='Pending Moderation Requests',
         to='<nomis52@gmail.com>',
     )
