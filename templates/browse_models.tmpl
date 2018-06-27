@@ -100,7 +100,7 @@
         function attachTooltip(i, j, rating) {
             var el = document.getElementById('rating_' + i + '_' + j);
             var tt = new goog.ui.Tooltip(el);
-            tt.setHtml('RDM Responder Test Score: ' + rating + '%');
+            tt.setText('RDM Responder Test Score: ' + rating + '%');
         }
 
         {% for row in model_rows %}
