@@ -5367,33 +5367,6 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe1},
 
- # RDM_TRAFFIC_ENABLE
- {'get_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999)]},
-   ]},
-  'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999)]},
-    {'name': 'rdm_enabled', 'type': 'bool'},
-  ]},
-  'get_sub_device_range': 2,
-  'name': 'RDM_TRAFFIC_ENABLE',
-  'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
-     'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'rdm_enabled', 'type': 'bool'},
-  ]},
-  'set_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
-     'labels': [(0xffff, 'All Endpoints')]},
-  ]},
-  'set_sub_device_range': 1,
-  'draft': True,
-  'value': 0x7fe2},
-  
  # ENDPOINT_MODE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
@@ -5450,6 +5423,33 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe4},
 
+ # RDM_TRAFFIC_ENABLE
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999)]},
+   ]},
+  'get_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999)]},
+    {'name': 'rdm_enabled', 'type': 'bool'},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'RDM_TRAFFIC_ENABLE',
+  'set_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+    {'name': 'rdm_enabled', 'type': 'bool'},
+  ]},
+  'set_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999),(0xffff, 0xffff)],
+     'labels': [(0xffff, 'All Endpoints')]},
+  ]},
+  'set_sub_device_range': 1,
+  'draft': True,
+  'value': 0x7fe2},
+  
  # DISCOVERY_STATE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
