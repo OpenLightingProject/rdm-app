@@ -5347,7 +5347,6 @@ ESTA_PIDS = [
     {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff),(0xffff, 0xffff)],
      'labels': [(0, 'Unpatched'),(0xffff, 'Composite')],
     },
-    {'name': 'physical', 'type': 'bool'},
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_TO_UNIVERSE',
@@ -5356,7 +5355,7 @@ ESTA_PIDS = [
      'range': [(1, 63999),(0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff)],
-     'labels': [(0, 'Unpatched')]},
+     'labels': [(0, 'Unpatch')]},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
@@ -5385,7 +5384,7 @@ ESTA_PIDS = [
      'range': [(1, 63999),(0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'endpoint_mode', 'type': 'uint8',
-     'labels': [(0, 'Disabled'), (1, 'Input'), (2, 'Output')]},
+     'labels': [(0, 'Disable'), (1, 'Input'), (2, 'Output')]},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
