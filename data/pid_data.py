@@ -5646,6 +5646,22 @@ ESTA_PIDS = [
 
 # These are ordered to match how they appear in E1.33
 # The PID values will change in the final document.
+ # SEARCH_DOMAIN
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'search_domain',
+                              'min_size': 1,
+                              'max_size': 230,
+                              'type': 'string'}]},
+  'get_sub_device_range': 0,
+  'set_request': {'items': [{'name': 'search_domain',
+                             'min_size': 1,
+                             'max_size': 230,
+                             'type': 'string'}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'name': 'SEARCH_DOMAIN',
+  'value': 0x7fe0},
+  
  # TCP_COMMS_STATUS
  {'get_request': {'items': [
   ]},
@@ -5850,7 +5866,7 @@ ESTA_PIDS = [
                               'labels': [(0, 'IPv4 Unconfigured')]}]},
   'get_sub_device_range': 2,
   'set_request': {'items': [{'name': 'name_server_index', 'type': 'uint8',
-                              'range': [(0, 2)]},
+                             'range': [(0, 2)]},
                             {'name': 'name_server_address', 'type': 'ipv4',
                              'labels': [(0, 'IPv4 Unconfigured')]}]},
   'set_response': {'items': []},
@@ -5866,9 +5882,9 @@ ESTA_PIDS = [
                               'type': 'string'}]},
   'get_sub_device_range': 2,
   'set_request': {'items': [{'name': 'dns_hostname',
-                              'min_size': 1,
-                              'max_size': 63,
-                              'type': 'string'}]},
+                             'min_size': 1,
+                             'max_size': 63,
+                             'type': 'string'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'DNS_HOSTNAME',
@@ -5881,8 +5897,8 @@ ESTA_PIDS = [
                               'type': 'string'}]},
   'get_sub_device_range': 2,
   'set_request': {'items': [{'name': 'dns_domain_name',
-                              'max_size': 231,
-                              'type': 'string'}]},
+                             'max_size': 231,
+                             'type': 'string'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
   'name': 'DNS_DOMAIN_NAME',
