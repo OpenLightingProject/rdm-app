@@ -5677,51 +5677,29 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'draft': True,
-  'value': 0x7fed},
- 
- # BACKGROUND_STATUS_TYPE
- {'get_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)]},
-  ]},
+  'value': 0x7fed}, 
+
+ # BROKER_STATUS
+ {'get_request': {'items': []},
   'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)]},
-    {'name': 'status_type', 'type': 'uint8'}
+    {'name': 'set_allowed', 'type': 'bool'},
+    {'name': 'broker_state', 'type': 'uint8',
+     'labels': [(0, 'Disabled'), (1, 'Active'), (2, 'Superseded')],
+     'range': [(0, 2)]}
   ]},
   'get_sub_device_range': 0,
-  'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xffff)],
-    'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'status_type', 'type': 'uint8'}
-  ]},
-  'set_response': {'items':[]},
-  'set_sub_device_range' : 0,
-  'name': 'BACKGROUND_STATUS_TYPE',
+  'name': 'BROKER_STATUS',
+  'set_request': {
+                  'items': [{'name': 'broker_state',
+                             'type': 'uint8',
+                             'labels': [(0, 'Disabled'), (1, 'Active')],
+                             'range': [(0, 1)]}
+                            }]
+                 },
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
   'draft': True,
-  'value': 0x7fd2},
-
- # QUEUED_STATUS_ENDPOINT_COLLECTION
- {'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)],
-    'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'status_type', 'type': 'uint8'}
-  ]},
-  'set_response': {'items':[]},
-  'set_sub_device_range' : 0,
-  'name': 'QUEUED_STATUS_ENDPOINT_COLLECTION',
-  'draft': True,
-  'value': 0x7fd3},
-
- # QUEUED_STATUS_UID_COLLECTION
- {'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)]},
-    {'name': 'target_uid', 'type': 'uid'},
-    {'name': 'status_type', 'type': 'uint8'}
-  ]},
-  'set_response': {'items':[]},
-  'set_sub_device_range' : 0,
-  'name': 'QUEUED_STATUS_UID_COLLECTION',
-  'draft': True,
-  'value': 0x7fd4},
+  'value': 0x7ff0},
 
 # These are ordered to match how they appear in E1.37-2
  # LIST_INTERFACES
