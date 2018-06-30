@@ -5693,7 +5693,7 @@ ESTA_PIDS = [
                   'items': [{'name': 'broker_state',
                              'type': 'uint8',
                              'labels': [(0, 'Disabled'), (1, 'Active')],
-                             'range': [(0, 1)]}
+                             'range': [(0, 1)]
                             }]
                  },
   'set_response': {'items': []},
