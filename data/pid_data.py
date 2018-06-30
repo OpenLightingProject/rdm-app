@@ -5432,7 +5432,7 @@ ESTA_PIDS = [
      'range': [(1, 63999)]},
     {'name': 'rdm_enabled', 'type': 'bool'},
   ]},
-  'get_sub_device_range': 2,
+  'get_sub_device_range': 0,
   'name': 'RDM_TRAFFIC_ENABLE',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
@@ -5445,7 +5445,7 @@ ESTA_PIDS = [
      'range': [(1, 63999),(0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
-  'set_sub_device_range': 1,
+  'set_sub_device_range': 0,
   'draft': True,
   'value': 0x7fe2},
   
@@ -5556,21 +5556,6 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fe7},
 
- # ENDPOINT_RESPONDER_LIST_CHANGE
- {'get_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999)]},
-  ]},
-  'get_response': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999)]},
-    {'name': 'list_change_number', 'type': 'uint32'},
-  ]},
-  'get_sub_device_range': 0,
-  'name': 'ENDPOINT_RESPONDER_LIST_CHANGE',
-  'draft': True,
-  'value': 0x7feb},
-
  # ENDPOINT_RESPONDERS
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
@@ -5586,6 +5571,21 @@ ESTA_PIDS = [
   'name': 'ENDPOINT_RESPONDERS',
   'draft': True,
   'value': 0x7fec},
+
+ # ENDPOINT_RESPONDER_LIST_CHANGE
+ {'get_request': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'endpoint_id', 'type': 'uint16',
+     'range': [(1, 63999)]},
+    {'name': 'list_change_number', 'type': 'uint32'},
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'ENDPOINT_RESPONDER_LIST_CHANGE',
+  'draft': True,
+  'value': 0x7feb},
 
  # BINDING_CONTROL_FIELDS
  {'get_request': {'items': [
