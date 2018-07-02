@@ -196,6 +196,7 @@ MANUFACTURER_DATA = [
 (0x056C, "Lumascape Lighting Industries"),
 (0x0573, "JIAXING XINHUALI LIGHTING & SOUNDING CO., LTD."),
 (0x0580, "Innovation LED  Limited"),
+(0x0586, "K 5600, Inc."),
 (0x0588, "GuangZhou XiangMing Light Limited"),
 (0x05A0, "Stage Smarts AB"),
 (0x05AB, "Shenzhen Lesan Lighting Co., Ltd."),
