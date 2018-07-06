@@ -5622,8 +5622,8 @@ ESTA_PIDS = [
                 (2, 'Warning'), (3, 'Error')]}
   ]},
   'set_response': {'items': []},
-  'get_sub_device_range': 0,
-  'set_sub_device_range': 0,
+  'get_sub_device_range': 2,
+  'set_sub_device_range': 1,
   'name': 'BACKGROUND_QUEUED_STATUS_POLICY',
   'draft': True,
   'value': 0x7fd0},
