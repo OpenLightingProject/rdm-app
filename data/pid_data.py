@@ -5672,26 +5672,10 @@ ESTA_PIDS = [
     {'name': 'connection_events', 'type': 'uint16'},
   ]},
   'get_sub_device_range': 0,
-  'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xffff)],
-    'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'status_type', 'type': 'uint8'}
-  ]},
-  'set_response': {'items':[]},
+  'name': 'TCP_COMMS_STATUS',
+  'set_request': {'items': []},
+  'set_response': {'items': []},
   'set_sub_device_range': 0,
-  'name': 'BACKGROUND_STATUS_TYPE',
-  'draft': True,
-  'value': 0x7fd2},
-
- # QUEUED_STATUS_ENDPOINT_COLLECTION
- {'set_request': {'items': [
-    {'name': 'endpoint_id', 'type': 'uint16', 'range':[(0, 0xfffe)],
-    'labels': [(0xffff, 'All Endpoints')]},
-    {'name': 'status_type', 'type': 'uint8'}
-  ]},
-  'set_response': {'items':[]},
-  'set_sub_device_range': 0,
-  'name': 'QUEUED_STATUS_ENDPOINT_COLLECTION',
   'draft': True,
   'value': 0x7fed},
 
