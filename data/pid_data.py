@@ -5251,7 +5251,7 @@ ESTA_PIDS = [
  # ENDPOINT_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [
-    {'name': 'list_change_number', 'type' : 'uint32'},
+    {'name': 'list_change_number', 'type': 'uint32'},
     {'name': 'endpoints', 'type': 'group',
      'items': [{'name': 'endpoint_id', 'type': 'uint16'}],
      }
@@ -5531,7 +5531,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'policy', 'type':'uint8'}
   ]},
-  'set_response' : {'items': []},
+  'set_response': {'items': []},
   'get_sub_device_range': 0,
   'set_sub_device_range': 0,
   'name': 'BACKGROUND_QUEUED_STATUS_POLICY',
@@ -5566,7 +5566,7 @@ ESTA_PIDS = [
     {'name': 'status_type', 'type': 'uint8'}
   ]},
   'set_response': {'items':[]},
-  'set_sub_device_range' : 0,
+  'set_sub_device_range': 0,
   'name': 'BACKGROUND_STATUS_TYPE',
   'draft': True,
   'value': 0x7fd2},
@@ -5578,7 +5578,7 @@ ESTA_PIDS = [
     {'name': 'status_type', 'type': 'uint8'}
   ]},
   'set_response': {'items':[]},
-  'set_sub_device_range' : 0,
+  'set_sub_device_range': 0,
   'name': 'QUEUED_STATUS_ENDPOINT_COLLECTION',
   'draft': True,
   'value': 0x7fd3},
@@ -5590,7 +5590,7 @@ ESTA_PIDS = [
     {'name': 'status_type', 'type': 'uint8'}
   ]},
   'set_response': {'items':[]},
-  'set_sub_device_range' : 0,
+  'set_sub_device_range': 0,
   'name': 'QUEUED_STATUS_UID_COLLECTION',
   'draft': True,
   'value': 0x7fd4},
