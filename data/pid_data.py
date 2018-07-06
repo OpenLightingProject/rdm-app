@@ -734,7 +734,7 @@ MANUFACTURER_PIDS = [
       # IP_ADDRESS
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'ip_address', 'type': 'uint32',}]},
+                          {'name': 'ip_address', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
        'name': 'IP_ADDRESS',
        'set_request': {'items': [{'name': 'ip_address', 'type': 'uint32'}]},
@@ -748,7 +748,7 @@ MANUFACTURER_PIDS = [
       # IP_SUBNET_MASK
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'subnet_mask', 'type': 'uint32',}]},
+                          {'name': 'subnet_mask', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
        'name': 'IP_SUBNET_MASK',
        'set_request': {'items': [{'name': 'subnet_mask', 'type': 'uint32'}]},
@@ -762,7 +762,7 @@ MANUFACTURER_PIDS = [
       # IP_GATEWAY
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'default_gateway', 'type': 'uint32',}]},
+                          {'name': 'default_gateway', 'type': 'uint32'}]},
        'get_sub_device_range': 2,
        'name': 'IP_GATEWAY',
        'set_request': {'items': [{'name': 'default_gateway', 'type': 'uint32'}]},
@@ -1141,7 +1141,7 @@ MANUFACTURER_PIDS = [
        'get_response': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
        'get_sub_device_range': 0,
        'name': 'MDG_NETWORK_UNIVERSE_NUMBER',
-       'set_request': {'items': [{'name': 'universe_number', 'type': 'uint16', 'range':  [(0, 128)]}]},
+       'set_request': {'items': [{'name': 'universe_number', 'type': 'uint16', 'range': [(0, 128)]}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'notes': '',
@@ -2258,7 +2258,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8402},
 
       {'get_request': {'items': []},
-       'get_response': {'items': [{'name': 'pan_minimum', 'type': 'int16', 'range':  [(0, 360)]}]},
+       'get_response': {'items': [{'name': 'pan_minimum', 'type': 'int16', 'range': [(0, 360)]}]},
        'get_sub_device_range': 0,
        'name': 'PAN_LIMITATION_MINIMUM',
        'set_request': {'items': [{'name': 'pan_minimum', 'type': 'int16', 'range': [(0, 360)]}]},
@@ -2268,7 +2268,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8403},
 
       {'get_request': {'items': []},
-       'get_response': {'items': [{'name': 'pan_maximum', 'type': 'int16', 'range':  [(0, 360)]}]},
+       'get_response': {'items': [{'name': 'pan_maximum', 'type': 'int16', 'range': [(0, 360)]}]},
        'get_sub_device_range': 0,
        'name': 'PAN_LIMITATION_MAXIMUM',
        'set_request': {'items': [{'name': 'pan_maximum', 'type': 'int16', 'range': [(0, 360)]}]},
@@ -3389,7 +3389,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8101},
 
       # ETC_LED_CURVE_DESCRIPTION
-      {'get_request': {'items': [{'name': 'curve', 'type': 'uint8',}]},
+      {'get_request': {'items': [{'name': 'curve', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'curve_number', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
                                  ]},
@@ -3465,7 +3465,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8107},
 
       # ETC_LED_WHITE_POINT_DESCRIPTION
-      {'get_request': {'items': [{'name': 'white_point', 'type': 'uint8',}]},
+      {'get_request': {'items': [{'name': 'white_point', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'white_point', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
                                  ]},
@@ -3501,7 +3501,7 @@ MANUFACTURER_PIDS = [
        'value': 0x810a},
 
       # ETC_DMX_LOSS_BEHAVIOR_DESCRIPTION
-      {'get_request': {'items': [{'name': 'loss_behavior', 'type': 'uint8',}]},
+      {'get_request': {'items': [{'name': 'loss_behavior', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'loss_behavior', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
                                  ]},
@@ -3605,7 +3605,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8112},
 
       # ETC_LED_STROBE_DESCRIPTION
-      {'get_request': {'items': [{'name': 'strobe_number', 'type': 'uint8',}]},
+      {'get_request': {'items': [{'name': 'strobe_number', 'type': 'uint8'}]},
        'get_response': {'items': [{'name': 'strobe_number', 'type': 'uint8'},
                                   {'name': 'description', 'type': 'string', 'max_size': 32},
                                  ]},
@@ -4239,8 +4239,8 @@ ESTA_PIDS = [
  {'name': 'CAPTURE_PRESET',
   'set_request': {'items': [
     {'name': 'scene', 'type': 'uint16', 'range': [(0x1, 0xfffe)]},
-    {'name': 'fade_up_time', 'type': 'uint16', 'multiplier': -1,},
-    {'name': 'fade_down_time', 'type': 'uint16', 'multiplier': -1,},
+    {'name': 'fade_up_time', 'type': 'uint16', 'multiplier': -1},
+    {'name': 'fade_down_time', 'type': 'uint16', 'multiplier': -1},
     {'name': 'wait_time', 'type': 'uint16', 'multiplier': -1}]},
   'set_response': {'items': []},
   'set_sub_device_range': 1,
@@ -5323,13 +5323,13 @@ ESTA_PIDS = [
   'name': 'IDENTIFY_ENDPOINT',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'identify_state', 'type': 'bool'}
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5344,22 +5344,22 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
      'range': [(1, 63999)]},
-    {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff),(0xffff, 0xffff)],
-     'labels': [(0, 'Unpatched'),(0xffff, 'Composite')],
+    {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff), (0xffff, 0xffff)],
+     'labels': [(0, 'Unpatched'), (0xffff, 'Composite')],
     },
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_TO_UNIVERSE',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'universe', 'type': 'uint16', 'range': [(0, 0xf9ff)],
      'labels': [(0, 'Unpatch')]},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5381,14 +5381,14 @@ ESTA_PIDS = [
   'name': 'ENDPOINT_MODE',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'endpoint_mode', 'type': 'uint8',
      'labels': [(0, 'Disable'), (1, 'Input'), (2, 'Output')]},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5409,13 +5409,13 @@ ESTA_PIDS = [
   'name': 'ENDPOINT_LABEL',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'endpoint_label', 'type': 'string', 'max_size': 32},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5436,19 +5436,19 @@ ESTA_PIDS = [
   'name': 'RDM_TRAFFIC_ENABLE',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'rdm_enabled', 'type': 'bool'},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
   'draft': True,
   'value': 0x7fe2},
-  
+
  # DISCOVERY_STATE
  {'get_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
@@ -5460,7 +5460,7 @@ ESTA_PIDS = [
     {'name': 'device_count', 'type': 'uint16', 'range': [(0, 0xffff)],
      'labels': [(0, 'Incomplete'), (0xffff, 'Unknown')]},
     {'name': 'discovery_state', 'type': 'uint8',
-     'range': [(0, 2),(4, 4),(0x80, 0xdf)],
+     'range': [(0, 2), (4, 4), (0x80, 0xdf)],
      'labels': [(0, 'Incomplete'), (1, 'Incremental'),
                 (2, 'Full'), (4, 'Completed')]},
   ]},
@@ -5468,16 +5468,16 @@ ESTA_PIDS = [
   'name': 'DISCOVERY_STATE',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'discovery_state', 'type': 'uint8',
-     'range': [(1, 2),(4, 4),(0x80, 0xdf)],
+     'range': [(1, 2), (4, 4), (0x80, 0xdf)],
      'labels': [(1, 'Incremental'), (2, 'Full'),
                 (4, 'Stop')]},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5498,13 +5498,13 @@ ESTA_PIDS = [
   'name': 'BACKGROUND_DISCOVERY',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'background_discovery', 'type': 'bool'},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5527,14 +5527,14 @@ ESTA_PIDS = [
   'name': 'ENDPOINT_TIMING',
   'set_request': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
     {'name': 'timing_setting', 'type': 'uint8',
      'range': [(1, 0xff)]},
   ]},
   'set_response': {'items': [
     {'name': 'endpoint_id', 'type': 'uint16',
-     'range': [(1, 63999),(0xffff, 0xffff)],
+     'range': [(1, 63999), (0xffff, 0xffff)],
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
@@ -5613,10 +5613,10 @@ ESTA_PIDS = [
      'range': [(0, 0xff)],
      'labels': [(0, 'None'), (1, 'Advisory'),
                 (2, 'Warning'), (3, 'Error')]},
-    {'name': 'num_policy_settings', 'type':'uint8'}
+    {'name': 'num_policy_settings', 'type': 'uint8'}
   ]},
-  'set_request': {'items':[
-    {'name': 'policy', 'type':'uint8',
+  'set_request': {'items': [
+    {'name': 'policy', 'type': 'uint8',
      'range': [(0, 0xff)],
      'labels': [(0, 'None'), (1, 'Advisory'),
                 (2, 'Warning'), (3, 'Error')]}
@@ -5707,7 +5707,7 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'interfaces',
      'type': 'group',
-     'items': [{'name': 'interface_identifier', 'type': 'uint32', 'range':[(1, 0xffffff00)]},
+     'items': [{'name': 'interface_identifier', 'type': 'uint32', 'range': [(1, 0xffffff00)]},
                {'name': 'interface_hardware_type', 'type': 'uint16',
                 'labels': [(1, 'Ethernet')], 'range': [(0, 0xffff)]}],
     }]},
