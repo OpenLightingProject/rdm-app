@@ -20,10 +20,6 @@
 
 __author__ = 'nomis52@gmail.com (Simon Newton)'
 
-import getopt
-import os.path
-import sys
-import textwrap
 import pprint
 from ola import PidStore
 

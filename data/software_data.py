@@ -44,8 +44,8 @@ SOFTWARE_DATA = {
   ],
   0x656C: [
     {'name': 'dmXLAN',
-      'link': 'http://www.elclighting.com/download-software/software/27-dmxlan-software',
-      'image_url': 'http://www.elclighting.com/images/products_300x300max/dmxlanv4%20screen%20shot_300max.gif',
+     'link': 'http://www.elclighting.com/download-software/software/27-dmxlan-software',
+     'image_url': 'http://www.elclighting.com/images/products_300x300max/dmxlanv4%20screen%20shot_300max.gif',
      'tags': ['Windows', 'Mac']},
   ],
 }
