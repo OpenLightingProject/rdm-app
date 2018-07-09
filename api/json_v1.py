@@ -84,7 +84,7 @@ class ResponderFirmware(webapp.RequestHandler):
 
     output = {
       'version': version.version_id,
-      'label' : version.label,
+      'label': version.label,
       'URL': '',
     }
     self.response.headers['Content-Type'] = 'text/json'
@@ -215,6 +215,7 @@ class ControllerTags(ProductTags):
   def MemcacheKey(self):
     return memcache_keys.TAG_CONTROLLER_COUNTS
 
+
 # Nodes
 class NodeManufacturers(ProductManufacturers):
   def ProductType(self):
@@ -230,6 +231,7 @@ class NodeTags(ProductTags):
   def MemcacheKey(self):
     return memcache_keys.TAG_NODE_COUNTS
 
+
 # Software
 class SoftwareManufacturers(ProductManufacturers):
   def ProductType(self):
@@ -244,6 +246,7 @@ class SoftwareTags(ProductTags):
 
   def MemcacheKey(self):
     return memcache_keys.TAG_SOFTWARE_COUNTS
+
 
 # Splitters
 class SplitterManufacturers(ProductManufacturers):
@@ -318,6 +321,7 @@ class PidCounts(webapp.RequestHandler):
         'pids': pids,
     }
     return json.dumps(output)
+
 
 app = webapp.WSGIApplication(
   [

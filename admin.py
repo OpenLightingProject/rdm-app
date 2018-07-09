@@ -51,7 +51,7 @@ def UpdateModificationTime(timestamp_name):
   query.filter('name = ', timestamp_name)
   result = query.fetch(1)
   if not result:
-    result = LastUpdateTime(name = timestamp_name)
+    result = LastUpdateTime(name=timestamp_name)
   else:
     result = result[0]
   result.update_time = datetime.datetime.now()
@@ -326,8 +326,8 @@ class AdminPageHandler(BaseAdminPageHandler):
     for category_id in sorted(categories_to_add):
       logging.info('adding %d (%s)' %
                    (category_id, new_data[category_id]))
-      category = ProductCategory(id = category_id,
-                                 name = new_data[category_id])
+      category = ProductCategory(id=category_id,
+                                 name=new_data[category_id])
       category.put()
       added += 1
 
