@@ -359,10 +359,10 @@ class AdminPageHandler(BaseAdminPageHandler):
     output = ''
     if deleted_responder_tags:
       output += ('Deleted Responder tags: \n%s\n' %
-          '\n'.join(deleted_responder_tags))
+                 '\n'.join(deleted_responder_tags))
     if deleted_product_tags:
       output += ('Deleted Product tags: \n%s\n' %
-          '\n'.join(deleted_product_tags))
+                 '\n'.join(deleted_product_tags))
 
     if output == '':
       output = 'No tags to delete'
@@ -726,7 +726,7 @@ class ResponderModerator(BaseAdminPageHandler):
         new_responder_dict['product_category'] = category.name
       else:
         errors.append('Unknown product category %d' %
-          new_responder_dict['product_category'])
+                      new_responder_dict['product_category'])
 
     fields = [
         ('Model Description', 'model_description'),
@@ -735,8 +735,8 @@ class ResponderModerator(BaseAdminPageHandler):
         ('Product Category', 'product_category'),
     ]
 
-    changed_fields, unchanged_fields = self.DiffProperties(fields,
-        new_responder_dict, existing_responder_dict)
+    changed_fields, unchanged_fields = self.DiffProperties(
+        fields, new_responder_dict, existing_responder_dict)
 
     template_data['changed_fields'] = changed_fields
     template_data['unchanged_fields'] = unchanged_fields
@@ -818,8 +818,8 @@ class ResponderModerator(BaseAdminPageHandler):
         ('Sensors', 'sensors'),
     ]
 
-    changed_fields, unchanged_fields = self.DiffProperties(fields,
-        new_data, current_version_dict)
+    changed_fields, unchanged_fields = self.DiffProperties(
+        fields, new_data, current_version_dict)
     return changed_fields
 
   def BuildPersonalityList(self, software_version):
@@ -856,7 +856,7 @@ class ResponderModerator(BaseAdminPageHandler):
         'index': int(sensor.index),
         'supports_recording': recording,
         'type': int(sensor.type),
-    })
+      })
     sensors.sort(key=lambda i: i['index'])
     return sensors
 

@@ -73,7 +73,7 @@ class ResponderFirmware(webapp.RequestHandler):
   """Return the latest firmware for a responder."""
   def get(self):
     responder = common.LookupModel(self.request.get('manufacturer'),
-                                    self.request.get('model'))
+                                   self.request.get('model'))
     if responder is None:
       self.error(404)
       return

@@ -60,7 +60,7 @@ DEVICE_MODEL_DATA = {
                                                              1024]}},
           'sub_device_count': 0}],
  25711L: [{'device_model': 30,
-#           'model_description': 'LinearDC720W',
+           # 'model_description': 'LinearDC720W',
            'product_category': 1289,
            'software_versions': {254: {'label': '254',
                                        'languages': [],
