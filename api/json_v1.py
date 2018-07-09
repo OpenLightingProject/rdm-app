@@ -224,6 +224,7 @@ class NodeManufacturers(ProductManufacturers):
   def MemcacheKey(self):
     return memcache_keys.MANUFACTURER_NODE_COUNTS
 
+
 class NodeTags(ProductTags):
   def ProductType(self):
     return Node
@@ -240,6 +241,7 @@ class SoftwareManufacturers(ProductManufacturers):
   def MemcacheKey(self):
     return memcache_keys.MANUFACTURER_SOFTWARE_COUNTS
 
+
 class SoftwareTags(ProductTags):
   def ProductType(self):
     return Software
@@ -255,6 +257,7 @@ class SplitterManufacturers(ProductManufacturers):
 
   def MemcacheKey(self):
     return memcache_keys.MANUFACTURER_SPLITTER_COUNTS
+
 
 class SplitterTags(ProductTags):
   def ProductType(self):

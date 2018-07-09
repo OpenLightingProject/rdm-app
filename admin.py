@@ -659,7 +659,7 @@ class ResponderModerator(BaseAdminPageHandler):
     else:
       left_formatted = left
       right_formatted = right
-    return  {
+    return {
       'name': name,
       'key': key,
       'left': left_formatted,
