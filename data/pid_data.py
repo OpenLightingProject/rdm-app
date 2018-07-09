@@ -3359,7 +3359,7 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'value': 40973},
-     {'get_request': {'items': []},
+      {'get_request': {'items': []},
        'get_response': {'items': [{'labels': [(0, 'Off'),
                                               (1, '1 Minute'),
                                               (2, '2 Minutes'),
