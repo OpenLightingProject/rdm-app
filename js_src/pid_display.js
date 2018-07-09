@@ -20,6 +20,7 @@
 goog.provide('app.MessageStructure');
 
 goog.require('goog.dom');
+goog.require('goog.html.sanitizer.HtmlSanitizer');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Tooltip');
 
@@ -88,9 +89,8 @@ app.MessageField.prototype.createDom = function() {
 app.MessageField.prototype.enterDocument = function() {
   app.MessageField.superClass_.enterDocument.call(this);
 
-  var tt = (
-    'Type: ' + this._field_info['type'] + '<br>' +
-    'Name: ' + this._field_info['name'] + '<br>');
+  var tt = 'Type: ' + this._field_info['type'] + '<br>' +
+           'Name: ' + this._field_info['name'] + '<br>';
 
   if (this._field_info['multiplier'] != undefined) {
     tt += 'Multipler: 10<sup>' + this._field_info['multiplier'] + '</sup><br>';
@@ -113,13 +113,15 @@ app.MessageField.prototype.enterDocument = function() {
     tt += 'Labeled Values: <ul>';
     var enums = this._field_info['enums'];
     for (var i = 0; i < enums.length; ++i) {
-      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'] + '</li/>';
+      tt += '<li>' + enums[i]['value'] + ': ' + enums[i]['label'] + '</li>';
     }
     tt += '</ul>';
   }
 
+  var sanitizer = new goog.html.sanitizer.HtmlSanitizer.Builder().build();
+
   this.tt = new goog.ui.Tooltip(this.getElement());
-  this.tt.setHtml(tt);
+  this.tt.setSafeHtml(sanitizer.sanitize(tt));
 };
 
 
@@ -231,7 +233,7 @@ app.MessageGroup.prototype.attachTooltip = function(field) {
   } else if (max != undefined) {
     tt += 'This group repeats at most ' + max + ' times.';
   }
-  this.tt.setHtml(tt);
+  this.tt.setText(tt);
 };
 
 

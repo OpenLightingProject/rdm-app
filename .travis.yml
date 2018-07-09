@@ -14,13 +14,13 @@ before_install:
   - if [[ "$TASK" == "spellintian" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
 
 install:
-  - pip install json-spec
-  - npm install -g grunt-cli
-  - npm install
-  - if [ "$TASK" = "flake8" ]; then pip install flake8; fi
+  - if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
+  - if [ "$TASK" = "karma" -o "$TASK" = "js-lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
+  - if [ "$TASK" = "karma" -o "$TASK" = "js-lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
+  - if [ "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install flake8; fi
 # If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
   - if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
-  - if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/lucasdemarchi/codespell.git; fi
+  - if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/codespell-project/codespell.git; fi
 
 matrix:
   fast_finish: true
@@ -58,6 +58,9 @@ matrix:
       env: TASK='flake8'
     - os: linux
       dist: trusty
+      env: TASK='flake8-wip'
+    - os: linux
+      dist: trusty
       env: TASK='pychecker'
     - os: linux
       dist: trusty
@@ -65,7 +68,7 @@ matrix:
   allow_failures:
     - os: linux
       dist: trusty
-      env: TASK='flake8'
+      env: TASK='flake8-wip'
     - os: linux
       dist: trusty
       env: TASK='pychecker'

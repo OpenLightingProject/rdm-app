@@ -108,7 +108,7 @@ CONTROLLER_DATA = {
   ],
   0x454E: [
     {'name': 'DMX USB Pro',
-     'link': 'http://www.enttec.com/index.php?main_menu=Products&pn=70304',
+     'link': 'https://www.enttec.com/products/controls/dmx-usb/dmx-usb-pro/',
      'image_url': 'http://www.enttec.com/img/dmxusbpro/flip.gif',
      'tags': ['tool', 'USB']},
     {'name': 'RDM USB Pro',
@@ -160,8 +160,8 @@ CONTROLLER_DATA = {
   ],
   0x5377: [
     {'name': 'XMT-350 DMX/RDM Tester & Controller',
-      'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
-      'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xmt-350/xmt-350_1_resize_275x183_86_255x255x255.jpg',
+     'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
+     'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xmt-350/xmt-350_1_resize_275x183_86_255x255x255.jpg',
      'tags': ['tool']},
   ],
   0x6574: [
