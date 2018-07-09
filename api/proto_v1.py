@@ -17,7 +17,6 @@
 # Version 1 of the Proto API
 
 from model import *
-import logging
 from google.appengine.ext import webapp
 
 

@@ -1,4 +1,5 @@
 *.pyc
+*.save
 *.swp
 node_modules
 index.yaml
