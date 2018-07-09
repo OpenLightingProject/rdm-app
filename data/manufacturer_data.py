@@ -305,6 +305,7 @@ MANUFACTURER_DATA = [
 (0x08DD, "Matthew Tong"),
 (0x08E0, "Red Arrow Controls"),
 (0x08ED, "ShowLED"),
+(0x08F0, "Guang Dong LMJ Lighting Co., Ltd"),
 (0x08F1, "SanDevices, LLC"),
 (0x08F6, "Eulum Design, LLC"),
 (0x08F9, "ACS - Ackerman Computer Sciences"),
