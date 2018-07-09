@@ -54,7 +54,7 @@ elif [[ $TASK = 'codespell' ]]; then
     echo "Found $spellingerrors spelling errors via codespell"
   fi;
 elif [[ $TASK = 'flake8' ]]; then
-  flake8 --max-line-length 80 --exclude .git,__pycache,node_modules/* --ignore E111,E114,E121,E122,E124,E126,E129,E501,F403,F405 $(find ./ -name "*.py" | xargs)
+  flake8 --max-line-length 80 --exclude .git,__pycache,node_modules/* --ignore E111,E114,E121,E124,E126,E129,E501,F403,F405 $(find ./ -name "*.py" | xargs)
 elif [[ $TASK = 'flake8-wip' ]]; then
   flake8 --max-line-length 80 --exclude .git,__pycache,node_modules/* --ignore E111,E114,E129 $(find ./ -name "*.py" | xargs)
   #,E121,E127

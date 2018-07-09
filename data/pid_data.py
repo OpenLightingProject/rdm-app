@@ -1615,30 +1615,30 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls the focus setting for the scene.',
        'value': 0x8217},
 
-# This doesn't have a pid defined in the document
-#      {'get_request': {'items': []},
-#       'get_response': {'items': [{'name': 'color_mode',
-#                                   'type': 'uint8',
-#                                   'labels': [(0, 'White'),
-#                                              (1, 'Amber'),
-#                                              (2, 'red'),
-#                                              (3, 'Green'),
-#                                              (4, 'Blue')],
-#                                  }]},
-#       'get_sub_device_range': 0,
-#       'name': 'SCENE_COLOR',
-#       'set_request': {'items': [{'name': 'color_mode',
-#                                  'type': 'uint8',
-#                                  'labels': [(0, 'White'),
-#                                             (1, 'Amber'),
-#                                             (2, 'red'),
-#                                             (3, 'Green'),
-#                                             (4, 'Blue')],
-#                                  }]},
-#       'set_response': {'items': []},
-#       'set_sub_device_range': 0,
-#       'notes': 'Controls the color mode for the current scene.',
-#       'value': 0x},
+      # This doesn't have a pid defined in the document
+      # {'get_request': {'items': []},
+      #  'get_response': {'items': [{'name': 'color_mode',
+      #                              'type': 'uint8',
+      #                              'labels': [(0, 'White'),
+      #                                         (1, 'Amber'),
+      #                                         (2, 'red'),
+      #                                         (3, 'Green'),
+      #                                         (4, 'Blue')],
+      #                             }]},
+      #  'get_sub_device_range': 0,
+      #  'name': 'SCENE_COLOR',
+      #  'set_request': {'items': [{'name': 'color_mode',
+      #                             'type': 'uint8',
+      #                             'labels': [(0, 'White'),
+      #                                        (1, 'Amber'),
+      #                                        (2, 'red'),
+      #                                        (3, 'Green'),
+      #                                        (4, 'Blue')],
+      #                             }]},
+      #  'set_response': {'items': []},
+      #  'set_sub_device_range': 0,
+      #  'notes': 'Controls the color mode for the current scene.',
+      #  'value': 0x},
 
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'color_wheel',
@@ -2355,23 +2355,23 @@ MANUFACTURER_PIDS = [
        'notes': 'Controls the tilt lock for follow spot mode.',
        'value': 0x8503},
 
-#      {'get_request': {'items': [{'name': 'string_number', 'type': 'uint16'}]},
-#       'get_response': {'items': [{'name': 'string_number', 'type': 'uint16'},
-#                                  {'name': 'string_length', 'type': 'uint16'},
-#                                  {'name': 'multiplier', 'type': 'uint16'},
-#                                  {'name': 'dmx_start_address', 'type': 'uint16'},
-#                                ]},
-#       'get_sub_device_range': 0,
-#       'name': 'NODE_GENERAL_SETUP',
-#       'set_request': {'items': [{'name': 'string_number', 'type': 'uint16'},
-#                                 {'name': 'string_length', 'type': 'uint16'},
-#                                 {'name': 'multiplier', 'type': 'uint16'},
-#                                 {'name': 'dmx_start_address', 'type': 'uint16'},
-#                                ]},
-#       'set_response': {'items': []},
-#       'set_sub_device_range': 0,
-#       'notes': 'Get or set the general settings for a node.',
-#       'value': },
+      # {'get_request': {'items': [{'name': 'string_number', 'type': 'uint16'}]},
+      #  'get_response': {'items': [{'name': 'string_number', 'type': 'uint16'},
+      #                             {'name': 'string_length', 'type': 'uint16'},
+      #                             {'name': 'multiplier', 'type': 'uint16'},
+      #                             {'name': 'dmx_start_address', 'type': 'uint16'},
+      #                           ]},
+      #  'get_sub_device_range': 0,
+      #  'name': 'NODE_GENERAL_SETUP',
+      #  'set_request': {'items': [{'name': 'string_number', 'type': 'uint16'},
+      #                            {'name': 'string_length', 'type': 'uint16'},
+      #                            {'name': 'multiplier', 'type': 'uint16'},
+      #                            {'name': 'dmx_start_address', 'type': 'uint16'},
+      #                           ]},
+      #  'set_response': {'items': []},
+      #  'set_sub_device_range': 0,
+      #  'notes': 'Get or set the general settings for a node.',
+      #  'value': },
 
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'regulate_fan_speed', 'type': 'bool'}]},
@@ -5279,8 +5279,8 @@ ESTA_PIDS = [
   'name': 'LOCK_STATE_DESCRIPTION',
   'value': 0x0642},
 
-# These are ordered to match how they appear in E1.37-7
-# The PID values will change in the final document.
+ # These are ordered to match how they appear in E1.37-7
+ # The PID values will change in the final document.
  # ENDPOINT_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [
@@ -5645,8 +5645,8 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7fd1},
 
-# These are ordered to match how they appear in E1.33
-# The PID values will change in the final document.
+ # These are ordered to match how they appear in E1.33
+ # The PID values will change in the final document.
  # SEARCH_DOMAIN
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'search_domain',
@@ -5702,7 +5702,7 @@ ESTA_PIDS = [
   'draft': True,
   'value': 0x7ff0},
 
-# These are ordered to match how they appear in E1.37-2
+ # These are ordered to match how they appear in E1.37-2
  # LIST_INTERFACES
  {'get_request': {'items': []},
   'get_response': {'items': [
