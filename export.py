@@ -20,11 +20,7 @@ from model import *
 from utils import TimestampToInt
 import common
 import json
-import logging
-import memcache_keys
-import time
 import timestamp_keys
-from google.appengine.api import memcache
 from google.appengine.ext import webapp
 
 
@@ -80,7 +76,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
     message = eval(message_str)
     self.Write('%s {' % type, indent)
     for item in message['items']:
-      self.WriteItem(item, indent+2)
+      self.WriteItem(item, indent + 2)
     self.Write('}', indent)
 
   def WritePid(self, pid, indent=0):
@@ -221,7 +217,6 @@ class ExportControllersHandler(webapp.RequestHandler):
   """
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
-    results = Controller.all()
 
     controllers = []
     for controller in Controller.all():
