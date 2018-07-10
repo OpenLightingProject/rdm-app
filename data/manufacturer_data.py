@@ -169,6 +169,7 @@ MANUFACTURER_DATA = [
   (0x03AA, "AIGA Electronic (GuangZhou) Co., Ltd."),
   (0x03D5, "eX Systems"),
   (0x03D6, "i-Lumen"),
+  (0x0404, "Luminxa"),
   (0x0424, "FLUX ECLAIRAGE"),
   (0x0440, "Guangzhou VAS Lighting Co., Ltd."),
   (0x044E, "Ben Peoples Industries, LLC"),
