@@ -5661,6 +5661,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'name': 'SEARCH_DOMAIN',
+  'draft': True,
   'value': 0x7fe0},
 
  # TCP_COMMS_STATUS
