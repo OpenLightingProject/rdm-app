@@ -66,6 +66,7 @@ MANUFACTURER_DATA = [
   (0x0119, "Peter Schneyder Design Management GmbH"),
   (0x011A, "Guangzhou Hotion Technology Co., Ltd."),
   (0x011B, "Jumptronic GmbH"),
+  (0x011C, "Letong Electronic (Guangzhou) Co., Ltd."),
   (0x016C, "LGR"),
   (0x016D, "Hive Lighting"),
   (0x016E, "Artled Technology Corp."),
