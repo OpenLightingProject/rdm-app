@@ -275,7 +275,7 @@ class ModelUpdater(object):
       personality = ResponderPersonality(
           description=personality_info.get('description'),
           index=index,
-          sw_version = software_version)
+          sw_version=software_version)
       if 'slot_count' in personality_info:
         personality.slot_count = personality_info['slot_count']
 

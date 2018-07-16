@@ -17,15 +17,12 @@
 # PID search / display handlers.
 
 import json
-import logging
 import memcache_keys
-import re
 import common
 from model import *
 from utils import StringToInt
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp import template
 
 
 class BaseSearchHandler(common.BasePageHandler):
@@ -131,7 +128,6 @@ class DisplayPid(common.BasePageHandler):
     if manufacturer is None or pid_id is None:
       return None
 
-    results = {}
     models = Pid.all()
     models.filter('pid_id = ', pid_id)
     models.filter('manufacturer = ', manufacturer.key())

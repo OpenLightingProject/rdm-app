@@ -73,18 +73,18 @@ class ResponderFirmware(webapp.RequestHandler):
   """Return the latest firmware for a responder."""
   def get(self):
     responder = common.LookupModel(self.request.get('manufacturer'),
-                                    self.request.get('model'))
+                                   self.request.get('model'))
     if responder is None:
       self.error(404)
       return
 
-    version = common.GetLatestSoftware(responder);
+    version = common.GetLatestSoftware(responder)
     if version is None:
       self.error(404)
 
     output = {
       'version': version.version_id,
-      'label' : version.label,
+      'label': version.label,
       'URL': '',
     }
     self.response.headers['Content-Type'] = 'text/json'
@@ -174,6 +174,7 @@ class ProductTags(webapp.RequestHandler):
       memcache.set(self.MemcacheKey(), tag_list)
     self.response.out.write(json.dumps(tag_list))
 
+
 class ProductManufacturers(webapp.RequestHandler):
   """Return the manufactures and number of products for each."""
   def get(self):
@@ -214,6 +215,7 @@ class ControllerTags(ProductTags):
   def MemcacheKey(self):
     return memcache_keys.TAG_CONTROLLER_COUNTS
 
+
 # Nodes
 class NodeManufacturers(ProductManufacturers):
   def ProductType(self):
@@ -222,12 +224,14 @@ class NodeManufacturers(ProductManufacturers):
   def MemcacheKey(self):
     return memcache_keys.MANUFACTURER_NODE_COUNTS
 
+
 class NodeTags(ProductTags):
   def ProductType(self):
     return Node
 
   def MemcacheKey(self):
     return memcache_keys.TAG_NODE_COUNTS
+
 
 # Software
 class SoftwareManufacturers(ProductManufacturers):
@@ -237,12 +241,14 @@ class SoftwareManufacturers(ProductManufacturers):
   def MemcacheKey(self):
     return memcache_keys.MANUFACTURER_SOFTWARE_COUNTS
 
+
 class SoftwareTags(ProductTags):
   def ProductType(self):
     return Software
 
   def MemcacheKey(self):
     return memcache_keys.TAG_SOFTWARE_COUNTS
+
 
 # Splitters
 class SplitterManufacturers(ProductManufacturers):
@@ -251,6 +257,7 @@ class SplitterManufacturers(ProductManufacturers):
 
   def MemcacheKey(self):
     return memcache_keys.MANUFACTURER_SPLITTER_COUNTS
+
 
 class SplitterTags(ProductTags):
   def ProductType(self):
@@ -317,6 +324,7 @@ class PidCounts(webapp.RequestHandler):
         'pids': pids,
     }
     return json.dumps(output)
+
 
 app = webapp.WSGIApplication(
   [
