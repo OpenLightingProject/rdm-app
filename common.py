@@ -110,15 +110,20 @@ def MaybeSendEmail(new_responder_count):
   query = UploadedResponderInfo.all()
   query.filter('processed = ', False)
   if query.count() == new_responder_count:
+    is_live_site = (app_identity.get_application_id() == "rdmprotocol-hrd")
     message = mail.EmailMessage(
-        sender=('RDM Site <support@%s.appspotmail.com>' % app_identity.get_application_id()),
+        sender=('%sRDM Site <support@%s.appspotmail.com>' %
+                (("" if is_live_site else (
+                  app_identity.get_application_id() + " ")),
+                 app_identity.get_application_id())),
         subject='Pending Moderation Requests',
         to='<nomis52@gmail.com>',
     )
     message.body = textwrap.dedent("""\
       There are new responders in the moderation queue.
-      Please visit http://rdm.openlighting.org/admin/moderate_responder_data
-    """)
+      Please visit http://%s/admin/moderate_responder_data
+    """ % ("rdm.openlighting.org" if is_live_site else (
+           app_identity.get_application_id() + ".appspot.com")))
     message.send()
 
 
