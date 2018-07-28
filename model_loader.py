@@ -18,7 +18,7 @@
 
 import logging
 import common
-from model import *
+from model import ProductCategory, Responder, ResponderPersonality, ResponderSensor, ResponderTag, ResponderTagRelationship, SoftwareVersion
 
 
 class ModelLoader(object):

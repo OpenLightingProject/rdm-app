@@ -16,7 +16,7 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for exporting information to third parties.
 
-from model import *
+from model import Controller, LastUpdateTime, Manufacturer, Pid, Responder
 from utils import TimestampToInt
 import common
 import json

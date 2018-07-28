@@ -21,7 +21,7 @@ import json
 import logging
 import memcache_keys
 from data.sensor_types import SENSOR_TYPES
-from model import *
+from model import Manufacturer, Pid, ProductCategory, Responder, ResponderTag
 from utils import StringToInt
 from google.appengine.api import images
 from google.appengine.api import memcache

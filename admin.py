@@ -37,11 +37,12 @@ import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
 from google.appengine.api import users
+from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
 from google.appengine.ext.db import BadValueError
 from google.appengine.ext.webapp import template
-from model import *
+from model import Command, Controller, LastUpdateTime, Manufacturer, Node, Pid, Product, ProductCategory, ProductTag, Responder, ResponderTag, ResponderTagRelationship, Software, SoftwareVersion, Splitter, UploadedResponderInfo
 from utils import StringToInt
 from pid_loader import PidLoader
 

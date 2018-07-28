@@ -16,7 +16,7 @@
 # Copyright (C) 2011 Simon Newton
 # Common functions
 
-from model import *
+from model import LastUpdateTime, Manufacturer, Pid, Product, ProductCategory, Responder, UploadedResponderInfo
 from utils import StringToInt
 import datetime
 import logging
