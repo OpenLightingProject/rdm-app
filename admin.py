@@ -339,7 +339,7 @@ class AdminPageHandler(BaseAdminPageHandler):
       category.delete()
       removed += 1
     logging.info('update complete')
-    return ('categories: added %d, removed %d, updated %d' %
+    return ('Categories: added %d, removed %d, updated %d' %
             (added, removed, updated))
 
   def GarbageCollectTags(self):
