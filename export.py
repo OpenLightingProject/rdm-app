@@ -274,7 +274,7 @@ class InfoHandler(webapp.RequestHandler):
   """Return the information about the index.
 
   This returns:
-   - the last uptime time
+   - the last update time
    - the number of manufacturer pids
    - the number of models
   """
