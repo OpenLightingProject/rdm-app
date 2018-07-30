@@ -16,7 +16,7 @@
 # Copyright (C) 2012 Simon Newton
 # Version 1 and 2 of the Proto API
 
-from model import *
+from model import Manufacturer
 from google.appengine.ext import webapp
 
 

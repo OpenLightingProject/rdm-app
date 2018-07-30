@@ -16,7 +16,7 @@
 # Copyright (C) 2012 Simon Newton
 # Version 1 and 2 of the JSON API.
 
-from model import *
+from model import Controller, LastUpdateTime, Manufacturer, Node, Pid, ProductTag, Responder, Software, Splitter
 import common
 import json
 import logging
