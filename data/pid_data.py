@@ -6,21 +6,25 @@ MANUFACTURER_PIDS = [
       # DEVICE_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'mode', 'type': 'uint8', 'labels': [
-                            (0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
-                          }
+                          {'name': 'mode', 'type': 'uint8',
+                           'labels': [(0, 'DMX512'),
+                                      (1, 'DALI'),
+                                      (2, 'DSI')]}
                         ]},
        'get_sub_device_range': 2,
        'name': 'DEVICE_MODE',
-       'set_request': {'items': [{'name': 'mode', 'type': 'uint8',
-                                  'labels': [(0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
-                      }]},
+       'set_request': {'items': [
+                          {'name': 'mode', 'type': 'uint8',
+                           'labels': [(0, 'DMX512'),
+                                      (1, 'DALI'),
+                                      (2, 'DSI')]}
+                       ]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.creativelighting.com.au/datasheets/RDM%20Supplement.pdf',
        'notes': 'Controls the operating mode of the device',
-       'value': 32768}]
-  },
+       'value': 32768}
+   ]},
 
   # ARRI
   {'id': 0x20b9,

@@ -18,7 +18,7 @@
 
 import logging
 import common
-from model import *
+from model import ProductCategory, Responder, ResponderPersonality, ResponderSensor, ResponderTag, ResponderTagRelationship, SoftwareVersion
 
 
 class ModelLoader(object):
@@ -86,7 +86,7 @@ class ModelUpdater(object):
     """Encode a string that may contain binary data."""
     if type(s) == str:
       return s.encode('string-escape')
-    elif type(data) == unicode:
+    elif type(s) == unicode:
       return s.encode('unicode-escape')
     else:
       return s
