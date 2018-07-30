@@ -1,4 +1,6 @@
 *rdm*.json
+*.bak
+*.old
 *.pyc
 *.save
 *.swp
