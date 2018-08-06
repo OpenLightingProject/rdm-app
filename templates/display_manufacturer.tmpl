@@ -9,8 +9,10 @@
         {% endif %}
     </div>
     <div id="manufacturer_info">
-        <h3>{{ manufacturer }} </h3>
-        <br/>
+        <h3>{{ manufacturer }}</h3>
+        <br />
+        Manufacturer ID: 0x{{ id|stringformat:"04x" }} ({{ id }})
+        <br />
         {% if url %}
             <a href="{{ url }}">{{ url }}</a>
         {% endif %}
