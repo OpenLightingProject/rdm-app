@@ -62,6 +62,7 @@ MANUFACTURER_LINKS = [
   (0x15D0, "https://www.musiclights.it/"),
   # (0x15D0, "http://prolights.it/"), # This is one of their sub-brands
   (0x16FA, "http://www.liteputer.com.tw/"),
+  (0x1809, "https://www.rotolight.com/"),
   (0x1AFA, "https://tmb.com/"),
   (0x20B9, "https://www.arri.com/"),
   (0x2122, "https://beglec.com/"),
