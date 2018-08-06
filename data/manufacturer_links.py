@@ -68,6 +68,7 @@ MANUFACTURER_LINKS = [
   (0x414C, "https://www.artisticlicence.com/"),
   (0x4179, "https://www.ayrton.eu/"),
   (0x434D, "http://www.coemar.com/"),
+  (0x4350, "https://www.claypaky.it/"),
   (0x4354, "http://www.citytheatrical.com/"),
   (0x4446, "http://www.dfd.com/"),
   (0x454E, "https://www.enttec.com/"),
