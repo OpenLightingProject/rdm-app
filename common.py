@@ -28,6 +28,16 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
 
+def Encode(s):
+  """Encode a string that may contain binary data."""
+  if type(s) == str:
+    return s.encode('string-escape')
+  elif type(s) == unicode:
+    return s.encode('unicode-escape')
+  else:
+    return s
+
+
 def GetManufacturer(manufacturer_id):
   """Lookup a manufacturer entity by manufacturer id. The manufacturer id can
      be a string in decimal or hex (prepend with 0x), or an int

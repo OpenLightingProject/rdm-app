@@ -62,7 +62,7 @@ class ModelLoader(object):
         was_added, was_modified = self._updater.UpdateResponder(
             manufacturer, model_info)
 
-        model_description = model_info.get('model_description')
+        model_description = common.Encode(model_info.get('model_description'))
         if model_description is None:
           model_description = ('RDM Model 0x%04x' %
                                model_info.get('device_model', 0))
@@ -84,12 +84,7 @@ class ModelUpdater(object):
 
   def _Encode(self, s):
     """Encode a string that may contain binary data."""
-    if type(s) == str:
-      return s.encode('string-escape')
-    elif type(s) == unicode:
-      return s.encode('unicode-escape')
-    else:
-      return s
+    return common.Encode(s)
 
   def _LookupProductCategory(self, category_id):
     """Lookup a ProductCategory entity by id.
@@ -145,8 +140,8 @@ class ModelUpdater(object):
       True if this entity was updated, false otherwise.
     """
     modified = False
-    model_description = model_info.get('model_description')
-    if model_description != responder.model_description and model_description:
+    model_description = self._Encode(model_info.get('model_description'))
+    if model_description and model_description != responder.model_description:
       responder.model_description = model_description
       modified = True
 
@@ -194,7 +189,7 @@ class ModelUpdater(object):
     responder = Responder(
         manufacturer=manufacturer,
         device_model_id=model_id,
-        model_description=model_info.get('model_description'))
+        model_description=self._Encode(model_info.get('model_description')))
 
     # add product_category if there is one
     product_category_id = model_info.get('product_category')
@@ -227,7 +222,7 @@ class ModelUpdater(object):
     """
     # create the new version object and store it
     version_obj = SoftwareVersion(version_id=version_id,
-                                  label=version_info.get('label'),
+                                  label=self._Encode(version_info.get('label')),
                                   responder=responder)
     supported_params = version_info.get('supported_parameters')
     if supported_params:
@@ -254,7 +249,7 @@ class ModelUpdater(object):
       if personality_info:
         # check for update
         save = False
-        new_description = personality_info.get('description')
+        new_description = self._Encode(personality_info.get('description'))
         if new_description and personality.description != new_description:
           personality.description = new_description
           save = True
@@ -273,7 +268,7 @@ class ModelUpdater(object):
     # add any new personalities
     for index, personality_info in new_personalities.iteritems():
       personality = ResponderPersonality(
-          description=personality_info.get('description'),
+          description=self._Encode(personality_info.get('description')),
           index=index,
           sw_version=software_version)
       if 'slot_count' in personality_info:
@@ -297,9 +292,9 @@ class ModelUpdater(object):
       if sensor_info:
         # check for update
         save = False
-        new_description = sensor_info.get('description')
+        new_description = self._Encode(sensor_info.get('description'))
         if new_description and sensor.description != new_description:
-          sensor.description = self._Encode(new_description)
+          sensor.description = new_description
           save = True
 
         new_type = sensor_info.get('type')
@@ -358,7 +353,7 @@ class ModelUpdater(object):
       if version_id in new_versions:
         new_version_info = versions[version_id]
 
-        label = new_version_info.get('label')
+        label = self._Encode(new_version_info.get('label'))
         if label and label != version.label:
           version.label = label
           version.put()
