@@ -358,6 +358,12 @@ class ModelUpdater(object):
       if version_id in new_versions:
         new_version_info = versions[version_id]
 
+        label = new_version_info.get('label')
+        if label and label != version.label:
+          version.label = label
+          version.put()
+          modified = True
+
         # update supported_parameters if required
         new_supported_parameters = new_version_info.get('supported_parameters')
         supported_parameters = [int(i) for i in version.supported_parameters]
