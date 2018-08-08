@@ -178,7 +178,7 @@ PID_VALIDATOR = {
           'minimum': 0
         }
       ],
-      'additionalItems': false,
+      'additionalItems': False,
       'minItems': 2,
       'maxItems': 2
     },
