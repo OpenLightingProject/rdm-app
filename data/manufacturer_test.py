@@ -60,6 +60,8 @@ class TestManufacturers(unittest.TestCase):
       esta_id, name = manufacturer_data
       esta_ids.add(esta_id)
 
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+
     for manufacturer_link in self.links:
       self.assertEqual(tuple, type(manufacturer_link))
       self.assertEqual(2, len(manufacturer_link))
@@ -84,7 +86,7 @@ class TestManufacturers(unittest.TestCase):
         ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)'}
 
         request = urllib2.Request(link, headers=ua)
-        response = urllib2.urlopen(request)
+        response = opener.open(request)
       except URLError as e:
         if hasattr(e, 'reason'):
           if hasattr(e, 'code'):
