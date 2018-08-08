@@ -169,9 +169,12 @@ PID_VALIDATOR = {
       'type': 'array',
       'items': [
         {
+          # TODO(Peter): validate labels further depending on type of source
           'type': 'integer',
+          # Max uin32
           'maximum': 4294967295,
-          'minimum': 0
+          # Min int32
+          'minimum': −2147483648
         },
         {
           'type': 'string',
@@ -187,16 +190,28 @@ PID_VALIDATOR = {
       'minLength': 1
     },
     'range': {
-      'type': 'object',
-      'properties': {
-        'lower': {
-          'type': 'integer'
+      'type': 'array',
+      'items': [
+        {
+          # TODO(Peter): validate ranges further depending on type of source
+          'type': 'integer',
+          # Max uin32
+          'maximum': 4294967295,
+          # Min int32
+          'minimum': −2147483648
         },
-        'upper': {
-          'type': 'integer'
-        }
-      },
-      'required': ['lower', 'upper']
+        {
+          # TODO(Peter): validate ranges further depending on type of source
+          'type': 'integer',
+          # Max uin32
+          'maximum': 4294967295,
+          # Min int32
+          'minimum': −2147483648
+        },
+      ],
+      'additionalItems': False,
+      'minItems': 2,
+      'maxItems': 2
     }
   },
   'type': 'object',
