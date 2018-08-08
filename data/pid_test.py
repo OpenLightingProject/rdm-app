@@ -62,7 +62,7 @@ PID_VALIDATOR = {
             'labels': {
               'type': 'array',
               'items': {
-                '_ignore_$ref': '#/definitions/label'
+                '$ref': '#/definitions/label'
               }
             },
             'prefix': {
