@@ -172,7 +172,7 @@ PID_VALIDATOR = {
           'type': 'string',
           'minLength': 1
         },
-        'value': {
+        {
           'type': 'integer',
           'maximum': 4294967295,
           'minimum': 0
