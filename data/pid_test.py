@@ -169,9 +169,9 @@ PID_VALIDATOR = {
       'type': 'array',
       'items': [
         {
-          # TODO(Peter): validate labels further depending on type of source
+          # TODO(Peter): validate labels more specifically depending on type of source
           'type': 'integer',
-          # Max uin32
+          # Max uint32
           'maximum': 4294967295,
           # Min int32
           'minimum': -2147483648
@@ -193,17 +193,17 @@ PID_VALIDATOR = {
       'type': 'array',
       'items': [
         {
-          # TODO(Peter): validate ranges further depending on type of source
+          # TODO(Peter): validate ranges more specifically depending on type of int
           'type': 'integer',
-          # Max uin32
+          # Max uint32
           'maximum': 4294967295,
           # Min int32
           'minimum': -2147483648
         },
         {
-          # TODO(Peter): validate ranges further depending on type of source
+          # TODO(Peter): validate ranges more specifically depending on type of int
           'type': 'integer',
-          # Max uin32
+          # Max uint32
           'maximum': 4294967295,
           # Min int32
           'minimum': -2147483648
