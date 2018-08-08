@@ -174,7 +174,7 @@ PID_VALIDATOR = {
           # Max uin32
           'maximum': 4294967295,
           # Min int32
-          'minimum': −2147483648
+          'minimum': -2147483648
         },
         {
           'type': 'string',
