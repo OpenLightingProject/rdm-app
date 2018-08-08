@@ -20,7 +20,6 @@ import unittest
 import jsonspec.validators
 
 # This is from an early version of E1.37-5.
-# TODO(Peter): Fix the validation on label items
 PID_VALIDATOR = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'definitions': {
@@ -61,6 +60,7 @@ PID_VALIDATOR = {
             },
             'labels': {
               'type': 'array',
+              'uniqueItems': True,
               'items': {
                 '$ref': '#/definitions/label'
               }
@@ -169,8 +169,8 @@ PID_VALIDATOR = {
       'type': 'array',
       'items': [
         {
-          'type': 'string'
-          'minLength': 1,
+          'type': 'string',
+          'minLength': 1
         },
         'value': {
           'type': 'integer',
@@ -178,6 +178,9 @@ PID_VALIDATOR = {
           'minimum': 0
         }
       ],
+      'additionalItems': false,
+      'minItems': 2,
+      'maxItems': 2
     },
     'name': {
       'type': 'string',
