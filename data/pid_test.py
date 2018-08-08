@@ -166,19 +166,18 @@ PID_VALIDATOR = {
       ]
     },
     'label': {
-      'type': 'object',
-      'properties': {
-        'label': {
-          'minLength': 1,
+      'type': 'array',
+      'items': [
+        {
           'type': 'string'
+          'minLength': 1,
         },
         'value': {
           'type': 'integer',
           'maximum': 4294967295,
           'minimum': 0
         }
-      },
-      'required': ['label', 'value']
+      ],
     },
     'name': {
       'type': 'string',
