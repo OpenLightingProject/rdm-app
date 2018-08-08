@@ -169,13 +169,13 @@ PID_VALIDATOR = {
       'type': 'array',
       'items': [
         {
-          'type': 'string',
-          'minLength': 1
-        },
-        {
           'type': 'integer',
           'maximum': 4294967295,
           'minimum': 0
+        },
+        {
+          'type': 'string',
+          'minLength': 1
         }
       ],
       'additionalItems': False,
