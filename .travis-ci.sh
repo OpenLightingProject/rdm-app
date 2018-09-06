@@ -29,7 +29,7 @@ elif [[ $TASK = 'spellintian' ]]; then
       wc -l)
   if [[ $spellingerrors -ne 0 ]]; then
     # print the output for info
-    zrun spellintian $spellingfiles \
+    zrun spellintian $spellingfiles 2>&1 | \
         grep -v "./README.md: Tasks Tasks (duplicate word)" | \
         grep -v "./model.py: label label (duplicate word)"
     echo "Found $spellingerrors spelling errors"
