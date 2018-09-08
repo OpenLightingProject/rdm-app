@@ -45,6 +45,7 @@ MANUFACTURER_DATA = [
   (0x00B7, "Bron Elektronik AG"),
   (0x00B8, "Shenzhen Singba Light Technology Co., Ltd."),
   (0x00B9, "Guangzhou Baiyun District Sanjie Eletronic Stage Lighting Audio Equipment Factory"),
+  (0x00BA, "LiteGear Inc."),
   (0x0101, "St. Anne Engineering GmbH"),
   (0x0102, "Bortis Elektronik"),
   (0x0103, "Fontana Technologies"),
