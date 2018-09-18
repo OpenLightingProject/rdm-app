@@ -20,7 +20,6 @@ import unittest
 import jsonspec.validators
 
 # This is from an early version of E1.37-5.
-# TODO(Peter): Fix the validation on label items
 PID_VALIDATOR = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'definitions': {
@@ -61,8 +60,9 @@ PID_VALIDATOR = {
             },
             'labels': {
               'type': 'array',
+              'uniqueItems': True,
               'items': {
-                '_ignore_$ref': '#/definitions/label'
+                '$ref': '#/definitions/label'
               }
             },
             'prefix': {
@@ -166,35 +166,52 @@ PID_VALIDATOR = {
       ]
     },
     'label': {
-      'type': 'object',
-      'properties': {
-        'label': {
-          'minLength': 1,
-          'type': 'string'
-        },
-        'value': {
+      'type': 'array',
+      'items': [
+        {
+          # TODO(Peter): validate labels more specifically depending on type of source
           'type': 'integer',
+          # Max uint32
           'maximum': 4294967295,
-          'minimum': 0
+          # Min int32
+          'minimum': -2147483648
+        },
+        {
+          'type': 'string',
+          'minLength': 1
         }
-      },
-      'required': ['label', 'value']
+      ],
+      'additionalItems': False,
+      'minItems': 2,
+      'maxItems': 2
     },
     'name': {
       'type': 'string',
       'minLength': 1
     },
     'range': {
-      'type': 'object',
-      'properties': {
-        'lower': {
-          'type': 'integer'
+      'type': 'array',
+      'items': [
+        {
+          # TODO(Peter): validate ranges more specifically depending on type of int
+          'type': 'integer',
+          # Max uint32
+          'maximum': 4294967295,
+          # Min int32
+          'minimum': -2147483648
         },
-        'upper': {
-          'type': 'integer'
-        }
-      },
-      'required': ['lower', 'upper']
+        {
+          # TODO(Peter): validate ranges more specifically depending on type of int
+          'type': 'integer',
+          # Max uint32
+          'maximum': 4294967295,
+          # Min int32
+          'minimum': -2147483648
+        },
+      ],
+      'additionalItems': False,
+      'minItems': 2,
+      'maxItems': 2
     }
   },
   'type': 'object',
