@@ -21,7 +21,7 @@ import json
 import logging
 import memcache_keys
 from data.sensor_types import SENSOR_TYPES
-from model import *
+from model import Manufacturer, Pid, ProductCategory, Responder, ResponderTag
 from utils import StringToInt
 from google.appengine.api import images
 from google.appengine.api import memcache
@@ -59,7 +59,7 @@ class BrowseModels(common.BasePageHandler):
       output = {
           'manufacturer_id': model.manufacturer.esta_id,
           'model_id': model.device_model_id,
-          'name': model.model_description,
+          'name': common.MaybeEncode(model.model_description),
           'rating': model.rdm_responder_rating,
           'star_width': rating_scale,
       }
@@ -238,7 +238,7 @@ class DisplayModel(common.BasePageHandler):
     for version_info in model.software_version_set:
       version_output = {
           'version_id': version_info.version_id,
-          'label': version_info.label,
+          'label': common.MaybeEncode(version_info.label),
       }
 
       supported_parameters = version_info.supported_parameters
@@ -269,7 +269,7 @@ class DisplayModel(common.BasePageHandler):
       personalities = []
       for personality in version_info.personality_set:
         personality_info = {
-          'description': personality.description,
+          'description': common.MaybeEncode(personality.description),
           'index': personality.index,
         }
         if personality.slot_count is not None:
@@ -284,7 +284,7 @@ class DisplayModel(common.BasePageHandler):
       sensors = []
       for sensor in version_info.sensor_set:
         sensor_info = {
-            'description': sensor.description,
+            'description': common.MaybeEncode(sensor.description),
             'index': sensor.index,
             'type': sensor.type,
             'supports_recording': sensor.supports_recording,
@@ -305,7 +305,7 @@ class DisplayModel(common.BasePageHandler):
     ofl_model_url += '&modelId=' + str(model.device_model_id)
 
     output = {
-      'description': model.model_description,
+      'description': common.MaybeEncode(model.model_description),
       'manufacturer': model.manufacturer.name,
       'manufacturer_id': model.manufacturer.esta_id,
       'model_id': model.device_model_id,

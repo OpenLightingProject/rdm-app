@@ -19,7 +19,7 @@
 
 import logging
 import common
-from model import *
+from model import Pid, Responder
 
 
 class PidIndexBuilder():
