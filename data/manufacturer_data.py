@@ -47,6 +47,7 @@ MANUFACTURER_DATA = [
   (0x00B9, "Guangzhou Baiyun District Sanjie Eletronic Stage Lighting Audio Equipment Factory"),
   (0x00BA, "LiteGear Inc."),
   (0x00BB, "Digital Lighting Engineering & Design, LLC"),
+  (0x00BC, "Ambion GmbH (Ambrain)"),
   (0x0101, "St. Anne Engineering GmbH"),
   (0x0102, "Bortis Elektronik"),
   (0x0103, "Fontana Technologies"),
