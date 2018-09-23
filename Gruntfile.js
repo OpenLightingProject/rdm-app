@@ -107,6 +107,7 @@ module.exports = function(grunt) {
             '--js', 'node_modules/google-closure-library/third_party/**.js',
             '--js', '"!**_test.js"',
             '--jscomp_error', 'lintChecks',
+            '--jscomp_error', 'missingProperties',
             '--hide_warnings_for', 'node_modules/google-closure-library/',
             '--entry_point', 'app.setup',
             '--js_output_file', 'static/js/app.js',
