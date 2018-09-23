@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 PYCHECKER_BLACKLIST=""
 #threading,unittest,cmd,optparse,google,google.protobuf,ssl,fftpack,lapack_lite,mtrand
 
@@ -33,12 +32,16 @@ elif [[ $TASK = 'spellintian' ]]; then
   spellingerrors=$(zrun spellintian $spellingfiles 2>&1 | \
       grep -v "./README.md: Tasks Tasks (duplicate word)" | \
       grep -v "./model.py: label label (duplicate word)" | \
+      grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
+      grep -v "./.travis-ci.sh: Eletronic -> Electronic" | \
       wc -l)
   if [[ $spellingerrors -ne 0 ]]; then
     # print the output for info
     zrun spellintian $spellingfiles 2>&1 | \
         grep -v "./README.md: Tasks Tasks (duplicate word)" | \
-        grep -v "./model.py: label label (duplicate word)"
+        grep -v "./model.py: label label (duplicate word)" | \
+        grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
+        grep -v "./.travis-ci.sh: Eletronic -> Electronic"
     echo "Found $spellingerrors spelling errors"
     exit 1;
   else
