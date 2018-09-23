@@ -17,6 +17,7 @@
 # The handlers for the admin page.
 
 import common
+from common import BasePageHandler
 from data.controller_data import CONTROLLER_DATA
 from data.manufacturer_data import MANUFACTURER_DATA
 from data.manufacturer_links import MANUFACTURER_LINKS
@@ -36,11 +37,12 @@ import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
 from google.appengine.api import users
+from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
 from google.appengine.ext.db import BadValueError
 from google.appengine.ext.webapp import template
-from model import *
+from model import Command, Controller, LastUpdateTime, Manufacturer, Node, Pid, Product, ProductCategory, ProductTag, Responder, ResponderTag, ResponderTagRelationship, Software, SoftwareVersion, Splitter, UploadedResponderInfo
 from utils import StringToInt
 from pid_loader import PidLoader
 
@@ -51,7 +53,7 @@ def UpdateModificationTime(timestamp_name):
   query.filter('name = ', timestamp_name)
   result = query.fetch(1)
   if not result:
-    result = LastUpdateTime(name = timestamp_name)
+    result = LastUpdateTime(name=timestamp_name)
   else:
     result = result[0]
   result.update_time = datetime.datetime.now()
@@ -61,7 +63,7 @@ def UpdateModificationTime(timestamp_name):
   memcache.delete(memcache_keys.INDEX_INFO)
 
 
-class BaseAdminPageHandler(webapp.RequestHandler):
+class BaseAdminPageHandler(BasePageHandler):
   """The base handler for admin requests."""
   ALLOWED_USERS = [
       'nomis52@gmail.com',
@@ -326,8 +328,8 @@ class AdminPageHandler(BaseAdminPageHandler):
     for category_id in sorted(categories_to_add):
       logging.info('adding %d (%s)' %
                    (category_id, new_data[category_id]))
-      category = ProductCategory(id = category_id,
-                                 name = new_data[category_id])
+      category = ProductCategory(id=category_id,
+                                 name=new_data[category_id])
       category.put()
       added += 1
 
@@ -337,7 +339,7 @@ class AdminPageHandler(BaseAdminPageHandler):
       category.delete()
       removed += 1
     logging.info('update complete')
-    return ('categories: added %d, removed %d, updated %d' %
+    return ('Categories: added %d, removed %d, updated %d' %
             (added, removed, updated))
 
   def GarbageCollectTags(self):
@@ -359,10 +361,10 @@ class AdminPageHandler(BaseAdminPageHandler):
     output = ''
     if deleted_responder_tags:
       output += ('Deleted Responder tags: \n%s\n' %
-          '\n'.join(deleted_responder_tags))
+                 '\n'.join(deleted_responder_tags))
     if deleted_product_tags:
       output += ('Deleted Product tags: \n%s\n' %
-          '\n'.join(deleted_product_tags))
+                 '\n'.join(deleted_product_tags))
 
     if output == '':
       output = 'No tags to delete'
@@ -523,10 +525,9 @@ class AdminPageHandler(BaseAdminPageHandler):
 
     pending_uploads = UploadedResponderInfo.all().filter('processed = ',
                                                          False).count()
-    template_data = {
-        'logout_url': users.create_logout_url("/"),
-        'responders_to_moderate': pending_uploads,
-    }
+    template_data = self.IndexInfo()
+    template_data['logout_url'] = users.create_logout_url("/")
+    template_data['responders_to_moderate'] = pending_uploads
 
     if output:
       template_data['output'] = output
@@ -659,7 +660,7 @@ class ResponderModerator(BaseAdminPageHandler):
     else:
       left_formatted = left
       right_formatted = right
-    return  {
+    return {
       'name': name,
       'key': key,
       'left': left_formatted,
@@ -726,7 +727,7 @@ class ResponderModerator(BaseAdminPageHandler):
         new_responder_dict['product_category'] = category.name
       else:
         errors.append('Unknown product category %d' %
-          new_responder_dict['product_category'])
+                      new_responder_dict['product_category'])
 
     fields = [
         ('Model Description', 'model_description'),
@@ -735,8 +736,8 @@ class ResponderModerator(BaseAdminPageHandler):
         ('Product Category', 'product_category'),
     ]
 
-    changed_fields, unchanged_fields = self.DiffProperties(fields,
-        new_responder_dict, existing_responder_dict)
+    changed_fields, unchanged_fields = self.DiffProperties(
+        fields, new_responder_dict, existing_responder_dict)
 
     template_data['changed_fields'] = changed_fields
     template_data['unchanged_fields'] = unchanged_fields
@@ -818,8 +819,8 @@ class ResponderModerator(BaseAdminPageHandler):
         ('Sensors', 'sensors'),
     ]
 
-    changed_fields, unchanged_fields = self.DiffProperties(fields,
-        new_data, current_version_dict)
+    changed_fields, unchanged_fields = self.DiffProperties(
+        fields, new_data, current_version_dict)
     return changed_fields
 
   def BuildPersonalityList(self, software_version):
@@ -856,7 +857,7 @@ class ResponderModerator(BaseAdminPageHandler):
         'index': int(sensor.index),
         'supports_recording': recording,
         'type': int(sensor.type),
-    })
+      })
     sensors.sort(key=lambda i: i['index'])
     return sensors
 

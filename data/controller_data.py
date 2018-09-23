@@ -87,8 +87,7 @@ CONTROLLER_DATA = {
   0x22b9: [
     {'name': 'Etherlight-D1',
      'link': 'http://www.etherlight.com/products/etherlight-d1',
-     'image_url': 'http://www.etherlight.com/uploads/2011/04/D1-Pers-300x214.jpg',
-    },
+     'image_url': 'http://www.etherlight.com/uploads/2011/04/D1-Pers-300x214.jpg'},
   ],
   0x4144: [
     {'name': 'Freedom',
@@ -137,12 +136,10 @@ CONTROLLER_DATA = {
      'tags': ['console']},
     {'name': 'M-PC',
      'link': 'http://www.martin.com/product/product.asp?product=m-pc',
-     'image_url': 'http://www.martin.com/product/images/m-pc.jpg',
-    },
+     'image_url': 'http://www.martin.com/product/images/m-pc.jpg'},
     {'name': 'M2PC',
      'link': 'http://www.martin.com/product/product.asp?product=m2pc',
-     'image_url': 'http://www.martin.com/product/images/m2pc.jpg',
-    },
+     'image_url': 'http://www.martin.com/product/images/m2pc.jpg'},
     {'name': 'Maxxyz Compact',
      'link': 'http://www.martin.com/product/product.asp?product=Maxxyzcompact',
      'image_url': 'http://www.martin.com/product/images/Maxxyzcompact.jpg',
@@ -160,8 +157,8 @@ CONTROLLER_DATA = {
   ],
   0x5377: [
     {'name': 'XMT-350 DMX/RDM Tester & Controller',
-      'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
-      'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xmt-350/xmt-350_1_resize_275x183_86_255x255x255.jpg',
+     'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
+     'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xmt-350/xmt-350_1_resize_275x183_86_255x255x255.jpg',
      'tags': ['tool']},
   ],
   0x6574: [
