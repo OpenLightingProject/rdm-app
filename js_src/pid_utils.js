@@ -28,7 +28,7 @@ goog.require('app.MessageStructure');
  */
 app.displayCommand = function(json, element_id) {
   var msg_structure = new app.MessageStructure();
-  msg_structure.decorate(goog.dom.$(element_id));
+  msg_structure.decorate(goog.dom.getElement(element_id));
   msg_structure.update(json['items']);
 };
 goog.exportSymbol('app.displayCommand', app.displayCommand);
