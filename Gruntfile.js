@@ -108,6 +108,7 @@ module.exports = function(grunt) {
             '--js', '"!**_test.js"',
             '--jscomp_error', 'lintChecks',
             '--jscomp_error', 'missingProperties',
+            '--warning_level=VERBOSE',
             '--hide_warnings_for', 'node_modules/google-closure-library/',
             '--entry_point', 'app.setup',
             '--js_output_file', 'static/js/app.js',
