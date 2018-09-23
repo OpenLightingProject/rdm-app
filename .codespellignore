@@ -1,3 +1,8 @@
+      grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
+      grep -v "./.travis-ci.sh: Eletronic -> Electronic" | \
+        grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
+        grep -v "./.travis-ci.sh: Eletronic -> Electronic"
+  (0x00B9, "Guangzhou Baiyun District Sanjie Eletronic Stage Lighting Audio Equipment Factory"),
   (0x01B2, "DJSI Schinstad ANS (Northern Light)"),
   (0x01CF, "SRM Technik GmbH"),
   (0x030F, "Guangzhou Litewise Lighting Equipments Co., Ltd. dba \"EK Lights\""),
