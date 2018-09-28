@@ -52,6 +52,8 @@ MANUFACTURER_LINKS = [
   (0x074F, "https://www.panasonic.com/"),
   (0x0776, "http://lumenetix.com/"),
   (0x07C0, "https://www.codemercs.com/"),
+  (0x07CC, "http://www.griven.com/"),
+  (0x07EA, "http://www.lemaitreltd.com/"),
   (0x0808, "http://zero88.com/"),
   (0x089D, "http://www.gobo.ws/"),
   (0x08A4, "https://www.adamhall.com/"),
