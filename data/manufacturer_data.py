@@ -49,6 +49,7 @@ MANUFACTURER_DATA = [
   (0x00BB, "Digital Lighting Engineering & Design, LLC"),
   (0x00BC, "Ambion GmbH (Ambrain)"),
   (0x00BD, "numeo GmbH"),
+  (0x00BE, "The Light Luminary for Cine and TV S.L. (VELVET LIGHT)"),
   (0x0101, "St. Anne Engineering GmbH"),
   (0x0102, "Bortis Elektronik"),
   (0x0103, "Fontana Technologies"),
