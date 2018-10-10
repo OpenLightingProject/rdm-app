@@ -22,6 +22,7 @@
 MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
+  (0x009F, "Efore SpA"),
   (0x00A0, "Shenzhen Dicolor Optoelectronics Co., Ltd."),
   (0x00A1, "Creative Lighting And Sound Systems Pty Ltd."),
   (0x00A2, "EMP Designs Ltd."),
