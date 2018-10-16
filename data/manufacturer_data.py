@@ -482,6 +482,7 @@ MANUFACTURER_DATA = [
   (0x21B3, "Coolon Pty Ltd"),
   (0x21B4, "CHROMLECH"),
   (0x21B5, "ChromaCove LLC"),
+  (0x2208, "C.I.M.E.S. (Conception Installation Maintenance En Eclairage & Sonorisation)"),
   (0x2216, "D-Light Designs, LLC"),
   (0x2222, "D.E.F. Srl"),
   (0x2224, "DAS Integrator Pte Ltd"),
