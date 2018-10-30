@@ -158,6 +158,7 @@ class AdminPageHandler(BaseAdminPageHandler):
 
   def UpdateManufacturerLinks(self):
     # TODO(Peter): Add ability to remove links if not present in data?
+    # TODO(Peter): Only clear caches if we've done something
     new_data = {}
     for id, name in MANUFACTURER_LINKS:
       new_data[id] = name
@@ -181,8 +182,6 @@ class AdminPageHandler(BaseAdminPageHandler):
         if not(manufacturer.link) or (new_link != manufacturer.link):
           try:
             # add/update if required
-            manufacturer.link = new_link
-            manufacturer.put()
             if manufacturer.link:
               logging.info('Updating link for %d (%s) %s -> %s' %
                            (id, manufacturer.name, manufacturer.link, new_link))
@@ -191,6 +190,8 @@ class AdminPageHandler(BaseAdminPageHandler):
               logging.info('Adding link for %d (%s) - %s' %
                            (id, manufacturer.name, new_link))
               added += 1
+            manufacturer.link = new_link
+            manufacturer.put()
           except BadValueError as e:
             logging.error('Failed to add link for 0x%hx (%s) - %s: %s' %
                           (id, manufacturer.name, new_link, e))
