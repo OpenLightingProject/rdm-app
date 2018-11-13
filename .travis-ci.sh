@@ -1,8 +1,15 @@
 #!/bin/bash
 
-
 PYCHECKER_BLACKLIST=""
 #threading,unittest,cmd,optparse,google,google.protobuf,ssl,fftpack,lapack_lite,mtrand
+
+SPELLINGBLACKLIST=$(cat <<-BLACKLIST
+      -wholename "./.codespellignore" -or \
+      -wholename "./.git/*" -or \
+      -wholename "./node_modules/*" -or \
+      -wholename "./tools/update_and_commit_manufacturer_data.log"
+BLACKLIST
+)
 
 if [[ $TASK = 'nosetests' ]]; then
     nosetests --verbosity=3 --detailed-errors
@@ -18,20 +25,23 @@ elif [[ $TASK = 'data-check' ]]; then
     ./tools/make_manufacturer_data.sh > data/manufacturer_data.py && git diff --exit-code data/manufacturer_data.py
 elif [[ $TASK = 'spellintian' ]]; then
   # run the spellchecker only if it is the requested task
-  spellingfiles=$(find ./ -type f -and ! \( \
-      -wholename "./.git/*" -or \
-      -wholename "./node_modules/*" \
-      \) | xargs)
+  spellingfiles=$(eval "find ./ -type f -and ! \( \
+      $SPELLINGBLACKLIST \
+      \) | xargs")
   # count the number of spellchecker errors
   spellingerrors=$(zrun spellintian $spellingfiles 2>&1 | \
       grep -v "./README.md: Tasks Tasks (duplicate word)" | \
       grep -v "./model.py: label label (duplicate word)" | \
+      grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
+      grep -v "./.travis-ci.sh: Eletronic -> Electronic" | \
       wc -l)
   if [[ $spellingerrors -ne 0 ]]; then
     # print the output for info
-    zrun spellintian $spellingfiles \
+    zrun spellintian $spellingfiles 2>&1 | \
         grep -v "./README.md: Tasks Tasks (duplicate word)" | \
-        grep -v "./model.py: label label (duplicate word)"
+        grep -v "./model.py: label label (duplicate word)" | \
+        grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
+        grep -v "./.travis-ci.sh: Eletronic -> Electronic"
     echo "Found $spellingerrors spelling errors"
     exit 1;
   else
@@ -39,10 +49,9 @@ elif [[ $TASK = 'spellintian' ]]; then
   fi;
 elif [[ $TASK = 'codespell' ]]; then
   # run codespell only if it is the requested task
-  spellingfiles=$(find ./ -type f -and ! \( \
-      -wholename "./.git/*" -or \
-      -wholename "./node_modules/*" \
-      \) | xargs)
+  spellingfiles=$(eval "find ./ -type f -and ! \( \
+      $SPELLINGBLACKLIST \
+      \) | xargs")
   # count the number of codespell errors
   spellingerrors=$(zrun codespell --check-filenames --check-hidden --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore $spellingfiles 2>&1 | wc -l)
   if [[ $spellingerrors -ne 0 ]]; then

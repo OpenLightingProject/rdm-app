@@ -25,6 +25,7 @@ MANUFACTURER_LINKS = [
   (0x00A8, "https://www.eye.co.jp/"),
   # (0x00A9, "http://www.richter-lt.de"), # Temporarily(?) down
   (0x00B0, "http://www.arenaluci.com/"),
+  (0x00B9, "http://en.gzsjlight.com/"),
   (0x0104, "https://www.blizzardlighting.com/"),
   (0x01CC, "https://portmanlights.com/"),
   (0x01CD, "http://www.compulite.com/"),
@@ -51,6 +52,8 @@ MANUFACTURER_LINKS = [
   (0x074F, "https://www.panasonic.com/"),
   (0x0776, "http://lumenetix.com/"),
   (0x07C0, "https://www.codemercs.com/"),
+  (0x07CC, "http://www.griven.com/"),
+  (0x07EA, "http://www.lemaitreltd.com/"),
   (0x0808, "http://zero88.com/"),
   (0x089D, "http://www.gobo.ws/"),
   (0x08A4, "https://www.adamhall.com/"),
