@@ -23,7 +23,7 @@ MANUFACTURER_LINKS = [
   (0x00A2, "http://www.empdesigns.co.uk/"),
   (0x00A7, "http://www.syncronorm.de/"),
   (0x00A8, "https://www.eye.co.jp/"),
-  # (0x00A9, "http://www.richter-lt.de"), # Temporarily(?) down
+  # (0x00A9, "http://www.richter-lt.de"),  # Temporarily(?) down
   (0x00B0, "http://www.arenaluci.com/"),
   (0x00B9, "http://en.gzsjlight.com/"),
   (0x0104, "https://www.blizzardlighting.com/"),
@@ -35,7 +35,7 @@ MANUFACTURER_LINKS = [
   (0x02B0, "https://dmxcontrol-projects.org/"),
   (0x02E1, "http://www.taittowers.com/"),
   (0x02EA, "https://www.disguise.one/"),
-  (0x02EC, "http://www.lutron.com/en-US/Pages/default.aspx"), # Their redirects don't play nicely with Python
+  (0x02EC, "http://www.lutron.com/en-US/Pages/default.aspx"),  # Their redirects don't play nicely with Python
   (0x02ED, "http://www.openlx.org.uk/"),
   (0x0305, "http://www.diconfiberoptics.com/"),
   (0x0308, "http://imagecue.lighting/"),
@@ -63,7 +63,7 @@ MANUFACTURER_LINKS = [
   (0x097F, "https://raumzeitlabor.de/"),
   (0x0987, "https://www.mathertel.de/"),
   (0x15D0, "https://www.musiclights.it/"),
-  # (0x15D0, "http://prolights.it/"), # This is one of their sub-brands
+  # (0x15D0, "http://prolights.it/"),  # This is one of their sub-brands
   (0x16FA, "http://www.liteputer.com.tw/"),
   (0x1809, "https://www.rotolight.com/"),
   (0x1AFA, "https://tmb.com/"),
@@ -74,7 +74,7 @@ MANUFACTURER_LINKS = [
   (0x242A, "http://www.hungaroflash.com/"),
   (0x2635, "http://www.ljusdesign.se/"),
   (0x263C, "http://www.i-pix.com/"),
-  # (0x26B4, "http://www.milinst.co.uk/"), # Company, and website has gone
+  # (0x26B4, "http://www.milinst.co.uk/"),  # Company, and website has gone
   (0x29B4, "http://www.highlite.nl/"),
   (0x2C2A, "http://www.xtba.co.uk/"),
   (0x2DC8, "http://www.stellascapes.com/"),
