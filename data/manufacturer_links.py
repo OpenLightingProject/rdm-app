@@ -79,6 +79,7 @@ MANUFACTURER_LINKS = [
   (0x263C, "http://www.i-pix.com/"),
   # (0x26B4, "http://www.milinst.co.uk/"),  # Company, and website has gone
   (0x29B4, "http://www.highlite.nl/"),
+  (0x2C1A, "https://www.dmx4all.de/"),
   (0x2C2A, "http://www.xtba.co.uk/"),
   (0x2DC8, "http://www.stellascapes.com/"),
   (0x3388, "https://www.macostar.com/"),
