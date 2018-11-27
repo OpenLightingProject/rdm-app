@@ -128,6 +128,7 @@ MANUFACTURER_LINKS = [
   (0x5753, "http://wirelessdmx.com"),
   (0x5759, "http://www.wybron.com/"),
   (0x586D, "http://www.doityourselfchristmas.com/"),
+  (0x6205, "http://www.ltechonline.com/"),
   (0x6364, "http://www.lanbox.com/"),
   (0x646F, "https://www.eldoled.com/"),
   (0x656C, "https://www.elclighting.com/"),
