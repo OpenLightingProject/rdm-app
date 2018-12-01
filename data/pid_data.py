@@ -6,21 +6,25 @@ MANUFACTURER_PIDS = [
       # DEVICE_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'mode', 'type': 'uint8', 'labels': [
-                            (0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
-                          }
+                          {'name': 'mode', 'type': 'uint8',
+                           'labels': [(0, 'DMX512'),
+                                      (1, 'DALI'),
+                                      (2, 'DSI')]}
                         ]},
        'get_sub_device_range': 2,
        'name': 'DEVICE_MODE',
-       'set_request': {'items': [{'name': 'mode', 'type': 'uint8',
-                                  'labels': [(0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
-                      }]},
+       'set_request': {'items': [
+                          {'name': 'mode', 'type': 'uint8',
+                           'labels': [(0, 'DMX512'),
+                                      (1, 'DALI'),
+                                      (2, 'DSI')]}
+                       ]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.creativelighting.com.au/datasheets/RDM%20Supplement.pdf',
        'notes': 'Controls the operating mode of the device',
-       'value': 32768}]
-  },
+       'value': 32768}
+   ]},
 
   # ARRI
   {'id': 0x20b9,
@@ -3329,6 +3333,37 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 1,
        'value': 36912},
       {'get_request': {'items': []},
+       'get_response': {'items': [
+                         {'name': 'Pan Tilt Feedback', 'type': 'bool'},
+                       ]},
+       'get_sub_device_range': 2,
+       'name': 'PT_FEEDBACK',
+       'set_request': {'items': [{'name': 'Pan Tilt Feedback', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Pan/Tilt Feedback',
+       'value': 40960},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                         {'name': 'Output Uniformity', 'type': 'bool'},
+                       ]},
+       'get_sub_device_range': 2,
+       'name': 'OUTPUT_UNIFORMITY',
+       'set_request': {'items': [{'name': 'Output Uniformity', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'value': 40969},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                         {'name': 'DL Compatible Mode', 'type': 'bool'},
+                       ]},
+       'get_sub_device_range': 2,
+       'name': 'DL_COMPATIBLE_MODE',
+       'set_request': {'items': [{'name': 'DL Compatible Mode', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'value': 40973},
+      {'get_request': {'items': []},
        'get_response': {'items': [{'labels': [(0, 'Off'),
                                               (1, '1 Minute'),
                                               (2, '2 Minutes'),
@@ -5661,6 +5696,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'name': 'SEARCH_DOMAIN',
+  'draft': True,
   'value': 0x7fe0},
 
  # TCP_COMMS_STATUS
