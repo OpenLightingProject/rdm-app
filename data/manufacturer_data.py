@@ -23,6 +23,7 @@ MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
   (0x009A, "Guangzhou Haoyang Electronic Co., Ltd."),
+  (0x009B, "Guangzhou Jiawei Electronic Technology Co., Ltd."),
   (0x009E, "Guangzhou Flying Butterfly Stage Lighting Equipment Co., Ltd."),
   (0x009F, "Efore SpA"),
   (0x00A0, "Shenzhen Dicolor Optoelectronics Co., Ltd."),
