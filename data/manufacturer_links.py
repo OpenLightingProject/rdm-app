@@ -82,6 +82,7 @@ MANUFACTURER_LINKS = [
   (0x3388, "https://www.macostar.com/"),
   (0x3434, "https://www.gds.uk.com/"),
   (0x3638, "https://www.lumenpulse.com/"),
+  (0x3B10, "https://www.nxp.com/"),
   (0x4144, "https://www.adbstagelight.com/"),
   (0x414C, "https://www.artisticlicence.com/"),
   (0x4179, "https://www.ayrton.eu/"),
