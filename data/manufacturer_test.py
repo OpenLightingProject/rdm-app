@@ -95,7 +95,9 @@ class TestManufacturers(unittest.TestCase):
             pprint.pprint(vars(e.headers))
           # TODO(Peter): Enttec URL fails SSL validation due to an incomplete
           # chain, skip this error for now
-          if not (type(e.reason) is SSLError and link == 'https://www.enttec.com/'):
+          if not (type(e.reason) is SSLError and
+                  (link == 'https://www.enttec.com/' or
+                   link == 'https://www.arri.com/')):
             self.fail("Link %s failed due to %s" % (link, e.reason))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "

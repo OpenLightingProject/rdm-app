@@ -292,16 +292,16 @@ class TestPidData(unittest.TestCase):
     locals = {}
     execfile("data/pid_data.py", globals, locals)
     self.manufacturer_pids = locals['MANUFACTURER_PIDS']
-    self.plasa_pids = locals['ESTA_PIDS']
+    self.esta_pids = locals['ESTA_PIDS']
     self.pid_validator = jsonspec.validators.load(PID_VALIDATOR)
     self.manufacturer_validator = jsonspec.validators.load(
         MANUFACTURER_VALIDATOR)
 
-  def test_PlasaPids(self):
-    self.assertEqual(list, type(self.plasa_pids))
+  def test_EstaPids(self):
+    self.assertEqual(list, type(self.esta_pids))
     seen_pid_names = set()
 
-    for pid in self.plasa_pids:
+    for pid in self.esta_pids:
       try:
         self.pid_validator.validate(pid)
       except jsonspec.validators.ValidationError as e:
