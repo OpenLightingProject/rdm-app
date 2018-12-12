@@ -383,6 +383,7 @@ MANUFACTURER_DATA = [
   (0x0938, "Guangzhou Vanray Lighting Equipment CO.,Ltd."),
   (0x093A, "HDT impex s.r.o."),
   (0x0940, "Shenzhen CreateLED Electronics Co., Ltd"),
+  (0x0941, "Shenzen Zhuoyang Intelligent Lighting Co., Inc"),
   (0x0946, "TBE Srl"),
   (0x0951, "Guangzhou GTD Lighting Technology Co., Ltd"),
   (0x0958, "Illum Technology LLC (previously Verde Designs, Inc.)"),
