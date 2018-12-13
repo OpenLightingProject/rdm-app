@@ -120,6 +120,7 @@ MANUFACTURER_DATA = [
   (0x01B3, "Ricardo Dias"),
   (0x01B4, "Inventeq B.V."),
   (0x01B5, "Beijing Soft Rock Technology Development Co., Ltd."),
+  (0x01BE, "BEN-RI Electronica S.A."),
   (0x01C7, "SCHIEDERWERK GmbH"),
   (0x01C8, "Guangzhou JINLIN Stage Lighting Equipment Co., Ltd."),
   (0x01C9, "ALPHA LITE Inc."),
