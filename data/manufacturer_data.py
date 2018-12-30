@@ -390,6 +390,7 @@ MANUFACTURER_DATA = [
   (0x0941, "Shenzen Zhuoyang Intelligent Technology Co., Ltd."),
   (0x0946, "TBE Srl"),
   (0x0951, "Guangzhou GTD Lighting Technology Co., Ltd"),
+  (0x0952, "Guangzhou Sunway Entertainment Equipment Co., Ltd."),
   (0x0958, "Illum Technology LLC (previously Verde Designs, Inc.)"),
   (0x0959, "Urbs Lighting, LLC"),
   (0x095A, "kLabs Research UK"),
