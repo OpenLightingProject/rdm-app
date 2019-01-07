@@ -62,9 +62,6 @@ matrix:
   allow_failures:
     - os: linux
       dist: trusty
-      env: TASK="data-check"
-    - os: linux
-      dist: trusty
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
