@@ -22,6 +22,7 @@
 MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
+  (0x0087, "LMBD"),
   (0x0088, "Guangzhou YaFeng Optoelectronic Equipment Co., Ltd."),
   (0x0089, "The Production Warehouse (Vulcan Lighting)"),
   (0x009A, "Guangzhou Haoyang Electronic Co., Ltd."),
