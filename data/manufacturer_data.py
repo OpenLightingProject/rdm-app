@@ -22,6 +22,7 @@
 MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
+  (0x0085, "Guangzhou Nanshi Light Equipment Co., Ltd."),
   (0x0086, "Intella System Co., Ltd."),
   (0x0087, "LMBD"),
   (0x0088, "Guangzhou YaFeng Optoelectronic Equipment Co., Ltd."),
