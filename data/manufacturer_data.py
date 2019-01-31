@@ -337,6 +337,7 @@ MANUFACTURER_DATA = [
   (0x088A, "Highendled Electronics Company Limited"),
   (0x088E, "Stage One International Co., Ltd."),
   (0x088F, "First Design System Inc."),
+  (0x0890, "Taurus Light Co.,Limited"),
   (0x0891, "Feiner Lichttechnik GMBH"),
   (0x089A, "ADL Electronics Ltd."),
   (0x089D, "gobo.ws"),
