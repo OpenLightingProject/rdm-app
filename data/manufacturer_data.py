@@ -858,6 +858,7 @@ MANUFACTURER_DATA = [
   (0x6205, "Zhuhai Ltech Technology Co., Ltd."),
   (0x6206, "Lighting Innovation Company, LLC"),
   (0x6273, "B&S Elektronische Gerate GmbH"),
+  (0x6342, "Mega Systems Inc."),
   (0x6364, "CDS advanced technology bv"),
   (0x641A, "Heliospectra AB"),
   (0x6461, "Digilin Australia"),
