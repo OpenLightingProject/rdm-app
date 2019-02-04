@@ -395,6 +395,7 @@ MANUFACTURER_DATA = [
   (0x0931, "Cristal Controles"),
   (0x0936, "AquaTronic"),
   (0x0938, "Guangzhou Vanray Lighting Equipment CO.,Ltd."),
+  (0x0939, "Edelmann Electronics"),
   (0x093A, "HDT impex s.r.o."),
   (0x0940, "Shenzhen CreateLED Electronics Co., Ltd"),
   (0x0941, "Shenzen Zhuoyang Intelligent Technology Co., Ltd."),
