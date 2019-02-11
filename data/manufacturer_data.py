@@ -897,6 +897,7 @@ MANUFACTURER_DATA = [
   (0x6D63, "Sein & Schein GmbH"),
   (0x6FEA, "Lumina Visual Productions"),
   (0x7068, "Pharos Architectural Controls"),
+  (0x7070, "SBT GmbH"),
   (0x7072, "Pr-Lighting Ltd."),
   (0x7078, "PixelRange Inc."),
   (0x70F0, "Pangolin Laser Systems, Inc."),
