@@ -1002,7 +1002,7 @@ MANUFACTURER_PIDS = [
                       ]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
-       'notes': '',
+       'link': 'http://www.balancedtechnology.com.au/documents/enttec/manuals/enttec_din-tec%20manual.pdf',
        'value': 34559},
     ],
   },
