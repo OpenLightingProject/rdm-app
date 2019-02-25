@@ -8,8 +8,6 @@ cache:
     - $HOME/.npm
     - $HOME/.cache/pip
 
-sudo: false
-
 before_install:
   - if [[ "$TASK" == "deploy" ]]; then openssl aes-256-cbc -K $encrypted_7eede60d6b12_key -iv $encrypted_7eede60d6b12_iv -in credentials.tar.gz.enc -out credentials.tar.gz -d && tar -xzf credentials.tar.gz; fi
   - if [[ "$TASK" == "spellintian" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
@@ -38,8 +36,6 @@ matrix:
             - libhtml-parser-perl
     - os: linux
       dist: trusty
-      # Short duration job, would use the container/without sudo image as it boots faster, but we need a backported lintian, so don't
-      sudo: required
       env: TASK='spellintian'
       addons:
         apt:
@@ -47,8 +43,6 @@ matrix:
             - moreutils
     - os: linux
       dist: trusty
-      # Short duration job, use the container/without sudo image as it boots faster
-      sudo: false
       env: TASK='codespell'
       addons:
         apt:
@@ -86,9 +80,6 @@ matrix:
             all_branches: true
 
   allow_failures:
-    - os: linux
-      dist: trusty
-      env: TASK="data-check"
     - os: linux
       dist: trusty
       env: TASK='flake8-wip'
