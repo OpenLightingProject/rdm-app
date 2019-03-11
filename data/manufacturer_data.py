@@ -33,6 +33,8 @@ MANUFACTURER_DATA = [
   (0x008D, "Guangzhou Minghao Electronic Technology Co., Ltd."),
   (0x008E, "Guangzhou Ao Mei Di Stage Lighting Equipment Co.,Ltd."),
   (0x008F, "Jiangmen Coolfish Technology Co., Ltd."),
+  (0x0090, "Cyclops Lighting"),
+  (0x0091, "Guangzhou Shuozhi Optoelectronic Technology Co., Ltd. (Konelite)"),
   (0x009A, "Guangzhou Haoyang Electronic Co., Ltd."),
   (0x009B, "Guangzhou Jiawei Electronic Technology Co., Ltd."),
   (0x009C, "LuxBalance Lighting"),
