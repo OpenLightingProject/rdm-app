@@ -87,7 +87,7 @@ CONTROLLER_DATA = {
   0x2239: [
     {'name': 'LightFactory',
      'link': 'https://www.lightfactory.net/',
-     'image_url': 'https://www.lightfactory.net/images/lightfactory_square1_small.png'},
+     'image_url': 'https://www.lightfactory.net/images/lightfactory_square1_small.png',
      'tags': ['console']},
   ],
   0x22b9: [
@@ -210,7 +210,7 @@ CONTROLLER_DATA = {
   0x736c: [
     {'name': 'NEO',
      'link': 'https://www.strandlighting.com/global/products/neo-console-and-software',
-     'image_url': 'https://www.strandlighting.com/b-dam/strand-lighting/products/neo-console-and-software/NEO-Console-452x410.jpg'},
+     'image_url': 'https://www.strandlighting.com/b-dam/strand-lighting/products/neo-console-and-software/NEO-Console-452x410.jpg',
      'tags': ['console']},
   ],
 }
