@@ -201,4 +201,9 @@ CONTROLLER_DATA = {
      'image_url': 'http://www.jese.co.uk/product/image/rdmtri.gif',
      'tags': ['tool', 'RDM Responder Tests', 'USB']},
   ],
+  0x736c: [
+    {'name': 'NEO',
+     'link': 'https://www.strandlighting.com/global/products/neo-console-and-software',
+     'image_url': 'https://www.strandlighting.com/b-dam/strand-lighting/products/neo-console-and-software/NEO-Console-452x410.jpg'},
+  ],
 }
