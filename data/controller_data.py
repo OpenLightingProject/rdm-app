@@ -84,6 +84,11 @@ CONTROLLER_DATA = {
      'image_url': 'http://zero88.com/images/product-pics-scd-server.jpg',
      'tags': ['console']},
   ],
+  0x2239: [
+    {'name': 'LightFactory',
+     'link': 'https://www.lightfactory.net/',
+     'image_url': 'https://www.lightfactory.net/images/lightfactory_square1_small.png'},
+  ],
   0x22b9: [
     {'name': 'Etherlight-D1',
      'link': 'http://www.etherlight.com/products/etherlight-d1',
