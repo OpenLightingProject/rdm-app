@@ -57,7 +57,7 @@ MANUFACTURER_LINKS = [
   (0x0808, "http://zero88.com/"),
   (0x089D, "http://www.gobo.ws/"),
   (0x08A4, "https://www.adamhall.com/"),
-  (0x08C5, "https://ehrgeiz.com/"),
+  (0x08C5, "https://ehrgeiz.glp.de/"),
   (0x0960, "https://fineline.solutions/"),
   (0x097A, "http://teamboyce.com/"),
   (0x097F, "https://raumzeitlabor.de/"),
