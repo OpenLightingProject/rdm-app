@@ -70,6 +70,7 @@ MANUFACTURER_LINKS = [
   (0x20B9, "https://www.arri.com/"),
   (0x2122, "https://beglec.com/"),
   (0x21A4, "https://www.chauvetdj.com/"),
+  (0x2239, "https://www.lightfactory.net/"),
   (0x22A6, "http://www.elationlighting.com/"),
   (0x242A, "http://www.hungaroflash.com/"),
   (0x2635, "http://www.ljusdesign.se/"),
