@@ -137,6 +137,7 @@ MANUFACTURER_LINKS = [
   (0x6A6B, "https://dmxking.com/"),
   (0x6D62, "http://www.proled.com/"),
   (0x7068, "https://www.pharoscontrols.com/"),
+  (0x736C, "https://www.strandlighting.com/"),
   (0x780E, "https://www.mole.com/"),
   (0x7A70, "https://www.openlighting.org/"),
   (0x7FF0, "http://tsp.esta.org/tsp/working_groups/cp.html"),
