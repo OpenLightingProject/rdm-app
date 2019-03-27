@@ -306,6 +306,7 @@ MANUFACTURER_DATA = [
   (0x074F, "Panasonic Corporation"),
   (0x0758, "IMPOLUX GmbH"),
   (0x075F, "LEDEngin Inc."),
+  (0x076A, "BeamZ  (Tronios B.V.)"),
   (0x0776, "lumenetix"),
   (0x078A, "FATEC sarl"),
   (0x0792, "MY-Semi Inc."),
