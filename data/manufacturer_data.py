@@ -386,6 +386,7 @@ MANUFACTURER_DATA = [
   (0x08E1, "Shenzhen CLT Electronics Co.,LTD"),
   (0x08E3, "Guangzhou JinZhiHui Electronic Technology Co.,Ltd."),
   (0x08E7, "3A Guangzhou Electronics Co., Ltd"),
+  (0x08EC, "Marvin Nadrowski"),
   (0x08ED, "ShowLED"),
   (0x08EE, "Spacelights"),
   (0x08F0, "Guang Dong LMJ Lighting Co., Ltd"),
