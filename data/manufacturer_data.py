@@ -353,6 +353,7 @@ MANUFACTURER_DATA = [
   (0x0884, "Bright Group"),
   (0x0885, "SIRS-E"),
   (0x088A, "Highendled Electronics Company Limited"),
+  (0x088D, "Guangzhou Ling Yang  lighting Science and Technology Co.,Ltd"),
   (0x088E, "Stage One International Co., Ltd."),
   (0x088F, "First Design System Inc."),
   (0x0890, "Taurus Light Co.,Limited"),
