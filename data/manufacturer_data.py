@@ -41,6 +41,8 @@ MANUFACTURER_DATA = [
   (0x0090, "Cyclops Lighting"),
   (0x0091, "Guangzhou Shuozhi Optoelectronic Technology Co., Ltd. (Konelite)"),
   (0x0092, "digiLED (UK) Ltd."),
+  (0x0093, "Luminous Show Technology Ltd."),
+  (0x0094, "Joinmax Display Technology Co., Ltd."),
   (0x009A, "Guangzhou Haoyang Electronic Co., Ltd."),
   (0x009B, "Guangzhou Jiawei Electronic Technology Co., Ltd."),
   (0x009C, "LuxBalance Lighting"),
