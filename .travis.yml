@@ -49,9 +49,11 @@ matrix:
            - moreutils
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='flake8'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
@@ -62,6 +64,7 @@ matrix:
   allow_failures:
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
