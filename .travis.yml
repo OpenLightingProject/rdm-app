@@ -57,9 +57,11 @@ matrix:
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker-wip'
   allow_failures:
     - os: linux
@@ -68,9 +70,11 @@ matrix:
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker-wip'
 
 script: "bash -ex .travis-ci.sh"
