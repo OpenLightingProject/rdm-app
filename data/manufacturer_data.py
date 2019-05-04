@@ -799,6 +799,7 @@ MANUFACTURER_DATA = [
   (0x4D54, "medien technik cords"),
   (0x4D56, "Avolites Ltd."),
   (0x4D58, "MX design"),
+  (0x4D5A, "Covert Science GmbH"),
   (0x4D61, "MARTINI S.p.A."),
   (0x4D77, "Mueller Elektronik"),
   (0x4E41, "Company NA"),
