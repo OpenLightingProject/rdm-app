@@ -23,6 +23,7 @@ MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
   (0x0002, "Abstract AVR Ltd."),
+  (0x007A, "Equivalent"),
   (0x0080, "Shenzhen AOTO Electronics Co., Ltd."),
   (0x0081, "Pino Solutions"),
   (0x0082, "LKE Lasershowtechnik GmbH"),
