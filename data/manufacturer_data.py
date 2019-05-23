@@ -361,6 +361,7 @@ MANUFACTURER_DATA = [
   (0x0869, "Club Cannon LLC"),
   (0x086E, "Guangzhou Hi-LTTE Electronics Technology Co.,Ltd"),
   (0x0870, "Hunan YESTECH Optoelectronic Co., Ltd"),
+  (0x0873, "Guangzhou BKLite Stage Lighting Equipment Co.,LTD"),
   (0x0874, "Snow Professional Lighting"),
   (0x0875, "ARC Solid-State Lighting Corp."),
   (0x0876, "Power Gems LTD"),
