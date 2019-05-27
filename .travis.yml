@@ -25,7 +25,11 @@ matrix:
   include:
     - python: "2.7"
       env: TASK="nosetests"
-    - env: TASK="karma"
+    - os: linux
+      dist: xenial
+      env: TASK="karma"
+      services:
+        - xvfb
     - env: TASK="js-lint"
     - env: TASK="closure-compiler"
     - env: TASK="data-check"
