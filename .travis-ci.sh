@@ -14,8 +14,6 @@ BLACKLIST
 if [[ $TASK = 'nosetests' ]]; then
     nosetests --verbosity=3 --detailed-errors
 elif [[ $TASK = 'karma' ]]; then
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
     grunt --verbose unit-test
 elif [[ $TASK = 'js-lint' ]]; then
     grunt --verbose lint
