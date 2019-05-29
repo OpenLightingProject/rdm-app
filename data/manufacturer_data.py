@@ -334,6 +334,7 @@ MANUFACTURER_DATA = [
   (0x07C2, "BOOQlight BV"),
   (0x07CC, "Griven S.r.l."),
   (0x07CF, "MH-Sound"),
+  (0x07D5, "PHIDA Stage Equipment Co., Ltd"),
   (0x07DA, "Flytech s.r.l."),
   (0x07EA, "Le Maitre Ltd"),
   (0x07F3, "Sam Light"),
