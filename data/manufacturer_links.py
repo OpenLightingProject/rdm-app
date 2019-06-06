@@ -95,7 +95,7 @@ MANUFACTURER_LINKS = [
   (0x4845, "http://www.helluk.com/"),
   (0x4953, "https://www.istl.com/"),
   (0x4A54, "http://jthomaseng.com/"),
-  (0x4A61, "http://www.jands.com.au/"),
+  (0x4A61, "https://www.jands.com.au/"),
   (0x4B42, "http://kiss-box.nl/"),
   (0x4B46, "http://www.kinoflo.com/"),
   (0x4C4C, "https://www.luminex.be/"),
