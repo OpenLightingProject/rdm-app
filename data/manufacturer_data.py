@@ -428,6 +428,7 @@ MANUFACTURER_DATA = [
   (0x0902, "DongGuan Betterway Lighting Co.,Ltd"),
   (0x0903, "Shenzhen INFiLED Electronics, Ltd."),
   (0x0904, "Bigbear Co., Ltd."),
+  (0x0905, "Locimation Pty Ltd"),
   (0x090C, "GRE Alpha"),
   (0x090E, "Sichuan esRadio Technology Co., Ltd"),
   (0x0911, "Guangzhou Aceda Professional  Lighting  Co., Ltd."),
