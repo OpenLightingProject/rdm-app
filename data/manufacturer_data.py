@@ -442,6 +442,7 @@ MANUFACTURER_DATA = [
   (0x091B, "Krislite Pte. Ltd."),
   (0x091D, "TouchPlate Technologies Inc."),
   (0x0920, "Vexica Technology Limited"),
+  (0x0921, "Guangzhou mengyi stage lighting equipment co., LTD."),
   (0x0923, "Hangzhou Roleds Lighting System Co., Ltd."),
   (0x0925, "Guangzhou Aiweidy Lighting Acoustics Equipment Co.,Ltd."),
   (0x0926, "Elumeros Lighting Limited"),
