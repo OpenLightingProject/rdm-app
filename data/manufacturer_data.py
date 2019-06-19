@@ -359,6 +359,7 @@ MANUFACTURER_DATA = [
   (0x0851, "Junction Inc. Ltd"),
   (0x0858, "Juno Lighting Group"),
   (0x085A, "Guangzhou Ming Jing Stage Light Equipment Co., Ltd."),
+  (0x085E, "MMS Distribution Ltd"),
   (0x085F, "Media Visions, Inc."),
   (0x0865, "Contrade GmbH"),
   (0x0869, "Club Cannon LLC"),
