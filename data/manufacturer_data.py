@@ -403,6 +403,7 @@ MANUFACTURER_DATA = [
   (0x08C1, "Project SSSHH Incorporated"),
   (0x08C3, "Guangzhou Spark Stage Equipment Co. Ltd"),
   (0x08C5, "EHRGEIZ Lichttechnik GmbH"),
+  (0x08CA, "Foshan City Xuandao Optoelectronics Equipment Co., Ltd"),
   (0x08D3, "SVI Public Company Limited"),
   (0x08D4, "Sensa-Lite Ltd."),
   (0x08D6, "Guangzhou Precision Vision Intelligent Equipment Co, Ltd"),
