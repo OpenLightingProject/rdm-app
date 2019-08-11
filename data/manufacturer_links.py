@@ -19,6 +19,7 @@
 
 MANUFACTURER_LINKS = [
   (0x0000, "http://tsp.esta.org/tsp/working_groups/cp.html"),
+  (0x0089, "https://www.productionwarehouse.co.za/"),
   (0x00A1, "http://www.creativelighting.com.au/"),
   (0x00A2, "http://www.empdesigns.co.uk/"),
   (0x00A7, "http://www.syncronorm.de/"),
