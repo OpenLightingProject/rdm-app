@@ -996,6 +996,7 @@ MANUFACTURER_DATA = [
   (0x6F00, "Guangzhou Huaying Stage Lighting Equipment Co. Ltd."),
   (0x6FEA, "Lumina Visual Productions"),
   (0x6FEB, "Insight Lighting"),
+  (0x6FEC, "Arc Lighting Co. Ltd."),
   (0x7068, "Pharos Architectural Controls"),
   (0x7070, "SBT GmbH"),
   (0x7072, "Pr-Lighting Ltd."),
