@@ -9,7 +9,7 @@ cache:
     - $HOME/.cache/pip
 
 before_install:
-  - if [[ "$TASK" == "spellintian" ]]; then sudo add-apt-repository ppa:waja/trusty-backports -y; sudo apt-get update -qq; sudo apt-get install lintian -y; fi # Install a late enough lintian
+  - if [[ "$TASK" == "spellintian" ]]; then wget "http://archive.ubuntu.com/ubuntu/pool/main/l/lintian/lintian_2.5.104_all.deb"; sudo dpkg -i lintian_*.deb; sudo apt-get install -f -y; fi # Install a later lintian
 
 install:
   - if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
@@ -25,7 +25,11 @@ matrix:
   include:
     - python: "2.7"
       env: TASK="nosetests"
-    - env: TASK="karma"
+    - os: linux
+      dist: xenial
+      env: TASK="karma"
+      services:
+        - xvfb
     - env: TASK="js-lint"
     - env: TASK="closure-compiler"
     - env: TASK="data-check"
@@ -34,7 +38,7 @@ matrix:
           packages:
             - libhtml-parser-perl
     - os: linux
-      dist: trusty
+      dist: xenial
       env: TASK='spellintian'
       addons:
         apt:
@@ -57,9 +61,11 @@ matrix:
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker-wip'
   allow_failures:
     - os: linux
@@ -68,9 +74,11 @@ matrix:
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker'
     - os: linux
       dist: trusty
+      python: "2.7"
       env: TASK='pychecker-wip'
 
 script: "bash -ex .travis-ci.sh"
