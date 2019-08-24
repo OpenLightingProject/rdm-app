@@ -68,13 +68,9 @@ matrix:
         - provider: gae
           keyfile: peter-ola-rdm-app-51be81f8c2c3.json
           project: peter-ola-rdm-app
-          skip_cleanup: true
-          on:
-            all_branches: true
-        - provider: gae
-          keyfile: peter-ola-rdm-app-51be81f8c2c3.json
-          project: peter-ola-rdm-app
-          config: index.yaml
+          config:
+           - app.yaml
+           - index.yaml
           skip_cleanup: true
           on:
             all_branches: true
