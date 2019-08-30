@@ -74,14 +74,12 @@ matrix:
       env: TASK='deploy'
       deploy:
         - provider: gae
-          edge:
-            branch: master
+          edge: true
           keyfile: peter-ola-rdm-app-51be81f8c2c3.json
           project: peter-ola-rdm-app
           config:
            - app.yaml
            - index.yaml
-          skip_cleanup: true
           on:
             all_branches: true
 
