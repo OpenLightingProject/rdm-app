@@ -19,6 +19,7 @@
 
 MANUFACTURER_LINKS = [
   (0x0000, "http://tsp.esta.org/tsp/working_groups/cp.html"),
+  (0x0089, "https://www.productionwarehouse.co.za/"),
   (0x00A1, "http://www.creativelighting.com.au/"),
   (0x00A2, "http://www.empdesigns.co.uk/"),
   (0x00A7, "http://www.syncronorm.de/"),
@@ -96,7 +97,7 @@ MANUFACTURER_LINKS = [
   (0x4845, "http://www.helluk.com/"),
   (0x4953, "https://www.istl.com/"),
   (0x4A54, "http://jthomaseng.com/"),
-  (0x4A61, "http://www.jands.com.au/"),
+  (0x4A61, "https://www.jands.com.au/"),
   (0x4B42, "http://kiss-box.nl/"),
   (0x4B46, "http://www.kinoflo.com/"),
   (0x4C4C, "https://www.luminex.be/"),
