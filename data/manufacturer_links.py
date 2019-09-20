@@ -24,7 +24,7 @@ MANUFACTURER_LINKS = [
   (0x00A2, "http://www.empdesigns.co.uk/"),
   (0x00A7, "http://www.syncronorm.de/"),
   (0x00A8, "https://www.eye.co.jp/"),
-  # (0x00A9, "http://www.richter-lt.de"),  # Temporarily(?) down
+  (0x00A9, "http://www.richter-lt.de"),
   (0x00B0, "http://www.arenaluci.com/"),
   (0x00B9, "http://en.gzsjlight.com/"),
   (0x0104, "https://www.blizzardlighting.com/"),
@@ -56,6 +56,7 @@ MANUFACTURER_LINKS = [
   (0x07CC, "http://www.griven.com/"),
   (0x07EA, "http://www.lemaitreltd.com/"),
   (0x0808, "http://zero88.com/"),
+  (0x0854, "https://www.nec-display-solutions.com/"),
   (0x089D, "http://www.gobo.ws/"),
   (0x08A4, "https://www.adamhall.com/"),
   (0x08C5, "https://ehrgeiz.glp.de/"),
