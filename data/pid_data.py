@@ -1266,10 +1266,10 @@ MANUFACTURER_PIDS = [
        'value': 0x8002},
 
       {'get_request': {'items': []},
-       'get_response': {'items': [{'name': 'enabled', 'type': 'uint16'}]},
+       'get_response': {'items': [{'name': 'fixture_id', 'type': 'uint16'}]},
        'get_sub_device_range': 0,
        'name': 'FIXTURE_ID',
-       'set_request': {'items': [{'name': 'enabled', 'type': 'uint16'}]},
+       'set_request': {'items': [{'name': 'fixture_id', 'type': 'uint16'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'notes': 'Sets the Fixure ID',
