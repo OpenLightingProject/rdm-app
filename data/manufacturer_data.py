@@ -451,6 +451,7 @@ MANUFACTURER_DATA = [
   (0x0903, "Shenzhen INFiLED Electronics, Ltd."),
   (0x0904, "Bigbear Co., Ltd."),
   (0x0905, "Locimation Pty Ltd"),
+  (0x090B, "StarLighting"),
   (0x090C, "GRE Alpha"),
   (0x090E, "Sichuan esRadio Technology Co., Ltd"),
   (0x0910, "Shenzhen Tecnon EXCO-Vision Technology Co., Ltd."),
