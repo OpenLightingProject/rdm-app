@@ -791,6 +791,8 @@ MANUFACTURER_DATA = [
   (0x4750, "DES"),
   (0x4753, "Golden Sea Disco Light Manufacturer"),
   (0x476C, "General Luminaire (Shanghai) Ltd."),
+  (0x4800, "VOD VISUAL.CO. (UK) Ltd."),
+  (0x4801, "Capture Visualisation AB"),
   (0x4843, "Horizon Control Inc."),
   (0x4844, "HxDx"),
   (0x4845, "Howard Eaton Lighting Ltd."),
