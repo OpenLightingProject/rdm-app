@@ -114,6 +114,7 @@ MANUFACTURER_LINKS = [
   (0x4D50, "http://www.martin.com/"),
   (0x4D56, "http://www.avolites.com/"),
   # (0x4F43, "http://obsidiancontrols.com"),  # Currently no DNS present
+  (0x5000, "http://www.orangepi-dmx.org"),
   (0x5041, "http://www.lighting.philips.com/"),
   (0x5075, "http://pulsarlight.com/"),
   (0x514D, "http://www.qmaxz.com/"),
