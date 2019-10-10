@@ -23,6 +23,7 @@ MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
   (0x0002, "Abstract AVR Ltd."),
+  (0x0070, "Instalighting GmbH"),
   (0x0071, "Guangzhou Huaxinyuan Electronics Co., Ltd."),
   (0x0079, "Leyard Opto Electronics Co., Ltd."),
   (0x007A, "Equivalent"),
