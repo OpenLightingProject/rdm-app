@@ -98,6 +98,7 @@ MANUFACTURER_LINKS = [
   (0x454E, "https://www.enttec.com/"),
   (0x4658, "http://www.magicfx.eu/"),
   (0x4744, "http://www.goddarddesign.com/"),
+  (0x4801, "http://www.capture.se/"),
   (0x4845, "http://www.helluk.com/"),
   (0x4953, "https://www.istl.com/"),
   (0x4A54, "http://jthomaseng.com/"),
