@@ -27,6 +27,7 @@ MANUFACTURER_DATA = [
   (0x0071, "Guangzhou Huaxinyuan Electronics Co., Ltd."),
   (0x0072, "Guangzhou Zenith Aurora Lighting Co., Ltd."),
   (0x0073, "Meijay Technologies Co., Ltd."),
+  (0x0078, "Andy Lighting Technology Group Ltd."),
   (0x0079, "Leyard Opto Electronics Co., Ltd."),
   (0x007A, "Equivalent"),
   (0x007B, "alurays lighting technology GmbH"),
