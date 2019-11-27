@@ -113,7 +113,7 @@ MANUFACTURER_LINKS = [
   (0x4D44, "http://www.mdgfog.com/"),
   (0x4D50, "http://www.martin.com/"),
   (0x4D56, "http://www.avolites.com/"),
-  # (0x4F43, "http://obsidiancontrols.com"),  # Currently no DNS present
+  (0x4F43, "https://www.offstagecontrols.com/"),
   (0x5041, "http://www.lighting.philips.com/"),
   (0x5075, "http://pulsarlight.com/"),
   (0x514D, "http://www.qmaxz.com/"),
