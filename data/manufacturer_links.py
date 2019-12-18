@@ -71,6 +71,7 @@ MANUFACTURER_LINKS = [
   (0x1809, "https://www.rotolight.com/"),
   (0x1AFA, "https://tmb.com/"),
   (0x20B9, "https://www.arri.com/"),
+  (0x2011, "https://www.gantom.com/"),
   (0x2122, "https://beglec.com/"),
   (0x21A4, "https://www.chauvetdj.com/"),
   (0x2239, "https://www.lightfactory.net/"),
