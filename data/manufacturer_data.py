@@ -76,6 +76,7 @@ MANUFACTURER_DATA = [
   (0x00A3, "GuangZhou Huanshi Lighting Equipment Co., Limited"),
   (0x00A4, "SAKMA Electronica Industrial S.A.U."),
   (0x00A5, "Delta Electronics, Inc."),
+  (0x00A6, "Sensation Lighting Technology Co., Ltd."),
   (0x00A7, "Syncronorm GmbH"),
   (0x00A8, "Iwasaki Electric Co., Ltd."),
   (0x00A9, "Richter Lighting Technologies GmbH"),
