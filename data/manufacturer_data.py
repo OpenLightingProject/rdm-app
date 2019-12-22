@@ -1061,6 +1061,7 @@ MANUFACTURER_DATA = [
   (0x783A, "Audiolux Devices LLC"),
   (0x786C, "XLN-t bvba"),
   (0x78B4, "LED Flex Limited"),
+  (0x7900, "Leprecon / CAE, Inc."),
   (0x79BC, "DC Reactive"),
   (0x7A70, "Open Lighting"),
   (0x7AA0, "Anaren Inc."),
