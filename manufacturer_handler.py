@@ -17,7 +17,7 @@
 # Product search / display handlers
 
 import common
-from model import *
+from model import Manufacturer
 from google.appengine.ext import webapp
 
 

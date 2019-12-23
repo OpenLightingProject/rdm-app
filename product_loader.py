@@ -18,7 +18,7 @@
 
 import common
 import logging
-from model import *
+from model import ProductTag, ProductTagRelationship
 
 
 class ProductLoader(object):
