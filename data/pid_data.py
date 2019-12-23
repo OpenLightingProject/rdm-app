@@ -5705,6 +5705,48 @@ ESTA_PIDS = [
   'value': 0x090f},
 
  # These are ordered to match how they appear in E1.33
+
+ # COMPONENT_SCOPE
+ {'get_request': {'items': [
+    {'name': 'scope_slot', 'type': 'uint16',
+     'range': [(1, 65535)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'scope_slot', 'type': 'uint16',
+     'range': [(1, 65535)]},
+    {'name': 'scope_string', 'type': 'string', 'max_size': 63},
+    {'name': 'static_config_type', 'type': 'uint8',
+     'range': [(0, 2)],
+     'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
+                (0x01, 'Static config IPv6')]},
+    {'name': 'static_broker_ipv4_address', 'type': 'ipv4',
+     'labels': [(0x00000000, 'No static broker IPv4 address')]},
+    {'name': 'static_broker_ipv6_address', 'type': 'ipv6',
+     'labels': [(0, 'No static broker IPv6 address')]},
+    {'name': 'static_broker_port', 'type': 'uint16',
+     'labels': [(0x0000, 'No static broker port')]}
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'COMPONENT_SCOPE',
+  'set_request': {'items': [
+    {'name': 'scope_slot', 'type': 'uint16',
+     'range': [(1, 65535)]},
+    {'name': 'scope_string', 'type': 'string', 'max_size': 63},
+    {'name': 'static_config_type', 'type': 'uint8',
+     'range': [(0, 2)],
+     'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
+                (0x01, 'Static config IPv6')]},
+    {'name': 'static_broker_ipv4_address', 'type': 'ipv4',
+     'labels': [(0x00000000, 'No static broker IPv4 address')]},
+    {'name': 'static_broker_ipv6_address', 'type': 'ipv6',
+     'labels': [(0, 'No static broker IPv6 address')]},
+    {'name': 'static_broker_port', 'type': 'uint16',
+     'labels': [(0x0000, 'No static broker port')]}
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0800},
+
  # SEARCH_DOMAIN
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'search_domain',
