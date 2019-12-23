@@ -5356,7 +5356,6 @@ ESTA_PIDS = [
   'value': 0x0642},
 
  # These are ordered to match how they appear in E1.37-7
- # The PID values will change in the final document.
  # ENDPOINT_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [
@@ -5372,8 +5371,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_LIST',
-  'draft': True,
-  'value': 0x7fd3},
+  'value': 0x0900},
 
  # ENDPOINT_LIST_CHANGE
  {'get_request': {'items': []},
@@ -5383,8 +5381,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_LIST_CHANGE',
-  'draft': True,
-  'value': 0x7fee},
+  'value': 0x0901},
 
  # IDENTIFY_ENDPOINT
  {'get_request': {'items': [
@@ -5410,8 +5407,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe9},
+  'value': 0x0902},
 
  # ENDPOINT_TO_UNIVERSE
  {'get_request': {'items': [
@@ -5440,8 +5436,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe1},
+  'value': 0x0903},
 
  # ENDPOINT_MODE
  {'get_request': {'items': [
@@ -5469,8 +5464,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe3},
+  'value': 0x0904},
 
  # ENDPOINT_LABEL
  {'get_request': {'items': [
@@ -5496,8 +5490,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe4},
+  'value': 0x0905},
 
  # RDM_TRAFFIC_ENABLE
  {'get_request': {'items': [
@@ -5523,8 +5516,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe2},
+  'value': 0x0906},
 
  # DISCOVERY_STATE
  {'get_request': {'items': [
@@ -5558,8 +5550,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe5},
+  'value': 0x0907},
 
  # BACKGROUND_DISCOVERY
  {'get_request': {'items': [
@@ -5585,8 +5576,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fea},
+  'value': 0x0908},
 
  # ENDPOINT_TIMING
  {'get_request': {'items': [
@@ -5615,8 +5605,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe6},
+  'value': 0x0909},
 
  # ENDPOINT_TIMING_DESCRIPTION
  {'get_request': {'items': [
@@ -5630,8 +5619,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_TIMING_DESCRIPTION',
-  'draft': True,
-  'value': 0x7fe7},
+  'value': 0x090a},
 
  # ENDPOINT_RESPONDERS
  {'get_request': {'items': [
@@ -5646,8 +5634,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_RESPONDERS',
-  'draft': True,
-  'value': 0x7fec},
+  'value': 0x090b},
 
  # ENDPOINT_RESPONDER_LIST_CHANGE
  {'get_request': {'items': [
@@ -5661,8 +5648,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_RESPONDER_LIST_CHANGE',
-  'draft': True,
-  'value': 0x7feb},
+  'value': 0x090c},
 
  # BINDING_CONTROL_FIELDS
  {'get_request': {'items': [
@@ -5680,8 +5666,7 @@ ESTA_PIDS = [
    ]},
   'get_sub_device_range': 0,
   'name': 'BINDING_CONTROL_FIELDS',
-  'draft': True,
-  'value': 0x7fe8},
+  'value': 0x090d},
 
  # BACKGROUND_QUEUED_STATUS_POLICY
  {'get_request': {'items': []},
@@ -5702,8 +5687,7 @@ ESTA_PIDS = [
   'get_sub_device_range': 2,
   'set_sub_device_range': 1,
   'name': 'BACKGROUND_QUEUED_STATUS_POLICY',
-  'draft': True,
-  'value': 0x7fd0},
+  'value': 0x090e},
 
  # BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
  {'get_request': {'items': [
@@ -5718,11 +5702,9 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION',
-  'draft': True,
-  'value': 0x7fd1},
+  'value': 0x090f},
 
  # These are ordered to match how they appear in E1.33
- # The PID values will change in the final document.
  # SEARCH_DOMAIN
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'search_domain',
@@ -5737,8 +5719,7 @@ ESTA_PIDS = [
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'name': 'SEARCH_DOMAIN',
-  'draft': True,
-  'value': 0x7fe0},
+  'value': 0x0801},
 
  # TCP_COMMS_STATUS
  {'get_request': {'items': [
@@ -5754,8 +5735,7 @@ ESTA_PIDS = [
   'set_request': {'items': []},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fed},
+  'value': 0x0802},
 
  # BROKER_STATUS
  {'get_request': {'items': []},
@@ -5776,8 +5756,7 @@ ESTA_PIDS = [
                  },
   'set_response': {'items': []},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7ff0},
+  'value': 0x0803},
 
  # These are ordered to match how they appear in E1.37-2
  # LIST_INTERFACES
