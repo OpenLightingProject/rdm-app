@@ -5705,7 +5705,6 @@ ESTA_PIDS = [
   'value': 0x090f},
 
  # These are ordered to match how they appear in E1.33
-
  # COMPONENT_SCOPE
  {'get_request': {'items': [
     {'name': 'scope_slot', 'type': 'uint16',
@@ -5750,13 +5749,13 @@ ESTA_PIDS = [
  # SEARCH_DOMAIN
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'search_domain',
-                              'min_size': 1,
-                              'max_size': 230,
+                              'min_size': 0,
+                              'max_size': 231,
                               'type': 'string'}]},
   'get_sub_device_range': 0,
   'set_request': {'items': [{'name': 'search_domain',
-                             'min_size': 1,
-                             'max_size': 230,
+                             'min_size': 0,
+                             'max_size': 231,
                              'type': 'string'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
@@ -5764,17 +5763,23 @@ ESTA_PIDS = [
   'value': 0x0801},
 
  # TCP_COMMS_STATUS
- {'get_request': {'items': [
-  ]},
+ {'get_request': {'items': []},
   'get_response': {'items': [
-    {'name': 'controller_ip', 'type': 'ipv4',
-     'labels': [(0, 'No Connection')]},
-    {'name': 'unhealthy_events', 'type': 'uint16'},
-    {'name': 'connection_events', 'type': 'uint16'},
-  ]},
+    {'name': 'comms_statuses',
+     'type': 'group',
+     'items': [{'name': 'scope_string', 'type': 'string', 'max_size': 63},
+               {'name': 'broker_ipv4_address', 'type': 'ipv4',
+                'labels': [(0, 'No IPv4 Connection')]},
+               {'name': 'broker_ipv6_address', 'type': 'ipv6',
+                'labels': [(0, 'No IPv6 Connection')]},
+               {'name': 'broker_port', 'type': 'uint16'},
+               {'name': 'unhealthy_tcp_events', 'type': 'uint16'}],
+    }]},
   'get_sub_device_range': 0,
   'name': 'TCP_COMMS_STATUS',
-  'set_request': {'items': []},
+  'set_request': {'items': [
+    {'name': 'scope_string', 'type': 'string', 'max_size': 63}
+  ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'value': 0x0802},
@@ -5784,18 +5789,16 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'set_allowed', 'type': 'bool'},
     {'name': 'broker_state', 'type': 'uint8',
-     'labels': [(0, 'Disabled'), (1, 'Active'), (2, 'Superseded')],
+     'labels': [(0, 'Disabled'), (1, 'Active'), (2, 'Standby')],
      'range': [(0, 2)]}
   ]},
   'get_sub_device_range': 0,
   'name': 'BROKER_STATUS',
-  'set_request': {
-                  'items': [{'name': 'broker_state',
-                             'type': 'uint8',
-                             'labels': [(0, 'Disabled'), (1, 'Active')],
-                             'range': [(0, 1)]
-                            }]
-                 },
+  'set_request': {'items': [
+    {'name': 'broker_state', 'type': 'uint8',
+     'labels': [(0, 'Disabled'), (1, 'Active')],
+     'range': [(0, 1)]}
+  ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'value': 0x0803},
