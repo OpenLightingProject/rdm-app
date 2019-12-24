@@ -83,19 +83,16 @@ SPLITTER_DATA = {
   ],
   0x5377: [
     {'name': 'XSR DMX/RDM Splitter',
-      'link': 'http://www.swisson.com/en-rdm-dmx-splitter-booster',
-      'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xsr_dmx_rdm_splitter/xsr-1_1_resize_275x183_86_255x255x255.jpg',
-     'tags': ['splitter']
-    },
+     'link': 'http://www.swisson.com/en-rdm-dmx-splitter-booster',
+     'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xsr_dmx_rdm_splitter/xsr-1_1_resize_275x183_86_255x255x255.jpg',
+     'tags': ['splitter']},
     {'name': 'XSH DMX/RDM Hybrid Splitter',
-      'link': 'http://www.swisson.com/xsh-hybrid-splitter-en',
-      'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xsh-hybrid-dmx-splitter/xsh-4_resize_275x183_86_255x255x255.jpg',
-     'tags': ['splitter']
-    },
+     'link': 'http://www.swisson.com/xsh-hybrid-splitter-en',
+     'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xsh-hybrid-dmx-splitter/xsh-4_resize_275x183_86_255x255x255.jpg',
+     'tags': ['splitter']},
     {'name': 'ISP-4R DMX/RDM DIN Rail Splitter',
      'link': 'http://www.swisson.com/din-rail-installation-splitter',
      'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/isp4/isp4-gallery-1_resize_275x183_86_255x255x255.jpg',
-     'tags': ['splitter']
-    },
+     'tags': ['splitter']},
   ],
 }

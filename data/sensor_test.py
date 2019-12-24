@@ -18,6 +18,7 @@
 
 import unittest
 
+
 class TestSensorTypes(unittest.TestCase):
   """ Test the sensor types data file is valid."""
   def setUp(self):

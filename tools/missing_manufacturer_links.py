@@ -17,7 +17,7 @@
 # Copyright (C) 2018 Peter Newman
 
 # Tidy with:
-# sed -i '/^##/d' manufacturer_links.py
+# sed -i '/^##  /d' manufacturer_links.py
 
 import textwrap
 
@@ -74,8 +74,8 @@ if __name__ == '__main__':
   for id in sorted(manufacturers):
     if id not in links:
       print "## Missing link for %s (0x%04X)" % (manufacturers[id], id)
-      print "## (0x%04X, \"\")," % (id)
+      print "##   (0x%04X, \"\")," % (id)
     else:
-      print "(0x%04X, \"%s\")," % (id, links[id])
+      print "  (0x%04X, \"%s\")," % (id, links[id])
 
   Footer()

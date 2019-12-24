@@ -20,7 +20,6 @@ import unittest
 import jsonspec.validators
 
 # This is from an early version of E1.37-5.
-# TODO(Peter): Fix the validation on label items
 PID_VALIDATOR = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'definitions': {
@@ -61,8 +60,9 @@ PID_VALIDATOR = {
             },
             'labels': {
               'type': 'array',
+              'uniqueItems': True,
               'items': {
-                '_ignore_$ref': '#/definitions/label'
+                '$ref': '#/definitions/label'
               }
             },
             'prefix': {
@@ -177,35 +177,52 @@ PID_VALIDATOR = {
       ]
     },
     'label': {
-      'type': 'object',
-      'properties': {
-        'label': {
-          'minLength': 1,
-          'type': 'string'
-        },
-        'value': {
+      'type': 'array',
+      'items': [
+        {
+          # TODO(Peter): validate labels more specifically depending on type of source
           'type': 'integer',
+          # Max uint32
           'maximum': 4294967295,
-          'minimum': 0
+          # Min int32
+          'minimum': -2147483648
+        },
+        {
+          'type': 'string',
+          'minLength': 1
         }
-      },
-      'required': ['label', 'value']
+      ],
+      'additionalItems': False,
+      'minItems': 2,
+      'maxItems': 2
     },
     'name': {
       'type': 'string',
       'minLength': 1
     },
     'range': {
-      'type': 'object',
-      'properties': {
-        'lower': {
-          'type': 'integer'
+      'type': 'array',
+      'items': [
+        {
+          # TODO(Peter): validate ranges more specifically depending on type of int
+          'type': 'integer',
+          # Max uint32
+          'maximum': 4294967295,
+          # Min int32
+          'minimum': -2147483648
         },
-        'upper': {
-          'type': 'integer'
-        }
-      },
-      'required': ['lower', 'upper']
+        {
+          # TODO(Peter): validate ranges more specifically depending on type of int
+          'type': 'integer',
+          # Max uint32
+          'maximum': 4294967295,
+          # Min int32
+          'minimum': -2147483648
+        },
+      ],
+      'additionalItems': False,
+      'minItems': 2,
+      'maxItems': 2
     }
   },
   'type': 'object',
@@ -286,16 +303,16 @@ class TestPidData(unittest.TestCase):
     locals = {}
     execfile("data/pid_data.py", globals, locals)
     self.manufacturer_pids = locals['MANUFACTURER_PIDS']
-    self.plasa_pids = locals['ESTA_PIDS']
+    self.esta_pids = locals['ESTA_PIDS']
     self.pid_validator = jsonspec.validators.load(PID_VALIDATOR)
     self.manufacturer_validator = jsonspec.validators.load(
         MANUFACTURER_VALIDATOR)
 
-  def test_PlasaPids(self):
-    self.assertEqual(list, type(self.plasa_pids))
+  def test_EstaPids(self):
+    self.assertEqual(list, type(self.esta_pids))
     seen_pid_names = set()
 
-    for pid in self.plasa_pids:
+    for pid in self.esta_pids:
       try:
         self.pid_validator.validate(pid)
       except jsonspec.validators.ValidationError as e:
