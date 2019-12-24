@@ -5661,19 +5661,24 @@ ESTA_PIDS = [
   'set_sub_device_range': 0,
   'name': 'SEARCH_DOMAIN',
   'value': 0x7fe0},
-  
+
  # TCP_COMMS_STATUS
  {'get_request': {'items': [
   ]},
   'get_response': {'items': [
-    {'name': 'controller_ip', 'type': 'ipv4',
+    {'name': 'scope', 'type': 'string',
+     'min_size': 1, 'max_size': 64},
+    {'name': 'broker_ipv4_address', 'type': 'ipv4',
      'labels': [(0, 'No Connection')]},
+    {'name': 'broker_ipv6_address', 'type': 'ipv6',
+     'labels': [(0, 'No Connection')]},
+    {'name': 'broker_port', 'type': 'uint16'},
     {'name': 'unhealthy_events', 'type': 'uint16'},
-    {'name': 'connection_events', 'type': 'uint16'},
   ]},
   'get_sub_device_range': 0,
   'name': 'TCP_COMMS_STATUS',
-  'set_request': {'items': []},
+  'set_request': {'items': [{'name': 'scope', 'type': 'string',
+                             'min_size': 1, 'max_size': 64}]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'draft': True,
