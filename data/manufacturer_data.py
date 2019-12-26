@@ -310,6 +310,7 @@ MANUFACTURER_DATA = [
   (0x060B, "Lighting Science Group (formerly LED Effects, Inc.)"),
   (0x060D, "HANIL TNC  CO.,LTD"),
   (0x0623, "JAS LIGHTING & SOUND CO., LTD."),
+  (0x0628, "APEX PRO LIGHT CO.,LTD"),
   (0x062B, "CKC Lighting Co., Ltd."),
   (0x063A, "AVM Belgium BVBA"),
   (0x063C, "LaserNet"),
