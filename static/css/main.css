@@ -181,10 +181,17 @@ th.goog-tablesorter-sorted-reverse .sorter_icon:after {
     width: 80%;
 }
 
+/* TODO(Peter): This should really be 16 bytes, compared to 4 for ipv4 */
+.ipv6_field {
+    width: 80%;
+}
+
+/* TODO(Peter): This should really be 6 bytes, compared to 4 for ipv4 */
 .mac_field {
     width: 80%;
 }
 
+/* TODO(Peter): This should really be 6 bytes, compared to 4 for ipv4 */
 .uid_field {
     width: 80%;
 }
