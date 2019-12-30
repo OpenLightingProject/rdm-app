@@ -29,6 +29,8 @@
     "karma-chrome-launcher": "~0.1",
     "karma-firefox-launcher": "~0.1",
     "karma-jasmine": "~0.2.0",
-    "olp-javascript-style": "openlightingproject/javascript-style"
+    "olp-javascript-style": "openlightingproject/javascript-style",
+    "stylelint": "^12.0.1",
+    "stylelint-config-recommended": "^3.0.0"
   }
 }
