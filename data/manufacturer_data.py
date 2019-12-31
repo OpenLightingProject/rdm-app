@@ -559,6 +559,7 @@ MANUFACTURER_DATA = [
   (0x099E, "LLC Lighting Technologies production"),
   (0x09A0, "Rnet Lighting Technology Limited"),
   (0x09A2, "Fountain People"),
+  (0x09A3, "Shenzhen Lightlink Display Technology Co., Ltd"),
   (0x09A5, "Prolight Concepts Ltd."),
   (0x09AE, "Robert Juliat"),
   (0x09AF, "Autotech Co."),
