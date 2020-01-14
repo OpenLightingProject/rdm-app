@@ -2,8 +2,6 @@ module.exports = function(grunt) {
   'use strict';
   require('google-closure-compiler').grunt(grunt);
 
-  grunt.loadNpmTasks('grunt-stylelint');
-
   grunt.initConfig({
     bower: {
       libs: {
@@ -125,6 +123,7 @@ module.exports = function(grunt) {
       }
     }
   });
+
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -133,6 +132,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-stylelint');
+
   grunt.registerTask('default', ['bower']);
   grunt.registerTask('lint', ['jshint:dev', 'jscs', 'stylelint']);
   grunt.registerTask('unit-test', ['bower', 'compress', 'karma:firefox']);
