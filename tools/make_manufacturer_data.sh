@@ -34,6 +34,7 @@ echo -n "MANUFACTURER_DATA = "
 # Decode any HTML entities
 # Tidy nbsp to space
 # Tidy en and em dash to dash
+# Convert UTF-8 characters to closest normal equivalent
 # Convert extended characters to closest normal equivalent
 # TODO(Peter): Check if rdm-app and OLA can handle extended characters (or fix
 # if not) and start allowing them through
@@ -46,6 +47,8 @@ tr --delete "\r" | \
 perl -p -e 'use HTML::Entities; decode_entities($_);' | \
 tr "\240" " " | \
 sed -r -e 's/[\xe2\x80\x93\xe2\x80\x94]/-/g' | \
+sed -r -e 's/\xc5\x9f/s/g' | \
+sed -r -e 's/\xc4\xb1/i/g' | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
 grep -v "(0x0000, \"PLASA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\")," | \
