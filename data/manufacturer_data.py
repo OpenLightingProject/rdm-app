@@ -588,6 +588,8 @@ MANUFACTURER_DATA = [
   (0x1113, "SiliconCore Technology, Inc."),
   (0x1200, "Seekway Technology Limited"),
   (0x1201, "PRICOM Design"),
+  (0x1202, "Ushio Lighting, Inc."),
+  (0x1203, "Movecat GmbH"),
   (0x1212, "HPL Light Company"),
   (0x1221, "SAGITTER  - Proel"),
   (0x1222, "SM International"),
