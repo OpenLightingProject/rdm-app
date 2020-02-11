@@ -1031,6 +1031,7 @@ MANUFACTURER_DATA = [
   (0x6542, "eBrain GmbH"),
   (0x6547, "euroGenie"),
   (0x6553, "EtherShow"),
+  (0x6565, "Stratus Systems LLC"),
   (0x656C, "ELC lighting"),
   (0x6573, "Environmental Lighting Solutions"),
   (0x6574, "Electronic Theatre Controls, Inc."),
