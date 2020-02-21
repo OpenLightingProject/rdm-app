@@ -15,7 +15,7 @@ if [[ $TASK = 'nosetests' ]]; then
     nosetests --verbosity=3 --detailed-errors
 elif [[ $TASK = 'karma' ]]; then
     grunt --verbose unit-test
-elif [[ $TASK = 'js-lint' ]]; then
+elif [[ $TASK = 'lint' ]]; then
     grunt --verbose lint
 elif [[ $TASK = 'closure-compiler' ]]; then
     grunt --verbose closure-compiler

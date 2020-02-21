@@ -118,6 +118,17 @@ PID_VALIDATOR = {
         {
           'properties': {
             'type': {
+              'enum': ['ipv6']
+            },
+            'name': {
+              '$ref': '#/definitions/name'
+            }
+          },
+          'required': ['name', 'type']
+        },
+        {
+          'properties': {
+            'type': {
               'enum': ['mac']
             },
             'name': {
