@@ -23,6 +23,7 @@ MANUFACTURER_DATA = [
   (0x0000, "ESTA"),
   (0x0001, "GEE"),
   (0x0002, "Abstract AVR Ltd."),
+  (0x0058, "Big Dipper Laser Science and Technology Co.,Ltd."),
   (0x005A, "TPD Lighting"),
   (0x006A, "AIMTECH Electronik Tasarim Ltd. Sti."),
   (0x006B, "SALZBRENNER media GmbH"),
