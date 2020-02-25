@@ -43,6 +43,7 @@ TYPE_TO_STRING = {
   PidStore.UIDAtom: 'uid',
   PidStore.MACAtom: 'mac',
   PidStore.IPV4: 'ipv4',
+  PidStore.IPV6: 'ipv6',
   PidStore.Group: 'group',
 }
 
