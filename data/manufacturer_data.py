@@ -397,6 +397,7 @@ MANUFACTURER_DATA = [
   (0x080D, "HBJ Elektronik"),
   (0x080F, "NavoLabs"),
   (0x0823, "Opito Labs GmbH"),
+  (0x0832, "Shenzhen EXC-LED Technology Co.,Ltd"),
   (0x083A, "Bright Ideas Custom Electronics Inc."),
   (0x083F, "Shenzhen LeiFei Lighting Technologies Co.,Ltd."),
   (0x0845, "Cush Light LLC"),
