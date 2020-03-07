@@ -1057,6 +1057,7 @@ MANUFACTURER_DATA = [
   (0x694C, "iLight Technologies Inc"),
   (0x6969, "Better Way Lighting"),
   (0x6974, "Ittermann electronic GmbH"),
+  (0x6A6A, "Roxx GmbH"),
   (0x6A6B, "JPK Systems Limited"),
   (0x6B64, "Key Delfin"),
   (0x6B69, "Magical Fountain SA de CV (Magic Fountain)"),
