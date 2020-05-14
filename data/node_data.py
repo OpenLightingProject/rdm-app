@@ -74,4 +74,10 @@ NODE_DATA = {
      'image_url': 'http://www.luminex.be/products/0100037/photo_037.png',
      'tags': ['Art-Net']},
   ],
+  0x5377: [
+    {'name': 'XND Ethernet DMX Node',
+     'link': 'https://swisson.com/en/products/data-distribution/ethernet-dmx-node/',
+     'image_url': 'https://swisson.com/site/assets/files/1056/xnd-4_box_and_rack_and_xnd-8.500x0.png',
+     'tags': ['tool']},
+  ],
 }
