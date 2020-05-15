@@ -9,7 +9,7 @@ cache:
     - $HOME/.cache/pip
 
 before_install:
-  - if [[ "$TASK" == "spellintian" ]]; then wget "http://archive.ubuntu.com/ubuntu/pool/main/l/lintian/lintian_2.12.0_all.deb"; sudo dpkg -i lintian_*.deb; sudo apt-get install -f -y; fi # Install a later lintian
+  - if [[ "$TASK" == "spellintian" ]]; then wget "http://old-releases.ubuntu.com/ubuntu/pool/main/l/lintian/lintian_2.12.0_all.deb"; sudo dpkg -i lintian_*.deb; sudo apt-get install -f -y; fi # Install a later lintian
 
 install:
   - if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
