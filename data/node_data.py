@@ -78,6 +78,6 @@ NODE_DATA = {
     {'name': 'XND Ethernet DMX Node',
      'link': 'https://swisson.com/en/products/data-distribution/ethernet-dmx-node/',
      'image_url': 'https://swisson.com/site/assets/files/1056/xnd-4_box_and_rack_and_xnd-8.500x0.png',
-     'tags': ['tool']},
+     'tags': ['Art-Net', 'sACN']},
   ],
 }
