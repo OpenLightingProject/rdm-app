@@ -2703,7 +2703,7 @@ MANUFACTURER_PIDS = [
   {'id': 0x5377,
    'name': 'SWISSON AG',
    'pids': [
-            #SWPID_AUTO_UNIVERSE_NUMBER
+            # SWPID_AUTO_UNIVERSE_NUMBER
             {'name': 'SWPID_AUTO_UNIVERSE_NUMBER',
              'get_request': {'items': []},
              'get_response': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
@@ -2715,7 +2715,6 @@ MANUFACTURER_PIDS = [
              },
         ],
   },
-  
   {'id': 0x5753,
    'name': 'Wireless Solutions',
    'pids': [{'name': 'WDMX_LOGIN',
