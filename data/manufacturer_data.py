@@ -969,7 +969,7 @@ MANUFACTURER_DATA = [
   (0x5153, "QuickSilver Controls, Inc."),
   (0x5168, "Shenzhen Sunricher Technology Co.,Ltd."),
   (0x516C, "Quicklights"),
-  (0x51D7, "Innovative Dimmers LLC"),
+  (0x51D7, "Innovative Dimmers LLC (Ratpac dimmers)"),
   (0x5244, "Revolution Display"),
   (0x524C, "Radical Lighting Ltd."),
   (0x524D, "RUIZ TECH"),
