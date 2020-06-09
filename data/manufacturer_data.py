@@ -396,6 +396,7 @@ MANUFACTURER_DATA = [
   (0x07FD, "THELIGHT Luminary for Cine and TV S.L."),
   (0x07FF, "Guangzhou HOMEI LIGHT Manufacturer"),
   (0x0800, "Hongyeah Light"),
+  (0x0801, "Guangzhou Favolite Stage Lighting Co., Ltd."),
   (0x0802, "AstralPool"),
   (0x0807, "Event Lighting Pty, Ltd."),
   (0x0808, "Eaton - Zero 88"),
