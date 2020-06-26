@@ -28,6 +28,7 @@ MANUFACTURER_DATA = [
   (0x0009, "Aputure Imaging Industries Co., Ltd."),
   (0x000A, "Interactive Imagination Ltd."),
   (0x000B, "Phospec Industries Inc."),
+  (0x000C, "WAC Lighting Co."),
   (0x0057, "Blackbezt Lighting Technology Co., Ltd."),
   (0x0058, "Big Dipper Laser Science and Technology Co.,Ltd."),
   (0x0059, "Laysion Lighting Technology Co., Ltd."),
