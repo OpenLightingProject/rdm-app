@@ -42,6 +42,10 @@ echo -n "MANUFACTURER_DATA = "
 # Remove duplicate entry for manufacturer 0x4C5A; keep the original owner of the ID
 # Remove any H's after the manufacturer IDs and generally sanitise the rows
 # TODO(Peter): Comment out any invalid rows
+
+# For further UTF-8 issues, copy the equivalent failing manufacturer from here:
+# https://tsp.esta.org/tsp/working_groups/CP/mfctrIDs.php
+# then URL encode that chunk
 wget --quiet -O - http://tsp.esta.org/tsp/working_groups/CP/rdmids.php | \
 tr --delete "\r" | \
 perl -p -e 'use HTML::Entities; decode_entities($_);' | \
