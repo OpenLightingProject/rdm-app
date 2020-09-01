@@ -47,6 +47,7 @@ tr --delete "\r" | \
 perl -p -e 'use HTML::Entities; decode_entities($_);' | \
 tr "\240" " " | \
 sed -r -e 's/[\xe2\x80\x93\xe2\x80\x94]/-/g' | \
+sed -r -e 's/[\xef\xbc\x88]/(/g' | \
 sed -r -e 's/[\xef\xbc\x89]/)/g' | \
 sed -r -e 's/\xc5\x9f/s/g' | \
 sed -r -e 's/\xc4\xb1/i/g' | \
