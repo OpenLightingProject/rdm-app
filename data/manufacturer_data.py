@@ -83,6 +83,8 @@ MANUFACTURER_DATA = [
   (0x0093, "Luminous Show Technology Ltd."),
   (0x0094, "Joinmax Display Technology Co., Ltd."),
   (0x0095, "Ningbo Jeg Lighting Tech Co., Ltd."),
+  (0x0096, "SiChuan YuZhiWei Information Technology Lt., Co."),
+  (0x0097, "AdvancedRay (Beijing) Science & Technology Industries Co., Ltd."),
   (0x009A, "Golden Sea Disco Light Manufacturer"),
   (0x009B, "Guangzhou Jiawei Electronic Technology Co., Ltd."),
   (0x009C, "LuxBalance Lighting"),
