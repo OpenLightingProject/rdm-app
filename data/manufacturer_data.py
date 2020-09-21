@@ -1066,6 +1066,7 @@ MANUFACTURER_DATA = [
   (0x5D01, "MTS Medientechnik GmbH"),
   (0x5DAC, "Mediatec Group"),
   (0x6100, "Krobox Sdn Bhd"),
+  (0x610A, "Visenge Pty. Ltd"),
   (0x6123, "CMYLight (S) Pte. Ltd."),
   (0x6124, "Fiilex"),
   (0x614C, "Alektra AB"),
