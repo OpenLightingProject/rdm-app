@@ -786,6 +786,7 @@ MANUFACTURER_DATA = [
   (0x2CE0, "Lighting Services Inc."),
   (0x2DC8, "Stellascapes"),
   (0x3000, "PushingPixels"),
+  (0x3001, "Elemental LED, Inc."),
   (0x3235, "de koster Special Effects"),
   (0x3331, "DMG Lumiere"),
   (0x3332, "Teclumen s.r.l."),
