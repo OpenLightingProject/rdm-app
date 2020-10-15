@@ -399,6 +399,7 @@ MANUFACTURER_DATA = [
   (0x078A, "FATEC sarl"),
   (0x0792, "MY-Semi Inc."),
   (0x07A3, "Guangzhou GBR PROLIGHT GROUP CO.,LTD (GBR PROLIGHT)"),
+  (0x07A5, "X LED Systems"),
   (0x07AD, "CLS LED BV"),
   (0x07AE, "A-LITE B.V."),
   (0x07B0, "ADDiCTiON BoX GbR"),
