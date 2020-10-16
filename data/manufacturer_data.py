@@ -438,6 +438,7 @@ MANUFACTURER_DATA = [
   (0x084B, "Neon Circus Ltd"),
   (0x084C, "Guangzhou Ba Lin Electronic Technology Co., Ltd."),
   (0x084D, "Guangzhou NECO Stage Lighting Factory"),
+  (0x0850, "Proland Group, LLC"),
   (0x0851, "Junction Inc. Ltd"),
   (0x0854, "NEC Display Solutions, Ltd."),
   (0x0858, "Juno Lighting Group"),
