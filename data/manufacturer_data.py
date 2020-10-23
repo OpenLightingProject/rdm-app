@@ -1051,6 +1051,7 @@ MANUFACTURER_DATA = [
   (0x544C, "Tempest Lighting Inc."),
   (0x5453, "TalentStorm Enterprises, Inc."),
   (0x5454, "TamaTech Labo Company Ltd,"),
+  (0x5459, "TDE Lighttech BV"),
   (0x5550, "UP-LUX Eletronica Ltda."),
   (0x5555, "Martin Sukale Medientechnik GbR"),
   (0x564C, "Vari-Lite, Inc."),
