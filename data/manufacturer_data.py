@@ -341,6 +341,7 @@ MANUFACTURER_DATA = [
   (0x05EB, "GUANGZHOU BO WEI TE LIGHTING  CO.LTD"),
   (0x05EF, "Guangzhou Chai Yi Light Co., Ltd."),
   (0x05F7, "Immersive Design Studios Inc."),
+  (0x0600, "TELMIC Neo"),
   (0x0606, "Guangzhou YiGuang Stage Lighting Co., Ltd."),
   (0x0609, "Diginet Control Systems Pty Ltd"),
   (0x060A, "Kindwin Opto Electronic (ShenZhen) Co. Ltd"),
