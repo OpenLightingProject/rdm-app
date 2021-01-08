@@ -41,7 +41,7 @@ echo -n "MANUFACTURER_DATA = "
 # Remove any consecutive duplicates within the file (e.g. stuff added twice by mistake)
 # Remove duplicate entry for manufacturer 0x0000
 # Remove duplicate entry for manufacturer 0x4C5A; keep the original owner of the ID
-# Remove duplicate entry for manufacturer 0x0854; NEC is now a subsiduary of Sharp NEC
+# Remove duplicate entry for manufacturer 0x0854; NEC is now a subsidiary of Sharp NEC
 # Remove any H's after the manufacturer IDs and generally sanitise the rows
 # TODO(Peter): Comment out any invalid rows
 
