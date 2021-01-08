@@ -52,6 +52,8 @@ class TestManufacturers(unittest.TestCase):
 
     # check that ESTA exists
     self.assertIn(0, seen_ids)
+    # check that an ESTA test ID at the end of the file exists
+    self.assertIn(0x7FF0, seen_ids)
 
   def test_ManufacturerLinks(self):
     esta_ids = set()
