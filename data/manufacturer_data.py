@@ -863,7 +863,7 @@ MANUFACTURER_DATA = [
   (0x4153, "Audio Scene"),
   (0x4154, "Arnold Tang Productions"),
   (0x4156, "Audio Visual Devices P/L"),
-  (0x4164, "Adelto Limited"),
+  (0x4164, "Adelto Industries Ltd."),
   (0x416C, "Alenco BV"),
   (0x4172, "ARNOLD LICHTTECHNIK"),
   (0x4173, "Astera LED Technology GmbH"),
