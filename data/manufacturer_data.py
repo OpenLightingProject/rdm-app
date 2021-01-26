@@ -318,6 +318,7 @@ MANUFACTURER_DATA = [
   (0x04FC, "Syncrolite LLC"),
   (0x050A, "ChamSys Ltd."),
   (0x051C, "Ambitsel, Inc."),
+  (0x0520, "ANLC Ltd"),
   (0x0529, "OSRAM"),
   (0x0537, "TERMINAL-COM"),
   (0x0540, "EverBrighten Co., Ltd."),
