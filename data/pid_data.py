@@ -2699,6 +2699,22 @@ MANUFACTURER_PIDS = [
        'value': 36864},
     ],
   },
+  # SWISSON AG
+  {'id': 0x5377,
+   'name': 'SWISSON AG',
+   'pids': [
+            # SWPID_AUTO_UNIVERSE_NUMBER
+            {'name': 'SWPID_AUTO_UNIVERSE_NUMBER',
+             'get_request': {'items': []},
+             'get_response': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
+             'get_sub_device_range': 0,
+             'set_request': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
+             'set_response': {'items': []},
+             'set_sub_device_range': 0,
+             'value': 0x8082,
+             },
+        ],
+  },
   {'id': 0x5753,
    'name': 'Wireless Solutions',
    'pids': [{'name': 'WDMX_LOGIN',
