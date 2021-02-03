@@ -141,6 +141,7 @@ MANUFACTURER_DATA = [
   (0x00C6, "Guangzhou Lantian Electronic Technology Co., Ltd."),
   (0x00C7, "THOR"),
   (0x00C8, "Constell8 NV"),
+  (0x00C9, "Pangaea Technology"),
   (0x0101, "St. Anne Engineering GmbH"),
   (0x0102, "Bortis Elektronik"),
   (0x0103, "Fontana Technologies"),
