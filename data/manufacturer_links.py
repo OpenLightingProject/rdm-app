@@ -112,7 +112,7 @@ MANUFACTURER_LINKS = [
   (0x4C55, "https://lumenradio.com/"),
   (0x4C73, "http://www.lsclighting.com/"),
   (0x4D41, "http://www.malighting.com/"),
-  (0x4D44, "http://www.mdgfog.com/"),
+  (0x4D44, "https://www.mdgfog.com/"),
   (0x4D50, "http://www.martin.com/"),
   (0x4D56, "http://www.avolites.com/"),
   (0x4F43, "https://www.offstagecontrols.com/"),
