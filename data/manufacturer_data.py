@@ -1195,6 +1195,7 @@ MANUFACTURER_DATA = [
   (0x736C, "Strand Lighting Ltd."),
   (0x7400, "Danalux"),
   (0x7764, "WET"),
+  (0x7765, "MKT engineering GmbH & Co. KG"),
   (0x7777, "Develtron A/S"),
   (0x7788, "DigitaLicht AG"),
   (0x780E, "Mole-Richardson Co."),
