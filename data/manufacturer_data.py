@@ -242,6 +242,8 @@ MANUFACTURER_DATA = [
   (0x020A, "Seebacher GmbH"),
   (0x0210, "Leksa Lighting Technologies Pvt. Ltd."),
   (0x0211, "Arkaos S.A."),
+  (0x0212, "Frame The Space (FTSLED)"),
+  (0x0213, "Huizhou visionX Technology Co., Ltd."),
   (0x021A, "WizzuLED by Scooon"),
   (0x0235, "Company 235, LLC"),
   (0x0242, "ABLELITE INTERNATIONAL"),
