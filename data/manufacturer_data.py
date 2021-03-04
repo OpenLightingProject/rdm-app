@@ -672,6 +672,7 @@ MANUFACTURER_DATA = [
   (0x1203, "Movecat GmbH"),
   (0x1204, "ARES s.r.l. - Socio Unico"),
   (0x1205, "Carbon Lighting Limited"),
+  (0x1206, "Hangel Technology Co., Ltd."),
   (0x1208, "Nuvolight GmbH & Co KG"),
   (0x1212, "HPL Light Company"),
   (0x1221, "SAGITTER  - Proel"),
