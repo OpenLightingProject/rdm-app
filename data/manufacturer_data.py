@@ -71,6 +71,7 @@ MANUFACTURER_DATA = [
   (0x007B, "alurays lighting technology GmbH"),
   (0x007C, "Huizhou Desay Intelligent Technology Co., Ltd."),
   (0x007D, "JMS Pro Light"),
+  (0x007E, "Stichting Hypar Collective"),
   (0x0080, "Shenzhen AOTO Electronics Co., Ltd."),
   (0x0081, "Pino Solutions"),
   (0x0082, "LKE Lasershowtechnik GmbH"),
