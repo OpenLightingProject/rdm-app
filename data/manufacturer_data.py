@@ -736,6 +736,7 @@ MANUFACTURER_DATA = [
   (0x19BA, "Guangzhou Xinzhijie Photoelectric Co., Ltd."),
   (0x19BB, "Panalux Ltd."),
   (0x19F8, "CEZOS Spolka z ograniczona odpowiedzialnoscia, sp.k."),
+  (0x1A00, "LIGEO GmbH"),
   (0x1A0D, "Cineo Lighting"),
   (0x1A16, "WADAK GmbH"),
   (0x1A1A, "ValDim Waterfountains Ltd."),
