@@ -22,7 +22,7 @@ MANUFACTURER_LINKS = [
   (0x0089, "https://www.productionwarehouse.co.za/"),
   (0x00A1, "http://www.creativelighting.com.au/"),
   (0x00A2, "http://www.empdesigns.co.uk/"),
-  (0x00A7, "http://www.syncronorm.de/"),
+  (0x00A7, "https://www.syncronorm.com/"),
   (0x00A8, "https://www.eye.co.jp/"),
   (0x00A9, "http://www.richter-lt.de"),
   (0x00B0, "http://www.arenaluci.com/"),
