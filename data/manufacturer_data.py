@@ -448,6 +448,7 @@ MANUFACTURER_DATA = [
   (0x07E9, "TechLink Co., Ltd."),
   (0x07EA, "Le Maitre Ltd"),
   (0x07F3, "Sam Light"),
+  (0x07F5, "Shenzhen ATENTI Technologies Co., Ltd"),
   (0x07FD, "THELIGHT Luminary for Cine and TV S.L."),
   (0x07FF, "Guangzhou HOMEI LIGHT Manufacturer"),
   (0x0800, "Hongyeah Light"),
