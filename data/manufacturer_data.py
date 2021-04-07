@@ -438,6 +438,7 @@ MANUFACTURER_DATA = [
   (0x07BE, "Sanko Device Co.Ltd."),
   (0x07C0, "Code Mercenaries GmbH"),
   (0x07C2, "BOOQlight BV"),
+  (0x07C8, "Sidus Link Ltd."),
   (0x07CC, "Griven S.r.l."),
   (0x07CF, "MH-Sound"),
   (0x07D1, "Made By Mouse LTD"),
