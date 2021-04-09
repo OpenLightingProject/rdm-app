@@ -685,6 +685,7 @@ MANUFACTURER_DATA = [
   (0x1205, "Carbon Lighting Limited"),
   (0x1206, "Hangel Technology Co., Ltd."),
   (0x1208, "Nuvolight GmbH & Co KG"),
+  (0x1209, "Philippe Bergeron Lights"),
   (0x120A, "Bulldog Lighting and Events, Inc."),
   (0x1212, "HPL Light Company"),
   (0x1221, "SAGITTER  - Proel"),
