@@ -1079,6 +1079,7 @@ MANUFACTURER_DATA = [
   (0x516C, "Quicklights"),
   (0x51D7, "Innovative Dimmers LLC (Ratpac dimmers)"),
   (0x5200, "Shenzhen Aotian Technology Co. , Ltd."),
+  (0x5201, "Crestron Electronics, Inc."),
   (0x5244, "Revolution Display"),
   (0x524C, "Radical Lighting Ltd."),
   (0x524D, "RUIZ TECH"),
