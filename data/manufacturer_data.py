@@ -310,6 +310,7 @@ MANUFACTURER_DATA = [
   (0x03FA, "ART-DMX"),
   (0x0402, "Exato"),
   (0x0404, "Luminxa"),
+  (0x0411, "SoundSwitch"),
   (0x041C, "IMLIGHT"),
   (0x0424, "FLUX ECLAIRAGE"),
   (0x0440, "Guangzhou VAS Lighting Co., Ltd."),
