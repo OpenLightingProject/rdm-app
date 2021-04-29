@@ -514,6 +514,7 @@ MANUFACTURER_DATA = [
   (0x0891, "Feiner Lichttechnik GMBH"),
   (0x0892, "DongGuan Ruishen Technology Co.,Ltd"),
   (0x0893, "Brighten LED Lighting Limited"),
+  (0x0894, "Dongguan HCP Technology Co., Ltd."),
   (0x089A, "ADL Electronics Ltd."),
   (0x089D, "gobo.ws"),
   (0x08A1, "Shenzhen Gloshine Technology Co., Ltd"),
