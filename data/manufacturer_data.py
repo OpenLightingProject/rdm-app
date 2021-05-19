@@ -568,6 +568,7 @@ MANUFACTURER_DATA = [
   (0x08F8, "Liberal Logic Inc."),
   (0x08F9, "ACS - Ackerman Computer Sciences"),
   (0x08FA, "Phaton Lighting Co., Ltd."),
+  (0x08FC, "Lights By Brian"),
   (0x08FE, "Zhuhai Shengchang Electronics Co., Ltd."),
   (0x0900, "nox multimedia GmbH"),
   (0x0901, "GermTec GmbH & Co. KG"),
