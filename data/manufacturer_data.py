@@ -736,6 +736,7 @@ MANUFACTURER_DATA = [
   (0x1750, "Yuesheng International Limited"),
   (0x1808, "Guangzhou Jinye Electronic Technology Co., Ltd."),
   (0x1809, "Rotolight"),
+  (0x180A, "Guangdong Longjoin Optoelectronics Technology Co. Ltd."),
   (0x1871, "Smoke Factory GmbH"),
   (0x1872, "Super-Can Industry Growing Co. Ltd."),
   (0x1888, "GUANZHOU KAVON STAGE EQUIPMENT CO., LTD."),
