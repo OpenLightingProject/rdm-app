@@ -650,6 +650,7 @@ MANUFACTURER_DATA = [
   (0x098D, "Batmink Ltd."),
   (0x098E, "Ecosense Lighting Company Limited"),
   (0x098F, "Digital Sputnik Lighting"),
+  (0x0990, "Stagelight Holding"),
   (0x0996, "CCI Power Supplies, LLC"),
   (0x0997, "Star Iluminacao Computadorizada LTDA"),
   (0x099A, "Aixz International (S)"),
