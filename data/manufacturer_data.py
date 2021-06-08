@@ -438,6 +438,7 @@ MANUFACTURER_DATA = [
   (0x07AE, "A-LITE B.V."),
   (0x07B0, "ADDiCTiON BoX GbR"),
   (0x07B1, "TBF-PyroTec GmbH"),
+  (0x07B3, "Shenzhen Fabulux Technology Co., Ltd"),
   (0x07B5, "ARM Automation, Inc"),
   (0x07BE, "Sanko Device Co.Ltd."),
   (0x07C0, "Code Mercenaries GmbH"),
