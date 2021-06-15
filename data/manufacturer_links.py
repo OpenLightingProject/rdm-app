@@ -121,6 +121,7 @@ MANUFACTURER_LINKS = [
   (0x5075, "http://pulsarlight.com/"),
   (0x514D, "http://www.qmaxz.com/"),
   (0x5168, "http://www.sunricher.com"),
+  (0x5201, "https://www.crestron.com/"),
   (0x5252, "http://www.rosco.com/"),
   (0x5253, "https://www.robe.cz/"),
   (0x5343, "https://oceanoptics.com/"),
