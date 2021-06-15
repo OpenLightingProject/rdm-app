@@ -100,7 +100,8 @@ class TestManufacturers(unittest.TestCase):
           if not (type(e.reason) is SSLError and
                   (link == 'https://www.arri.com/' or
                    link == 'https://www.enttec.com/' or
-                   link == 'https://www.lutron.com/en-US/Pages/default.aspx')):
+                   link == 'https://www.lutron.com/en-US/Pages/default.aspx' or
+                   link == 'https://www.panasonic.com/')):
             self.fail("Link %s failed due to %s" % (link, e.reason))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
