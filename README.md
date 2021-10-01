@@ -1,6 +1,6 @@
 # rdm-app
 
-[![Build Status](https://travis-ci.org/OpenLightingProject/rdm-app.svg?branch=master)](https://travis-ci.org/OpenLightingProject/rdm-app)
+[![Build Status](https://travis-ci.com/github/OpenLightingProject/rdm-app.svg?branch=master)](https://travis-ci.com/github/OpenLightingProject/rdm-app)
 
 This is the codebase for the [rdm.openlighting.org](http://rdm.openlighting.org) website.
 
