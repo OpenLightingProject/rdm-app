@@ -8,9 +8,6 @@ cache:
     - $HOME/.npm
     - $HOME/.cache/pip
 
-before_install:
-  - if [[ "$TASK" == "spellintian" ]]; then wget "http://old-releases.ubuntu.com/ubuntu/pool/main/l/lintian/lintian_2.12.0_all.deb"; sudo dpkg -i lintian_*.deb; sudo apt-get install -f -y; fi # Install a later lintian
-
 install:
   - if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
   - if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
@@ -28,15 +25,17 @@ matrix:
       python: "2.7"
       env: TASK="nosetests"
     - os: linux
-      dist: xenial
+      dist: focal
       arch: arm64
       env: TASK="karma"
       services:
         - xvfb
     - os: linux
+      dist: focal
       arch: arm64
       env: TASK="lint"
     - os: linux
+      dist: focal
       arch: arm64
       env: TASK="closure-compiler"
     - os: linux
@@ -47,15 +46,16 @@ matrix:
           packages:
             - libhtml-parser-perl
     - os: linux
-      dist: bionic
+      dist: focal
       arch: arm64
       env: TASK='spellintian'
       addons:
         apt:
           packages:
+            - lintian
             - moreutils
     - os: linux
-      dist: trusty
+      dist: focal
       arch: arm64
       env: TASK='codespell'
       addons:
