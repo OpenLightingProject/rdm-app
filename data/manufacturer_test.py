@@ -96,17 +96,19 @@ class TestManufacturers(unittest.TestCase):
             pprint.pprint(e.code)
           if hasattr(e, 'headers'):
             pprint.pprint(vars(e.headers))
-          # TODO(Peter): Enttec URL fails SSL validation due to an incomplete
-          # chain, skip this error for now
-          if not (type(e.reason) is SSLError and
-                  (link == 'https://www.arri.com/' or
-                   link == 'https://www.enttec.com/' or
-                   link == 'https://www.lutron.com/en-US/Pages/default.aspx' or
-                   link == 'https://www.panasonic.com/')):
+          # TODO(Peter): Various URLs fail SSL validation due to an incomplete
+          # chain, others just don't like our CI testing of valid pages,
+          # skip all these error for now
+          if not ((type(e.reason) is SSLError and
+                   (link == 'https://www.arri.com/' or
+                    link == 'https://www.enttec.com/' or
+                    link == 'https://www.lutron.com/en-US/Pages/default.aspx')) or
+                   (type(e.reason) is HTTPError and
+                    (link == 'https://www.panasonic.com/'))):
             self.fail("Link %s failed due to %s" % (link, e.reason))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
-                    "code: %s" % (link, e.code))
+                    "code: %s, reason type: %s" % (link, e.code, type(e.reason)))
       except SocketError as e:
         if hasattr(e, 'errno'):
           self.fail("Link %s failed due to socket error %s" % (link, e.errno))
