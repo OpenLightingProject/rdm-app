@@ -22,7 +22,7 @@ MANUFACTURER_LINKS = [
   (0x0089, "https://www.productionwarehouse.co.za/"),
   (0x00A1, "http://www.creativelighting.com.au/"),
   (0x00A2, "http://www.empdesigns.co.uk/"),
-  (0x00A7, "http://www.syncronorm.de/"),
+  (0x00A7, "https://www.syncronorm.com/"),
   (0x00A8, "https://www.eye.co.jp/"),
   (0x00A9, "http://www.richter-lt.de"),
   (0x00B0, "http://www.arenaluci.com/"),
@@ -36,8 +36,8 @@ MANUFACTURER_LINKS = [
   (0x02B0, "https://dmxcontrol-projects.org/"),
   (0x02E1, "http://www.taittowers.com/"),
   (0x02EA, "https://www.disguise.one/"),
-  (0x02EC, "http://www.lutron.com/en-US/Pages/default.aspx"),  # Their redirects don't play nicely with Python
-  (0x02ED, "http://www.openlx.org.uk/"),
+  (0x02EC, "https://www.lutron.com/en-US/Pages/default.aspx"),  # Their redirects don't play nicely with Python
+  # (0x02ED, "http://www.openlx.org.uk/"),  # Website currently gone
   (0x0305, "http://www.diconfiberoptics.com/"),
   (0x0308, "http://imagecue.lighting/"),
   (0x0391, "https://alcorn.com/"),
@@ -112,7 +112,7 @@ MANUFACTURER_LINKS = [
   (0x4C55, "https://lumenradio.com/"),
   (0x4C73, "http://www.lsclighting.com/"),
   (0x4D41, "http://www.malighting.com/"),
-  (0x4D44, "http://www.mdgfog.com/"),
+  (0x4D44, "https://www.mdgfog.com/"),
   (0x4D50, "http://www.martin.com/"),
   (0x4D56, "http://www.avolites.com/"),
   (0x4F43, "https://www.offstagecontrols.com/"),
