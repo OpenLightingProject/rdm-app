@@ -52,6 +52,8 @@ class TestManufacturers(unittest.TestCase):
 
     # check that ESTA exists
     self.assertIn(0, seen_ids)
+    # check that an ESTA test ID at the end of the file exists
+    self.assertIn(0x7FF0, seen_ids)
 
   def test_ManufacturerLinks(self):
     esta_ids = set()
@@ -96,8 +98,9 @@ class TestManufacturers(unittest.TestCase):
           # TODO(Peter): Enttec URL fails SSL validation due to an incomplete
           # chain, skip this error for now
           if not (type(e.reason) is SSLError and
-                  (link == 'https://www.enttec.com/' or
-                   link == 'https://www.arri.com/')):
+                  (link == 'https://www.arri.com/' or
+                   link == 'https://www.enttec.com/' or
+                   link == 'https://www.lutron.com/en-US/Pages/default.aspx')):
             self.fail("Link %s failed due to %s" % (link, e.reason))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "

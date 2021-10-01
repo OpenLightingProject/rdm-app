@@ -8,9 +8,6 @@ cache:
     - $HOME/.npm
     - $HOME/.cache/pip
 
-before_install:
-  - if [[ "$TASK" == "spellintian" ]]; then wget "http://archive.ubuntu.com/ubuntu/pool/main/l/lintian/lintian_2.12.0_all.deb"; sudo dpkg -i lintian_*.deb; sudo apt-get install -f -y; fi # Install a later lintian
-
 install:
   - if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
   - if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
@@ -23,29 +20,43 @@ install:
 matrix:
   fast_finish: true
   include:
-    - python: "2.7"
+    - os: linux
+      arch: arm64
+      python: "2.7"
       env: TASK="nosetests"
     - os: linux
-      dist: xenial
+      dist: focal
+      arch: arm64
       env: TASK="karma"
       services:
         - xvfb
-    - env: TASK="lint"
-    - env: TASK="closure-compiler"
-    - env: TASK="data-check"
+    - os: linux
+      dist: focal
+      arch: arm64
+      env: TASK="lint"
+    - os: linux
+      dist: focal
+      arch: arm64
+      env: TASK="closure-compiler"
+    - os: linux
+      arch: arm64
+      env: TASK="data-check"
       addons:
         apt:
           packages:
             - libhtml-parser-perl
     - os: linux
-      dist: bionic
+      dist: focal
+      arch: arm64
       env: TASK='spellintian'
       addons:
         apt:
           packages:
+            - lintian
             - moreutils
     - os: linux
-      dist: trusty
+      dist: focal
+      arch: arm64
       env: TASK='codespell'
       addons:
         apt:
@@ -53,31 +64,38 @@ matrix:
            - moreutils
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='flake8'
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='pychecker'
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='pychecker-wip'
   allow_failures:
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='flake8-wip'
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='pychecker'
     - os: linux
       dist: trusty
+      arch: arm64
       python: "2.7"
       env: TASK='pychecker-wip'
 
