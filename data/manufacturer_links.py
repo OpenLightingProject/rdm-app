@@ -19,6 +19,7 @@
 
 MANUFACTURER_LINKS = [
   (0x0000, "https://tsp.esta.org/tsp/working_groups/CP/cp.html"),
+  (0x0021, "https://electricfoundry.co.uk/"),
   (0x0089, "https://www.productionwarehouse.co.za/"),
   (0x00A1, "http://www.creativelighting.com.au/"),
   (0x00A2, "http://www.empdesigns.co.uk/"),
@@ -49,6 +50,7 @@ MANUFACTURER_LINKS = [
   (0x056B, "https://www.cosmolight.it/"),
   (0x056C, "https://lumascape.com/"),
   (0x0609, "https://www.diginet.net.au/"),
+  (0x06E4, "https://www.dydell.com/"),
   (0x0710, "https://dts-lighting.it/"),
   (0x074F, "https://www.panasonic.com/"),
   (0x0776, "http://lumenetix.com/"),
@@ -64,6 +66,7 @@ MANUFACTURER_LINKS = [
   (0x097A, "http://teamboyce.com/"),
   (0x097F, "https://raumzeitlabor.de/"),
   (0x0987, "https://www.mathertel.de/"),
+  (0x09B5, "https://www.xblackpro.com/"),
   (0x1234, "https://tsp.esta.org/tsp/working_groups/CP/cp.html"),
   (0x15D0, "https://www.musiclights.it/"),
   # (0x15D0, "http://prolights.it/"),  # This is one of their sub-brands
@@ -84,6 +87,7 @@ MANUFACTURER_LINKS = [
   (0x2C1A, "https://www.dmx4all.de/"),
   (0x2C2A, "http://www.xtba.co.uk/"),
   # (0x2DC8, "http://www.stellascapes.com/"), # Website has gone
+  (0x2DDE, "https://www.luminlite.com.tw/"),
   (0x3388, "https://www.macostar.com/"),
   (0x3434, "https://www.gds.uk.com/"),
   (0x3638, "https://www.lumenpulse.com/"),
@@ -119,6 +123,7 @@ MANUFACTURER_LINKS = [
   (0x5000, "http://www.orangepi-dmx.org"),
   (0x5041, "http://www.lighting.philips.com/"),
   (0x5075, "http://pulsarlight.com/"),
+  (0x5100, "https://www.luxibel.com/"),
   (0x514D, "http://www.qmaxz.com/"),
   (0x5168, "http://www.sunricher.com"),
   (0x5201, "https://www.crestron.com/"),
@@ -140,6 +145,7 @@ MANUFACTURER_LINKS = [
   (0x6205, "http://www.ltechonline.com/"),
   (0x6364, "http://www.lanbox.com/"),
   (0x646F, "https://www.eldoled.com/"),
+  (0x6555, "https://shanteacontrols.com/"),
   (0x656C, "https://www.elclighting.com/"),
   (0x6574, "https://www.etcconnect.com/"),
   (0x676C, "https://www.glp.de/"),
