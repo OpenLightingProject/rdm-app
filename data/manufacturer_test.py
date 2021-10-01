@@ -85,7 +85,8 @@ class TestManufacturers(unittest.TestCase):
       try:
         # Some web servers, and Cloudflare, block us unless we have a
         # non-python User Agent
-        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)'}
+        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)',
+              'referer': 'http://example.com'}
 
         request = urllib2.Request(link, headers=ua)
         response = opener.open(request)
