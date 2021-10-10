@@ -20,6 +20,7 @@ import unittest
 import urllib2
 import pprint
 from socket import error as SocketError
+from urllib2 import HTTPError
 from urllib2 import URLError
 from ssl import SSLError
 
@@ -101,11 +102,13 @@ class TestManufacturers(unittest.TestCase):
           # skip all these error for now
           if not ((type(e.reason) is SSLError and
                    (link == 'https://www.arri.com/' or
-                    link == 'https://www.enttec.com/' or
-                    link == 'https://www.lutron.com/en-US/Pages/default.aspx')) or
-                   (type(e.reason) is HTTPError and
-                    (link == 'https://www.panasonic.com/'))):
-            self.fail("Link %s failed due to %s" % (link, e.reason))
+                    link == 'https://www.diconfiberoptics.com/' or
+                    link == 'https://www.enttec.com/')) or
+                   (type(e) is HTTPError and
+                    (link == 'http://www.compulite.com/' or
+                     link == 'https://www.lutron.com/en-US/Pages/default.aspx' or
+                     link == 'https://www.panasonic.com/'))):
+            self.fail("Link %s failed due to %s, reason type: %s" % (link, e.reason, type(e)))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
                     "code: %s, reason type: %s" % (link, e.code, type(e.reason)))
