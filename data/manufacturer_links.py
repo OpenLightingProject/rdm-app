@@ -86,11 +86,11 @@ MANUFACTURER_LINKS = [
   (0x29B4, "http://www.highlite.nl/"),
   (0x2C1A, "https://www.dmx4all.de/"),
   (0x2C2A, "http://www.xtba.co.uk/"),
-  # (0x2DC8, "http://www.stellascapes.com/"), # Website has gone
+  # (0x2DC8, "http://www.stellascapes.com/"),  # Website has gone
   (0x2DDE, "https://www.luminlite.com.tw/"),
   (0x3388, "https://www.macostar.com/"),
   (0x3434, "https://www.gds.uk.com/"),
-  (0x3638, "https://www.lumenpulse.com/"),
+  # (0x3638, "https://www.lumenpulse.com/"),  # Website currently gone
   (0x3B10, "https://www.nxp.com/"),
   (0x4144, "https://www.adbstagelight.com/"),
   (0x414C, "https://www.artisticlicence.com/"),
@@ -129,11 +129,11 @@ MANUFACTURER_LINKS = [
   (0x5201, "https://www.crestron.com/"),
   (0x5252, "http://www.rosco.com/"),
   (0x5253, "https://www.robe.cz/"),
-  (0x5343, "https://oceanoptics.com/"),
+  (0x5343, "https://www.oceaninsight.com/"),
   (0x5344, "https://www.stardraw.com/"),
   (0x5347, "http://sgmlight.com/"),
   (0x534C, "http://www.soundlight.de/"),
-  (0x5353, "https://www.theblacklabcoat.com/"),
+  # (0x5353, "https://www.theblacklabcoat.com/"),  # Website has gone
   (0x5370, "http://www.chroma-q.com/"),
   (0x5377, "https://www.swisson.com/"),
   (0x5445, "http://www.tesielettronica.it/"),
