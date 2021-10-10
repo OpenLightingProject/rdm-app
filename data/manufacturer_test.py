@@ -104,10 +104,10 @@ class TestManufacturers(unittest.TestCase):
                    (link == 'https://www.arri.com/' or
                     link == 'https://www.diconfiberoptics.com/' or
                     link == 'https://www.enttec.com/')) or
-                   (type(e) is HTTPError and
-                    (link == 'http://www.compulite.com/' or
-                     link == 'https://www.lutron.com/en-US/Pages/default.aspx' or
-                     link == 'https://www.panasonic.com/'))):
+                  (type(e) is HTTPError and
+                   (link == 'http://www.compulite.com/' or
+                    link == 'https://www.lutron.com/en-US/Pages/default.aspx' or
+                    link == 'https://www.panasonic.com/'))):
             self.fail("Link %s failed due to %s, reason type: %s" % (link, e.reason, type(e)))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
