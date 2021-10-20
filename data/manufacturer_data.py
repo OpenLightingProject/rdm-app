@@ -985,6 +985,7 @@ MANUFACTURER_DATA = [
   (0x456C, "Element Labs Inc."),
   (0x4631, "OKEROAB AB"),
   (0x464C, "Flashlight/Ampco Holding"),
+  (0x4653, "IT & Eventtechnik Fabian Stumpf"),
   (0x4656, "Flexvisual"),
   (0x4658, "MAGIC FX B.V."),
   (0x4678, "Global Special Effects"),
