@@ -553,6 +553,7 @@ MANUFACTURER_DATA = [
   (0x08C1, "Project SSSHH Incorporated"),
   (0x08C3, "Guangzhou Spark Stage Equipment Co. Ltd"),
   (0x08C5, "EHRGEIZ Lichttechnik GmbH"),
+  (0x08C6, "Guangzhou Ever Famous Electronic Co.,Ltd"),
   (0x08C9, "LEDitgo Videowall Germany GmbH"),
   (0x08CA, "Foshan City Xuandao Optoelectronics Equipment Co., Ltd"),
   (0x08CC, "Guangzhou Santu Stage Lighting Equipment Co.Ltd"),
