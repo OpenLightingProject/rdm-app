@@ -785,6 +785,7 @@ MANUFACTURER_DATA = [
   (0x1BC0, "ALS Stanislaw Binkiewicz"),
   (0x1BC6, "Studio S Music City"),
   (0x1C80, "Vehtec Tecnologia Ltda"),
+  (0x1E42, "SSE GmbH"),
   (0x1E8D, "Moda Light"),
   (0x1ECF, "Masiero s.r.l."),
   (0x1ED8, "Antari Lighting And Effects Ltd."),
