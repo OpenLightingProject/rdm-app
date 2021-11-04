@@ -1030,6 +1030,7 @@ MANUFACTURER_DATA = [
   (0x4A54, "James Thomas Engineering"),
   (0x4A61, "Jands Pty Ltd."),
   (0x4ACC, "RVL techniek"),
+  (0x4B00, "Gabor Galyas Lighting"),
   (0x4B42, "KissBox"),
   (0x4B46, "Kino Flo, Inc."),
   (0x4B4C, "KLH Electronics PLC"),
