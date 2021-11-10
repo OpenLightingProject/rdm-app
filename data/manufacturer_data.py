@@ -410,6 +410,7 @@ MANUFACTURER_DATA = [
   (0x06E6, "Equipson S.A."),
   (0x06EC, "SISTEMA Jsc"),
   (0x06F0, "CTG sp. z o.o."),
+  (0x06F1, "Aqualux Lighting"),
   (0x0702, "Drinelec"),
   (0x0707, "Conceptinetics Technologies and Consultancy Ltd."),
   (0x0708, "AK-LIGHT"),
