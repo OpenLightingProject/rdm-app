@@ -836,6 +836,8 @@ MANUFACTURER_DATA = [
   (0x2470, "Hale Microsystems LLC"),
   (0x24A3, "Lighting Innovation Group AG"),
   (0x24AA, "IT Ihme"),
+  (0x2500, "RATOC Systems, Inc."),
+  (0x2501, "Xero Manufacturing Pty Limited"),
   (0x2621, "LEADER LIGHT s.r.o."),
   (0x2622, "LDDE Vertriebs Gmbh"),
   (0x2623, "Leonh Hardware Enterprise Inc."),
