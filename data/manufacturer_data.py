@@ -906,6 +906,7 @@ MANUFACTURER_DATA = [
   (0x3638, "Lumenpulse Lighting Inc."),
   (0x37D0, "Boogy Brothers Showequipment"),
   (0x37D7, "Lichttechnik & Sonderbau"),
+  (0x37DD, "Sehr gute GmbH"),
   (0x3805, "Yifeng Lighting Co., Ltd."),
   (0x3806, "ACME EFFECTS LTD."),
   (0x3868, "LanBolight Technology Co., LTD."),
