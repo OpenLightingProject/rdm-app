@@ -550,6 +550,7 @@ MANUFACTURER_DATA = [
   (0x08BB, "Guangzhou CHEN Electronic Technology Co., Ltd."),
   (0x08BC, "Michael Parkin"),
   (0x08BD, "Lug Light Factory Sp. z o. o."),
+  (0x08BE, "Shenzhen FloatStone Technology Co., Ltd."),
   (0x08BF, "Times Square Stage Lighting Inc."),
   (0x08C1, "Project SSSHH Incorporated"),
   (0x08C3, "Guangzhou Spark Stage Equipment Co. Ltd"),
