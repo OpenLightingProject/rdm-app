@@ -623,6 +623,7 @@ MANUFACTURER_DATA = [
   (0x092F, "Guangzhou Shinelight Stage Equipment Factory"),
   (0x0930, "jiaozuo shengguang film &equipment Co. Ltd"),
   (0x0931, "Cristal Controles"),
+  (0x0933, "Beyond Lighting WLL"),
   (0x0935, "Guangzhou Huadu District Richa Lighting Equipment Factory"),
   (0x0936, "AquaTronic"),
   (0x0937, "Huizhou Zhonghan Electronic Technology Co., Ltd"),
