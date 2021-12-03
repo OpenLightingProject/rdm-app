@@ -1102,6 +1102,7 @@ MANUFACTURER_DATA = [
   (0x5009, "Izzro Optoelectronics Technology Co., Ltd."),
   (0x500A, "AU Optronics Corporation (AUO)"),
   (0x500B, "WebKat Eletronic's"),
+  (0x5011, "Guangzhou Skydance Co., Ltd."),
   (0x5040, "Guangzhou Color Imagination LED Lighting Ltd."),
   (0x5041, "Philips Entertainment Lighting Asia"),
   (0x5043, "Pathway Connectivity Inc."),
