@@ -53,7 +53,8 @@ MANUFACTURER_LINKS = [
   (0x06E4, "https://www.dydell.com/"),
   (0x0710, "https://dts-lighting.it/"),
   (0x074F, "https://www.panasonic.com/"),
-  (0x0776, "http://lumenetix.com/"),
+  # (0x0776, "http://lumenetix.com/"),  # Now moved/brought out
+  (0x0776, "https://www.erp-power.com/"),
   (0x07C0, "https://www.codemercs.com/"),
   (0x07CC, "http://www.griven.com/"),
   (0x07EA, "http://www.lemaitreltd.com/"),
