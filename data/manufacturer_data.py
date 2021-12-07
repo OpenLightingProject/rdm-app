@@ -648,6 +648,7 @@ MANUFACTURER_DATA = [
   (0x0959, "Urbs Lighting, LLC"),
   (0x095A, "kLabs Research UK"),
   (0x095B, "Wuhan Zhongtian Jiaye Mechanical and Electrical Engineering Co. LTD"),
+  (0x095E, "Hondel Lighting Limited"),
   (0x095F, "Elaborated Networks GmbH"),
   (0x0960, "Fineline Solutions Ltd."),
   (0x0965, "Fontana Fountains"),
