@@ -49,6 +49,7 @@ MANUFACTURER_DATA = [
   (0x001E, "Shenzhen Lumi Lime Technology Limited"),
   (0x0020, "Wattle IT"),
   (0x0021, "Electric Foundry Ltd."),
+  (0x0022, "PixelFLEX, LLC"),
   (0x0057, "Blackbezt Lighting Technology Co., Ltd."),
   (0x0058, "Big Dipper Laser Science and Technology Co.,Ltd."),
   (0x0059, "Laysion Lighting Technology Co., Ltd."),
