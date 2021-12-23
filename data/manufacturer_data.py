@@ -1140,6 +1140,7 @@ MANUFACTURER_DATA = [
   (0x51D8, "Amperor Electronics (Shenzhen) Co., Ltd."),
   (0x5200, "Shenzhen Aotian Technology Co. , Ltd."),
   (0x5201, "Crestron Electronics, Inc."),
+  (0x5202, "Shenzhen Lianjin Photoelectricity Co., Ltd."),
   (0x5244, "Revolution Display"),
   (0x524C, "Radical Lighting Ltd."),
   (0x524D, "RUIZ TECH"),
