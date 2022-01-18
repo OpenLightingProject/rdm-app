@@ -662,6 +662,7 @@ MANUFACTURER_DATA = [
   (0x0968, "Guangzhou Beyond Lighting Co., Limited."),
   (0x096D, "Guangzhou Xin Yilong Stage Lighting Equipment Co., Limited"),
   (0x096F, "Shenzhen showho technolgy co.,ltd"),
+  (0x0972, "Holochrom GmbH"),
   (0x0973, "Guangzhou Eagle Wei Photoelectric Technology Co., Ltd."),
   (0x0974, "Marumo Electric Co., Ltd."),
   (0x0975, "KB Design"),
