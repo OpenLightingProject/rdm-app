@@ -708,6 +708,7 @@ MANUFACTURER_DATA = [
   (0x09C3, "Velleman nv"),
   (0x09C4, "Guangzhou XinHuang Industrial Co., Ltd."),
   (0x09C6, "Photon Manufacturing"),
+  (0x09C7, "ShoCobra"),
   (0x09C8, "Crystal Fountains Inc."),
   (0x09CC, "Motomuto Aps"),
   (0x09D1, "Environmental Lights"),
