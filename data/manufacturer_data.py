@@ -541,7 +541,7 @@ MANUFACTURER_DATA = [
   (0x08A2, "Guangzhou Gesida Light Equipment Co., Ltd."),
   (0x08A3, "Redot Visual Effect Technologies (Shenzhen) Co., Ltd"),
   (0x08A4, "Adam Hall GmbH"),
-  (0x08A6, "Impulswerk"),
+  (0x08A6, "impulswerk.de"),
   (0x08A7, "GuangZhou Deliya Opto-electronic Tech Co., Ltd"),
   (0x08AA, "PiXL Factory"),
   (0x08AB, "Qdot Lighting Limited"),
