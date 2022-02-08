@@ -35,7 +35,7 @@ MANUFACTURER_DATA = [
   (0x0010, "Dongguan Mi Xing Electronic Technology Co., Ltd."),
   (0x0011, "Beijing Kedeshengye Technology Service Co., Ltd."),
   (0x0012, "Apex Pro Light Co., Ltd."),
-  (0x0013, "Teixo BV"),
+  (0x0013, "Litemover BV"),
   (0x0014, "SIRS Electronics, Inc."),
   (0x0015, "Lumencraft Lighting Solutions"),
   (0x0016, "Shenzhen Xuntek Electronics Co., Ltd"),
