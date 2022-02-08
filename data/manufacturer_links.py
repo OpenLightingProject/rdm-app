@@ -62,6 +62,7 @@ MANUFACTURER_LINKS = [
   (0x0854, "https://www.nec-display-solutions.com/"),
   (0x089D, "http://www.gobo.ws/"),
   (0x08A4, "https://www.adamhall.com/"),
+  (0x08A6, "https://impulswerk.de"),
   (0x08C5, "https://ehrgeiz.glp.de/"),
   (0x0960, "https://fineline.solutions/"),
   (0x097A, "http://teamboyce.com/"),
