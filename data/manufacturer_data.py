@@ -631,6 +631,7 @@ MANUFACTURER_DATA = [
   (0x0929, "UPlight stage equipment(GZ) CO., Ltd."),
   (0x092B, "Guangzhou Lightful Stage Lighting&Sound Equipment Co,.Ltd."),
   (0x092C, "Guangzhou Chaoran Computer Co., Ltd."),
+  (0x092E, "YouEasy (Dongguan) Electronics Technology Co.,Ltd"),
   (0x092F, "Guangzhou Shinelight Stage Equipment Factory"),
   (0x0930, "jiaozuo shengguang film &equipment Co. Ltd"),
   (0x0931, "Cristal Controles"),
