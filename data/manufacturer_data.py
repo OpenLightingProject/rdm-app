@@ -324,6 +324,7 @@ MANUFACTURER_DATA = [
   (0x048F, "Grand Canyon LED Lighting System (Suzhou) Co., Ltd."),
   (0x04A6, "MEB Veranstaltungstechnik GmbH"),
   (0x04A9, "Edward J. Keefe Jr."),
+  (0x04B4, "SKT Inc."),
   (0x04B5, "Major"),
   (0x04B6, "IntiLED"),
   (0x04B8, "Guangzhou Hongcai Stage Equipment Co., Ltd."),
