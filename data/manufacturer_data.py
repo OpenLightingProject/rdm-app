@@ -1246,6 +1246,7 @@ MANUFACTURER_DATA = [
   (0x646F, "eldoLED BV"),
   (0x64B9, "Finelite, Inc."),
   (0x6542, "eBrain GmbH"),
+  (0x6543, "LES-TV Ltd."),
   (0x6547, "euroGenie"),
   (0x6553, "EtherShow"),
   (0x6555, "Shantea Controls"),
