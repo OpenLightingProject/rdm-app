@@ -111,7 +111,7 @@ MANUFACTURER_LINKS = [
   (0x4A54, "http://jthomaseng.com/"),
   (0x4A61, "https://www.jands.com.au/"),
   (0x4B42, "http://kiss-box.nl/"),
-  (0x4B46, "http://www.kinoflo.com/"),
+  (0x4B46, "https://kinoflo.com/"),
   (0x4C4C, "https://www.luminex.be/"),
   (0x4C52, "https://www.highend.com/"),
   (0x4C53, "http://lss-lighting.de/"),
