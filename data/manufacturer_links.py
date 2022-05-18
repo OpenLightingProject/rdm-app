@@ -90,7 +90,7 @@ MANUFACTURER_LINKS = [
   (0x2C2A, "http://www.xtba.co.uk/"),
   # (0x2DC8, "http://www.stellascapes.com/"),  # Website has gone
   (0x2DDE, "https://www.luminlite.com.tw/"),
-  (0x3388, "https://www.macostar.com/"),
+  (0x3388, "https://macostar.com/"),
   (0x3434, "https://www.gds.uk.com/"),
   # (0x3638, "https://www.lumenpulse.com/"),  # Website currently gone
   (0x3B10, "https://www.nxp.com/"),
