@@ -142,7 +142,7 @@ MANUFACTURER_LINKS = [
   (0x544C, "http://tempest.biz/"),
   (0x564C, "http://www.vari-lite.com/"),
   (0x5753, "http://wirelessdmx.com"),
-  (0x5759, "https://www.wybron.com/"),
+  # (0x5759, "https://www.wybron.com/"),  # SSL cert expired
   (0x586D, "http://www.doityourselfchristmas.com/"),
   (0x6205, "http://www.ltechonline.com/"),
   (0x6364, "http://www.lanbox.com/"),
