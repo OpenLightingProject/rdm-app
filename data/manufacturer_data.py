@@ -1285,6 +1285,7 @@ MANUFACTURER_DATA = [
   (0x6A6B, "JPK Systems Limited"),
   (0x6B64, "Key Delfin"),
   (0x6B69, "Magical Fountain SA de CV (Magic Fountain)"),
+  (0x6BEA, "Remoticom BV"),
   (0x6BED, "Planar Systems, Inc."),
   (0x6BEE, "Ephesus Lighting"),
   (0x6BEF, "Shenzhen Ifountain Technology Ltd."),
