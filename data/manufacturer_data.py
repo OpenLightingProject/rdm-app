@@ -1133,6 +1133,7 @@ MANUFACTURER_DATA = [
   (0x500A, "AU Optronics Corporation (AUO)"),
   (0x500B, "WebKat Eletronic's"),
   (0x500C, "L.E.C. Societe Lyonnaise D' Equipement Et De Controle"),
+  (0x5010, "Shenzhen Viye Technology Co., Ltd."),
   (0x5011, "Guangzhou Skydance Co., Ltd."),
   (0x5040, "Guangzhou Color Imagination LED Lighting Ltd."),
   (0x5041, "Philips Entertainment Lighting Asia"),
