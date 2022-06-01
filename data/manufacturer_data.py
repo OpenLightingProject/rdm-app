@@ -492,6 +492,8 @@ MANUFACTURER_DATA = [
   (0x0810, "BDS Studios"),
   (0x0811, "V-PRO"),
   (0x0812, "Yamagiwa Corporation"),
+  (0x0813, "Shenzhen Scenico Optoelectronic Co., Ltd."),
+  (0x0814, "squareV"),
   (0x0823, "Opito Labs GmbH"),
   (0x0824, "Almotechnos CO.,LTD."),
   (0x0827, "Shineon Hardtech Co,.LTD"),
