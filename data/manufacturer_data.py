@@ -799,6 +799,7 @@ MANUFACTURER_DATA = [
   (0x1808, "Guangzhou Jinye Electronic Technology Co., Ltd."),
   (0x1809, "Rotolight"),
   (0x180A, "Guangdong Longjoin Optoelectronics Technology Co. Ltd."),
+  (0x180B, "Light master"),
   (0x1871, "Smoke Factory GmbH"),
   (0x1872, "Super-Can Industry Growing Co. Ltd."),
   (0x1873, "Zhongshan Wellmake Electronic Technology Co., Ltd."),
