@@ -883,6 +883,7 @@ MANUFACTURER_DATA = [
   (0x2623, "Leonh Hardware Enterprise Inc."),
   (0x2624, "Lisys Fenyrendszer Zrt."),
   (0x2626, "LLT Lichttechnik GmbH&CO.KG"),
+  (0x2627, "Guangzhou Megota Technology Co., Ltd."),
   (0x2630, "Laservision"),
   (0x2632, "Lehigh Electric Products"),
   (0x2635, "LjusDesign AB"),
