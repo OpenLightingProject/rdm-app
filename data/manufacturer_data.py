@@ -1346,6 +1346,7 @@ MANUFACTURER_DATA = [
   (0x7D61, "HMB|TEC GmbH"),
   (0x7DE7, "Guangzhou ILightings Equipment Co., Ltd."),
   (0x7DE8, "Shenzhen LAMP Technology Co., Ltd."),
+  (0x7DEA, "RobLight A/S"),
   (0x7DEE, "zencontrol Pty Ltd"),
   (0x7EE7, "Arthur Digital Solutions Kft"),
   (0x7EE8, "Guangzhou Yingfeng Lighting Equipment Co., Ltd."),
