@@ -90,7 +90,7 @@ MANUFACTURER_LINKS = [
   (0x2C2A, "http://www.xtba.co.uk/"),
   # (0x2DC8, "http://www.stellascapes.com/"),  # Website has gone
   (0x2DDE, "https://www.luminlite.com.tw/"),
-  (0x3388, "https://www.macostar.com/"),
+  (0x3388, "https://macostar.com/"),
   (0x3434, "https://www.gds.uk.com/"),
   # (0x3638, "https://www.lumenpulse.com/"),  # Website currently gone
   (0x3B10, "https://www.nxp.com/"),
@@ -111,7 +111,7 @@ MANUFACTURER_LINKS = [
   (0x4A54, "http://jthomaseng.com/"),
   (0x4A61, "https://www.jands.com.au/"),
   (0x4B42, "http://kiss-box.nl/"),
-  (0x4B46, "http://www.kinoflo.com/"),
+  (0x4B46, "https://kinoflo.com/"),
   (0x4C4C, "https://www.luminex.be/"),
   (0x4C52, "https://www.highend.com/"),
   (0x4C53, "http://lss-lighting.de/"),
@@ -142,7 +142,7 @@ MANUFACTURER_LINKS = [
   (0x544C, "http://tempest.biz/"),
   (0x564C, "http://www.vari-lite.com/"),
   (0x5753, "http://wirelessdmx.com"),
-  (0x5759, "https://www.wybron.com/"),
+  # (0x5759, "https://www.wybron.com/"),  # SSL cert expired
   (0x586D, "http://www.doityourselfchristmas.com/"),
   (0x6205, "http://www.ltechonline.com/"),
   (0x6364, "http://www.lanbox.com/"),
