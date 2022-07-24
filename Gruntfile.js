@@ -77,7 +77,6 @@ module.exports = function(grunt) {
         'unit-test-js/tests/*js'
       ],
       options: {
-        verbose: true,
         config: true
       }
     },
