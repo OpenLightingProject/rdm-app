@@ -17,7 +17,7 @@
     "google-closure-compiler": "^20170910.0.0",
     "google-closure-library": "^20170910.0.0",
     "grunt": "^1.0.0",
-    "grunt-bower-task": "~0.4.0",
+    "grunt-bower-task": "~0.6.2",
     "grunt-contrib-clean": "~2.0.1",
     "grunt-contrib-copy": "~0.8.0",
     "grunt-contrib-jshint": "^0.12.0",
