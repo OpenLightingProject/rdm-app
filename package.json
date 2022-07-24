@@ -1,6 +1,6 @@
 {
   "name": "rdm-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "OpenLightingProject/rdm-app",
   "author": {
     "name": "Open Lighting Project",
@@ -22,7 +22,7 @@
     "grunt-contrib-copy": "~0.8.0",
     "grunt-contrib-jshint": "^0.12.0",
     "grunt-contrib-uglify": "~0.9.1",
-    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-watch": "~1.1.0",
     "grunt-jscs": "^1.8.0",
     "grunt-karma": "^0.12.2",
     "grunt-stylelint": "^0.16.0",
