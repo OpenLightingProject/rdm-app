@@ -39,8 +39,13 @@ matrix:
       dist: focal
       arch: arm64
       env: TASK="karma"
+      # Mozilla doesn't currently support nightly arm64 builds, so install via apt instead
+      #addons:
+      #  firefox: latest
       addons:
-        firefox: latest
+        apt:
+          packages:
+            - firefox
       services:
         - xvfb
     - os: linux
