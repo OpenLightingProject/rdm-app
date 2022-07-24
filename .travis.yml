@@ -38,7 +38,11 @@ matrix:
     - os: linux
       dist: focal
       arch: arm64
-      env: TASK="karma"
+      env:
+        - TASK="karma"
+        global:
+          # Make Firefox headless
+          - MOZ_HEADLESS=1
       # Mozilla doesn't currently support nightly arm64 builds, so install via apt instead
       #addons:
       #  firefox: latest
