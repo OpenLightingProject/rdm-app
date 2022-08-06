@@ -358,6 +358,7 @@ MANUFACTURER_DATA = [
   (0x05AB, "Shenzhen Lesan Lighting Co., Ltd."),
   (0x05B5, "Turkowski GmbH"),
   (0x05BC, "CantoUSA"),
+  (0x05C0, "Vertigo"),
   (0x05CF, "Brighten Technology Development Co., Ltd."),
   (0x05D3, "D-LED Illumination Technologies Ltd."),
   (0x05E2, "KORRO PLUS"),
