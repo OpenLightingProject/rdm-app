@@ -70,6 +70,7 @@ MANUFACTURER_LINKS = [
   (0x097F, "https://raumzeitlabor.de/"),
   (0x0987, "https://www.mathertel.de/"),
   (0x09B5, "https://www.xblackpro.com/"),
+  (0x09D1, "https://www.environmentallights.com/"),
   (0x1234, "https://tsp.esta.org/tsp/working_groups/CP/cp.html"),
   (0x15D0, "https://www.musiclights.it/"),
   # (0x15D0, "http://prolights.it/"),  # This is one of their sub-brands
