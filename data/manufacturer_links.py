@@ -57,6 +57,7 @@ MANUFACTURER_LINKS = [
   (0x0776, "https://www.erp-power.com/"),
   (0x07C0, "https://www.codemercs.com/"),
   (0x07CC, "http://www.griven.com/"),
+  (0x07D6, "http://www.liteputer.com.tw/"),
   (0x07EA, "http://www.lemaitreltd.com/"),
   (0x0808, "http://zero88.com/"),
   (0x0854, "https://www.nec-display-solutions.com/"),
@@ -74,7 +75,7 @@ MANUFACTURER_LINKS = [
   (0x1234, "https://tsp.esta.org/tsp/working_groups/CP/cp.html"),
   (0x15D0, "https://www.musiclights.it/"),
   # (0x15D0, "http://prolights.it/"),  # This is one of their sub-brands
-  (0x16FA, "http://www.liteputer.com.tw/"),
+  # (0x16FA, "http://www.liteputer.com.tw/"),  # New manufacturer ID 0x07D6!
   (0x1809, "https://www.rotolight.com/"),
   (0x1AFA, "https://tmb.com/"),
   (0x20B9, "https://www.arri.com/"),
