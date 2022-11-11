@@ -49,6 +49,7 @@ MANUFACTURER_LINKS = [
   (0x0529, "https://www.osram.com/"),
   (0x056B, "https://www.cosmolight.it/"),
   (0x056C, "https://lumascape.com/"),
+  (0x05E0, "https://github.com/someweisguy/esp_dmx"),
   (0x0609, "https://www.pierlite.com.au/diginet"),
   (0x06E4, "https://www.dydell.com/"),
   (0x0710, "https://dts-lighting.it/"),
