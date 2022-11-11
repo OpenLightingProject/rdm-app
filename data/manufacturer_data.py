@@ -419,6 +419,7 @@ MANUFACTURER_DATA = [
   (0x06CE, "American-Pro International"),
   (0x06D1, "BIRUN ELECTRONIC INDUSTRIAL CO., LTD"),
   (0x06D2, "LIGHTSTAR (BEIJING) ELECTRONIC CORPORATION"),
+  (0x06D3, "Boerner Distribution International GmbH"),
   (0x06E0, "SHENZHEN LONGRUN OPTOELECTRONIC CO., LTD"),
   (0x06E1, "Burck IT GmbH & Co. KG"),
   (0x06E4, "Dydell B.V."),
