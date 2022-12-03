@@ -530,6 +530,7 @@ MANUFACTURER_DATA = [
   (0x085E, "MMS Distribution Ltd"),
   (0x085F, "Media Visions, Inc."),
   (0x0863, "XTEC Industries Pte Ltd"),
+  (0x0864, "Hangzhou Youte Power., Co. Ltd"),
   (0x0865, "Contrade GmbH"),
   (0x0866, "PAL Lighting"),
   (0x0868, "Ushio America, Inc."),
