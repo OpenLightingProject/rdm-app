@@ -1047,6 +1047,7 @@ MANUFACTURER_DATA = [
   (0x4466, "DF elettronica s.r.l."),
   (0x4469, "Diamante Lighting Srl"),
   (0x446C, "Guangdong Delos Lighting Industrial Co.,Ltd."),
+  (0x4533, "LEDdynamics, Inc."),
   (0x453A, "E:cue  Control GmbH"),
   (0x4541, "Engineering Arts"),
   (0x4543, "EC Elettronica Srl"),
