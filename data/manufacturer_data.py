@@ -586,6 +586,7 @@ MANUFACTURER_DATA = [
   (0x08B0, "KIM Lighting"),
   (0x08B2, "MCI Group"),
   (0x08B3, "Stealth Light srl"),
+  (0x08B5, "ShenZhen Sunny Xiao Technology Co., Ltd."),
   (0x08B6, "Graf Lichttechnik UG"),
   (0x08B9, "Guangzhou Hua Rong Electronic Technology Co., Ltd."),
   (0x08BA, "Meteor Lighting"),
