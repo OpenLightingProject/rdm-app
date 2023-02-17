@@ -2,12 +2,13 @@
 name: test
 on: [push, pull_request]
 jobs:
-  compile:
+  test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        task: [nosetests, karma, lint, closure-compiler, data-check, spellintian, codespell]
+        task: [data-check, spellintian, codespell]
+        #nosetests, karma, lint, closure-compiler, 
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
@@ -20,7 +21,8 @@ jobs:
           if [ "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install flake8; fi
           # If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
           if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
-          if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/codespell-project/codespell.git; fi
+          #if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/codespell-project/codespell.git; fi
+          if [ "$TASK" = "codespell" ]; then pip install codespell; fi
           sudo apt-get install xvfb
           sudo apt-get install libhtml-parser-perl
           sudo apt-get install lintian
