@@ -1,0 +1,23 @@
+# GitHub Action to compile and test
+name: test
+on: [push, pull_request]
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [nosetests, karma, lint, closure-compiler, data-check, spellintian, codespell]
+    steps:
+      - uses: actions/checkout@master
+      - name: Install dependencies
+        run: |
+          sudo apt-get install xvfb
+          sudo apt-get install libhtml-parser-perl
+          sudo apt-get install lintian
+          sudo apt-get install moreutils
+      - name: Compile
+        env:
+          TASK: ${{ matrix.task }}
+        run: |
+          bash -ex .travis-ci.sh
