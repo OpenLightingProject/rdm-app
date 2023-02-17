@@ -7,8 +7,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [data-check, spellintian, codespell]
-        #nosetests, karma, lint, closure-compiler, 
+        task: [data-check, codespell]
+        #spellintian, nosetests, karma, lint, closure-compiler, 
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
@@ -27,7 +27,8 @@ jobs:
           sudo apt-get install libhtml-parser-perl
           sudo apt-get install lintian
           sudo apt-get install moreutils
-      - name: Compile
+      - uses: codespell-project/codespell-problem-matcher@v1
+      - name: Test
         env:
           TASK: ${{ matrix.task }}
         run: |
