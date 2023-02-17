@@ -11,7 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
+        env:
+          TASK: ${{ matrix.task }}
         run: |
+          if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
+          if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
+          if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
+          if [ "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install flake8; fi
+          # If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
+          if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
+          if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/codespell-project/codespell.git; fi
           sudo apt-get install xvfb
           sudo apt-get install libhtml-parser-perl
           sudo apt-get install lintian
