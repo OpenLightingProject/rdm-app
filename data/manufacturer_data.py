@@ -454,6 +454,7 @@ MANUFACTURER_DATA = [
   (0x0758, "IMPOLUX GmbH"),
   (0x075F, "LEDEngin Inc."),
   (0x076A, "BeamZ  (Tronios B.V.)"),
+  (0x076E, "DecoLed, LLC"),
   (0x0776, "lumenetix"),
   (0x077B, "GENLED Brands"),
   (0x078A, "FATEC sarl"),
