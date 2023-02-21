@@ -382,6 +382,7 @@ MANUFACTURER_DATA = [
   (0x0622, "Lupo SRL"),
   (0x0623, "JAS LIGHTING & SOUND CO., LTD."),
   (0x0624, "S4 Lights"),
+  (0x062A, "LEDstructures"),
   (0x062B, "CKC Lighting Co., Ltd."),
   (0x063A, "AVM Belgium BVBA"),
   (0x063C, "LaserNet"),
