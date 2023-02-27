@@ -552,6 +552,7 @@ MANUFACTURER_DATA = [
   (0x0877, "Skaff New Zealand Ltd"),
   (0x0878, "OTTEC Technology GmbH"),
   (0x087A, "Dextra Group Plc"),
+  (0x087C, "Telectran International Pty Ltd."),
   (0x087D, "TPV Technology Group"),
   (0x0880, "GuangZhou LiDang Technology Inc."),
   (0x0883, "CEE Lighting Equipment Co.Ltd"),
