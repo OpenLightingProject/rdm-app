@@ -457,6 +457,7 @@ MANUFACTURER_DATA = [
   (0x076E, "DecoLed, LLC"),
   (0x0776, "lumenetix"),
   (0x077B, "GENLED Brands"),
+  (0x0782, "R9 Lighting"),
   (0x078A, "FATEC sarl"),
   (0x078E, "SHENZHEN BGLOPTO TECHNOLOGY Co., LTD."),
   (0x0792, "MY-Semi Inc."),
