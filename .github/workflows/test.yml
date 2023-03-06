@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Update package database
-        run: apt-get update -y
+        run: sudo apt-get update -y
       - name: Install dependencies
         env:
           TASK: ${{ matrix.task }}
