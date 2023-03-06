@@ -2,6 +2,7 @@
       grep -v "./.travis-ci.sh: Eletronic -> Electronic" | \
         grep -v "./data/manufacturer_data.py: Eletronic -> Electronic" | \
         grep -v "./.travis-ci.sh: Eletronic -> Electronic"
+  (0x0080, "Shenzhen AOTO Electronics Co., Ltd."),
   (0x0082, "LKE Lasershowtechnik GmbH"),
   (0x00B9, "Guangzhou Baiyun District Sanjie Eletronic Stage Lighting Audio Equipment Factory"),
   (0x01B2, "DJSI Schinstad ANS (Northern Light)"),
@@ -9,6 +10,7 @@
   (0x030F, "Guangzhou Litewise Lighting Equipments Co., Ltd. dba \"EK Lights\""),
   (0x0440, "Guangzhou VAS Lighting Co., Ltd."),
   (0x067A, "Inster Co, Ltd"),
+  (0x072D, "Sting Alleman"),
   (0x07F9, "Bion Technologies GmbH"),
   (0x0933, "Beyond Lighting WLL"),
   (0x096F, "Shenzhen showho technolgy co.,ltd"),
