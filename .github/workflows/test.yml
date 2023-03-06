@@ -23,10 +23,7 @@ jobs:
           if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
           #if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/codespell-project/codespell.git; fi
           if [ "$TASK" = "codespell" ]; then pip install codespell; fi
-          sudo apt-get install xvfb
-          sudo apt-get install libhtml-parser-perl
-          sudo apt-get install lintian
-          sudo apt-get install moreutils
+          sudo apt-get install xvfb libhtml-parser-perl lintian moreutils
       - uses: codespell-project/codespell-problem-matcher@v1
       - name: Test
         env:
