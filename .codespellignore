@@ -12,6 +12,7 @@
   (0x067A, "Inster Co, Ltd"),
   (0x072D, "Sting Alleman"),
   (0x07F9, "Bion Technologies GmbH"),
+  (0x0912, "ags - Wissenschaftliche Arbeitsgemeinschaft fur Studio- und Senderfragen"),
   (0x0933, "Beyond Lighting WLL"),
   (0x096F, "Shenzhen showho technolgy co.,ltd"),
   (0x0931, "Cristal Controles"),
@@ -28,3 +29,4 @@
 return'{'+pairs.join(',')+'}';}};$.evalJSON=typeof JSON==='object'&&JSON.parse?JSON.parse:function(src){return eval('('+src+')');};$.secureEvalJSON=typeof JSON==='object'&&JSON.parse?JSON.parse:function(src){var filtered=src.replace(/\\["\\\/bfnrtu]/g,'@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,']').replace(/(?:^|:|,)(?:\s*\[)+/g,'');if(/^[\],:{}\s]*$/.test(filtered)){return eval('('+src+')');}else{throw new SyntaxError('Error parsing JSON, source is not valid.');}};$.quoteString=function(string){if(string.match(escapeable)){return'"'+string.replace(escapeable,function(a){var c=meta[a];if(typeof c==='string'){return c;}
     --passin \
      'link': 'http://www.ljusdesign.se/produkt/styrning/adhoc-dmx-splitter-din/',
+  "forin": true,
