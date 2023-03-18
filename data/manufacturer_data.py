@@ -696,6 +696,7 @@ MANUFACTURER_DATA = [
   (0x093F, "Guangzhou Julong Platform Lighting Equipment Factory"),
   (0x0940, "Shenzhen CreateLED Electronics Co., Ltd"),
   (0x0941, "Shenzen Zhuoyang Intelligent Technology Co., Ltd."),
+  (0x0943, "Guangzhou Guangying Optoelectronics Co., Ltd"),
   (0x0945, "Guangzhou Lin Xiang Stage Lighting Equipment CO.,LTD"),
   (0x0946, "TBE Srl"),
   (0x0947, "Shenzhen MOSO Electronics Technology Co., Ltd"),
