@@ -129,6 +129,7 @@ class PidDefinitionsAsProto(webapp.RequestHandler):
       manufacturers = []
       query = Manufacturer.all()
       query.order('name')
+      query.order('esta_id')
       for manufacturer in query:
         if manufacturer.esta_id in [self.ESTA_ID, 0xffff]:
           continue
