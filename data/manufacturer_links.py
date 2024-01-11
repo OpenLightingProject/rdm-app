@@ -28,7 +28,7 @@ MANUFACTURER_LINKS = [
   (0x00A9, "http://www.richter-lt.de"),
   (0x00B0, "http://www.arenaluci.com/"),
   (0x00B9, "http://en.gzsjlight.com/"),
-  (0x0104, "https://www.blizzardlighting.com/"),
+  (0x0104, "https://www.blizzardpro.com/"),
   (0x01CC, "https://portmanlights.com/"),
   (0x01CD, "http://www.compulite.com/"),
   (0x01D8, "https://daniellarge.co.uk/"),
