@@ -35,7 +35,7 @@ MANUFACTURER_LINKS = [
   (0x0206, "http://www.studiodue.com/"),
   (0x026F, "https://www.acuitybrands.com/"),
   (0x02B0, "https://dmxcontrol-projects.org/"),
-  (0x02E1, "http://www.taittowers.com/"),
+  (0x02E1, "https://www.taittowers.com/"),
   (0x02EA, "https://www.disguise.one/"),
   (0x02EC, "https://www.lutron.com/en-US/Pages/default.aspx"),  # Their redirects don't play nicely with Python
   # (0x02ED, "http://www.openlx.org.uk/"),  # Website currently gone
