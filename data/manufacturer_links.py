@@ -146,7 +146,7 @@ MANUFACTURER_LINKS = [
   (0x544C, "http://tempest.biz/"),
   (0x564C, "http://www.vari-lite.com/"),
   (0x5753, "http://wirelessdmx.com"),
-  # (0x5759, "https://www.wybron.com/"),  # SSL cert expired
+  (0x5759, "https://www.wybron.com/"),
   (0x586D, "http://www.doityourselfchristmas.com/"),
   (0x6205, "http://www.ltechonline.com/"),
   (0x6364, "http://www.lanbox.com/"),
@@ -159,7 +159,7 @@ MANUFACTURER_LINKS = [
   (0x6A6B, "https://dmxking.com/"),
   (0x6D62, "http://www.proled.com/"),
   (0x7068, "https://www.pharoscontrols.com/"),
-  (0x736C, "https://www.strandlighting.com/"),
+  # (0x736C, "https://www.strandlighting.com/"),  # Now part of Vari-Lite
   (0x780E, "https://www.mole.com/"),
   (0x7A70, "https://www.openlighting.org/"),
   (0x7FF0, "https://tsp.esta.org/tsp/working_groups/CP/cp.html"),
