@@ -28,14 +28,14 @@ MANUFACTURER_LINKS = [
   (0x00A9, "http://www.richter-lt.de"),
   (0x00B0, "http://www.arenaluci.com/"),
   (0x00B9, "http://en.gzsjlight.com/"),
-  (0x0104, "https://www.blizzardlighting.com/"),
+  (0x0104, "https://www.blizzardpro.com/"),
   (0x01CC, "https://portmanlights.com/"),
   (0x01CD, "http://www.compulite.com/"),
   (0x01D8, "https://daniellarge.co.uk/"),
   (0x0206, "http://www.studiodue.com/"),
   (0x026F, "https://www.acuitybrands.com/"),
   (0x02B0, "https://dmxcontrol-projects.org/"),
-  (0x02E1, "http://www.taittowers.com/"),
+  (0x02E1, "https://www.taittowers.com/"),
   (0x02EA, "https://www.disguise.one/"),
   (0x02EC, "https://www.lutron.com/en-US/Pages/default.aspx"),  # Their redirects don't play nicely with Python
   # (0x02ED, "http://www.openlx.org.uk/"),  # Website currently gone
@@ -67,6 +67,7 @@ MANUFACTURER_LINKS = [
   (0x08A6, "https://impulswerk.de"),
   (0x08EA, "https://www.cedarled.com/"),
   (0x08C5, "https://ehrgeiz.glp.de/"),
+  (0x0960, "https://www.whitelight.ltd.uk/"),
   (0x0960, "https://fineline.solutions/"),
   (0x097A, "http://teamboyce.com/"),
   (0x097F, "https://raumzeitlabor.de/"),
@@ -146,7 +147,7 @@ MANUFACTURER_LINKS = [
   (0x544C, "http://tempest.biz/"),
   (0x564C, "http://www.vari-lite.com/"),
   (0x5753, "http://wirelessdmx.com"),
-  # (0x5759, "https://www.wybron.com/"),  # SSL cert expired
+  (0x5759, "https://www.wybron.com/"),
   (0x586D, "http://www.doityourselfchristmas.com/"),
   (0x6205, "http://www.ltechonline.com/"),
   (0x6364, "http://www.lanbox.com/"),
@@ -159,7 +160,7 @@ MANUFACTURER_LINKS = [
   (0x6A6B, "https://dmxking.com/"),
   (0x6D62, "http://www.proled.com/"),
   (0x7068, "https://www.pharoscontrols.com/"),
-  (0x736C, "https://www.strandlighting.com/"),
+  # (0x736C, "https://www.strandlighting.com/"),  # Now part of Vari-Lite
   (0x780E, "https://www.mole.com/"),
   (0x7A70, "https://www.openlighting.org/"),
   (0x7FF0, "https://tsp.esta.org/tsp/working_groups/CP/cp.html"),
