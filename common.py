@@ -22,6 +22,7 @@ import datetime
 import logging
 import memcache_keys
 import textwrap
+from google.appengine.api import app_identity
 from google.appengine.api import mail
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
@@ -136,15 +137,20 @@ def MaybeSendEmail(new_responder_count):
   query = UploadedResponderInfo.all()
   query.filter('processed = ', False)
   if query.count() == new_responder_count:
+    is_live_site = (app_identity.get_application_id() == "rdmprotocol-hrd")
     message = mail.EmailMessage(
-        sender='RDM Site <support@rdmprotocol-hrd.appspotmail.com>',
+        sender=('%sRDM Site <support@%s.appspotmail.com>' %
+                (("" if is_live_site else (
+                  app_identity.get_application_id() + " ")),
+                 app_identity.get_application_id())),
         subject='Pending Moderation Requests',
         to='<nomis52@gmail.com>',
     )
     message.body = textwrap.dedent("""\
       There are new responders in the moderation queue.
-      Please visit http://rdm.openlighting.org/admin/moderate_responder_data
-    """)
+      Please visit http://%s/admin/moderate_responder_data
+    """ % ("rdm.openlighting.org" if is_live_site else (
+           app_identity.get_application_id() + ".appspot.com")))
     message.send()
 
 
