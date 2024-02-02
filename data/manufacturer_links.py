@@ -45,6 +45,7 @@ MANUFACTURER_LINKS = [
   (0x044E, "http://benpeoples.com/"),
   (0x0455, "https://lampandpencil.com/"),
   (0x04FC, "http://strong.lighting/"),
+  (0x0504, "https://ezevent.net/"),  # One of their brand names
   (0x050A, "https://secure.chamsys.co.uk/"),
   (0x0529, "https://www.osram.com/"),
   (0x056B, "https://www.cosmolight.it/"),
