@@ -327,6 +327,7 @@ MANUFACTURER_DATA = [
   (0x0412, "D's DMX"),
   (0x041C, "IMLIGHT"),
   (0x0424, "FLUX ECLAIRAGE"),
+  (0x0430, "BOE MLED Technology Co., Ltd"),
   (0x0440, "Guangzhou VAS Lighting Co., Ltd."),
   (0x044E, "Ben Peoples Industries, LLC"),
   (0x044F, "B2 Co., Ltd."),
