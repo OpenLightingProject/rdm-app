@@ -68,7 +68,7 @@ MANUFACTURER_LINKS = [
   (0x08A6, "https://impulswerk.de"),
   (0x08EA, "https://www.cedarled.com/"),
   (0x08C5, "https://ehrgeiz.glp.de/"),
-  (0x0960, "https://www.whitelight.ltd.uk/"),
+  (0x0957, "https://www.whitelight.ltd.uk/"),
   (0x0960, "https://fineline.solutions/"),
   (0x097A, "http://teamboyce.com/"),
   (0x097F, "https://raumzeitlabor.de/"),
