@@ -185,6 +185,8 @@ MANUFACTURER_DATA = [
   (0x018F, "Guangzhou YiCheng Light Industry Ltd."),
   (0x0190, "Wizlogics Co., Ltd."),
   (0x0191, "Sycra Technologies"),
+  (0x0192, "Metro Marine LLC"),
+  (0x0193, "DMF Lighting"),
   (0x0199, "Ocean LED Marine Ltd."),
   (0x019A, "TwoGain Electronics"),
   (0x019B, "ElectroTAS Soluciones Profesionales"),
