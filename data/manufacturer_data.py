@@ -279,6 +279,7 @@ MANUFACTURER_DATA = [
   (0x02B1, "Global Design Solutions Korea"),
   (0x02B2, "Guangzhou Harbinger Co., Ltd."),
   (0x02BA, "Chainzone Technology (Foshan) Co., Ltd."),
+  (0x02BC, "PXP Technology"),
   (0x02BD, "RE-Engineering"),
   (0x02C8, "Growflux LLC"),
   (0x02C9, "Theatrixx Technologies"),
