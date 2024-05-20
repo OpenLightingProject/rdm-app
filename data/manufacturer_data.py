@@ -515,6 +515,7 @@ MANUFACTURER_DATA = [
   (0x07B5, "ARM Automation, Inc"),
   (0x07B6, "Minleon USA"),
   (0x07B8, "Zhuhai Demi Technology Co., Ltd."),
+  (0x07BA, "Tradia Co., LTD"),
   (0x07BB, "Shenzhen SOSEN Electronics Co., Ltd."),
   (0x07BE, "Sanko Device Co.Ltd."),
   (0x07C0, "Code Mercenaries GmbH"),
