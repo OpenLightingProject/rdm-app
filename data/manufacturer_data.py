@@ -780,6 +780,7 @@ MANUFACTURER_DATA = [
   (0x0949, "Shenzhen Jiuzhou Optoelectronic Technology"),
   (0x094A, "Funovation, Inc"),
   (0x094B, "Invisua Lighting BV"),
+  (0x094C, "Shenzhen Xiezhen Electronics Co., Ltd."),
   (0x094D, "Quantum Theory"),
   (0x0951, "Guangzhou GTD Lighting Technology Co., Ltd"),
   (0x0952, "Guangzhou Sunway Entertainment Equipment Co., Ltd."),
