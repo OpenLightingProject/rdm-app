@@ -803,6 +803,7 @@ MANUFACTURER_DATA = [
   (0x0965, "Fontana Fountains"),
   (0x0967, "Arcus Licht- und Praesentationstechnik GmbH"),
   (0x0968, "Guangzhou Beyond Lighting Co., Limited."),
+  (0x096C, "Guangzhou Nebula Stage Lighting Equipment Co., Ltd"),
   (0x096D, "Guangzhou Xin Yilong Stage Lighting Equipment Co., Limited"),
   (0x096F, "Shenzhen showho technolgy co.,ltd"),
   (0x0972, "Holochrom GmbH"),
