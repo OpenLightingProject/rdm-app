@@ -476,6 +476,7 @@ MANUFACTURER_DATA = [
   (0x070E, "PragmaLab"),
   (0x070F, "Theatrelight New Zealand"),
   (0x0710, "D.T.S. Illuminazione srl"),
+  (0x0711, "Halonix Technologies Pvt Ltd."),
   (0x0712, "Laser Imagineering GmbH"),
   (0x071A, "YHX Visual"),
   (0x071F, "Moss LED Inc"),
