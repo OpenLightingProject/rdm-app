@@ -628,6 +628,7 @@ MANUFACTURER_DATA = [
   (0x087C, "Telectran International Pty Ltd."),
   (0x087D, "TPV Technology Group"),
   (0x0880, "GuangZhou LiDang Technology Inc."),
+  (0x0881, "Shenzhen Genesis-Systech Co., Ltd."),
   (0x0883, "CEE Lighting Equipment Co.Ltd"),
   (0x0884, "Bright Group"),
   (0x0885, "SIRS-E"),
