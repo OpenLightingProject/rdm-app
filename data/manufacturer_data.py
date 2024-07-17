@@ -876,6 +876,7 @@ MANUFACTURER_DATA = [
   (0x09C7, "ShoCobra"),
   (0x09C8, "Crystal Fountains Inc."),
   (0x09CC, "Motomuto Aps"),
+  (0x09D0, "Luminar Enterprises"),
   (0x09D1, "Environmental Lights"),
   (0x09D2, "Shenzhen Siwelo Technology Co., LTD"),
   (0x09D3, "WLPS Wodielite Production Services"),
