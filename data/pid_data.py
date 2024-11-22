@@ -5371,6 +5371,126 @@ ESTA_PIDS = [
   'name': 'LOCK_STATE_DESCRIPTION',
   'value': 0x0642},
 
+ # IDENTIFY_TIMEOUT
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'timeout', 'type': 'uint16',
+     'labels': [(0, 'Disabled')],
+    }
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'IDENTIFY_TIMEOUT',
+  'set_request': {
+                  'items': [{'name': 'timeout',
+                             'type': 'uint16',
+                             'labels': [(0, 'Disabled')],
+                            }]
+                 },
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'value': 0x1050},
+
+ # SHIPPING_LOCK
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'shipping_lock_state', 'type': 'uint8',
+     'labels': [(0, 'Unlocked'),
+                (1, 'Locked'),
+                (2, 'Partially Locked'),]
+    },
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'SHIPPING_LOCK',
+  'set_request': {'items': [
+    {'name': 'shipping_lock_state', 'type': 'uint8',
+     'labels': [(0, 'Unlocked'),
+                (1, 'Locked'),]
+    },
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0650},
+
+ # POWER_OFF_READY
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'power_off_ready', 'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'name': 'POWER_OFF_READY',
+  'value': 0x1051},
+
+ # TEST_DATA
+ {'get_request': {'items': [
+    {'name': 'pattern_length', 'type': 'uint16', 'range': [(0, 0x1000)]}
+  ]},
+  'get_response': {'items': [
+    {'type': 'group', 'name': 'pattern_data', 'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'TEST_DATA',
+  'set_request': {'items': [
+    {'type': 'group',
+     'name': 'loopback_data',
+     'max_size': 231,
+     'min_size': 0,
+     'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'set_response': {'items': [
+    {'type': 'group', 'name': 'loopback_data', 'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'set_sub_device_range': 1,
+  'value': 0x0016},
+
+ # DEVICE_UNIT_NUMBER
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    'name': 'device_unit_number',
+    'type': 'uint32',
+    'labels': [(0, 'Un-set')],
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'DEVICE_UNIT_NUMBER',
+  'set_request': {'items': [{
+    'name': 'device_unit_number',
+    'type': 'uint32',
+    'range': [(1, 0xFFFFFFFF)],
+    'labels': [(0, 'Un-set')],
+  }]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 2,
+  'value': 0x0656},
+
+ # SENSOR_TYPE_CUSTOM
+ {'get_request': {'items': [
+    {'name': 'sensor_type_define', 'type': 'uint8',
+     'range': [(0x80, 0xff)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'sensor_type_define', 'type': 'uint8'},
+    {'name': 'sensor_type_text_label', 'type': 'string', 'max_size': 32},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'SENSOR_TYPE_CUSTOM',
+  'value': 0x0210},
+
+ # SENSOR_UNIT_CUSTOM
+ {'get_request': {'items': [
+    {'name': 'sensor_unit_define', 'type': 'uint8',
+     'range': [(0x80, 0xff)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'sensor_unit_define', 'type': 'uint8'},
+    {'name': 'sensor_unit_text_label', 'type': 'string', 'max_size': 32},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'SENSOR_UNIT_CUSTOM',
+  'value': 0x0211},
+
  # These are ordered to match how they appear in E1.37-7
  # ENDPOINT_LIST
  {'get_request': {'items': []},
