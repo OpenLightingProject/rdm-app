@@ -5398,7 +5398,7 @@ ESTA_PIDS = [
                               'type': 'string'}]},
   'get_sub_device_range': 2,
   'name': 'MANUFACTURER_URL',
-  'value': 0x00d1},
+  'value': 0x00d0},
 
  # PRODUCT_URL
  {'get_request': {'items': []},
