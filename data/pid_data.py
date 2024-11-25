@@ -6116,7 +6116,7 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'scope_slot', 'type': 'uint16',
      'range': [(1, 65535)]},
-    {'name': 'scope_string', 'type': 'string', 'max_size': 63},
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63},
     {'name': 'static_config_type', 'type': 'uint8',
      'range': [(0, 2)],
      'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
@@ -6133,7 +6133,7 @@ ESTA_PIDS = [
   'set_request': {'items': [
     {'name': 'scope_slot', 'type': 'uint16',
      'range': [(1, 65535)]},
-    {'name': 'scope_string', 'type': 'string', 'max_size': 63},
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63},
     {'name': 'static_config_type', 'type': 'uint8',
      'range': [(0, 2)],
      'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
@@ -6170,7 +6170,8 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'comms_statuses',
      'type': 'group',
-     'items': [{'name': 'scope_string', 'type': 'string', 'max_size': 63},
+     'items': [{'name': 'scope_string', 'type': 'string',
+                'min_size': 63, 'max_size': 63},
                {'name': 'broker_ipv4_address', 'type': 'ipv4',
                 'labels': [(0, 'No IPv4 Connection')]},
                {'name': 'broker_ipv6_address', 'type': 'ipv6',
@@ -6181,7 +6182,7 @@ ESTA_PIDS = [
   'get_sub_device_range': 0,
   'name': 'TCP_COMMS_STATUS',
   'set_request': {'items': [
-    {'name': 'scope_string', 'type': 'string', 'max_size': 63}
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63}
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
