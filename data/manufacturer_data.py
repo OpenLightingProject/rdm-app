@@ -594,6 +594,7 @@ MANUFACTURER_DATA = [
   (0x0812, "Yamagiwa Corporation"),
   (0x0813, "Shenzhen Scenico Optoelectronic Co., Ltd."),
   (0x0814, "squareV"),
+  (0x0816, "Benjamin Graf Ton- und Medientechnik"),
   (0x081C, "MR Electronics Ltd."),
   (0x081E, "LOBO Electronic GmbH"),
   (0x0822, "Hangzhou YD Illumination Co., Ltd"),
