@@ -622,6 +622,7 @@ MANUFACTURER_DATA = [
   (0x084F, "Mantic Lighting Co.,Ltd"),
   (0x0850, "Proland Group, LLC"),
   (0x0851, "Junction Inc. Ltd"),
+  (0x0853, "Royal Ballet and Opera"),
   (0x0854, "Sharp NEC Display Solutions, Ltd."),
   (0x0855, "GODOX Photo Equipment Co., Ltd."),
   (0x0856, "Ctrl Element ehf"),
