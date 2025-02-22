@@ -300,6 +300,7 @@ MANUFACTURER_DATA = [
   (0x02EF, "ABLETECH Co., Ltd."),
   (0x02F0, "iColor LED Shenzhen Co., Ltd."),
   (0x02F1, "Lichtmanufaktur Berlin GmbH"),
+  (0x02FE, "L8 LLC"),
   (0x02FF, "Guangzhou Eway Stage Equipment Technology Co., Ltd."),
   (0x0302, "Swefog Technology Group AB"),
   (0x0303, "Shanghai Moons' Automation Control Co., Ltd"),
