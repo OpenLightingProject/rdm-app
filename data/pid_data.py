@@ -5371,6 +5371,393 @@ ESTA_PIDS = [
   'name': 'LOCK_STATE_DESCRIPTION',
   'value': 0x0642},
 
+ # These are ordered to match how they appear in E1.37-5
+ # IDENTIFY_TIMEOUT
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'timeout', 'type': 'uint16',
+     'labels': [(0, 'Disabled')],
+    }
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'IDENTIFY_TIMEOUT',
+  'set_request': {
+                  'items': [{'name': 'timeout',
+                             'type': 'uint16',
+                             'labels': [(0, 'Disabled')],
+                            }]
+                 },
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'value': 0x1050},
+
+ # MANUFACTURER_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'MANUFACTURER_URL',
+  'value': 0x00d0},
+
+ # PRODUCT_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'PRODUCT_URL',
+  'value': 0x00d1},
+
+ # FIRMWARE_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'FIRMWARE_URL',
+  'value': 0x00d2},
+
+ # SHIPPING_LOCK
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'shipping_lock_state', 'type': 'uint8',
+     'labels': [(0, 'Unlocked'),
+                (1, 'Locked'),
+                (2, 'Partially Locked'),]
+    },
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'SHIPPING_LOCK',
+  'set_request': {'items': [
+    {'name': 'shipping_lock_state', 'type': 'uint8',
+     'labels': [(0, 'Unlocked'),
+                (1, 'Locked'),]
+    },
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0650},
+
+ # POWER_OFF_READY
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'power_off_ready', 'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'name': 'POWER_OFF_READY',
+  'value': 0x1051},
+
+ # SERIAL_NUMBER
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'serial',
+                              'max_size': 231,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'SERIAL_NUMBER',
+  'value': 0x00d3},
+
+ # TEST_DATA
+ {'get_request': {'items': [
+    {'name': 'pattern_length', 'type': 'uint16', 'range': [(0, 0x1000)]}
+  ]},
+  'get_response': {'items': [
+    {'type': 'group', 'name': 'pattern_data', 'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'TEST_DATA',
+  'set_request': {'items': [
+    {'type': 'group',
+     'name': 'loopback_data',
+     'max_size': 231,
+     'min_size': 0,
+     'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'set_response': {'items': [
+    {'type': 'group', 'name': 'loopback_data', 'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'set_sub_device_range': 1,
+  'value': 0x0016},
+
+ # COMMS_STATUS_NSC
+ {'get_request': {'items': []},
+  # This is a bit set, TODO(Peter): Work out how best to implement this
+  'get_response': {'items': [{'name': 'supported_fields', 'type': 'uint8'},
+                             {'name': 'additive_checksum_of_most_recent_nsc_packet',
+                              'type': 'uint32',
+                              'labels': [(0xffffffff, 'Not Supported')]},
+                             {'name': 'nsc_packet_count',
+                              'type': 'uint32',
+                              'labels': [(0xffffffff, 'Not Supported')]},
+                             {'name': 'nsc_most_recent_slot_count',
+                              'type': 'uint16',
+                              'labels': [(0xffff, 'Not Supported')]},
+                             {'name': 'nsc_minimum_slot_count',
+                              'type': 'uint16',
+                              'labels': [(0xffff, 'Not Supported')]},
+                             {'name': 'nsc_maximum_slot_count',
+                              'type': 'uint16',
+                              'labels': [(0xffff, 'Not Supported')]},
+                             {'name': 'nsc_error_count',
+                              'type': 'uint32',
+                              'labels': [(0xffffffff, 'Not Supported')]},
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'COMMS_STATUS_NSC',
+  'set_request': {'items': []},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0017},
+
+ # LIST_TAGS
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'tags',
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'LIST_TAGS',
+  'value': 0x0651},
+
+ # ADD_TAG
+ {'set_request': {'items': [{'name': 'tag',
+                             'type': 'string',
+                             'max_size': 32}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'ADD_TAG',
+  'value': 0x0652},
+
+ # REMOVE_TAG
+ {'set_request': {'items': [{'name': 'tag',
+                             'type': 'string',
+                             'max_size': 32}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'REMOVE_TAG',
+  'value': 0x0653},
+
+ # CHECK_TAG
+ {'get_request': {'items': [{'name': 'tag',
+                             'type': 'string',
+                             'max_size': 32}]},
+  'get_response': {'items': [{'name': 'tag_status',
+                              'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'name': 'CHECK_TAG',
+  'value': 0x0654},
+
+ # CLEAR_TAGS
+ {'set_request': {'items': []},
+  'set_response': {'items': []},
+  'set_sub_device_range': 3,
+  'name': 'CLEAR_TAGS',
+  'value': 0x0655},
+
+ # DEVICE_UNIT_NUMBER
+ {'get_request': {'items': []},
+  'get_response': {'items': [{
+    'name': 'device_unit_number',
+    'type': 'uint32',
+    'labels': [(0, 'Un-set')],
+  }]},
+  'get_sub_device_range': 2,
+  'name': 'DEVICE_UNIT_NUMBER',
+  'set_request': {'items': [{
+    'name': 'device_unit_number',
+    'type': 'uint32',
+    'range': [(1, 0xFFFFFFFF)],
+    'labels': [(0, 'Un-set')],
+  }]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 2,
+  'value': 0x0656},
+
+ # DMX_PERSONALITY_ID
+ {'get_request': {'items': [{'name': 'personality', 'type': 'uint8', 'range': [
+                    (1, 0xff)]
+                  }]},
+  'get_response': {'items': [
+    {'name': 'personality', 'type': 'uint8'},
+    {'name': 'major_personality_id', 'type': 'uint16'},
+    {'name': 'minor_personality_id', 'type': 'uint16'},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'DMX_PERSONALITY_ID',
+  'value': 0x00e2},
+
+ # DEVICE_INFO_OFFSTAGE
+ {'get_request': {'items': [
+    {'name': 'root_personality_requested',
+     'type': 'uint8',
+     'range': [(1, 0xff)]},
+    {'name': 'sub_device_requested',
+     'type': 'uint16',
+     'range': [(1, 0x0200)],
+     'labels': [(0, 'Root')]},
+    {'name': 'sub_device_personality_requested',
+     'type': 'uint8',
+     'range': [(1, 0xff)],
+     'labels': [(0, 'Root Device')]}
+  ]},
+  'get_response': {'items': [{'name': 'root_personality_requested',
+                              'type': 'uint8'},
+                             {'name': 'sub_device_requested',
+                              'type': 'uint16',
+                              'labels': [(0, 'Root')]},
+                             {'name': 'sub_device_personality_requested',
+                              'type': 'uint8',
+                              'labels': [(0, 'Root Device')]},
+                             {'name': 'protocol_major', 'type': 'uint8'},
+                             {'name': 'protocol_minor', 'type': 'uint8'},
+                             {'name': 'device_model', 'type': 'uint16'},
+                             {'name': 'product_category',
+                              'type': 'uint16',
+                              'labels': [(0x0000, 'Not declared'),
+                                         (0x0100, 'Fixture'),
+                                         (0x0101, 'Fixed fixture'),
+                                         (0x0102, 'Moving yoke fixture'),
+                                         (0x0103, 'Moving mirror fixture'),
+                                         (0x01ff, 'Fixture other'),
+                                         (0x0200, 'Fixture accessory'),
+                                         (0x0201, 'Fixture accessory color'),
+                                         (0x0202, 'Fixture accessory yoke'),
+                                         (0x0203, 'Fixture accessory mirror'),
+                                         (0x0204, 'Fixture accessory effect'),
+                                         (0x0205, 'Fixture accessory beam'),
+                                         (0x02ff, 'Fixture accessory other'),
+                                         (0x0300, 'Projector'),
+                                         (0x0301, 'Projector fixed'),
+                                         (0x0302, 'Projector moving yoke'),
+                                         (0x0303, 'Projector moving mirror'),
+                                         (0x03ff, 'Projector other'),
+                                         (0x0400, 'Atmospheric'),
+                                         (0x0401, 'Atmospheric effect'),
+                                         (0x0402, 'Atmospheric pyro'),
+                                         (0x04ff, 'Atmospheric other'),
+                                         (0x0500, 'Dimmer'),
+                                         (0x0501, 'Dimmer AC incandescent'),
+                                         (0x0502, 'Dimmer AC fluorescent'),
+                                         (0x0503, 'Dimmer AC cold cathode'),
+                                         (0x0504, 'Dimmer AC no dim'),
+                                         (0x0505, 'Dimmer AC ELV'),
+                                         (0x0506, 'Dimmer AC other'),
+                                         (0x0507, 'Dimmer DC level'),
+                                         (0x0508, 'Dimmer DC PWM'),
+                                         (0x0509, 'Dimmer DC LED'),
+                                         (0x05ff, 'Dimmer other'),
+                                         (0x0600, 'Power'),
+                                         (0x0601, 'Power control'),
+                                         (0x0602, 'Power source'),
+                                         (0x06ff, 'Power other'),
+                                         (0x0700, 'Scenic'),
+                                         (0x0701, 'Scenic drive'),
+                                         (0x07ff, 'Scenic other'),
+                                         (0x0800, 'Data'),
+                                         (0x0801, 'Data distribution'),
+                                         (0x0802, 'Data conversion'),
+                                         (0x08ff, 'Data other'),
+                                         (0x0900, 'A/V'),
+                                         (0x0901, 'A/V audio'),
+                                         (0x0902, 'A/V video'),
+                                         (0x09ff, 'AV other'),
+                                         (0x0a00, 'Monitor'),
+                                         (0x0a01, 'AC line power monitor'),
+                                         (0x0a02, 'DC power monitor'),
+                                         (0x0a03, 'Environmental monitor'),
+                                         (0x0aff, 'Other monitor'),
+                                         (0x7000, 'Control'),
+                                         (0x7001, 'Controller'),
+                                         (0x7002, 'Backup device'),
+                                         (0x70ff, 'Other control'),
+                                         (0x7100, 'Test'),
+                                         (0x7101, 'Test equipment'),
+                                         (0x71ff, 'Test equipment other'),
+                                         (0x7fff, 'Other')],
+                              'range': [(0x0000, 0x0000),
+                                        (0x0100, 0x0103),
+                                        (0x01ff, 0x0205),
+                                        (0x02ff, 0x0303),
+                                        (0x03ff, 0x0402),
+                                        (0x04ff, 0x0509),
+                                        (0x05ff, 0x0602),
+                                        (0x06ff, 0x0701),
+                                        (0x07ff, 0x0802),
+                                        (0x08ff, 0x0902),
+                                        (0x09ff, 0x0a03),
+                                        (0x0aff, 0x0aff),
+                                        (0x7000, 0x7002),
+                                        (0x70ff, 0x7101),
+                                        (0x7fff, 0x7fff),
+                                        (0x8000, 0xdfff)]},
+                             {'name': 'software_version',
+                              'type': 'uint32'},
+                             {'name': 'dmx_footprint', 'type': 'uint16'},
+                             {'name': 'current_personality',
+                              'type': 'uint8'},
+                             {'name': 'personality_count',
+                              'type': 'uint8'},
+                             {'name': 'dmx_start_address', 'type': 'uint16'},
+                             {'name': 'sub_device_count',
+                              'type': 'uint16'},
+                             {'name': 'sensor_count', 'type': 'uint8'}]},
+  'get_sub_device_range': 0,
+  'name': 'DEVICE_INFO_OFFSTAGE',
+  'value': 0x00d4},
+
+ # SENSOR_TYPE_CUSTOM
+ {'get_request': {'items': [
+    {'name': 'sensor_type_define', 'type': 'uint8',
+     'range': [(0x80, 0xff)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'sensor_type_define', 'type': 'uint8'},
+    {'name': 'sensor_type_text_label', 'type': 'string', 'max_size': 32},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'SENSOR_TYPE_CUSTOM',
+  'value': 0x0210},
+
+ # SENSOR_UNIT_CUSTOM
+ {'get_request': {'items': [
+    {'name': 'sensor_unit_define', 'type': 'uint8',
+     'range': [(0x80, 0xff)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'sensor_unit_define', 'type': 'uint8'},
+    {'name': 'sensor_unit_text_label', 'type': 'string', 'max_size': 32},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'SENSOR_UNIT_CUSTOM',
+  'value': 0x0211},
+
+ # METADATA_PARAMETER_VERSION
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
+                             {'name': 'version', 'type': 'uint16'}]},
+  'get_sub_device_range': 2,
+  'name': 'METADATA_PARAMETER_VERSION',
+  'value': 0x0052},
+
+ # METADATA_JSON
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
+                             {'name': 'json', 'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'METADATA_JSON',
+  'value': 0x0053},
+
+ # METADATA_JSON_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'METADATA_JSON_URL',
+  'value': 0x0054},
+
  # These are ordered to match how they appear in E1.37-7
  # ENDPOINT_LIST
  {'get_request': {'items': []},
@@ -5729,7 +6116,7 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'scope_slot', 'type': 'uint16',
      'range': [(1, 65535)]},
-    {'name': 'scope_string', 'type': 'string', 'max_size': 63},
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63},
     {'name': 'static_config_type', 'type': 'uint8',
      'range': [(0, 2)],
      'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
@@ -5746,7 +6133,7 @@ ESTA_PIDS = [
   'set_request': {'items': [
     {'name': 'scope_slot', 'type': 'uint16',
      'range': [(1, 65535)]},
-    {'name': 'scope_string', 'type': 'string', 'max_size': 63},
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63},
     {'name': 'static_config_type', 'type': 'uint8',
      'range': [(0, 2)],
      'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
@@ -5783,7 +6170,8 @@ ESTA_PIDS = [
   'get_response': {'items': [
     {'name': 'comms_statuses',
      'type': 'group',
-     'items': [{'name': 'scope_string', 'type': 'string', 'max_size': 63},
+     'items': [{'name': 'scope_string', 'type': 'string',
+                'min_size': 63, 'max_size': 63},
                {'name': 'broker_ipv4_address', 'type': 'ipv4',
                 'labels': [(0, 'No IPv4 Connection')]},
                {'name': 'broker_ipv6_address', 'type': 'ipv6',
@@ -5794,7 +6182,7 @@ ESTA_PIDS = [
   'get_sub_device_range': 0,
   'name': 'TCP_COMMS_STATUS',
   'set_request': {'items': [
-    {'name': 'scope_string', 'type': 'string', 'max_size': 63}
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63}
   ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
