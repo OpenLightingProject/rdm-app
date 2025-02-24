@@ -5568,7 +5568,7 @@ ESTA_PIDS = [
   'set_request': {'items': [{
     'name': 'device_unit_number',
     'type': 'uint32',
-    'range': [(1, 0xFFFFFFFF)],
+    'range': [(0, 0), (1, 0xFFFFFFFF)],
     'labels': [(0, 'Un-set')],
   }]},
   'set_response': {'items': []},
@@ -5595,11 +5595,11 @@ ESTA_PIDS = [
      'range': [(1, 0xff)]},
     {'name': 'sub_device_requested',
      'type': 'uint16',
-     'range': [(1, 0x0200)],
+     'range': [(0, 0), (1, 0x0200)],
      'labels': [(0, 'Root')]},
     {'name': 'sub_device_personality_requested',
      'type': 'uint8',
-     'range': [(1, 0xff)],
+     'range': [(0, 0), (1, 0xff)],
      'labels': [(0, 'Root Device')]}
   ]},
   'get_response': {'items': [{'name': 'root_personality_requested',
