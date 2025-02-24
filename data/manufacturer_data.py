@@ -523,6 +523,7 @@ MANUFACTURER_DATA = [
   (0x0753, "F&V Europe B.V."),
   (0x0758, "IMPOLUX GmbH"),
   (0x075F, "LEDEngin Inc."),
+  (0x0766, "MR-Space LLC"),
   (0x076A, "BeamZ  (Tronios B.V.)"),
   (0x076E, "DecoLed, LLC"),
   (0x0776, "lumenetix"),
