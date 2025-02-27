@@ -605,6 +605,7 @@ MANUFACTURER_DATA = [
   (0x0824, "Almotechnos CO.,LTD."),
   (0x0827, "PIXREAL"),
   (0x0829, "CR-TEC Photoelectric"),
+  (0x082E, "QubiCast GmbH"),
   (0x0832, "Shenzhen EXC-LED Technology Co.,Ltd"),
   (0x0836, "Nyvoll Lys"),
   (0x0838, "LaserAV"),
