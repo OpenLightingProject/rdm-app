@@ -474,6 +474,7 @@ MANUFACTURER_DATA = [
   (0x06C4, "RHENAC Systems GmbH"),
   (0x06C5, "ZHIYUN INFORMATION (INTERNATIONAL) TECHNOLOGY CO., LIMITED"),
   (0x06C7, "L&L Luce&Light"),
+  (0x06C8, "Dongguan Huiguan Culture Technology Co., Ltd."),
   (0x06CA, "Leding"),
   (0x06CE, "American-Pro International"),
   (0x06D1, "BIRUN ELECTRONIC INDUSTRIAL CO., LTD"),
