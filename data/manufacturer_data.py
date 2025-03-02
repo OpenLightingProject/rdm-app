@@ -384,6 +384,7 @@ MANUFACTURER_DATA = [
   (0x0536, "tarm AG"),
   (0x0537, "TERMINAL-COM"),
   (0x0540, "EverBrighten Co., Ltd."),
+  (0x0550, "Pyrotechnics Management, Inc. (PMI)"),
   (0x0555, "Maresch Electronics"),
   (0x0556, "RAYSYS"),
   (0x055F, "PRO-SOLUTIONS"),
