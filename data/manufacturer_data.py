@@ -962,6 +962,7 @@ MANUFACTURER_DATA = [
   (0x09DC, "Froggys Fog"),
   (0x09DD, "Planet Innovation Products Inc"),
   (0x09DE, "Matthias Bauch Software"),
+  (0x09E3, "Powerland Technology Inc."),
   (0x09E9, "Starway"),
   (0x09EE, "Suzhou Pinzong Electronic Technology, CO.,Ltd"),
   (0x09EF, "Andrea Croce"),
