@@ -572,6 +572,7 @@ MANUFACTURER_DATA = [
   (0x07D5, "PHIDA Stage Equipment Co., Ltd"),
   (0x07D6, "Lite Puter Enterprise Co., Ltd."),
   (0x07DA, "Flytech s.r.l."),
+  (0x07DB, "Foshan Yihe Technology Co., Ltd"),
   (0x07DC, "EVLight (Guangzhou) Co.,Ltd."),
   (0x07E2, "Lumi-Tru LTD"),
   (0x07E3, "Lichtlogistik LED Support GmbH"),
