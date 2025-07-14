@@ -758,6 +758,7 @@ MANUFACTURER_DATA = [
   (0x08D8, "W.A. Benjamin Electric Co."),
   (0x08D9, "STILED"),
   (0x08DA, "PLC Intelligent Technology (Shanghai) Co., Ltd."),
+  (0x08DB, "Shenzhen iDisplay Technology Co.,Ltd"),
   (0x08DD, "Matthew Tong"),
   (0x08DE, "Delta Electronics (Jiangsu) Ltd."),
   (0x08DF, "DetaiLED Solutions"),
