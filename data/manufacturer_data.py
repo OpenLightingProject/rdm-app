@@ -366,6 +366,7 @@ MANUFACTURER_DATA = [
   (0x04CA, "RT-DMX"),
   (0x04CC, "Yubang Ruiying (Zhongshan) Electronics Co., LTD"),
   (0x04CE, "Quisda"),
+  (0x04D0, "DMXCube"),
   (0x04D6, "Kessil"),
   (0x04D7, "Targetti Sankey Spa"),
   (0x04D8, "Guangzhou Hong Yuan Electronic Technology Co., LTD."),
