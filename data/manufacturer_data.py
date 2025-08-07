@@ -531,6 +531,7 @@ MANUFACTURER_DATA = [
   (0x0740, "Arkalumen"),
   (0x0744, "DMX Pro Sales, LLC"),
   (0x0745, "Guangzhou Wingo Stage Light Co., Ltd"),
+  (0x0746, "Candela LLC"),
   (0x0748, "Chromateq"),
   (0x074F, "Panasonic Corporation"),
   (0x0753, "F&V Europe B.V."),
