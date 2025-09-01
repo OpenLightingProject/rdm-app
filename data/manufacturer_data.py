@@ -24,6 +24,7 @@ MANUFACTURER_DATA = [
   (0x0001, "GEE"),
   (0x0002, "Abstract AVR Ltd."),
   (0x0003, "Chromatech Lighting Co., Ltd."),
+  (0x0007, "Tauran"),
   (0x0008, "Guangdong Nanguang Photo & Video Systems Co., Ltd."),
   (0x0009, "Aputure Imaging Industries Co., Ltd."),
   (0x000A, "Interactive Imagination Ltd."),
