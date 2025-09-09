@@ -756,6 +756,7 @@ MANUFACTURER_DATA = [
   (0x08C5, "EHRGEIZ Lichttechnik GmbH"),
   (0x08C6, "Guangzhou Ever Famous Electronic Co.,Ltd"),
   (0x08C7, "Shenzhen SOSTRON Technology Co., Ltd"),
+  (0x08C8, "Guangzhou Moli Stage Equipment Co.,Ltd"),
   (0x08C9, "LEDitgo Videowall Germany GmbH"),
   (0x08CA, "Foshan City Xuandao Optoelectronics Equipment Co., Ltd"),
   (0x08CB, "Practical LEDs.com"),
