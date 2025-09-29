@@ -394,6 +394,7 @@ MANUFACTURER_DATA = [
   (0x0556, "RAYSYS"),
   (0x055F, "PRO-SOLUTIONS"),
   (0x0560, "VingtQuatreVolts"),
+  (0x0568, "IDE Corporation"),
   (0x056B, "COSMOLIGHT SRL"),
   (0x056C, "Lumascape Lighting Industries"),
   (0x0573, "JIAXING XINHUALI LIGHTING & SOUNDING CO., LTD."),
