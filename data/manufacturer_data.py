@@ -655,6 +655,7 @@ MANUFACTURER_DATA = [
   (0x0843, "BHL Lichttechniek"),
   (0x0845, "Cush Light LLC"),
   (0x0846, "LDR - Luci della Ribalta Srl"),
+  (0x0847, "SlightLight AB"),
   (0x0848, "SLC - Static Light Company Ltd"),
   (0x084B, "Neon Circus Ltd"),
   (0x084C, "Guangzhou Ba Lin Electronic Technology Co., Ltd."),
