@@ -558,6 +558,7 @@ MANUFACTURER_DATA = [
   (0x078A, "FATEC sarl"),
   (0x078E, "SHENZHEN BGLOPTO TECHNOLOGY Co., LTD."),
   (0x0792, "MY-Semi Inc."),
+  (0x0793, "IMLTLED Technology Co., Ltd."),
   (0x0797, "ARCPROLED Limited"),
   (0x079B, "Pro Church Lights"),
   (0x079F, "VPS Group, LLC"),
