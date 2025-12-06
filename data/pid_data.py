@@ -471,7 +471,7 @@ MANUFACTURER_PIDS = [
              'get_response': {'items': [{'name': 'anti_blind', 'type': 'bool'}]},
              'get_sub_device_range': 2,
              'name': 'CP_ANTI_BLIND',
-             'set_request': {'items': [{'name': 'color_wheel_linear', 'type': 'bool'}]},
+             'set_request': {'items': [{'name': 'anti_blind', 'type': 'bool'}]},
              'set_response': {'items': []},
              'set_sub_device_range': 1,
              'value': 34327},
