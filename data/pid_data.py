@@ -1,4 +1,5 @@
 MANUFACTURER_PIDS = [
+  
   # Creative Lighting
   {'id': 0x00a1,
    'name': 'Creative Lighting',
@@ -125,6 +126,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8005},
    ]
   },
+  
   # ImageCue
   {'id': 0x0308,
    'name': 'Image Cue',
@@ -139,6 +141,7 @@ MANUFACTURER_PIDS = [
        'value': 0x80d0},
    ]
   },
+
   # Ayrton
   {'id': 16761,
    'name': 'Ayrton',
@@ -168,6 +171,7 @@ MANUFACTURER_PIDS = [
              'value': 32771},
     ],
   },
+  
   # Clay Paky
   {'id': 17232,
    'name': 'Clay Paky S.p.A',
@@ -501,6 +505,7 @@ MANUFACTURER_PIDS = [
              'value': 34335},
     ],
   },
+
   # City Theatrical
   {'id': 0x4354,
    'name': 'City Theatrical Inc.',
@@ -1050,6 +1055,7 @@ MANUFACTURER_PIDS = [
        'value': 0xc862},
     ],
   },
+
   # JANDS
   {'id': 0x4a61,
    'name': 'Jands',
@@ -1217,6 +1223,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8002},
     ]
   },
+
   # Martin Professional
   {'id': 0x4d50,
    'name': 'Martin Professional A/S',
@@ -2515,7 +2522,7 @@ MANUFACTURER_PIDS = [
     ],
   },
 
-  #Production Resource Group
+  # Production Resource Group
   {'id': 20562,
    'name': 'Production Resource Group',
    'pids': [
@@ -2701,6 +2708,7 @@ MANUFACTURER_PIDS = [
        'value': 36864},
     ],
   },
+
   # SWISSON AG
   {'id': 0x5377,
    'name': 'SWISSON AG',
@@ -2717,6 +2725,8 @@ MANUFACTURER_PIDS = [
              },
         ],
   },
+
+  # Wireless Solutions
   {'id': 0x5753,
    'name': 'Wireless Solutions',
    'pids': [{'name': 'WDMX_LOGIN',
