@@ -885,7 +885,7 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 0,
        'notes': ('Get/Set the factory settings lock. The factory settings '
                  'lock controls whether factory programmed settings that are '
-                 'not to be changed by the customer can be changed.  An '
+                 'not to be changed by the customer can be changed. An '
                  'example would be RDM UID or MAC addresses.'),
        'value': 0x801a},
 
@@ -2514,6 +2514,8 @@ MANUFACTURER_PIDS = [
        'value': 0x8702},
     ],
   },
+
+  #Production Resource Group
   {'id': 20562,
    'name': 'Production Resource Group',
    'pids': [
