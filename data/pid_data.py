@@ -2928,6 +2928,8 @@ MANUFACTURER_PIDS = [
              'value': 33792}
     ]
   },
+  
+  # Open Lighting
   {'id': 0x7a70,
    'name': 'Open Lighting',
    'pids': [
@@ -3005,6 +3007,8 @@ MANUFACTURER_PIDS = [
        'value': 0x8006},
     ],
   },
+  
+  # Stellascapes
   {'id': 0x2dc8,
    'name': 'Stellascapes',
    'pids': [
@@ -3062,6 +3066,8 @@ MANUFACTURER_PIDS = [
        'value': 0x8006},
     ],
   },
+
+  # Soundlight
   {'id': 21324,
    'name': 'Soundlight',
    'pids': [
@@ -3264,6 +3270,8 @@ MANUFACTURER_PIDS = [
        'value': 0xdccd},
    ]
   },
+
+  # Lumen Radio
   {'id': 0x4c55,
    'name': 'Lumen Radio',
    'pids': [
@@ -3342,8 +3350,10 @@ MANUFACTURER_PIDS = [
        'value': 0x8102},
     ],
   },
+
+  # Robe Lighting s.r.o.
   {'id': 0x5253,
-   'name': 'robe',
+   'name': 'Robe Lighting s.r.o.',
    'pids': [
       {'get_request': {'items': []},
        'get_response': {'items': [{'labels': [(0, 'Wired'),
@@ -3466,6 +3476,8 @@ MANUFACTURER_PIDS = [
        'value': 40975},
     ],
   },
+
+  # ETC
   {'id': 0x6574,
    'name': 'ETC',
    'pids': [
@@ -3941,6 +3953,8 @@ MANUFACTURER_PIDS = [
        'value': 0xf000},
     ],
   },
+
+  # GDS
   {'id': 0x3434,
    'name': 'GDS',
    'pids': [
