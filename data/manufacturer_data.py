@@ -655,6 +655,7 @@ MANUFACTURER_DATA = [
   (0x0838, "LaserAV"),
   (0x083A, "Bright Ideas Custom Electronics Inc."),
   (0x083C, "TDT Productions"),
+  (0x083D, "Siluj Iluminacion S.L.U."),
   (0x083E, "Guangdong Hua Chen Film & Television Stage Project Co., Ltd."),
   (0x083F, "Shenzhen LeiFei Lighting Technologies Co.,Ltd."),
   (0x0840, "Shenzhen Zwich Science and Technology Co.Ltd."),
