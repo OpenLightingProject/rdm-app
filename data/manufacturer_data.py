@@ -677,6 +677,7 @@ MANUFACTURER_DATA = [
   (0x0854, "Sharp NEC Display Solutions, Ltd."),
   (0x0855, "GODOX Photo Equipment Co., Ltd."),
   (0x0856, "Ctrl Element ehf"),
+  (0x0857, "BOS Lighting"),
   (0x0858, "Juno Lighting Group"),
   (0x085A, "Guangzhou Ming Jing Stage Light Equipment Co., Ltd."),
   (0x085B, "Tolifo (Dongguan) Photographic Equipment Co. Ltd"),
