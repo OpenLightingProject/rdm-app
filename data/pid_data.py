@@ -2526,6 +2526,7 @@ MANUFACTURER_PIDS = [
   {'id': 20562,
    'name': 'Production Resource Group',
    'pids': [
+    # Something is wrong herer, the name Property differs and an Error cant be set via RDM
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'fan_error_status', 'type': 'uint8',
                                    'labels': [(0, 'No Error'),
@@ -2660,7 +2661,7 @@ MANUFACTURER_PIDS = [
                                   }]},
        'get_sub_device_range': 0,
        'name': 'ZOOM_TYPE',
-       'set_request': {'items': [{'name': 'followspot_control', 'type': 'uint8',
+       'set_request': {'items': [{'name': 'zoom_type', 'type': 'uint8',
                                   'labels': [(0, 'Fast'), (1, 'In Focus')],
                                  }]},
        'set_response': {'items': []},
@@ -2689,7 +2690,7 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 0,
        'value': 34337},
       {'name': 'ZERO_GOBO_WHEELS',
-       'set_request': {'items': [{'name': 'followspot_control', 'type': 'bool'}]},
+       'set_request': {'items': [{'name': 'followspot_control_gobo_wheels', 'type': 'bool'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'value': 34368},
