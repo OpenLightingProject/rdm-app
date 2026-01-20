@@ -702,6 +702,7 @@ MANUFACTURER_DATA = [
   (0x0868, "Ushio America, Inc."),
   (0x0869, "Club Cannon LLC"),
   (0x086A, "Shenzhen Chip Optech Co.,LTD"),
+  (0x086B, "Anzhee Group"),
   (0x086C, "Bafa Elektronik ve Isik Tasarimlari Sanayii Ticaret LTD Sti."),
   (0x086D, "Velaflame, LLC"),
   (0x086E, "Guangzhou Hi-LTTE Electronics Technology Co.,Ltd"),
