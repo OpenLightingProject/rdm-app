@@ -1641,6 +1641,7 @@ MANUFACTURER_DATA = [
   (0x6BED, "Planar Systems, Inc."),
   (0x6BEE, "Ephesus Lighting"),
   (0x6BEF, "Shenzhen Ifountain Technology Ltd."),
+  (0x6C6C, "Lumosa Lighting B.V."),
   (0x6C6D, "Zumtobel Lighting GmbH"),
   (0x6C78, "Claude Heintz Design"),
   (0x6C92, "Ambra Elettronica s.r.l."),
