@@ -693,6 +693,7 @@ MANUFACTURER_DATA = [
   (0x085E, "MMS Distribution Ltd"),
   (0x085F, "Media Visions, Inc."),
   (0x0860, "Resolution X Pty Ltd"),
+  (0x0861, "OneEightyOne B.V."),
   (0x0862, "illuminous"),
   (0x0863, "XTEC Industries Pte Ltd"),
   (0x0864, "Hangzhou Youte Power., Co. Ltd"),
