@@ -179,6 +179,7 @@ MANUFACTURER_DATA = [
   (0x011D, "Yangzhou Zhituo Lighting Vision Technology Co., Ltd."),
   (0x011E, "Master LED"),
   (0x011F, "STF s.r.l."),
+  (0x0132, "Brendan White"),
   (0x0144, "KW-Veranstaltungstechnik"),
   (0x016C, "LGR"),
   (0x016D, "Hive Lighting"),
