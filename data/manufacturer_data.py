@@ -1017,6 +1017,7 @@ MANUFACTURER_DATA = [
   (0x09B6, "Second String Studios"),
   (0x09B7, "inCon-trol water systems"),
   (0x09B8, "Prolites S.A.L."),
+  (0x09B9, "Mikkelsen Innovasjon"),
   (0x09BA, "Supervoimed OU"),
   (0x09BB, "Guangzhou Yiyi Technology Co., Ltd."),
   (0x09BD, "Shenzhen Zhongbo Photoelectric Co., Ltd"),
