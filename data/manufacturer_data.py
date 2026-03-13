@@ -1714,6 +1714,7 @@ MANUFACTURER_DATA = [
   (0x7EED, "Look Solutions GmbH & Co. KG"),
   (0x7EEE, "General Lighting Electronic Co., Ltd."),
   (0x7EEF, "Huizhou Mounteck Technology Co., Ltd."),
+  (0x7EF0, "Zavod promyshlennoi mehanizacyi LTD Co"),
   (0x7FF0, "RESERVED FOR PROTOTYPING/EXPERIMENTAL USE ONLY"),
   (0x7FF1, "RESERVED FOR PROTOTYPING/EXPERIMENTAL USE ONLY"),
   (0x7FF2, "RESERVED FOR PROTOTYPING/EXPERIMENTAL USE ONLY"),
