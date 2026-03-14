@@ -1643,6 +1643,7 @@ MANUFACTURER_DATA = [
   (0x6974, "Ittermann electronic GmbH"),
   (0x6A6A, "Roxx GmbH"),
   (0x6A6B, "JPK Systems Limited"),
+  (0x6AC0, "RAZZ BV"),
   (0x6B64, "Key Delfin"),
   (0x6B69, "Magical Fountain SA de CV (Magic Fountain)"),
   (0x6BEA, "Remoticom BV"),
