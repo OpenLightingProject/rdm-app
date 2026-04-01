@@ -553,7 +553,7 @@ MANUFACTURER_DATA = [
   (0x0745, "Guangzhou Wingo Stage Light Co., Ltd"),
   (0x0746, "Candela LLC"),
   (0x0748, "Chromateq"),
-  (0x074F, "Panasonic Corporation"),
+  (0x074F, "Panasonic Electric Works Co., Ltd."),
   (0x0753, "F&V Europe B.V."),
   (0x0758, "IMPOLUX GmbH"),
   (0x075E, "TEKNiTS Middle East FZ LLC"),
