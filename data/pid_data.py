@@ -4785,18 +4785,6 @@ ESTA_PIDS = [
   'name': 'PARAMETER_DESCRIPTION',
   'value': 81},
 
- # ENUM_LABEL
- # TODO(Peter): There's currently no PID value defined for this in the released E1.20-2025 standard so we can't implement it!
- # {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}, {'name': 'enumeration_index', 'type': 'uint32'}]},
- #  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'}, {'name': 'enumeration_index', 'type': 'uint32'},
- #                             {'name': 'max_enumeration_index', 'type': 'uint32'},
- #                             {'name': 'description',
- #                              'max_size': 32,
- #                              'type': 'string'}]},
- #  'get_sub_device_range': 2,
- #  'name': 'ENUM_LABEL',
- #  'value': },
-
  # SUPPORTED_PARAMETERS_ENHANCED
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'params',
@@ -4880,6 +4868,17 @@ ESTA_PIDS = [
   'set_sub_device_range': 2,
   'name': 'PACKED_PID_INDEX',
   'value': 89},
+
+ # ENUM_LABEL
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}, {'name': 'enumeration_index', 'type': 'uint32'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'}, {'name': 'enumeration_index', 'type': 'uint32'},
+                             {'name': 'max_enumeration_index', 'type': 'uint32'},
+                             {'name': 'description',
+                              'max_size': 32,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'ENUM_LABEL',
+  'value': 90},
 
  # TILT_INVERT
  {'get_request': {'items': []},
