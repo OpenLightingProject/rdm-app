@@ -430,6 +430,7 @@ MANUFACTURER_DATA = [
   (0x05F2, "O'Light"),
   (0x05F6, "Otiru Oy"),
   (0x05F7, "Immersive Design Studios Inc."),
+  (0x05FC, "ARTOMATION"),
   (0x05FF, "I MAS D ELECTRONICS"),
   (0x0600, "TELMIC Neo"),
   (0x0602, "Guangzhou Jinhong Stage Lighting Equipment.Co.,ltd"),
