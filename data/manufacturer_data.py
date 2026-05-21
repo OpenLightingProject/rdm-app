@@ -448,6 +448,7 @@ MANUFACTURER_DATA = [
   (0x0628, "ERP Power"),
   (0x062A, "LEDstructures"),
   (0x062B, "CKC Lighting Co., Ltd."),
+  (0x0638, "ROLITECH LIMITED"),
   (0x063A, "AVM Belgium BVBA"),
   (0x063C, "LaserNet"),
   (0x0644, "COLEDER DISPLAY CO., LTD."),
