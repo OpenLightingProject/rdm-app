@@ -69,6 +69,7 @@ angular.module('rdmApp', [])
       'NACK_DESCRIPTION': 0x0057,
       'PACKED_PID_SUB': 0x0058,
       'PACKED_PID_INDEX': 0x0059,
+      'ENUM_LABEL': 0x005a,
       'DEVICE_INFO': 0x0060,
       'PRODUCT_DETAIL_ID_LIST': 0x0070,
       'DEVICE_MODEL_DESCRIPTION': 0x0080,
