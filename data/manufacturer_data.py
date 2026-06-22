@@ -680,6 +680,7 @@ MANUFACTURER_DATA = [
   (0x0826, "Easy Wireless Hire Limited t/a CORE Lighting"),
   (0x0827, "PIXREAL"),
   (0x0829, "CR-TEC Photoelectric"),
+  (0x082A, "Theatrically Jerry LLC"),
   (0x082B, "Changsha ZMIOT Co., Ltd."),
   (0x082C, "RIVA GmbH Engineering"),
   (0x082E, "QubiCast GmbH"),
