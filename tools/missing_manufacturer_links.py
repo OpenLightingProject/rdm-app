@@ -54,11 +54,13 @@ def Footer():
 if __name__ == '__main__':
   globals = {}
   locals = {}
-  execfile("data/manufacturer_data.py", globals, locals)
+  # Python 2 and 3 compatible version of execfile
+  exec(open("data/manufacturer_data.py").read(), globals, locals)
   raw_manufacturers = locals['MANUFACTURER_DATA']
   globals = {}
   locals = {}
-  execfile("data/manufacturer_links.py", globals, locals)
+  # Python 2 and 3 compatible version of execfile
+  exec(open("data/manufacturer_links.py").read(), globals, locals)
   raw_links = locals['MANUFACTURER_LINKS']
 
   manufacturers = {}

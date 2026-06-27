@@ -30,11 +30,13 @@ class TestManufacturers(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/manufacturer_data.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/manufacturer_data.py").read(), globals, locals)
     self.data = locals['MANUFACTURER_DATA']
     globals = {}
     locals = {}
-    execfile("data/manufacturer_links.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/manufacturer_links.py").read(), globals, locals)
     self.links = locals['MANUFACTURER_LINKS']
 
   def test_ManufacturerData(self):
