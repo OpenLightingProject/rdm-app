@@ -15,7 +15,7 @@ jobs:
         env:
           TASK: ${{ matrix.task }}
         run: |
-          if [ "$TASK" = "nosetests" ]; then pip install nose; fi
+          if [ "$TASK" = "nosetests" ]; then pip install pynose; fi
           if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
