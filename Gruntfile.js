@@ -81,6 +81,11 @@ module.exports = function(grunt) {
         config: true
       }
     },
+    stylelint: {
+      all: [
+        'static/css/*.css'
+      ]
+    },
     watch: {
       build: {
         files: ['Gruntfile.js', 'js_src/rdm.js'],
@@ -118,6 +123,7 @@ module.exports = function(grunt) {
       }
     }
   });
+
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -126,8 +132,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-stylelint');
+
   grunt.registerTask('default', ['bower']);
-  grunt.registerTask('lint', ['jshint:dev', 'jscs']);
+  grunt.registerTask('lint', ['jshint:dev', 'jscs', 'stylelint']);
   grunt.registerTask('unit-test', ['bower', 'compress', 'karma:firefox']);
   grunt.registerTask('compress', ['lint', 'uglify:build']);
   grunt.registerTask('compress-watch', ['watch:build']);

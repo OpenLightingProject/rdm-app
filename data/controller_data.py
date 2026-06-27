@@ -84,6 +84,18 @@ CONTROLLER_DATA = {
      'image_url': 'http://zero88.com/images/product-pics-scd-server.jpg',
      'tags': ['console']},
   ],
+  0x1afa: [
+    {'name': 'ProPlex IQ Tester LV',
+     'link': 'https://tmb.com/proplex-iq-tester-lv/',
+     'image_url': 'https://tmb.com/wp-content/uploads/2018/06/ProPlex_IQ_Tester_Angle_Left-e1567814544489.png',
+     'tags': ['tool']},
+  ],
+  0x2239: [
+    {'name': 'LightFactory',
+     'link': 'https://www.lightfactory.net/',
+     'image_url': 'https://www.lightfactory.net/images/lightfactory_square1_small.png',
+     'tags': ['console']},
+  ],
   0x22b9: [
     {'name': 'Etherlight-D1',
      'link': 'http://www.etherlight.com/products/etherlight-d1',
@@ -107,13 +119,17 @@ CONTROLLER_DATA = {
   ],
   0x454E: [
     {'name': 'DMX USB Pro',
-     'link': 'https://www.enttec.com/products/controls/usb/2-universe-usb-computer-interface-dmx/',
+     'link': 'https://www.enttec.com/product/dmx-usb-interfaces/dmx-usb-pro-professional-1u-usb-to-dmx512-converter/',
      'image_url': 'http://www.enttec.com/img/dmxusbpro/flip.gif',
-     'tags': ['tool', 'USB']},
+     'tags': ['tool', 'RDM Responder Tests', 'USB']},
     {'name': 'RDM USB Pro',
      'link': 'http://www.enttec.com/index.php?main_menu=Products&pn=70530',
      'image_url': 'http://www.enttec.com/jpg/rdm/rdm_usb_pro.jpg',
-     'tags': ['tool', 'sniffer', 'USB']},
+     'tags': ['tool', 'sniffer', 'RDM Responder Tests', 'USB']},
+    {'name': 'DMX USB Pro MK2',
+     'link': 'https://www.enttec.co.uk/product/protocols/dmx512/dmx-usb-pro-mk2-2-universe-usb-computer-interface-dmx/',
+     'image_url': 'https://www.enttec.co.uk/wp-content/uploads/2016/12/withcables.jpg',
+     'tags': ['tool', 'RDM Responder Tests', 'USB']},
   ],
   0x4744: [
     {'name': 'DMXter4 RDM',
@@ -157,8 +173,8 @@ CONTROLLER_DATA = {
   ],
   0x5377: [
     {'name': 'XMT-350 DMX/RDM Tester & Controller',
-     'link': 'http://www.swisson.com/rdm-controller-dmx-tester',
-     'image_url': 'http://www.swisson.com/assets/images/gallery/_thumbnails/xmt-350/xmt-350_1_resize_275x183_86_255x255x255.jpg',
+     'link': 'https://swisson.com/en/products/light-control/rdm-controller-dmx-tester/',
+     'image_url': 'https://swisson.com/site/assets/files/1162/xmt-350.500x0.png',
      'tags': ['tool']},
   ],
   0x6574: [
@@ -200,5 +216,11 @@ CONTROLLER_DATA = {
      'link': 'http://www.jese.co.uk/product/002/',
      'image_url': 'http://www.jese.co.uk/product/image/rdmtri.gif',
      'tags': ['tool', 'RDM Responder Tests', 'USB']},
+  ],
+  0x736c: [
+    {'name': 'NEO',
+     'link': 'https://www.strandlighting.com/global/products/neo-console-and-software',
+     'image_url': 'https://www.strandlighting.com/b-dam/strand-lighting/products/neo-console-and-software/NEO-Console-452x410.jpg',
+     'tags': ['console']},
   ],
 }

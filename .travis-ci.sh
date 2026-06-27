@@ -14,10 +14,8 @@ BLACKLIST
 if [[ $TASK = 'nosetests' ]]; then
     nosetests --verbosity=3 --detailed-errors
 elif [[ $TASK = 'karma' ]]; then
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
     grunt --verbose unit-test
-elif [[ $TASK = 'js-lint' ]]; then
+elif [[ $TASK = 'lint' ]]; then
     grunt --verbose lint
 elif [[ $TASK = 'closure-compiler' ]]; then
     grunt --verbose closure-compiler
@@ -53,10 +51,10 @@ elif [[ $TASK = 'codespell' ]]; then
       $SPELLINGBLACKLIST \
       \) | xargs")
   # count the number of codespell errors
-  spellingerrors=$(zrun codespell --check-filenames --check-hidden --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore $spellingfiles 2>&1 | wc -l)
+  spellingerrors=$(zrun codespell --check-filenames --check-hidden --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore -L thead,hsi $spellingfiles 2>&1 | wc -l)
   if [[ $spellingerrors -ne 0 ]]; then
     # print the output for info
-    zrun codespell --check-filenames --check-hidden --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore $spellingfiles
+    zrun codespell --check-filenames --check-hidden --quiet 2 --regex "[a-zA-Z0-9][\\-'a-zA-Z0-9]+[a-zA-Z0-9]" --exclude-file .codespellignore -L thead,hsi $spellingfiles
     echo "Found $spellingerrors spelling errors via codespell"
     exit 1;
   else
