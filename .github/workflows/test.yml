@@ -7,8 +7,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [data-check, codespell]
-        #spellintian, nosetests, karma, lint, closure-compiler, 
+        task: [nosetests, data-check, codespell]
+        #spellintian, karma, lint, closure-compiler, 
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
