@@ -41,7 +41,8 @@ echo -n "MANUFACTURER_DATA = "
 # Remove any consecutive duplicates within the file (e.g. stuff added twice by mistake)
 # Remove duplicate entry for manufacturer 0x0000
 # Remove duplicate entry for manufacturer 0x4C5A; keep the original owner of the ID
-# Remove duplicate entry for manufacturer 0x0854; NEC is now a subsidiary of Sharp NEC
+# Remove two duplicate entries for manufacturer 0x0854; NEC is now a subsidiary of Sharp NEC
+# Remove duplicate entry for manufacturer 0x5007; keep the original owner of the ID
 # Remove any H's after the manufacturer IDs and generally sanitise the rows
 # TODO(Peter): Comment out any invalid rows
 
@@ -55,11 +56,15 @@ tr "\240" " " | \
 sed -r -e 's/[\xe2\x80\x93\xe2\x80\x94]/-/g' | \
 sed -r -e 's/[\xef\xbc\x88]/(/g' | \
 sed -r -e 's/[\xef\xbc\x89]/)/g' | \
-sed -r -e 's/\xc5\x9f/s/g' | \
+sed -r -e 's/\xc3\xa9/e/g' | \
+sed -r -e 's/\xc3\xb6/o/g' | \
+sed -r -e 's/\xc3\xbc/u/g' | \
 sed -r -e 's/\xc4\xb1/i/g' | \
+sed -r -e 's/\xc5\x9e/S/g' | \
+sed -r -e 's/\xc5\x9f/s/g' | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
 uniq | \
-grep -v "(0x0000, \"PLASA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\")," | grep -v "(0x0854, \"NEC Display Solutions, Ltd\.\")," | \
+grep -v "(0x0000, \"PLASA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\")," | grep -v "(0x0854, \"NEC Display Solutions, Ltd\.\")," | grep -v "(0x0854, \"Sharp Corporation\")," | grep -v "(0x5007, \"Prizm Lighting (part of American Lighting Inc.)\")," | \
 sed -r -e 's/^[[:space:]]*\([[:space:]]*0x([[:xdigit:]]{4,4})[Hh]?[[:space:]]*,[[:space:]]*"[[:space:]]*/(0x\1, "/' -e 's/[[:space:]]+"\),$/"),/' -e 's/^\(/  (/'
 )
