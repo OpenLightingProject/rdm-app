@@ -22,7 +22,7 @@ import datetime
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from model import *
+from model import Responder, UploadedResponderInfo
 
 
 class BaseContribPageHandler(webapp.RequestHandler):

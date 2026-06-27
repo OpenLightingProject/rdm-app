@@ -17,6 +17,7 @@
 # The handlers for the admin page.
 
 import common
+from common import BasePageHandler
 from data.controller_data import CONTROLLER_DATA
 from data.manufacturer_data import MANUFACTURER_DATA
 from data.manufacturer_links import MANUFACTURER_LINKS
@@ -36,11 +37,12 @@ import timestamp_keys
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue
 from google.appengine.api import users
+from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.blobstore import BlobInfo
 from google.appengine.ext.db import BadValueError
 from google.appengine.ext.webapp import template
-from model import *
+from model import Command, Controller, LastUpdateTime, Manufacturer, Node, Pid, Product, ProductCategory, ProductTag, Responder, ResponderTag, ResponderTagRelationship, Software, SoftwareVersion, Splitter, UploadedResponderInfo
 from utils import StringToInt
 from pid_loader import PidLoader
 
@@ -61,7 +63,7 @@ def UpdateModificationTime(timestamp_name):
   memcache.delete(memcache_keys.INDEX_INFO)
 
 
-class BaseAdminPageHandler(webapp.RequestHandler):
+class BaseAdminPageHandler(BasePageHandler):
   """The base handler for admin requests."""
   ALLOWED_USERS = [
       'nomis52@gmail.com',
@@ -337,7 +339,7 @@ class AdminPageHandler(BaseAdminPageHandler):
       category.delete()
       removed += 1
     logging.info('update complete')
-    return ('categories: added %d, removed %d, updated %d' %
+    return ('Categories: added %d, removed %d, updated %d' %
             (added, removed, updated))
 
   def GarbageCollectTags(self):
@@ -523,10 +525,9 @@ class AdminPageHandler(BaseAdminPageHandler):
 
     pending_uploads = UploadedResponderInfo.all().filter('processed = ',
                                                          False).count()
-    template_data = {
-        'logout_url': users.create_logout_url("/"),
-        'responders_to_moderate': pending_uploads,
-    }
+    template_data = self.IndexInfo()
+    template_data['logout_url'] = users.create_logout_url("/")
+    template_data['responders_to_moderate'] = pending_uploads
 
     if output:
       template_data['output'] = output

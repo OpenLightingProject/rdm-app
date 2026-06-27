@@ -18,7 +18,7 @@
 
 import common
 import logging
-from model import *
+from model import Controller, Node, ProductTag, Software, Splitter
 from utils import StringToInt
 from google.appengine.api import images
 from google.appengine.ext import webapp

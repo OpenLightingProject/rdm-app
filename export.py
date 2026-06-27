@@ -16,7 +16,7 @@
 # Copyright (C) 2011 Simon Newton
 # The handlers for exporting information to third parties.
 
-from model import *
+from model import Controller, LastUpdateTime, Manufacturer, Pid, Responder
 from utils import TimestampToInt
 import common
 import json
@@ -274,7 +274,7 @@ class InfoHandler(webapp.RequestHandler):
   """Return the information about the index.
 
   This returns:
-   - the last uptime time
+   - the last update time
    - the number of manufacturer pids
    - the number of models
   """

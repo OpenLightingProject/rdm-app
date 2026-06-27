@@ -19,7 +19,7 @@
 import json
 import memcache_keys
 import common
-from model import *
+from model import Manufacturer, Pid, Responder, SUBDEVICE_RANGE_DICT
 from utils import StringToInt
 from google.appengine.api import memcache
 from google.appengine.ext import webapp

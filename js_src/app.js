@@ -110,7 +110,7 @@ app.newTD = function(text) {
  */
 app.makeModelTable = function(table_id) {
   var table = new goog.ui.TableSorter();
-  table.decorate(goog.dom.$(table_id));
+  table.decorate(goog.dom.getElement(table_id));
 
   table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
   table.setSortFunction(1, app.hexSort);
@@ -157,10 +157,10 @@ app.changeSoftwareVersion = function(element) {
 
   // DMX Personalities
   var personalities = software_version['personalities'];
-  var personality_fieldset = goog.dom.$('model_personality_fieldset');
+  var personality_fieldset = goog.dom.getElement('model_personality_fieldset');
   if (personality_fieldset) {
     if (personalities && personalities.length) {
-      var tbody = goog.dom.$('model_personality_tbody');
+      var tbody = goog.dom.getElement('model_personality_tbody');
       goog.dom.removeChildren(tbody);
       for (var i = 0; i < personalities.length; ++i) {
         var personality = personalities[i];
@@ -186,10 +186,10 @@ app.changeSoftwareVersion = function(element) {
 
   // Sensors
   var sensors = software_version['sensors'];
-  var sensor_fieldset = goog.dom.$('model_sensor_fieldset');
+  var sensor_fieldset = goog.dom.getElement('model_sensor_fieldset');
   if (sensor_fieldset) {
     if (sensors && sensors.length) {
-      var tbody = goog.dom.$('model_sensor_tbody');
+      var tbody = goog.dom.getElement('model_sensor_tbody');
       goog.dom.removeChildren(tbody);
       for (var i = 0; i < sensors.length; ++i) {
         var sensor = sensors[i];
@@ -217,10 +217,10 @@ app.changeSoftwareVersion = function(element) {
 
   // supported params
   var supported_params = software_version['supported_parameters'];
-  var supported_params_fieldset = goog.dom.$('model_params_fieldset');
+  var supported_params_fieldset = goog.dom.getElement('model_params_fieldset');
   if (supported_params_fieldset) {
     if (supported_params && supported_params.length) {
-      var supported_params_list = goog.dom.$('model_params_list');
+      var supported_params_list = goog.dom.getElement('model_params_list');
       goog.dom.removeChildren(supported_params_list);
       for (var i = 0; i < supported_params.length; ++i) {
         var param = supported_params[i];
@@ -272,7 +272,7 @@ goog.exportSymbol('app.setLatestVersion', app.setLatestVersion);
  */
 app.makePIDTable = function(table_id) {
   var table = new goog.ui.TableSorter();
-  table.decorate(goog.dom.$(table_id));
+  table.decorate(goog.dom.getElement(table_id));
 
   table.setSortFunction(0, goog.ui.TableSorter.alphaSort);
   table.setSortFunction(1, app.hexSort);

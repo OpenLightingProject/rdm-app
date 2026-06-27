@@ -93,7 +93,7 @@ app.MessageField.prototype.enterDocument = function() {
            'Name: ' + this._field_info['name'] + '<br>';
 
   if (this._field_info['multiplier'] != undefined) {
-    tt += 'Multipler: 10<sup>' + this._field_info['multiplier'] + '</sup><br>';
+    tt += 'Multiplier: 10<sup>' + this._field_info['multiplier'] + '</sup><br>';
   }
 
   if (this._field_info['size'] != undefined) {

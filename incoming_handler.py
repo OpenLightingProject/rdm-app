@@ -20,7 +20,7 @@ import common
 import datetime
 import json
 import logging
-from model import *
+from model import Manufacturer, UploadedResponderInfo
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 

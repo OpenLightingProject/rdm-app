@@ -21,10 +21,10 @@ from google.appengine.ext import db
 from google.appengine.ext.db import polymodel
 
 SUBDEVICE_RANGE_DICT = {
-  0: 'Root device only (0x0)',
-  1: 'Root or all sub-devices (0x0 - 0x200, 0xffff)',
-  2: 'Root or sub devices (0x0 - 0x200)',
-  3: 'Only sub-devices (0x1 - 0x200)',
+  0: 'Root device only (0x0000)',
+  1: 'Root or all sub-devices (0x0000 - 0x0200, 0xffff)',
+  2: 'Root or sub devices (0x0000 - 0x0200)',
+  3: 'Only sub-devices (0x0001 - 0x0200)',
 }
 
 

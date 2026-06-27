@@ -39,6 +39,7 @@ TYPES = {
   Pids_pb2.IPV4: 'ipv4',
   Pids_pb2.UID: 'uid',
   Pids_pb2.MAC: 'mac',
+  Pids_pb2.IPV6: 'ipv6',
 }
 
 

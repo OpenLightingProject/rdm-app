@@ -19,7 +19,7 @@
 
 import common
 import logging
-from model import *
+from model import Command, Pid
 
 
 class UnknownManufacturerException(Exception):

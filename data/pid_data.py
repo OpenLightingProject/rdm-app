@@ -6,21 +6,25 @@ MANUFACTURER_PIDS = [
       # DEVICE_MODE
       {'get_request': {'items': []},
        'get_response': {'items': [
-                          {'name': 'mode', 'type': 'uint8', 'labels': [
-                            (0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
-                          }
+                          {'name': 'mode', 'type': 'uint8',
+                           'labels': [(0, 'DMX512'),
+                                      (1, 'DALI'),
+                                      (2, 'DSI')]}
                         ]},
        'get_sub_device_range': 2,
        'name': 'DEVICE_MODE',
-       'set_request': {'items': [{'name': 'mode', 'type': 'uint8',
-                                  'labels': [(0, 'DMX512'), (1, 'DALI'), (2, 'DSI')]
-                      }]},
+       'set_request': {'items': [
+                          {'name': 'mode', 'type': 'uint8',
+                           'labels': [(0, 'DMX512'),
+                                      (1, 'DALI'),
+                                      (2, 'DSI')]}
+                       ]},
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'link': 'http://www.creativelighting.com.au/datasheets/RDM%20Supplement.pdf',
        'notes': 'Controls the operating mode of the device',
-       'value': 32768}]
-  },
+       'value': 32768}
+   ]},
 
   # ARRI
   {'id': 0x20b9,
@@ -959,6 +963,47 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 0,
        'notes': '',
        'value': 32771},
+
+      # AUTO_MODE
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                          {'name': 'program', 'type': 'uint8',
+                           'labels': [(0, 'Disabled'),
+                                      (6, '1 colour chase, 4 chans'),
+                                      (7, '2 colour chase, 4 chans'),
+                                      (8, '1 colour chase, 3 chans FW>=1.2')],
+                           'range': [(0, 9)]},
+                          {'name': 'speed', 'type': 'uint8',
+                           'labels': [(0, 'Fastest'),
+                                      (9, 'Slowest')],
+                           'range': [(0, 9)]},
+                          {'name': 'delay', 'type': 'uint8',
+                           'labels': [(0, 'Shortest'),
+                                      (9, 'Longest')],
+                           'range': [(0, 9)]},
+                      ]},
+       'get_sub_device_range': 0,
+       'name': 'AUTO_MODE',
+       'set_request': {'items': [
+                          {'name': 'program', 'type': 'uint8',
+                           'labels': [(0, 'Disabled'),
+                                      (6, '1 colour chase, 4 chans'),
+                                      (7, '2 colour chase, 4 chans'),
+                                      (8, '1 colour chase, 3 chans FW>=1.2')],
+                           'range': [(0, 9)]},
+                          {'name': 'speed', 'type': 'uint8',
+                           'labels': [(0, 'Fastest'),
+                                      (9, 'Slowest')],
+                           'range': [(0, 9)]},
+                          {'name': 'delay', 'type': 'uint8',
+                           'labels': [(0, 'Shortest'),
+                                      (9, 'Longest')],
+                           'range': [(0, 9)]},
+                      ]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 0,
+       'link': 'http://www.balancedtechnology.com.au/documents/enttec/manuals/enttec_din-tec%20manual.pdf',
+       'value': 34559},
     ],
   },
 
@@ -1221,10 +1266,10 @@ MANUFACTURER_PIDS = [
        'value': 0x8002},
 
       {'get_request': {'items': []},
-       'get_response': {'items': [{'name': 'enabled', 'type': 'uint16'}]},
+       'get_response': {'items': [{'name': 'fixture_id', 'type': 'uint16'}]},
        'get_sub_device_range': 0,
        'name': 'FIXTURE_ID',
-       'set_request': {'items': [{'name': 'enabled', 'type': 'uint16'}]},
+       'set_request': {'items': [{'name': 'fixture_id', 'type': 'uint16'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'notes': 'Sets the Fixure ID',
@@ -1353,7 +1398,7 @@ MANUFACTURER_PIDS = [
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'enabled', 'type': 'bool'}]},
        'get_sub_device_range': 0,
-       'name': 'LIGHTSENSOR_LEVEL_TRIGGER_ENABLE',
+       'name': 'LIGHT_SENSOR_LEVEL_TRIGGER_ENABLE',
        'set_request': {'items': [{'name': 'enabled', 'type': 'bool'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1362,7 +1407,7 @@ MANUFACTURER_PIDS = [
                  'have to be met to start the stand alone program.'),
        'value': 0x8108},
 
-      {'name': 'CAPTURE_CURRENT_SENSOR_VALUE',
+      {'name': 'CAPTURE_CURRENT_LIGHT_LEVEL',
        'set_request': {'items': []},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -1373,7 +1418,7 @@ MANUFACTURER_PIDS = [
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'trigger_level', 'type': 'uint16'}]},
        'get_sub_device_range': 0,
-       'name': 'LIGHTSENSOR_TRIGGER_LEVEL',
+       'name': 'LIGHT_SENSOR_TRIGGER_LEVEL',
        'set_request': {'items': [{'name': 'trigger_level', 'type': 'uint16'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
@@ -2654,6 +2699,22 @@ MANUFACTURER_PIDS = [
        'value': 36864},
     ],
   },
+  # SWISSON AG
+  {'id': 0x5377,
+   'name': 'SWISSON AG',
+   'pids': [
+            # SWPID_AUTO_UNIVERSE_NUMBER
+            {'name': 'SWPID_AUTO_UNIVERSE_NUMBER',
+             'get_request': {'items': []},
+             'get_response': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
+             'get_sub_device_range': 0,
+             'set_request': {'items': [{'name': 'universe_number', 'type': 'uint16'}]},
+             'set_response': {'items': []},
+             'set_sub_device_range': 0,
+             'value': 0x8082,
+             },
+        ],
+  },
   {'id': 0x5753,
    'name': 'Wireless Solutions',
    'pids': [{'name': 'WDMX_LOGIN',
@@ -3328,6 +3389,37 @@ MANUFACTURER_PIDS = [
        'set_response': {'items': []},
        'set_sub_device_range': 1,
        'value': 36912},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                         {'name': 'Pan Tilt Feedback', 'type': 'bool'},
+                       ]},
+       'get_sub_device_range': 2,
+       'name': 'PT_FEEDBACK',
+       'set_request': {'items': [{'name': 'Pan Tilt Feedback', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'notes': 'Pan/Tilt Feedback',
+       'value': 40960},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                         {'name': 'Output Uniformity', 'type': 'bool'},
+                       ]},
+       'get_sub_device_range': 2,
+       'name': 'OUTPUT_UNIFORMITY',
+       'set_request': {'items': [{'name': 'Output Uniformity', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'value': 40969},
+      {'get_request': {'items': []},
+       'get_response': {'items': [
+                         {'name': 'DL Compatible Mode', 'type': 'bool'},
+                       ]},
+       'get_sub_device_range': 2,
+       'name': 'DL_COMPATIBLE_MODE',
+       'set_request': {'items': [{'name': 'DL Compatible Mode', 'type': 'bool'}]},
+       'set_response': {'items': []},
+       'set_sub_device_range': 1,
+       'value': 40973},
       {'get_request': {'items': []},
        'get_response': {'items': [{'labels': [(0, 'Off'),
                                               (1, '1 Minute'),
@@ -4101,8 +4193,16 @@ ESTA_PIDS = [
                                          (0x1e, 'Items'),
                                          (0x1f, 'Humidity'),
                                          (0x20, '16 bit counter'),
+                                         (0x21, "CPU load"),
+                                         (0x22, "Bandwidth"),
+                                         (0x23, "Concentration"),
+                                         (0x24, "Sound pressure level"),
+                                         (0x25, "Solid angle"),
+                                         (0x26, "Log ratio"),
+                                         (0x27, "Log ratio volts"),
+                                         (0x28, "Log ratio watts"),
                                          (0x7f, 'Other')],
-                              'range': [(0, 0x20), (0x7f, 0xff)]},
+                              'range': [(0, 0x28), (0x7f, 0xff)]},
                              {'name': 'unit', 'type': 'uint8',
                               'labels': [(0x00, 'None'),
                                          (0x01, 'Centigrade'),
@@ -4132,8 +4232,16 @@ ESTA_PIDS = [
                                          (0x19, 'Lumens'),
                                          (0x1a, 'Lux'),
                                          (0x1b, 'Ire'),
-                                         (0x1c, 'Bytes')],
-                              'range': [(0, 0x1c), (0x80, 0xff)]},
+                                         (0x1c, 'Bytes'),
+                                         (0x1d, 'Decibel'),
+                                         (0x1e, 'Decibel Volt'),
+                                         (0x1f, 'Decibel Watt'),
+                                         (0x20, 'Decibel Meter'),
+                                         (0x21, 'Percent'),
+                                         (0x22, 'Moles per Meter Cubed'),
+                                         (0x23, 'RPM'),
+                                         (0x24, 'Bytes per Second')],
+                              'range': [(0, 0x24), (0x80, 0xff)]},
                              {'name': 'prefix', 'type': 'uint8',
                               'labels': [(0x00, 'None'),
                                          (0x01, 'Deci'),
@@ -4317,6 +4425,26 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 51},
 
+ # QUEUED_MESSAGE_SENSOR_SUBSCRIBE
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'type': 'group',
+                              'name': 'sensors',
+                              'items': [{'name': 'sensor_number',
+                                         'type': 'uint8'}],
+                  }]},
+  'get_sub_device_range': 2,
+  'name': 'QUEUED_MESSAGE_SENSOR_SUBSCRIBE',
+  'set_request': {'items': [{'name': 'action', 'type': 'uint8', 'labels': [
+                             (0, 'Remove'), (1, 'Add')]},
+                            {'type': 'group',
+                             'name': 'sensors',
+                             'items': [{'name': 'sensor_number',
+                                        'type': 'uint8'}]}
+                  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'value': 52},
+
  # SENSOR_VALUE
  {'get_request': {'items': [{'name': 'sensor_number', 'type': 'uint8',
                              'range': [(0, 0xfe)],
@@ -4408,6 +4536,28 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4145},
 
+ # SELFTEST_ENHANCED
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'result_code_pid', 'type': 'uint16',
+                              'labels': [(0, 'Not supported')]},
+                             {'type': 'group', 'name': 'self_tests',
+                              'items': [{'name': 'test_number', 'type': 'uint8',
+                                         'labels': [(0xff, 'All')]},
+                                        {'name': 'test_status', 'type': 'uint8',
+                                         'labels': [(0x00, 'Status not supported'),
+                                                    (0x01, 'Not run since last power cycle'),
+                                                    (0x02, 'Aborted/reset'),
+                                                    (0x03, 'Active/running'),
+                                                    (0x04, 'Complete - Pass'),
+                                                    (0x05, 'Complete - Fail'),
+                                                    (0x06, 'Complete - No analysis'),
+                                                    (0x07, 'Complete - Result code available'),
+                                                    (0xff, 'Other - Manufacturer specific')
+                             ]}]}]},
+  'get_sub_device_range': 2,
+  'name': 'SELFTEST_ENHANCED',
+  'value': 4130},
+
  # DMX_PERSONALITY_DESCRIPTION
  {'get_request': {'items': [{'name': 'personality', 'type': 'uint8', 'range': [
                     (1, 0xff)]
@@ -4479,6 +4629,12 @@ ESTA_PIDS = [
                            (0x0207, 'Additive Color Mixer - Blue'),
                            (0x0208, 'Color Temperature Correction'),
                            (0x0209, 'Color Scroll'),
+                           (0x020a, 'Additive Color Mixer - Lime'),
+                           (0x020b, 'Additive Color Mixer - Indigo'),
+                           (0x020c, 'Additive Color Mixer - Cyan'),
+                           (0x020d, 'Additive Color Mixer - Deep Red'),
+                           (0x020e, 'Additive Color Mixer - Deep Blue'),
+                           (0x020f, 'Additive Color Mixer - Natural White'),
                            (0x0210, 'Color Semaphore'),
                            (0x0211, 'Additive Color Mixer - Amber'),
                            (0x0212, 'Additive Color Mixer - White'),
@@ -4487,6 +4643,10 @@ ESTA_PIDS = [
                            (0x0215, 'Subtractive Color Mixer - UV'),
                            (0x0216, 'Hue'),
                            (0x0217, 'Saturation'),
+                           (0x0218, 'Additive Color Mixer - UV'),
+                           (0x0219, 'CIE X Color Coordinate'),
+                           (0x021a, 'CIE Y Color Coordinate'),
+                           (0x021b, 'CCT Magenta-Green Adjustment'),
                            (0x0301, 'Static gobo wheel'),
                            (0x0302, 'Rotating gobo wheel'),
                            (0x0303, 'Prism wheel'),
@@ -4532,14 +4692,24 @@ ESTA_PIDS = [
                              {'name': 'data_type', 'type': 'uint8',
                               'labels': [(0x00, 'Not defined'),
                                          (0x01, 'Bit field'),
-                                         (0x02, 'ASCII'),
+                                         (0x02, 'String'),
                                          (0x03, 'uint8'),
                                          (0x04, 'int8'),
                                          (0x05, 'uint16'),
                                          (0x06, 'int16'),
                                          (0x07, 'uint32'),
-                                         (0x08, 'int32')],
-                              'range': [(0x00, 0x08), (0x80, 0xdf)]},
+                                         (0x08, 'int32'),
+                                         (0x09, 'uint64'),
+                                         (0x0a, 'int64'),
+                                         (0x0b, 'Group'),
+                                         (0x0c, 'UID'),
+                                         (0x0d, 'Boolean'),
+                                         (0x0e, 'URL'),
+                                         (0x0f, 'MAC'),
+                                         (0x10, 'IPv4'),
+                                         (0x11, 'IPv6'),
+                                         (0x12, 'Enumeration')],
+                              'range': [(0x00, 0x12), (0x80, 0xdf)]},
                              {'name': 'command_class', 'type': 'uint8',
                               'labels': [(1, 'Get'), (2, 'Set'), (3, 'Get and Set')]},
                              {'name': 'type', 'type': 'uint8'},
@@ -4572,8 +4742,16 @@ ESTA_PIDS = [
                                          (0x19, 'Lumens'),
                                          (0x1a, 'Lux'),
                                          (0x1b, 'Ire'),
-                                         (0x1c, 'Bytes')],
-                              'range': [(0, 0x1c), (0x80, 0xff)]},
+                                         (0x1c, 'Bytes'),
+                                         (0x1d, 'Decibel'),
+                                         (0x1e, 'Decibel Volt'),
+                                         (0x1f, 'Decibel Watt'),
+                                         (0x20, 'Decibel Meter'),
+                                         (0x21, 'Percent'),
+                                         (0x22, 'Moles per Meter Cubed'),
+                                         (0x23, 'RPM'),
+                                         (0x24, 'Bytes per Second')],
+                              'range': [(0, 0x24), (0x80, 0xff)]},
                              {'name': 'prefix', 'type': 'uint8',
                               'labels': [(0x00, 'None'),
                                          (0x01, 'Deci'),
@@ -4606,6 +4784,101 @@ ESTA_PIDS = [
   'get_sub_device_range': 0,
   'name': 'PARAMETER_DESCRIPTION',
   'value': 81},
+
+ # SUPPORTED_PARAMETERS_ENHANCED
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'params',
+                              'type': 'group',
+                              'items': [{'name': 'param_id', 'type': 'uint16'},
+                                        {'name': 'param_id_support', 'type': 'uint16'}],
+                             }]
+                  },
+  'get_sub_device_range': 2,
+  'name': 'SUPPORTED_PARAMETERS_ENHANCED',
+  'value': 85},
+
+ # CONTROLLER_FLAG_SUPPORT
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'controller_flags', 'type': 'uint8'}]},
+  'get_sub_device_range': 2,
+  'name': 'CONTROLLER_FLAG_SUPPORT',
+  'value': 86},
+
+ # NACK_DESCRIPTION
+ {'get_request': {'items': [{'name': 'nack_reason_code', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'nack_reason_code', 'type': 'uint16'},
+                             {'name': 'description',
+                              'max_size': 32,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'NACK_DESCRIPTION',
+  'value': 87},
+
+ # PACKED_PID_SUB
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'},
+                            {'name': 'index', 'type': 'uint16'},
+                            {'name': 'first_device_requested', 'type': 'uint16'},
+                            {'name': 'number_of_devices_requested', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
+                             {'name': 'index', 'type': 'uint16'},
+                             {'name': 'packed_results',
+                              'type': 'group',
+                              'items': [{'name': 'device', 'type': 'uint16'},
+                                        {'name': 'pdl_size', 'type': 'uint8'},
+                                        {'name': 'param_data', 'type': 'group',
+                                         'items': [{'name': 'data', 'type': 'uint8'}]}]
+                             }]},
+  'get_sub_device_range': 0,
+  'set_request': {'items': [{'name': 'pid', 'type': 'uint16'},
+                            {'name': 'index', 'type': 'uint16'},
+                            {'name': 'packed_request',
+                             'type': 'group',
+                             'items': [{'name': 'device', 'type': 'uint16'},
+                                       {'name': 'pdl_size', 'type': 'uint8'},
+                                       {'name': 'param_data', 'type': 'group',
+                                        'items': [{'name': 'data', 'type': 'uint8'}]}]
+                             }]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'name': 'PACKED_PID_SUB',
+  'value': 88},
+
+ # PACKED_PID_INDEX
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'},
+                            {'name': 'first_item_requested', 'type': 'uint16'},
+                            {'name': 'number_of_items_requested', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
+                             {'name': 'packed_results',
+                              'type': 'group',
+                              'items': [{'name': 'item', 'type': 'uint16'},
+                                        {'name': 'pdl_size', 'type': 'uint8'},
+                                        {'name': 'param_data', 'type': 'group',
+                                         'items': [{'name': 'data', 'type': 'uint8'}]}]
+                             }]},
+  'get_sub_device_range': 2,
+  'set_request': {'items': [{'name': 'pid', 'type': 'uint16'},
+                            {'name': 'packed_request',
+                             'type': 'group',
+                             'items': [{'name': 'item', 'type': 'uint16'},
+                                       {'name': 'pdl_size', 'type': 'uint8'},
+                                       {'name': 'param_data', 'type': 'group',
+                                        'items': [{'name': 'data', 'type': 'uint8'}]}]
+                             }]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 2,
+  'name': 'PACKED_PID_INDEX',
+  'value': 89},
+
+ # ENUM_LABEL
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}, {'name': 'enumeration_index', 'type': 'uint32'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'}, {'name': 'enumeration_index', 'type': 'uint32'},
+                             {'name': 'max_enumeration_index', 'type': 'uint32'},
+                             {'name': 'description',
+                              'max_size': 32,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'ENUM_LABEL',
+  'value': 90},
 
  # TILT_INVERT
  {'get_request': {'items': []},
@@ -4761,7 +5034,7 @@ ESTA_PIDS = [
   'set_sub_device_range': 1,
   'value': 4112},
 
- # PERFORM_SELF_TEST
+ # PERFORM_SELFTEST
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'tests_active', 'type': 'bool'}]},
   'get_sub_device_range': 2,
@@ -4869,6 +5142,8 @@ ESTA_PIDS = [
                           (0x0a00, 'GFI / RCD Device'),
                           (0x0a01, 'Battery'),
                           (0x0a02, 'Controllable Breaker'),
+                          (0x0b00, 'Input Device'),
+                          (0x0b01, 'Sensor Input'),
                           (0x7fff, 'Other Device')],
                'range': [(0x0000, 0x0009),
                          (0x0100, 0x0108),
@@ -4881,6 +5156,7 @@ ESTA_PIDS = [
                          (0x0800, 0x0802),
                          (0x0900, 0x0902),
                          (0x0a00, 0x0a02),
+                         (0x0b00, 0x0b01),
                          (0x7fff, 0x7fff),
                          (0x8000, 0xdfff)]}],
   }]},
@@ -5279,8 +5555,392 @@ ESTA_PIDS = [
   'name': 'LOCK_STATE_DESCRIPTION',
   'value': 0x0642},
 
+ # These are ordered to match how they appear in E1.37-5
+ # IDENTIFY_TIMEOUT
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'timeout', 'type': 'uint16',
+     'labels': [(0, 'Disabled')],
+    }
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'IDENTIFY_TIMEOUT',
+  'set_request': {
+                  'items': [{'name': 'timeout',
+                             'type': 'uint16',
+                             'labels': [(0, 'Disabled')],
+                            }]
+                 },
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'value': 0x1050},
+
+ # MANUFACTURER_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'MANUFACTURER_URL',
+  'value': 0x00d0},
+
+ # PRODUCT_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'PRODUCT_URL',
+  'value': 0x00d1},
+
+ # FIRMWARE_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'FIRMWARE_URL',
+  'value': 0x00d2},
+
+ # SHIPPING_LOCK
+ {'get_request': {'items': []},
+  'get_response': {'items': [
+    {'name': 'shipping_lock_state', 'type': 'uint8',
+     'labels': [(0, 'Unlocked'),
+                (1, 'Locked'),
+                (2, 'Partially Locked')]
+    },
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'SHIPPING_LOCK',
+  'set_request': {'items': [
+    {'name': 'shipping_lock_state', 'type': 'uint8',
+     'labels': [(0, 'Unlocked'),
+                (1, 'Locked')]
+    },
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0650},
+
+ # POWER_OFF_READY
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'power_off_ready', 'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'name': 'POWER_OFF_READY',
+  'value': 0x1051},
+
+ # SERIAL_NUMBER
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'serial',
+                              'max_size': 231,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'SERIAL_NUMBER',
+  'value': 0x00d3},
+
+ # TEST_DATA
+ {'get_request': {'items': [
+    {'name': 'pattern_length', 'type': 'uint16', 'range': [(0, 0x1000)]}
+  ]},
+  'get_response': {'items': [
+    {'type': 'group', 'name': 'pattern_data', 'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'TEST_DATA',
+  'set_request': {'items': [
+    {'type': 'group',
+     'name': 'loopback_data',
+     'max_size': 231,
+     'min_size': 0,
+     'items': [{'name': 'data', 'type': 'uint8'}]}
+  ]},
+  'set_response': {'items': [
+    {'type': 'group', 'name': 'loopback_data', 'items': [
+      {'name': 'data', 'type': 'uint8'}
+    ]},
+  ]},
+  'set_sub_device_range': 1,
+  'value': 0x0016},
+
+ # COMMS_STATUS_NSC
+ {'get_request': {'items': []},
+  # This is a bit set, TODO(Peter): Work out how best to implement this
+  'get_response': {'items': [{'name': 'supported_fields', 'type': 'uint8'},
+                             {'name': 'additive_checksum_of_most_recent_nsc_packet',
+                              'type': 'uint32',
+                              'labels': [(0xffffffff, 'Not Supported')]},
+                             {'name': 'nsc_packet_count',
+                              'type': 'uint32',
+                              'labels': [(0xffffffff, 'Not Supported')]},
+                             {'name': 'nsc_most_recent_slot_count',
+                              'type': 'uint16',
+                              'labels': [(0xffff, 'Not Supported')]},
+                             {'name': 'nsc_minimum_slot_count',
+                              'type': 'uint16',
+                              'labels': [(0xffff, 'Not Supported')]},
+                             {'name': 'nsc_maximum_slot_count',
+                              'type': 'uint16',
+                              'labels': [(0xffff, 'Not Supported')]},
+                             {'name': 'nsc_error_count',
+                              'type': 'uint32',
+                              'labels': [(0xffffffff, 'Not Supported')]},
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'COMMS_STATUS_NSC',
+  'set_request': {'items': []},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0017},
+
+ # LIST_TAGS
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'tags',
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'LIST_TAGS',
+  'value': 0x0651},
+
+ # ADD_TAG
+ {'set_request': {'items': [{'name': 'tag',
+                             'type': 'string',
+                             'max_size': 32}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'ADD_TAG',
+  'value': 0x0652},
+
+ # REMOVE_TAG
+ {'set_request': {'items': [{'name': 'tag',
+                             'type': 'string',
+                             'max_size': 32}]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 1,
+  'name': 'REMOVE_TAG',
+  'value': 0x0653},
+
+ # CHECK_TAG
+ {'get_request': {'items': [{'name': 'tag',
+                             'type': 'string',
+                             'max_size': 32}]},
+  'get_response': {'items': [{'name': 'tag_status',
+                              'type': 'bool'}]},
+  'get_sub_device_range': 2,
+  'name': 'CHECK_TAG',
+  'value': 0x0654},
+
+ # CLEAR_TAGS
+ {'set_request': {'items': []},
+  'set_response': {'items': []},
+  'set_sub_device_range': 3,
+  'name': 'CLEAR_TAGS',
+  'value': 0x0655},
+
+ # DEVICE_UNIT_NUMBER
+ {'get_request': {'items': []},
+  'get_response': {'items': [{
+    'name': 'device_unit_number',
+    'type': 'uint32',
+    'labels': [(0, 'Un-set')],
+  }]},
+  'get_sub_device_range': 2,
+  'name': 'DEVICE_UNIT_NUMBER',
+  'set_request': {'items': [{
+    'name': 'device_unit_number',
+    'type': 'uint32',
+    'range': [(0, 0), (1, 0xFFFFFFFF)],
+    'labels': [(0, 'Un-set')],
+  }]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 2,
+  'value': 0x0656},
+
+ # DMX_PERSONALITY_ID
+ {'get_request': {'items': [{'name': 'personality', 'type': 'uint8', 'range': [
+                    (1, 0xff)]
+                  }]},
+  'get_response': {'items': [
+    {'name': 'personality', 'type': 'uint8'},
+    {'name': 'major_personality_id', 'type': 'uint16'},
+    {'name': 'minor_personality_id', 'type': 'uint16'},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'DMX_PERSONALITY_ID',
+  'value': 0x00e2},
+
+ # DEVICE_INFO_OFFSTAGE
+ {'get_request': {'items': [
+    {'name': 'root_personality_requested',
+     'type': 'uint8',
+     'range': [(1, 0xff)]},
+    {'name': 'sub_device_requested',
+     'type': 'uint16',
+     'range': [(0, 0), (1, 0x0200)],
+     'labels': [(0, 'Root')]},
+    {'name': 'sub_device_personality_requested',
+     'type': 'uint8',
+     'range': [(0, 0), (1, 0xff)],
+     'labels': [(0, 'Root Device')]}
+  ]},
+  'get_response': {'items': [{'name': 'root_personality_requested',
+                              'type': 'uint8'},
+                             {'name': 'sub_device_requested',
+                              'type': 'uint16',
+                              'labels': [(0, 'Root')]},
+                             {'name': 'sub_device_personality_requested',
+                              'type': 'uint8',
+                              'labels': [(0, 'Root Device')]},
+                             {'name': 'protocol_major', 'type': 'uint8'},
+                             {'name': 'protocol_minor', 'type': 'uint8'},
+                             {'name': 'device_model', 'type': 'uint16'},
+                             {'name': 'product_category',
+                              'type': 'uint16',
+                              'labels': [(0x0000, 'Not declared'),
+                                         (0x0100, 'Fixture'),
+                                         (0x0101, 'Fixed fixture'),
+                                         (0x0102, 'Moving yoke fixture'),
+                                         (0x0103, 'Moving mirror fixture'),
+                                         (0x01ff, 'Fixture other'),
+                                         (0x0200, 'Fixture accessory'),
+                                         (0x0201, 'Fixture accessory color'),
+                                         (0x0202, 'Fixture accessory yoke'),
+                                         (0x0203, 'Fixture accessory mirror'),
+                                         (0x0204, 'Fixture accessory effect'),
+                                         (0x0205, 'Fixture accessory beam'),
+                                         (0x02ff, 'Fixture accessory other'),
+                                         (0x0300, 'Projector'),
+                                         (0x0301, 'Projector fixed'),
+                                         (0x0302, 'Projector moving yoke'),
+                                         (0x0303, 'Projector moving mirror'),
+                                         (0x03ff, 'Projector other'),
+                                         (0x0400, 'Atmospheric'),
+                                         (0x0401, 'Atmospheric effect'),
+                                         (0x0402, 'Atmospheric pyro'),
+                                         (0x04ff, 'Atmospheric other'),
+                                         (0x0500, 'Dimmer'),
+                                         (0x0501, 'Dimmer AC incandescent'),
+                                         (0x0502, 'Dimmer AC fluorescent'),
+                                         (0x0503, 'Dimmer AC cold cathode'),
+                                         (0x0504, 'Dimmer AC no dim'),
+                                         (0x0505, 'Dimmer AC ELV'),
+                                         (0x0506, 'Dimmer AC other'),
+                                         (0x0507, 'Dimmer DC level'),
+                                         (0x0508, 'Dimmer DC PWM'),
+                                         (0x0509, 'Dimmer DC LED'),
+                                         (0x05ff, 'Dimmer other'),
+                                         (0x0600, 'Power'),
+                                         (0x0601, 'Power control'),
+                                         (0x0602, 'Power source'),
+                                         (0x06ff, 'Power other'),
+                                         (0x0700, 'Scenic'),
+                                         (0x0701, 'Scenic drive'),
+                                         (0x07ff, 'Scenic other'),
+                                         (0x0800, 'Data'),
+                                         (0x0801, 'Data distribution'),
+                                         (0x0802, 'Data conversion'),
+                                         (0x08ff, 'Data other'),
+                                         (0x0900, 'A/V'),
+                                         (0x0901, 'A/V audio'),
+                                         (0x0902, 'A/V video'),
+                                         (0x09ff, 'AV other'),
+                                         (0x0a00, 'Monitor'),
+                                         (0x0a01, 'AC line power monitor'),
+                                         (0x0a02, 'DC power monitor'),
+                                         (0x0a03, 'Environmental monitor'),
+                                         (0x0aff, 'Other monitor'),
+                                         (0x7000, 'Control'),
+                                         (0x7001, 'Controller'),
+                                         (0x7002, 'Backup device'),
+                                         (0x70ff, 'Other control'),
+                                         (0x7100, 'Test'),
+                                         (0x7101, 'Test equipment'),
+                                         (0x71ff, 'Test equipment other'),
+                                         (0x7fff, 'Other')],
+                              'range': [(0x0000, 0x0000),
+                                        (0x0100, 0x0103),
+                                        (0x01ff, 0x0205),
+                                        (0x02ff, 0x0303),
+                                        (0x03ff, 0x0402),
+                                        (0x04ff, 0x0509),
+                                        (0x05ff, 0x0602),
+                                        (0x06ff, 0x0701),
+                                        (0x07ff, 0x0802),
+                                        (0x08ff, 0x0902),
+                                        (0x09ff, 0x0a03),
+                                        (0x0aff, 0x0aff),
+                                        (0x7000, 0x7002),
+                                        (0x70ff, 0x7101),
+                                        (0x7fff, 0x7fff),
+                                        (0x8000, 0xdfff)]},
+                             {'name': 'software_version',
+                              'type': 'uint32'},
+                             {'name': 'dmx_footprint', 'type': 'uint16'},
+                             {'name': 'current_personality',
+                              'type': 'uint8'},
+                             {'name': 'personality_count',
+                              'type': 'uint8'},
+                             {'name': 'dmx_start_address', 'type': 'uint16'},
+                             {'name': 'sub_device_count',
+                              'type': 'uint16'},
+                             {'name': 'sensor_count', 'type': 'uint8'}]},
+  'get_sub_device_range': 0,
+  'name': 'DEVICE_INFO_OFFSTAGE',
+  'value': 0x00d4},
+
+ # SENSOR_TYPE_CUSTOM
+ {'get_request': {'items': [
+    {'name': 'sensor_type_define', 'type': 'uint8',
+     'range': [(0x80, 0xff)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'sensor_type_define', 'type': 'uint8'},
+    {'name': 'sensor_type_text_label', 'type': 'string', 'max_size': 32},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'SENSOR_TYPE_CUSTOM',
+  'value': 0x0210},
+
+ # SENSOR_UNIT_CUSTOM
+ {'get_request': {'items': [
+    {'name': 'sensor_unit_define', 'type': 'uint8',
+     'range': [(0x80, 0xff)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'sensor_unit_define', 'type': 'uint8'},
+    {'name': 'sensor_unit_text_label', 'type': 'string', 'max_size': 32},
+  ]},
+  'get_sub_device_range': 2,
+  'name': 'SENSOR_UNIT_CUSTOM',
+  'value': 0x0211},
+
+ # METADATA_PARAMETER_VERSION
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
+                             {'name': 'version', 'type': 'uint16'}]},
+  'get_sub_device_range': 2,
+  'name': 'METADATA_PARAMETER_VERSION',
+  'value': 0x0052},
+
+ # METADATA_JSON
+ {'get_request': {'items': [{'name': 'pid', 'type': 'uint16'}]},
+  'get_response': {'items': [{'name': 'pid', 'type': 'uint16'},
+                             {'name': 'json', 'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'METADATA_JSON',
+  'value': 0x0053},
+
+ # METADATA_JSON_URL
+ {'get_request': {'items': []},
+  'get_response': {'items': [{'name': 'url',
+                              'min_size': 2,
+                              'type': 'string'}]},
+  'get_sub_device_range': 2,
+  'name': 'METADATA_JSON_URL',
+  'value': 0x0054},
+
  # These are ordered to match how they appear in E1.37-7
- # The PID values will change in the final document.
  # ENDPOINT_LIST
  {'get_request': {'items': []},
   'get_response': {'items': [
@@ -5296,8 +5956,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_LIST',
-  'draft': True,
-  'value': 0x7fd3},
+  'value': 0x0900},
 
  # ENDPOINT_LIST_CHANGE
  {'get_request': {'items': []},
@@ -5307,8 +5966,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_LIST_CHANGE',
-  'draft': True,
-  'value': 0x7fee},
+  'value': 0x0901},
 
  # IDENTIFY_ENDPOINT
  {'get_request': {'items': [
@@ -5334,8 +5992,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe9},
+  'value': 0x0902},
 
  # ENDPOINT_TO_UNIVERSE
  {'get_request': {'items': [
@@ -5364,8 +6021,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe1},
+  'value': 0x0903},
 
  # ENDPOINT_MODE
  {'get_request': {'items': [
@@ -5393,8 +6049,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe3},
+  'value': 0x0904},
 
  # ENDPOINT_LABEL
  {'get_request': {'items': [
@@ -5420,8 +6075,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe4},
+  'value': 0x0905},
 
  # RDM_TRAFFIC_ENABLE
  {'get_request': {'items': [
@@ -5447,8 +6101,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe2},
+  'value': 0x0906},
 
  # DISCOVERY_STATE
  {'get_request': {'items': [
@@ -5482,8 +6135,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe5},
+  'value': 0x0907},
 
  # BACKGROUND_DISCOVERY
  {'get_request': {'items': [
@@ -5509,8 +6161,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fea},
+  'value': 0x0908},
 
  # ENDPOINT_TIMING
  {'get_request': {'items': [
@@ -5539,8 +6190,7 @@ ESTA_PIDS = [
      'labels': [(0xffff, 'All Endpoints')]},
   ]},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fe6},
+  'value': 0x0909},
 
  # ENDPOINT_TIMING_DESCRIPTION
  {'get_request': {'items': [
@@ -5554,8 +6204,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_TIMING_DESCRIPTION',
-  'draft': True,
-  'value': 0x7fe7},
+  'value': 0x090a},
 
  # ENDPOINT_RESPONDERS
  {'get_request': {'items': [
@@ -5570,8 +6219,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_RESPONDERS',
-  'draft': True,
-  'value': 0x7fec},
+  'value': 0x090b},
 
  # ENDPOINT_RESPONDER_LIST_CHANGE
  {'get_request': {'items': [
@@ -5585,8 +6233,7 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 0,
   'name': 'ENDPOINT_RESPONDER_LIST_CHANGE',
-  'draft': True,
-  'value': 0x7feb},
+  'value': 0x090c},
 
  # BINDING_CONTROL_FIELDS
  {'get_request': {'items': [
@@ -5604,8 +6251,7 @@ ESTA_PIDS = [
    ]},
   'get_sub_device_range': 0,
   'name': 'BINDING_CONTROL_FIELDS',
-  'draft': True,
-  'value': 0x7fe8},
+  'value': 0x090d},
 
  # BACKGROUND_QUEUED_STATUS_POLICY
  {'get_request': {'items': []},
@@ -5626,8 +6272,7 @@ ESTA_PIDS = [
   'get_sub_device_range': 2,
   'set_sub_device_range': 1,
   'name': 'BACKGROUND_QUEUED_STATUS_POLICY',
-  'draft': True,
-  'value': 0x7fd0},
+  'value': 0x090e},
 
  # BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION
  {'get_request': {'items': [
@@ -5642,66 +6287,107 @@ ESTA_PIDS = [
   ]},
   'get_sub_device_range': 2,
   'name': 'BACKGROUND_QUEUED_STATUS_POLICY_DESCRIPTION',
-  'draft': True,
-  'value': 0x7fd1},
+  'value': 0x090f},
 
  # These are ordered to match how they appear in E1.33
- # The PID values will change in the final document.
+ # COMPONENT_SCOPE
+ {'get_request': {'items': [
+    {'name': 'scope_slot', 'type': 'uint16',
+     'range': [(1, 65535)]},
+  ]},
+  'get_response': {'items': [
+    {'name': 'scope_slot', 'type': 'uint16',
+     'range': [(1, 65535)]},
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63},
+    {'name': 'static_config_type', 'type': 'uint8',
+     'range': [(0, 2)],
+     'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
+                (0x01, 'Static config IPv6')]},
+    {'name': 'static_broker_ipv4_address', 'type': 'ipv4',
+     'labels': [(0x00000000, 'No static broker IPv4 address')]},
+    {'name': 'static_broker_ipv6_address', 'type': 'ipv6',
+     'labels': [(0, 'No static broker IPv6 address')]},
+    {'name': 'static_broker_port', 'type': 'uint16',
+     'labels': [(0x0000, 'No static broker port')]}
+  ]},
+  'get_sub_device_range': 0,
+  'name': 'COMPONENT_SCOPE',
+  'set_request': {'items': [
+    {'name': 'scope_slot', 'type': 'uint16',
+     'range': [(1, 65535)]},
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63},
+    {'name': 'static_config_type', 'type': 'uint8',
+     'range': [(0, 2)],
+     'labels': [(0x00, 'No static config'), (0x01, 'Static config IPv4'),
+                (0x01, 'Static config IPv6')]},
+    {'name': 'static_broker_ipv4_address', 'type': 'ipv4',
+     'labels': [(0x00000000, 'No static broker IPv4 address')]},
+    {'name': 'static_broker_ipv6_address', 'type': 'ipv6',
+     'labels': [(0, 'No static broker IPv6 address')]},
+    {'name': 'static_broker_port', 'type': 'uint16',
+     'labels': [(0x0000, 'No static broker port')]}
+  ]},
+  'set_response': {'items': []},
+  'set_sub_device_range': 0,
+  'value': 0x0800},
+
  # SEARCH_DOMAIN
  {'get_request': {'items': []},
   'get_response': {'items': [{'name': 'search_domain',
-                              'min_size': 1,
-                              'max_size': 230,
+                              'min_size': 0,
+                              'max_size': 231,
                               'type': 'string'}]},
   'get_sub_device_range': 0,
   'set_request': {'items': [{'name': 'search_domain',
-                             'min_size': 1,
-                             'max_size': 230,
+                             'min_size': 0,
+                             'max_size': 231,
                              'type': 'string'}]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
   'name': 'SEARCH_DOMAIN',
-  'draft': True,
-  'value': 0x7fe0},
+  'value': 0x0801},
 
  # TCP_COMMS_STATUS
- {'get_request': {'items': [
-  ]},
+ {'get_request': {'items': []},
   'get_response': {'items': [
-    {'name': 'controller_ip', 'type': 'ipv4',
-     'labels': [(0, 'No Connection')]},
-    {'name': 'unhealthy_events', 'type': 'uint16'},
-    {'name': 'connection_events', 'type': 'uint16'},
-  ]},
+    {'name': 'comms_statuses',
+     'type': 'group',
+     'items': [{'name': 'scope_string', 'type': 'string',
+                'min_size': 63, 'max_size': 63},
+               {'name': 'broker_ipv4_address', 'type': 'ipv4',
+                'labels': [(0, 'No IPv4 Connection')]},
+               {'name': 'broker_ipv6_address', 'type': 'ipv6',
+                'labels': [(0, 'No IPv6 Connection')]},
+               {'name': 'broker_port', 'type': 'uint16'},
+               {'name': 'unhealthy_tcp_events', 'type': 'uint16'}],
+    }]},
   'get_sub_device_range': 0,
   'name': 'TCP_COMMS_STATUS',
-  'set_request': {'items': []},
+  'set_request': {'items': [
+    {'name': 'scope_string', 'type': 'string', 'min_size': 63, 'max_size': 63}
+  ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7fed},
+  'value': 0x0802},
 
  # BROKER_STATUS
  {'get_request': {'items': []},
   'get_response': {'items': [
     {'name': 'set_allowed', 'type': 'bool'},
     {'name': 'broker_state', 'type': 'uint8',
-     'labels': [(0, 'Disabled'), (1, 'Active'), (2, 'Superseded')],
+     'labels': [(0, 'Disabled'), (1, 'Active'), (2, 'Standby')],
      'range': [(0, 2)]}
   ]},
   'get_sub_device_range': 0,
   'name': 'BROKER_STATUS',
-  'set_request': {
-                  'items': [{'name': 'broker_state',
-                             'type': 'uint8',
-                             'labels': [(0, 'Disabled'), (1, 'Active')],
-                             'range': [(0, 1)]
-                            }]
-                 },
+  'set_request': {'items': [
+    {'name': 'broker_state', 'type': 'uint8',
+     'labels': [(0, 'Disabled'), (1, 'Active')],
+     'range': [(0, 1)]}
+  ]},
   'set_response': {'items': []},
   'set_sub_device_range': 0,
-  'draft': True,
-  'value': 0x7ff0},
+  'value': 0x0803},
 
  # These are ordered to match how they appear in E1.37-2
  # LIST_INTERFACES
