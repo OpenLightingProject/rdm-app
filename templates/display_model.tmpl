@@ -1,6 +1,6 @@
 {% extends "base.tmpl" %}
 
-{% block title %}{{ manufacturer }} - {{ description }}{% endblock %}
+{% block title %}{{ manufacturer }} - {% if description %}{{ description }}{% else %}Model ID {{ model_id }}{% endif %}{% endblock %}
 
 {% block content %}
     <div id="fb-root"></div>
