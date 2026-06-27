@@ -44,7 +44,7 @@ NODE_DATA = {
      'image_url': 'http://www.artisticlicence.com/WebSiteMaster/Product%20Images/Ether-Lynx_II.jpg',
      'tags': ['Art-Net']},
     {'name': 'Data-Lynx O/P',
-     'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&category_id=4&product_id=215&project_id=&policies_id=&cart_id=&order_id=',
+     'link': 'https://artisticlicence.com/product/data-lynx-op/',
      'image_url': 'http://www.artisticlicence.com/WebSiteMaster/Product%20Images/Data-Lynx_OP.jpg',
      'tags': ['Art-Net']},
   ],
