@@ -17,13 +17,32 @@
 # Copyright (C) 2015 Simon Newton
 
 import unittest
-import urllib2
 import pprint
+import sys
 from socket import error as SocketError
-from urllib2 import HTTPError
-from urllib2 import URLError
 from ssl import SSLError
 
+if sys.version_info >= (3, 0):
+  try:
+    from urllib.request import build_opener
+    from urllib.request import HTTPCookieProcessor
+    from urllib.request import Request
+    from urllib.error import HTTPError
+    from urllib.error import URLError
+  except ImportError:
+    import urllib2
+    from urllib2 import build_opener
+    from urllib2 import HTTPCookieProcessor
+    from urllib2 import Request
+    from urllib2 import HTTPError
+    from urllib2 import URLError
+else:
+    import urllib2
+    from urllib2 import build_opener
+    from urllib2 import HTTPCookieProcessor
+    from urllib2 import Request
+    from urllib2 import HTTPError
+    from urllib2 import URLError
 
 class TestManufacturers(unittest.TestCase):
   """ Test the manufacturer data files are valid."""
@@ -66,7 +85,7 @@ class TestManufacturers(unittest.TestCase):
       esta_id, name = manufacturer_data
       esta_ids.add(esta_id)
 
-    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+    opener = build_opener(HTTPCookieProcessor())
 
     for manufacturer_link in self.links:
       self.assertEqual(tuple, type(manufacturer_link))
@@ -92,7 +111,7 @@ class TestManufacturers(unittest.TestCase):
         ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)',
               'referer': 'http://example.com'}
 
-        request = urllib2.Request(link, headers=ua)
+        request = Request(link, headers=ua)
         response = opener.open(request)
       except URLError as e:
         if hasattr(e, 'reason'):
