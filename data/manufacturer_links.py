@@ -26,7 +26,7 @@ MANUFACTURER_LINKS = [
   (0x00A7, "https://www.syncronorm.com/"),
   (0x00A8, "https://www.eye.co.jp/"),
   (0x00A9, "http://www.richter-lt.de/"),
-  (0x00B0, "https://arenaluci.it/"),
+  (0x00B0, "https://arenaluci.it/en/"),
   # (0x00B9, "http://en.gzsjlight.com/"),  # Website currently gone
   (0x0104, "https://www.blizzardpro.com/"),
   (0x01CC, "https://portmanlights.com/"),
@@ -157,11 +157,11 @@ MANUFACTURER_LINKS = [
   (0x544C, "http://tempest.biz/"),
   (0x564C, "http://www.vari-lite.com/"),
   (0x5753, "http://wirelessdmx.com"),
-  (0x5759, "https://www.wybron.com/"),
+  # (0x5759, "https://www.wybron.com/"),  # Company, and website has gone
   (0x586D, "http://www.doityourselfchristmas.com/"),
   (0x6019, "https://artificers.co.uk/"),
   (0x6205, "http://www.ltechonline.com/"),
-  (0x6364, "http://www.lanbox.com/"),
+  # (0x6364, "http://www.lanbox.com/"),  # Website has gone
   (0x646F, "https://www.eldoled.com/"),
   (0x6555, "https://shanteacontrols.com/"),
   (0x656C, "https://www.elclighting.com/"),
