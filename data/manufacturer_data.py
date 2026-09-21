@@ -1137,6 +1137,7 @@ MANUFACTURER_DATA = [
   (0x1268, "Frontside Technology Services"),
   (0x126C, "Pravdin Vitalii Fedotovych FOP"),
   (0x127E, "Symphony Interactive Inc"),
+  (0x12B0, "Novoshine Semiconductor Technology Co., Ltd."),
   (0x12DA, "Newlab S.r.l."),
   (0x12E0, "Luxlight Skandinavien AB"),
   (0x12EA, "Kolberg Percussion GmbH"),
