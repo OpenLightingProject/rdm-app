@@ -1760,6 +1760,7 @@ MANUFACTURER_DATA = [
   (0x7888, "Tontron Photoelectric Co., Limited"),
   (0x78B4, "LED Flex Limited"),
   (0x7900, "Leprecon / CAE, Inc."),
+  (0x790D, "Guangzhou Shengyuan Electronic Technology Co., Ltd"),
   (0x79BC, "DC Reactive"),
   (0x7A70, "Open Lighting"),
   (0x7AA0, "Anaren Inc."),
