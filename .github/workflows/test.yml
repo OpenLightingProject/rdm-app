@@ -15,6 +15,7 @@ jobs:
         env:
           TASK: ${{ matrix.task }}
         run: |
+          sudo apt-get update
           if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
@@ -23,9 +24,9 @@ jobs:
           if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
           if [ "$TASK" = "codespell" ]; then pip install git+https://github.com/codespell-project/codespell.git; fi
           #if [ "$TASK" = "codespell" ]; then pip install codespell; fi
+          if [ "$TASK" = "spellintian" ]; then sudo apt-get install lintian; fi
           sudo apt-get install xvfb
           sudo apt-get install libhtml-parser-perl
-          sudo apt-get install lintian
           sudo apt-get install moreutils
       - uses: codespell-project/codespell-problem-matcher@v1
       - name: Test

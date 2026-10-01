@@ -46,6 +46,10 @@ class TestManufacturers(unittest.TestCase):
       esta_id, name = manufacturer_data
       self.assertEqual(int, type(esta_id))
       self.assertEqual(str, type(name))
+      # check the ESTA ID is valid, special case for their 0xffff listing...
+      self.assertTrue(((esta_id <= 0x7fff) or (esta_id == 0xffff)),
+                      ("ESTA ID 0x%04x is greater than the largest allowed ID "
+                       "(0x7fff)" % esta_id))
 
       self.assertNotIn(esta_id, seen_ids,
                        ("ESTA ID 0x%04x is present twice in manufacturers" %
