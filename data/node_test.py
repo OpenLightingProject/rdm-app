@@ -24,7 +24,8 @@ class TestNodeData(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/node_data.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/node_data.py").read(), globals, locals)
     self.data = locals['NODE_DATA']
 
   def test_NodeData(self):

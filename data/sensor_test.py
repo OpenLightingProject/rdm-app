@@ -24,7 +24,8 @@ class TestSensorTypes(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/sensor_types.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/sensor_types.py").read(), globals, locals)
     self.data = locals['SENSOR_TYPES']
 
   def test_SensorTypeData(self):

@@ -24,7 +24,8 @@ class TestDeviceModelData(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/model_data.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/model_data.py").read(), globals, locals)
     self.data = locals['DEVICE_MODEL_DATA']
 
   def test_DeviceModelData(self):

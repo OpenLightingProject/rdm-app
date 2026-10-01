@@ -7,8 +7,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [data-check, codespell]
-        #spellintian, nosetests, karma, lint, closure-compiler, 
+        task: [nosetests, data-check, codespell]
+        #spellintian, karma, lint, closure-compiler, 
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
@@ -16,6 +16,7 @@ jobs:
           TASK: ${{ matrix.task }}
         run: |
           sudo apt-get update
+          if [ "$TASK" = "nosetests" ]; then pip install pynose; fi
           if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
