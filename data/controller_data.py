@@ -119,7 +119,7 @@ CONTROLLER_DATA = {
   ],
   0x454E: [
     {'name': 'DMX USB Pro',
-     'link': 'https://www.enttec.co.uk/product/protocols/dmx512/2-universe-usb-computer-interface-dmx/',
+     'link': 'https://www.enttec.com/product/dmx-usb-interfaces/dmx-usb-pro-professional-1u-usb-to-dmx512-converter/',
      'image_url': 'http://www.enttec.com/img/dmxusbpro/flip.gif',
      'tags': ['tool', 'RDM Responder Tests', 'USB']},
     {'name': 'RDM USB Pro',

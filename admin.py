@@ -539,6 +539,8 @@ class AdminPageHandler(BaseAdminPageHandler):
 class ResponderModerator(BaseAdminPageHandler):
   """Displays the UI for moderating responder data."""
   def EvalData(self, data):
+    if not data:
+      return {}
     try:
       evaled_data = eval(data, {})
       return evaled_data
