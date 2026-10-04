@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [data-check, codespell]
+        task: [data-check, codespell, karma]
         #spellintian, nosetests, karma, lint, closure-compiler, 
     steps:
       - uses: actions/checkout@master
