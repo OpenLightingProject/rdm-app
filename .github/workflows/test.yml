@@ -33,5 +33,7 @@ jobs:
       - name: Test
         env:
           TASK: ${{ matrix.task }}
+          # Make Firefox headless
+          MOZ_HEADLESS: 1
         run: |
           bash -ex .travis-ci.sh
