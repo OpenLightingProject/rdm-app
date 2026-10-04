@@ -65,6 +65,6 @@ sed -r -e 's/\xc5\x9f/s/g' | \
 tr "\300-\305" "[A*]" | tr "\310-\313" "[E*]" | tr "\314-\317" "[I*]" | tr "\322-\326" "[O*]" | tr "\331-\334" "[U*]" | \
 tr "\340-\345" "[a*]" | tr "\350-\353" "[e*]" | tr "\354-\357" "[i*]" | tr "\362-\366" "[o*]" | tr "\371-\374" "[u*]" | \
 uniq | \
-grep -v "(0x0000, \"PLASA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\")," | grep -v "(0x0854, \"NEC Display Solutions, Ltd\.\")," | grep -v "(0x0854, \"Sharp Corporation\")," | grep -v "(0x5007, \"Prizm Lighting (part of American Lighting Inc.)\")," | \
+grep -v "(0x0000, \"PLASA\")," | grep -v "(0x4C5A, \"Sumolight GmbH\")," | grep -v "(0x0854, \"NEC Display Solutions, Ltd\.\")," | grep -v "(0x0854, \"Sharp Corporation\")," | grep -v "(0x12F4, \"Optikinetics Limited\")," | grep -v "(0x5007, \"Prizm Lighting (part of American Lighting Inc.)\")," | \
 sed -r -e 's/^[[:space:]]*\([[:space:]]*0x([[:xdigit:]]{4,4})[Hh]?[[:space:]]*,[[:space:]]*"[[:space:]]*/(0x\1, "/' -e 's/[[:space:]]+"\),$/"),/' -e 's/^\(/  (/'
 )

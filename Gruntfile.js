@@ -27,7 +27,7 @@ module.exports = function(grunt) {
       build: {
         files: [{
           dest: './static/js/rdm.js',
-          src: './js_src/rdm.js'//TODO(dave): change this to ./js_scr/*js
+          src: './js_src/rdm.js'//TODO(dave): change this to ./js_src/*js
         }],
         options: {
           mangle: true,
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
     jshint: {
       dev: [
         'Gruntfile.js',
-        'js_src/rdm.js',//TODO(dave): change this to ./js_scr/*js
+        'js_src/rdm.js',//TODO(dave): change this to ./js_src/*js
         'unit-test-js/karma.conf.js',
         'unit-test-js/tests/*js'
       ],
@@ -72,12 +72,11 @@ module.exports = function(grunt) {
     jscs: {
       src: [
         'Gruntfile.js',
-        'js_src/rdm.js',//TODO(dave): change this to ./js_scr/*js
+        'js_src/rdm.js',//TODO(dave): change this to ./js_src/*js
         'unit-test-js/karma.conf.js',
         'unit-test-js/tests/*js'
       ],
       options: {
-        verbose: true,
         config: true
       }
     },
