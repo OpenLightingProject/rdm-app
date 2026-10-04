@@ -843,6 +843,7 @@ MANUFACTURER_DATA = [
   (0x08CA, "Foshan City Xuandao Optoelectronics Equipment Co., Ltd"),
   (0x08CB, "Practical LEDs.com"),
   (0x08CC, "Guangzhou Santu Stage Lighting Equipment Co.Ltd"),
+  (0x08CD, "RAVE.productions"),
   (0x08CE, "Zhejiang DGX Electronic Technology Co.,Ltd"),
   (0x08CF, "Nanjing Lopu Co., Ltd"),
   (0x08D0, "Image Engineering"),
