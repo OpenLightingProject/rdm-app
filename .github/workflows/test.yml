@@ -17,7 +17,8 @@ jobs:
         run: |
           sudo apt-get update
           if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
-          if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
+          # Not on GitHub!
+          #if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
           if [ "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install flake8; fi
           # If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
