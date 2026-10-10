@@ -20,6 +20,7 @@ import unittest
 import urllib2
 import pprint
 from socket import error as SocketError
+from urllib2 import HTTPError
 from urllib2 import URLError
 from ssl import SSLError
 
@@ -45,13 +46,20 @@ class TestManufacturers(unittest.TestCase):
       esta_id, name = manufacturer_data
       self.assertEqual(int, type(esta_id))
       self.assertEqual(str, type(name))
+      # check the ESTA ID is valid, special case for their 0xffff listing...
+      self.assertTrue(((esta_id <= 0x7fff) or (esta_id == 0xffff)),
+                      ("ESTA ID 0x%04x is greater than the largest allowed ID "
+                       "(0x7fff)" % esta_id))
 
       self.assertNotIn(esta_id, seen_ids,
-                       "ESTA ID 0x%04x is present twice" % esta_id)
+                       ("ESTA ID 0x%04x is present twice in manufacturers" %
+                        esta_id))
       seen_ids.add(esta_id)
 
     # check that ESTA exists
     self.assertIn(0, seen_ids)
+    # check that an ESTA test ID at the end of the file exists
+    self.assertIn(0x7FF0, seen_ids)
 
   def test_ManufacturerLinks(self):
     esta_ids = set()
@@ -76,14 +84,15 @@ class TestManufacturers(unittest.TestCase):
 
       # Check we've not seen a URL for this ID before
       self.assertNotIn(esta_id, seen_ids,
-                       "ESTA ID 0x%04x is present twice" % esta_id)
+                       "ESTA ID 0x%04x is present twice in links" % esta_id)
       seen_ids.add(esta_id)
 
       # Check the link is valid
       try:
         # Some web servers, and Cloudflare, block us unless we have a
         # non-python User Agent
-        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)'}
+        ua = {'User-Agent': 'Mozilla/5.0 (KHTML, like Gecko)',
+              'referer': 'http://example.com'}
 
         request = urllib2.Request(link, headers=ua)
         response = opener.open(request)
@@ -93,15 +102,21 @@ class TestManufacturers(unittest.TestCase):
             pprint.pprint(e.code)
           if hasattr(e, 'headers'):
             pprint.pprint(vars(e.headers))
-          # TODO(Peter): Enttec URL fails SSL validation due to an incomplete
-          # chain, skip this error for now
-          if not (type(e.reason) is SSLError and
-                  (link == 'https://www.enttec.com/' or
-                   link == 'https://www.arri.com/')):
-            self.fail("Link %s failed due to %s" % (link, e.reason))
+          # TODO(Peter): Various URLs fail SSL validation due to an incomplete
+          # chain, others just don't like our CI testing of valid pages,
+          # skip all these error for now
+          if not ((type(e.reason) is SSLError and
+                   (link == 'https://www.arri.com/' or
+                    link == 'https://www.diconfiberoptics.com/' or
+                    link == 'https://www.enttec.com/')) or
+                  (type(e) is HTTPError and
+                   (link == 'http://www.compulite.com/' or
+                    link == 'https://www.lutron.com/en-US/Pages/default.aspx' or
+                    link == 'https://www.panasonic.com/'))):
+            self.fail("Link %s failed due to %s, reason type: %s" % (link, e.reason, type(e)))
         elif hasattr(e, 'code'):
           self.fail("The server couldn't fulfill the request for %s. Error "
-                    "code: %s" % (link, e.code))
+                    "code: %s, reason type: %s" % (link, e.code, type(e.reason)))
       except SocketError as e:
         if hasattr(e, 'errno'):
           self.fail("Link %s failed due to socket error %s" % (link, e.errno))

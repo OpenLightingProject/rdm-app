@@ -51,5 +51,13 @@ SENSOR_TYPES = {
     0x1e: "Items",
     0x1f: "Humidity",
     0x20: "16 bit counter",
+    0x21: "CPU load",
+    0x22: "Bandwidth",
+    0x23: "Concentration",
+    0x24: "Sound pressure level",
+    0x25: "Solid angle",
+    0x26: "Log ratio",
+    0x27: "Log ratio volts",
+    0x28: "Log ratio watts",
     0x7f: "Other",
 }

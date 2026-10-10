@@ -44,7 +44,7 @@ NODE_DATA = {
      'image_url': 'http://www.artisticlicence.com/WebSiteMaster/Product%20Images/Ether-Lynx_II.jpg',
      'tags': ['Art-Net']},
     {'name': 'Data-Lynx O/P',
-     'link': 'http://www.artisticlicence.com/index.php?mode=products&sub=overview&action=&category_id=4&product_id=215&project_id=&policies_id=&cart_id=&order_id=',
+     'link': 'https://artisticlicence.com/product/data-lynx-op/',
      'image_url': 'http://www.artisticlicence.com/WebSiteMaster/Product%20Images/Data-Lynx_OP.jpg',
      'tags': ['Art-Net']},
   ],
@@ -73,5 +73,11 @@ NODE_DATA = {
      'link': 'http://www.luminex.be/products_details.php?cat=1&prod=0100037&display=description',
      'image_url': 'http://www.luminex.be/products/0100037/photo_037.png',
      'tags': ['Art-Net']},
+  ],
+  0x5377: [
+    {'name': 'XND Ethernet DMX Node',
+     'link': 'https://swisson.com/en/products/data-distribution/ethernet-dmx-node/',
+     'image_url': 'https://swisson.com/site/assets/files/1056/xnd-4_box_and_rack_and_xnd-8.500x0.png',
+     'tags': ['Art-Net', 'sACN']},
   ],
 }
