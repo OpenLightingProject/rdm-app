@@ -66,8 +66,8 @@ handlers:
   script: export.export_application
 
 # API handlers
-- url: /api/(json|proto)/1/.*
-  script: api.\1_v1.app
+- url: /api/(json|proto)/(1|2)/.*
+  script: api.\1_api.app
 
 # Admin page
 - url: /admin(/.*)?
