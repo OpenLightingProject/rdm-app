@@ -1,4 +1,5 @@
 MANUFACTURER_PIDS = [
+  
   # Creative Lighting
   {'id': 0x00a1,
    'name': 'Creative Lighting',
@@ -125,6 +126,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8005},
    ]
   },
+  
   # ImageCue
   {'id': 0x0308,
    'name': 'Image Cue',
@@ -139,6 +141,7 @@ MANUFACTURER_PIDS = [
        'value': 0x80d0},
    ]
   },
+
   # Ayrton
   {'id': 16761,
    'name': 'Ayrton',
@@ -168,6 +171,7 @@ MANUFACTURER_PIDS = [
              'value': 32771},
     ],
   },
+  
   # Clay Paky
   {'id': 17232,
    'name': 'Clay Paky S.p.A',
@@ -471,7 +475,7 @@ MANUFACTURER_PIDS = [
              'get_response': {'items': [{'name': 'anti_blind', 'type': 'bool'}]},
              'get_sub_device_range': 2,
              'name': 'CP_ANTI_BLIND',
-             'set_request': {'items': [{'name': 'color_wheel_linear', 'type': 'bool'}]},
+             'set_request': {'items': [{'name': 'anti_blind', 'type': 'bool'}]},
              'set_response': {'items': []},
              'set_sub_device_range': 1,
              'value': 34327},
@@ -501,6 +505,7 @@ MANUFACTURER_PIDS = [
              'value': 34335},
     ],
   },
+
   # City Theatrical
   {'id': 0x4354,
    'name': 'City Theatrical Inc.',
@@ -885,7 +890,7 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 0,
        'notes': ('Get/Set the factory settings lock. The factory settings '
                  'lock controls whether factory programmed settings that are '
-                 'not to be changed by the customer can be changed.  An '
+                 'not to be changed by the customer can be changed. An '
                  'example would be RDM UID or MAC addresses.'),
        'value': 0x801a},
 
@@ -1050,6 +1055,7 @@ MANUFACTURER_PIDS = [
        'value': 0xc862},
     ],
   },
+
   # JANDS
   {'id': 0x4a61,
    'name': 'Jands',
@@ -1217,6 +1223,7 @@ MANUFACTURER_PIDS = [
        'value': 0x8002},
     ]
   },
+
   # Martin Professional
   {'id': 0x4d50,
    'name': 'Martin Professional A/S',
@@ -2514,9 +2521,12 @@ MANUFACTURER_PIDS = [
        'value': 0x8702},
     ],
   },
+
+  # Production Resource Group
   {'id': 20562,
    'name': 'Production Resource Group',
    'pids': [
+    # Something is wrong herer, the name Property differs and an Error cant be set via RDM
       {'get_request': {'items': []},
        'get_response': {'items': [{'name': 'fan_error_status', 'type': 'uint8',
                                    'labels': [(0, 'No Error'),
@@ -2651,7 +2661,7 @@ MANUFACTURER_PIDS = [
                                   }]},
        'get_sub_device_range': 0,
        'name': 'ZOOM_TYPE',
-       'set_request': {'items': [{'name': 'followspot_control', 'type': 'uint8',
+       'set_request': {'items': [{'name': 'zoom_type', 'type': 'uint8',
                                   'labels': [(0, 'Fast'), (1, 'In Focus')],
                                  }]},
        'set_response': {'items': []},
@@ -2680,7 +2690,7 @@ MANUFACTURER_PIDS = [
        'set_sub_device_range': 0,
        'value': 34337},
       {'name': 'ZERO_GOBO_WHEELS',
-       'set_request': {'items': [{'name': 'followspot_control', 'type': 'bool'}]},
+       'set_request': {'items': [{'name': 'followspot_control_gobo_wheels', 'type': 'bool'}]},
        'set_response': {'items': []},
        'set_sub_device_range': 0,
        'value': 34368},
@@ -2699,6 +2709,7 @@ MANUFACTURER_PIDS = [
        'value': 36864},
     ],
   },
+
   # SWISSON AG
   {'id': 0x5377,
    'name': 'SWISSON AG',
@@ -2715,6 +2726,8 @@ MANUFACTURER_PIDS = [
              },
         ],
   },
+
+  # Wireless Solutions
   {'id': 0x5753,
    'name': 'Wireless Solutions',
    'pids': [{'name': 'WDMX_LOGIN',
@@ -2916,6 +2929,8 @@ MANUFACTURER_PIDS = [
              'value': 33792}
     ]
   },
+  
+  # Open Lighting
   {'id': 0x7a70,
    'name': 'Open Lighting',
    'pids': [
@@ -2993,6 +3008,8 @@ MANUFACTURER_PIDS = [
        'value': 0x8006},
     ],
   },
+  
+  # Stellascapes
   {'id': 0x2dc8,
    'name': 'Stellascapes',
    'pids': [
@@ -3050,6 +3067,8 @@ MANUFACTURER_PIDS = [
        'value': 0x8006},
     ],
   },
+
+  # Soundlight
   {'id': 21324,
    'name': 'Soundlight',
    'pids': [
@@ -3252,6 +3271,8 @@ MANUFACTURER_PIDS = [
        'value': 0xdccd},
    ]
   },
+
+  # Lumen Radio
   {'id': 0x4c55,
    'name': 'Lumen Radio',
    'pids': [
@@ -3330,8 +3351,10 @@ MANUFACTURER_PIDS = [
        'value': 0x8102},
     ],
   },
+
+  # Robe Lighting s.r.o.
   {'id': 0x5253,
-   'name': 'robe',
+   'name': 'Robe Lighting s.r.o.',
    'pids': [
       {'get_request': {'items': []},
        'get_response': {'items': [{'labels': [(0, 'Wired'),
@@ -3454,6 +3477,8 @@ MANUFACTURER_PIDS = [
        'value': 40975},
     ],
   },
+
+  # ETC
   {'id': 0x6574,
    'name': 'ETC',
    'pids': [
@@ -3929,6 +3954,8 @@ MANUFACTURER_PIDS = [
        'value': 0xf000},
     ],
   },
+
+  # GDS
   {'id': 0x3434,
    'name': 'GDS',
    'pids': [
