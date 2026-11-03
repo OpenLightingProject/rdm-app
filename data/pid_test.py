@@ -301,7 +301,8 @@ class TestPidData(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/pid_data.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/pid_data.py").read(), globals, locals)
     self.manufacturer_pids = locals['MANUFACTURER_PIDS']
     self.esta_pids = locals['ESTA_PIDS']
     self.pid_validator = jsonspec.validators.load(PID_VALIDATOR)

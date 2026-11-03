@@ -24,7 +24,8 @@ class TestControllerData(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/controller_data.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/controller_data.py").read(), globals, locals)
     self.data = locals['CONTROLLER_DATA']
 
   def test_ControllerData(self):

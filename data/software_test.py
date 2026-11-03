@@ -24,7 +24,8 @@ class TestSoftwareData(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/software_data.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/software_data.py").read(), globals, locals)
     self.data = locals['SOFTWARE_DATA']
 
   def test_SoftwareData(self):

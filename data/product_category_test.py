@@ -24,7 +24,8 @@ class TestProductCategoryData(unittest.TestCase):
   def setUp(self):
     globals = {}
     locals = {}
-    execfile("data/product_categories.py", globals, locals)
+    # Python 2 and 3 compatible version of execfile
+    exec(open("data/product_categories.py").read(), globals, locals)
     self.data = locals['PRODUCT_CATEGORIES']
 
   def test_ProductCategoryData(self):
