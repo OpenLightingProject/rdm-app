@@ -56,6 +56,7 @@ tr "\240" " " | \
 sed -r -e 's/[\xe2\x80\x93\xe2\x80\x94]/-/g' | \
 sed -r -e 's/[\xef\xbc\x88]/(/g' | \
 sed -r -e 's/[\xef\xbc\x89]/)/g' | \
+sed -r -e 's/\xc3\xa4/a/g' | \
 sed -r -e 's/\xc3\xa9/e/g' | \
 sed -r -e 's/\xc3\xb6/o/g' | \
 sed -r -e 's/\xc3\xbc/u/g' | \
