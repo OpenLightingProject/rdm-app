@@ -14,11 +14,11 @@ BLACKLIST
 if [[ $TASK = 'nosetests' ]]; then
     nosetests --verbosity=3 --detailed-errors
 elif [[ $TASK = 'karma' ]]; then
-    grunt --verbose unit-test
+    grunt --verbose --debug --stack unit-test
 elif [[ $TASK = 'lint' ]]; then
-    grunt --verbose lint
+    grunt --verbose --debug --stack lint
 elif [[ $TASK = 'closure-compiler' ]]; then
-    grunt --verbose closure-compiler
+    grunt --verbose --debug --stack closure-compiler
 elif [[ $TASK = 'data-check' ]]; then
     ./tools/make_manufacturer_data.sh > data/manufacturer_data.py && git diff --exit-code data/manufacturer_data.py
 elif [[ $TASK = 'spellintian' ]]; then

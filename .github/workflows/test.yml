@@ -7,8 +7,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [nosetests, data-check, codespell]
-        #spellintian, karma, lint, closure-compiler, 
+        task: [nosetests, data-check, codespell, karma, lint, closure-compiler]
+        #spellintian
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
@@ -18,7 +18,8 @@ jobs:
           sudo apt-get update
           if [ "$TASK" = "nosetests" ]; then pip install pynose; fi
           if [ "$TASK" = "nosetests" -o "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install json-spec; fi
-          if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
+          # Not on GitHub!
+          #if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install -g grunt-cli; fi
           if [ "$TASK" = "karma" -o "$TASK" = "lint" -o "$TASK" = "closure-compiler" ]; then npm install; fi
           if [ "$TASK" = "flake8" -o "$TASK" = "flake8-wip" ]; then pip install flake8; fi
           # If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
@@ -33,5 +34,7 @@ jobs:
       - name: Test
         env:
           TASK: ${{ matrix.task }}
+          # Make Firefox headless
+          MOZ_HEADLESS: 1
         run: |
           bash -ex .travis-ci.sh
