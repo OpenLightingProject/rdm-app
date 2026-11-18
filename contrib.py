@@ -107,7 +107,8 @@ class AddInfoResponderHandler(BaseContribPageHandler):
 
   def GetURLOrNone(self, param):
     url = self.request.get(param)
-    if not url or not url.startswith('http://'):
+    if not url or not (url.startswith('http://') or
+                       url.startswith('https://')):
       return None
     return url
 
