@@ -22,6 +22,9 @@ PRODUCT_COUNT_KEY = 'product_count'
 # Number of manufacturer pids
 MANUFACTURER_CACHE_KEY = 'manufacturers'
 
+# Number of manufacturer pids API v2
+MANUFACTURER_CACHE_KEY_2 = 'manufacturers_2'
+
 # Number of manufacturer pids
 MANUFACTURER_PID_COUNT_KEY = 'manufacturer_pid_count'
 
@@ -42,6 +45,18 @@ MANUFACTURER_SOFTWARE_COUNTS = 'manufacturer_software'
 
 # Manufacturer splitter counts
 MANUFACTURER_SPLITTER_COUNTS = 'manufacturer_splitters'
+
+# Manufacturer controller counts API v2
+MANUFACTURER_CONTROLLER_COUNTS_2 = 'manufacturer_controllers_2'
+
+# Manufacturer node counts API v2
+MANUFACTURER_NODE_COUNTS_2 = 'manufacturer_nodes_2'
+
+# Manufacturer software counts API v2
+MANUFACTURER_SOFTWARE_COUNTS_2 = 'manufacturer_software_2'
+
+# Manufacturer splitter counts API v2
+MANUFACTURER_SPLITTER_COUNTS_2 = 'manufacturer_splitters_2'
 
 # Category model counts
 CATEGORY_MODEL_COUNTS = 'category_models'

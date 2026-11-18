@@ -129,6 +129,13 @@ class PidLoader():
       pid = Pid(manufacturer=manufacturer,
                 pid_id=new_pid_data['value'],
                 name=new_pid_data['name'])
+      # Always save a PID, even if it doesn't have commands, then we can store
+      # the name of a PID we don't know the full details on
+      save = True
+
+    if pid.name != new_pid_data.get('name'):
+      pid.name = new_pid_data.get('name')
+      save = True
 
     if pid.link != new_pid_data.get('link'):
       pid.link = new_pid_data.get('link')
