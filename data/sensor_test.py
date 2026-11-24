@@ -36,6 +36,9 @@ class TestSensorTypes(unittest.TestCase):
       self.assertEqual(int, type(sensor_type_id))
       self.assertEqual(str, type(name))
 
+      self.assertNotEqual(name, "", ("Sensor Name for type 0x%02x is blank" %
+                                     sensor_type_id))
+
       self.assertNotIn(name, seen_names,
                        "Sensor Name %s is present twice" % name)
       seen_names.add(name)
