@@ -39,6 +39,9 @@ class TestProductCategoryData(unittest.TestCase):
       self.assertEqual(str, type(category))
       self.assertEqual(int, type(category_id))
 
+      self.assertNotEqual(category, "",
+                          ("Category ID 0x%04x is blank" % category_id))
+
       self.assertNotIn(category_id, seen_category_ids)
       seen_category_ids.add(category_id)
 

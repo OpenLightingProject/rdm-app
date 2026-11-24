@@ -40,6 +40,9 @@ class TestSplitterData(unittest.TestCase):
 
       for splitter in self.data[esta_id]:
         name = splitter['name']
+        self.assertNotEqual(name, "",
+                            ("Name for a splitter with ESTA ID 0x%04x is "
+                             "blank" % esta_id))
         self.assertNotIn(name, seen_names,
                          "Name %s for ESTA ID 0x%04x is present twice" % (name, esta_id))
         seen_names.add(name)
