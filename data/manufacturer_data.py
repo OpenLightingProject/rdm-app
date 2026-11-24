@@ -1556,7 +1556,7 @@ MANUFACTURER_DATA = [
   (0x4C65, "Legargeant and Associates"),
   (0x4C69, "LIGHTOLIER"),
   (0x4C6C, "Lampo Lighting Designers"),
-  (0x4C73, ""),
+  (0x4C73, "LSC Lighting Systems (Aust) Pty. Ltd."),
   (0x4CDC, "acdc LED Ltd."),
   (0x4CE5, "LED Company s.r.o."),
   (0x4D41, "MA Lighting Technology GmbH"),
